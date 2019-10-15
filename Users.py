@@ -12,6 +12,7 @@ class User:
         self.age = age
         self.sex = sex
         self.sport = sport
+        self.admined_groups = []
         with User.global_user_id_lock:
             User.global_user_id += 1
             self.id = User.global_user_id

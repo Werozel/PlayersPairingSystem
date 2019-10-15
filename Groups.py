@@ -7,7 +7,7 @@ class Groups:
     global_group_id = 0     # TODO организовать получение из таблицы
     global_group_id_lock = threading.Lock
 
-    def __init__(self, sport: str, admin: User, id: str):
+    def __init__(self, sport: str, admin: User):
         self.sport = sport
         self.admin = admin
         with Groups.global_group_id_lock:
