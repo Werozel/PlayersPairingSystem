@@ -9,9 +9,10 @@ class Group:
     @staticmethod
     def get_valid_id() -> int:
         cursor = connection.cursor()
-        data = cursor.execute("select max(id) from groups").fetchone()[0]
+        cursor.execute("select max(id) from groups")
+        data = cursor.fetchone()[0]
         cursor.close()
-        return data + 1
+        return data + 1 if data else 0
 
     def __init__(self, id: int = None, admin: User = None, sport: str = "", members: list = ()):
         self.sport = sport
@@ -64,7 +65,10 @@ class Group:
     def print(self) -> None:
         print(self.tuple())
 
-    def check(self):
-        return self.id and self.admin and self.sport and self.members
+    def check(self) -> bool:
+        if not self.id or not self.admin or not self.sport or not self.members:
+            return False
+        else:
+            return True
 
 
