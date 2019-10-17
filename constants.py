@@ -30,6 +30,7 @@ class Commands:
     create_group = ["create", "c", "create_group", "new_group"]
     login = ["login", "l"]
     info = ["info", "i"]
+    join = ["join", "join_group", "j"]
     exit = ["exit", "quit", "e", "q"]
 
 

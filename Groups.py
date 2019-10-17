@@ -17,8 +17,34 @@ class Group:
     def __init__(self, id: int = None, admin: User = None, sport: str = "", members: list = ()):
         self.sport = sport
         self.admin = admin
+        members = list(members)
         self.members = members
         self.id = id if id else Group.get_valid_id()
+
+    def is_member(self, user) -> bool:
+        if isinstance(user, int):
+            for m in self.members:
+                if m.id == user:
+                    return True
+        elif isinstance(user, User):
+            for m in self.members:
+                if m.id == user.id:
+                    return True
+        return False
+
+    def add_users(self, users) -> None:
+        if not self.is_member(users):
+            if isinstance(users, int):
+                self.members.append(User.get(users))
+            if isinstance(users, User):
+                self.members.append(users)
+        elif isinstance(users, list):
+            for u in users:
+                if not self.is_member(users):
+                    if isinstance(users, int):
+                        self.members.append(User.get(u))
+                    if isinstance(users, User):
+                        self.members.append(u)
 
     @staticmethod
     def get(id: int):     # Достает группу с id из бд
@@ -60,7 +86,8 @@ class Group:
         cursor.close()
 
     def tuple(self) -> tuple:
-        return self.id, self.admin, self.sport, self.members
+        return self.id, str(self.admin.name + " " + self.admin.last_name), \
+               self.sport, [i.name + " " + i.last_name for i in self.members]
 
     def print(self) -> None:
         print(self.tuple())

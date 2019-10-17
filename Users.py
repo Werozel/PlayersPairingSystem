@@ -15,7 +15,8 @@ class User:
         return data + 1
 
     def __init__(self, id = None, name: str = "", last_name: str = "", age: int = 0, gender: str = "",
-                 admined_groups: list = (), sport: list = (), login: str = "", psw: str = ""):
+                 admined_groups: list = (), sport: list = (),
+                 login: str = "", psw: str = "", groups: list = ()):
         self.name = name
         self.last_name = last_name
         self.age = age
@@ -24,6 +25,7 @@ class User:
         self.sport = list(sport)
         self.login = login
         self.psw = psw
+        self.groups = list(groups)
 
         if id:
             self.id = int(id)
@@ -39,7 +41,7 @@ class User:
         if data:
             return User(id=data[0], name=data[1], last_name=data[2], age=data[3],
                         gender=data[4], admined_groups=data[5], sport=data[6],
-                        login=data[7], psw=data[8])
+                        login=data[7], psw=data[8], groups=data[9])
         else:
             return None
 
@@ -51,11 +53,11 @@ class User:
         if User.get(self.id):   # Если пользователь существует в бд
             cursor.execute(update_user_req, [self.name, self.last_name, self.age,
                                              self.gender, self.admined_groups, self.sport,
-                                             self.login, self.psw, self.id])
+                                             self.login, self.psw, self.groups, self.id])
         else:   # Если пользователя нет в бд
             cursor.execute(upload_user_req, [self.id, self.name, self.last_name,self.age,
                                              self.gender, self.admined_groups, self.sport,
-                                             self.login, self.psw])
+                                             self.login, self.psw, self.groups])
         cursor.close()
 
     def load(self) -> None:  # обновляет текущего из бд
@@ -74,6 +76,7 @@ class User:
             self.sport = tmp.sport
             self.login = tmp.login
             self.psw = tmp.psw
+            self.groups = tmp.groups
         cursor.close()
 
     @staticmethod
@@ -81,6 +84,10 @@ class User:
         cursor = connection.cursor()
         cursor.execute(delete_user_req, [id])
         cursor.close()
+
+    def add_group(self, id):
+        if id not in self.groups:
+            self.groups.append(id)
 
     def check(self) -> bool:
         if not self.id or not self.name or not self.last_name or not \
@@ -91,7 +98,7 @@ class User:
 
     def tuple(self) -> tuple:
         return self.id, self.name, self.last_name, self.age, self.gender, \
-               self.admined_groups, self.sport, self.login, self.psw
+               self.admined_groups, self.sport, self.login, self.psw, self.groups
 
     def print(self) -> None:
         print(self.tuple())

@@ -29,16 +29,39 @@ try:
             cursor = globals.connection.cursor()
             cursor.execute(requests.login_req, [login, psw])
             data = cursor.fetchone()
+            cursor.close()
             if data:
                 current_user = User.get(data[0])
+                print("Login successful!")
             else:
                 print("Invalid login!")
-            cursor.close()
         elif cmd[0] in Commands.info:
             if current_user:
                 current_user.print()
             else:
                 print("You need to log in first!")
+        elif cmd[0] in Commands.join:
+            if not current_user:
+                print("You need to login first!")
+                continue
+            sport = Sports.get(int(input(Sports.selection)))
+            cursor = globals.connection.cursor()
+            cursor.execute(requests.show_groups_req, [sport])
+            data = cursor.fetchall()
+            cursor.close()
+            s = "Select group id:\n"
+            for i in data:
+                s += str(Group.get(i[0]).tuple()) + "\n"
+            print(s)
+            id = int(input())
+            g = Group.get(id)
+            if g:
+                g.add_users(current_user.id)
+                g.upload()
+                current_user.add_group(g.id)
+                current_user.upload()
+            else:
+                print("No such group id")
         elif cmd[0] in Commands.create_group:
             if current_user:
                 sport = Sports.get(int(input(Sports.selection)))
