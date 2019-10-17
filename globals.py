@@ -6,18 +6,17 @@ import logging
 exiting = 0
 
 try:
-    __connection = psycopg2.connect(user=config.db_user,
+    connection = psycopg2.connect(user=config.db_user,
                                     password=config.db_psw,
-                                    host="127.0.0.1",
+                                    host="localhost",
                                     port="5432",
                                     database=config.db_name)
-    cursor = __connection.cursor()
-    print(cursor)
-except:
+    connection.set_session(autocommit=True)
+except Exception as e:
     logging.error("Error while connecting to database")
+    logging.error(e)
 
 
 def finish():
-    if __connection:
-        cursor.close()
-        __connection.close()
+    if connection:
+        connection.close()

@@ -1,4 +1,5 @@
 import threading
+from globals import connection
 
 
 class User:
@@ -17,6 +18,18 @@ class User:
             User.global_user_id += 1
             self.id = User.global_user_id
 
+    @staticmethod
+    def get_user(id: int):  # Достает пользователя с id из бд
+        cursor = connection.cursor()
+        cursor.execute("select * from users where id = {0}".format(id))
+        data = cursor.fetchone()
+        print(data)
+        cursor.close()
 
+    def upload_user(self):  # И загружает и обновляет в бд
+        pass
+
+    def update_user(self):  # обновляет текущего и бд (нужна?)
+        pass
 
 

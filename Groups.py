@@ -15,3 +15,12 @@ class Groups:
             Groups.global_group_id += 1
             self.id = Groups.global_group_id
 
+    @staticmethod
+    def get_group(id: int): # Достает группу с id из бд
+        pass
+
+    def upload_group(self): # Загружает и обновляет текущую группу в бд
+        pass
+
+    def update_group(self): # Обновляет текущую группу из бд
+        pass
