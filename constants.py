@@ -26,8 +26,8 @@ class Sports:
 
 class Commands:
     help = ["help", "h"]
-    register = ["reg", "register"]
-    create_group = ["create", "c", "create_group", "new_group"]
+    register = ["reg", "register", "r"]
+    create_group = ["create", "c", "create_group"]
     login = ["login", "l"]
     info = ["info", "i"]
     join = ["join", "join_group", "j"]
@@ -35,7 +35,12 @@ class Commands:
 
 
 class Responses:
-    help = "According to all known laws of aviation, there is no way a bee should be able to fly."
+    help = "register, reg, r - Creates a new user\n" \
+           "login, l - Allows user to log in\n" \
+           "info, i - Shows info about current user\n" \
+           "create_group, create, c - Creates new group\n" \
+           "join, j - Allows user to join an existing group\n" \
+           "exit, quit, e, q - Exits program\n"
 
     exiting = "Exiting..."
     unknown_cmd = "Unknown command, try 'help'"
