@@ -2,6 +2,6 @@ from Users import User
 import globals
 
 print(User.get_valid_id())
-User(name="Jej", last_name="Guk", age=20, sex="M").upload_user()
+User(id=5, name="Jej", last_name="Guk", age=20, sex="M").upload()
 
 globals.finish()

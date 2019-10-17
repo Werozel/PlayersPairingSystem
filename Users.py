@@ -29,7 +29,7 @@ class User:
             self.id = User.get_valid_id()
 
     @staticmethod
-    def get_user(id: int):  # Достает пользователя с id из бд
+    def get(id: int):  # Достает пользователя с id из бд
         cursor = connection.cursor()
         cursor.execute(get_user_req, [id])
         data = cursor.fetchone()
@@ -40,12 +40,12 @@ class User:
         else:
             return None
 
-    def upload_user(self) -> None:  # И загружает и обновляет в бд
+    def upload(self) -> None:  # И загружает и обновляет в бд
         if not self.check():
             logging.error("In upload_user, user " + str(self.id) + " not filled")
             return
         cursor = connection.cursor()
-        if User.get_user(self.id):   # Если пользователь существует в бд
+        if User.get(self.id):   # Если пользователь существует в бд
             cursor.execute(update_user_req, [self.name, self.last_name, self.age,
                                              self.sex, self.admined_groups, self.sport, self.id])
         else:   # Если пользователя нет в бд
@@ -53,9 +53,12 @@ class User:
                                              self.sex, self.admined_groups, self.sport])
         cursor.close()
 
-    def update_user(self) -> None:  # обновляет текущего из бд
+    def load(self) -> None:  # обновляет текущего из бд
+        if not self.id:
+            logging.error("in User.load user id not specified")
+            return
         cursor = connection.cursor()
-        tmp = User.get_user(self.id)
+        tmp = User.get(self.id)
         if tmp:
             self.id = tmp.id
             self.name = tmp.name
@@ -67,7 +70,7 @@ class User:
         cursor.close()
 
     @staticmethod
-    def remove_user(id) -> None:
+    def remove(id) -> None:
         cursor = connection.cursor()
         cursor.execute(delete_user_req, [id])
         cursor.close()
