@@ -31,7 +31,7 @@ class User:
         cursor.execute(get_user_req, [id])
         data = cursor.fetchone()
         cursor.close()
-        if len(data) > 0:
+        if data:
             return User(id=data[0], name=data[1], last_name=data[2], age=data[3],
                         sex=data[4], admined_groups=data[5], sport=data[6])
         else:
@@ -43,15 +43,24 @@ class User:
             return
         cursor = connection.cursor()
         if User.get_user(self.id):   # Если пользователь существует в бд
-            cursor.execute(update_user_req, [self.id, self.name, self.last_name, self.age,
-                                             self.sex, self.admined_groups, self.sport])
+            cursor.execute(update_user_req, [self.name, self.last_name, self.age,
+                                             self.sex, self.admined_groups, self.sport, self.id])
         else:   # Если пользователя нет в бд
             cursor.execute(upload_user_req, [self.id, self.name, self.last_name,self.age,
                                              self.sex, self.admined_groups, self.sport])
         cursor.close()
 
     def update_user(self):  # обновляет текущего из бд (нужна?)
-        pass
+        cursor = connection.cursor()
+        tmp = User.get_user(self.id)
+        self.id = tmp.id
+        self.name = tmp.name
+        self.last_name = tmp.last_name
+        self.age = tmp.age
+        self.sex = tmp.sex
+        self.admined_groups = tmp.admined_groups
+        self.sport = tmp.sport
+        cursor.close()
 
     @staticmethod
     def remove_user(id):
@@ -64,3 +73,9 @@ class User:
             return False
         else:
             return True
+
+    def tuple(self):
+        return self.id, self.name, self.last_name, self.age, self.sex, self.admined_groups, self.sport
+
+    def print(self):
+        print(self.tuple())

@@ -1,6 +1,6 @@
 
-update_user_req = "update users set id=%s, name=%s, last_name=%s, age=%s, sex=%s," \
-                  " admined_groups=%s, sport=%s"
+update_user_req = "update users set name=%s, last_name=%s, age=%s, sex=%s," \
+                  " admined_groups=%s, sport=%s where id = %s"
 
 upload_user_req = "insert into users(id, name, last_name, age, sex, admined_groups, sport) " \
                   "values (%s, %s, %s, %s, %s, %s, %s)"
