@@ -1,7 +1,7 @@
 import logging
 from Users import User
 from globals import connection
-from constants import get_group_req, delete_group_req, update_group_req, upload_group_req
+from requests import get_group_req, delete_group_req, update_group_req, upload_group_req
 
 
 class Group:

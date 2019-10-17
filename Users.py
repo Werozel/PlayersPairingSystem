@@ -1,6 +1,6 @@
 import logging
 import threading
-from constants import update_user_req, upload_user_req, get_user_req, delete_user_req
+from requests import update_user_req, upload_user_req, get_user_req, delete_user_req
 from globals import connection
 
 
