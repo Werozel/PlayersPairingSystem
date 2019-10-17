@@ -1,7 +1,14 @@
 from Users import User
+from Groups import Group
 import globals
 
-print(User.get_valid_id())
-User(id=5, name="Jej", last_name="Guk", age=20, sex="M").upload()
+u1 = User.get(1)
+u2 = User.get(2)
+u3 = User.get(3)
+g = Group(id=1, admin=u1, sport="Tennis", members=[u1, u2, u3])
+g.upload()
+g1 = Group.get(1)
+g1.print()
+Group.remove(g1.id)
 
 globals.finish()
