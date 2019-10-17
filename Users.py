@@ -12,7 +12,7 @@ class User:
         cursor.execute("select max(id) from users")
         data = cursor.fetchone()[0]
         cursor.close()
-        return data + 1
+        return data + 1 if data is not None else 0
 
     def __init__(self, id = None, name: str = "", last_name: str = "", age: int = 0, gender: str = "",
                  admined_groups: list = (), sport: list = (),
