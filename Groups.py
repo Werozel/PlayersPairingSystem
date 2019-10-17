@@ -16,11 +16,21 @@ class Groups:
             self.id = Groups.global_group_id
 
     @staticmethod
-    def get_group(id: int): # Достает группу с id из бд
+    def get_group(id: int):     # Достает группу с id из бд
         pass
 
-    def upload_group(self): # Загружает и обновляет текущую группу в бд
+    def upload_group(self):  # Загружает и обновляет текущую группу в бд
         pass
 
-    def update_group(self): # Обновляет текущую группу из бд
+    def update_group(self):  # Обновляет текущую группу из бд
         pass
+
+    @staticmethod
+    def remove_group(id):
+        pass
+
+    def tuple(self) -> tuple:
+        return self.id, self.sport, self.admin, self.users
+
+    def print(self) -> None:
+        print(self.tuple())

@@ -1,9 +1,7 @@
 from Users import User
 import globals
 
-u = User(id=4, sex="F")
-u.print()
-u.update_user()
-u.print()
+print(User.get_valid_id())
+User(name="Jej", last_name="Guk", age=20, sex="M").upload_user()
 
 globals.finish()

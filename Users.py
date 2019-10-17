@@ -1,13 +1,18 @@
-import threading
 import logging
+import threading
 from constants import update_user_req, upload_user_req, get_user_req, delete_user_req
 from globals import connection
 
 
 class User:
 
-    global_user_id_lock = threading.Lock()
-    global_user_id = 0  # TODO Организовать получение текущего id из таблицы
+    @staticmethod
+    def get_valid_id() -> int:
+        cursor = connection.cursor()
+        cursor.execute("select max(id) from users")
+        data = cursor.fetchone()[0]
+        cursor.close()
+        return data + 1
 
     def __init__(self, id = None, name: str = "", last_name: str = "", age: int = 0, sex: str = "",
                  admined_groups: list = (), sport: list = ()):
@@ -21,9 +26,7 @@ class User:
         if id:
             self.id = int(id)
         else:
-            with User.global_user_id_lock:
-                User.global_user_id += 1
-                self.id = User.global_user_id
+            self.id = User.get_valid_id()
 
     @staticmethod
     def get_user(id: int):  # Достает пользователя с id из бд
@@ -37,7 +40,7 @@ class User:
         else:
             return None
 
-    def upload_user(self):  # И загружает и обновляет в бд
+    def upload_user(self) -> None:  # И загружает и обновляет в бд
         if not self.check():
             logging.error("In upload_user, user " + str(self.id) + " not filled")
             return
@@ -50,32 +53,33 @@ class User:
                                              self.sex, self.admined_groups, self.sport])
         cursor.close()
 
-    def update_user(self):  # обновляет текущего из бд (нужна?)
+    def update_user(self) -> None:  # обновляет текущего из бд
         cursor = connection.cursor()
         tmp = User.get_user(self.id)
-        self.id = tmp.id
-        self.name = tmp.name
-        self.last_name = tmp.last_name
-        self.age = tmp.age
-        self.sex = tmp.sex
-        self.admined_groups = tmp.admined_groups
-        self.sport = tmp.sport
+        if tmp:
+            self.id = tmp.id
+            self.name = tmp.name
+            self.last_name = tmp.last_name
+            self.age = tmp.age
+            self.sex = tmp.sex
+            self.admined_groups = tmp.admined_groups
+            self.sport = tmp.sport
         cursor.close()
 
     @staticmethod
-    def remove_user(id):
+    def remove_user(id) -> None:
         cursor = connection.cursor()
         cursor.execute(delete_user_req, [id])
         cursor.close()
 
-    def check(self):
+    def check(self) -> bool:
         if not self.id or not self.name or not self.last_name or not self.age or not self.sex:
             return False
         else:
             return True
 
-    def tuple(self):
+    def tuple(self) -> tuple:
         return self.id, self.name, self.last_name, self.age, self.sex, self.admined_groups, self.sport
 
-    def print(self):
+    def print(self) -> None:
         print(self.tuple())
