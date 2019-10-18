@@ -1,7 +1,7 @@
 import logging
 import threading
-from requests import update_user_req, upload_user_req, get_user_req, delete_user_req
-from globals import connection
+from requests import update_user, upload_user, get_user, delete_user, update_user_time
+from globals import connection, timestamp
 
 
 class User:
@@ -35,7 +35,7 @@ class User:
     @staticmethod
     def get(id: int):  # Достает пользователя с id из бд
         cursor = connection.cursor()
-        cursor.execute(get_user_req, [id])
+        cursor.execute(get_user, [id])
         data = cursor.fetchone()
         cursor.close()
         if data:
@@ -51,13 +51,18 @@ class User:
             return
         cursor = connection.cursor()
         if User.get(self.id):   # Если пользователь существует в бд
-            cursor.execute(update_user_req, [self.name, self.last_name, self.age,
-                                             self.gender, self.admined_groups, self.sport,
-                                             self.login, self.psw, self.groups, self.id])
+            cursor.execute(update_user, [self.name, self.last_name, self.age,
+                                         self.gender, self.admined_groups, self.sport,
+                                         self.login, self.psw, self.groups, timestamp(), self.id])
         else:   # Если пользователя нет в бд
-            cursor.execute(upload_user_req, [self.id, self.name, self.last_name,self.age,
-                                             self.gender, self.admined_groups, self.sport,
-                                             self.login, self.psw, self.groups])
+            cursor.execute(upload_user, [self.id, self.name, self.last_name, self.age,
+                                         self.gender, self.admined_groups, self.sport,
+                                         self.login, self.psw, self.groups, timestamp()])
+        cursor.close()
+
+    def update_time(self):
+        cursor = connection.cursor()
+        cursor.execute(update_user_time, [timestamp(), self.id])
         cursor.close()
 
     def load(self) -> None:  # обновляет текущего из бд
@@ -82,7 +87,7 @@ class User:
     @staticmethod
     def remove(id) -> None:
         cursor = connection.cursor()
-        cursor.execute(delete_user_req, [id])
+        cursor.execute(delete_user, [id])
         cursor.close()
 
     def add_group(self, id):

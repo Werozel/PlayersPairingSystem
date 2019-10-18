@@ -13,13 +13,20 @@ try:
         if cmd[0] in Commands.help:
             print(Responses.help)
         elif cmd[0] in Commands.register:
+            login = input("Login - ")
+            cursor = globals.connection.cursor()
+            cursor.execute(requests.check_user_login, [login])
+            data = cursor.fetchone()
+            cursor.close()
+            if data:
+                print("This login already taken!")
+                continue
+            psw = input("Password - ")
             name = input("Name - ")
             last_name = input("Last name - ")
             age = int(input("Age - "))
             gender = input("Gender - ")
             sport = [Sports.get(int(i)) for i in input(Sports.selection).split(' ')]
-            login = input("Login - ")
-            psw = input("Password - ")
             current_user = User(name=name, last_name=last_name, age=age, gender=gender,
                      sport=sport, login=login, psw=psw)
             current_user.upload()
@@ -27,11 +34,12 @@ try:
             login = input("Login - ")
             psw = input("Password - ")
             cursor = globals.connection.cursor()
-            cursor.execute(requests.login_req, [login, psw])
+            cursor.execute(requests.login, [login, psw])
             data = cursor.fetchone()
             cursor.close()
             if data:
                 current_user = User.get(data[0])
+                current_user.update_time()
                 print("Login successful!")
             else:
                 print("Invalid login!")
@@ -46,7 +54,7 @@ try:
                 continue
             sport = Sports.get(int(input(Sports.selection)))
             cursor = globals.connection.cursor()
-            cursor.execute(requests.show_groups_req, [sport])
+            cursor.execute(requests.show_groups, [sport])
             data = cursor.fetchall()
             cursor.close()
             s = "Select group id:\n"

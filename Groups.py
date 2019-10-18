@@ -1,7 +1,7 @@
 import logging
 from Users import User
 from globals import connection
-from requests import get_group_req, delete_group_req, update_group_req, upload_group_req
+from requests import get_group, delete_group, update_group, upload_group
 
 
 class Group:
@@ -50,7 +50,7 @@ class Group:
     @staticmethod
     def get(id: int):     # Достает группу с id из бд
         cursor = connection.cursor()
-        cursor.execute(get_group_req, [id])
+        cursor.execute(get_group, [id])
         data = cursor.fetchone()
         cursor.close()
         if data:
@@ -62,9 +62,9 @@ class Group:
         cursor = connection.cursor()
         group = Group.get(self.id)
         if group:
-            cursor.execute(update_group_req, [self.admin.id, self.sport, [i.id for i in self.members], self.id])
+            cursor.execute(update_group, [self.admin.id, self.sport, [i.id for i in self.members], self.id])
         else:
-            cursor.execute(upload_group_req, [self.id, self.admin.id, self.sport, [i.id for i in self.members]])
+            cursor.execute(upload_group, [self.id, self.admin.id, self.sport, [i.id for i in self.members]])
         cursor.close()
 
     def load(self) -> None:  # Обновляет текущую группу из бд
@@ -83,7 +83,7 @@ class Group:
     @staticmethod
     def remove(id):
         cursor = connection.cursor()
-        cursor.execute(delete_group_req, [id])
+        cursor.execute(delete_group, [id])
         cursor.close()
 
     def tuple(self) -> tuple:
