@@ -11,7 +11,6 @@ class Group:
         cursor = connection.cursor()
         cursor.execute("select max(id) from groups")
         data = cursor.fetchone()[0]
-        print(data)
         cursor.close()
         return data + 1 if data is not None else 0
 
