@@ -15,10 +15,10 @@ check_user_login = "select id from users where login = %s"
 update_user_time = "update users set last_login = %s where id = %s"
 
 
-update_group = "update groups set admin_id = %s, sport = %s, members = %s where id = %s"
+update_group = "update groups set admin_id = %s, sport = %s, members = %s, name = %s where id = %s"
 
-upload_group = "insert into groups(id, admin_id, sport, members) " \
-                   "values (%s, %s, %s, %s)"
+upload_group = "insert into groups(id, admin_id, sport, members, name) " \
+                   "values (%s, %s, %s, %s, %s)"
 
 get_group = "select * from groups where id = %s"
 

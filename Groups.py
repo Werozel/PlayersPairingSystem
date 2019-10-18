@@ -15,11 +15,13 @@ class Group:
         cursor.close()
         return data + 1 if data is not None else 0
 
-    def __init__(self, id: int = None, admin: User = None, sport: str = "", members: list = ()):
+    def __init__(self, id: int = None, admin: User = None, sport: str = "", members: list = (),
+                 name: str = ""):
         self.sport = sport
         self.admin = admin
         members = list(members)
         self.members = members
+        self.name = name
         self.id = id if id else Group.get_valid_id()
 
     def is_member(self, user) -> bool:
@@ -54,7 +56,8 @@ class Group:
         data = cursor.fetchone()
         cursor.close()
         if data:
-            return Group(id=data[0], admin=User.get(data[1]), sport=data[2], members=[User.get(i) for i in data[3]])
+            return Group(id=data[0], admin=User.get(data[1]), sport=data[2],
+                         members=[User.get(i) for i in data[3]], name=data[4])
         else:
             return None
 
@@ -62,9 +65,9 @@ class Group:
         cursor = connection.cursor()
         group = Group.get(self.id)
         if group:
-            cursor.execute(update_group, [self.admin.id, self.sport, [i.id for i in self.members], self.id])
+            cursor.execute(update_group, [self.admin.id, self.sport, [i.id for i in self.members], self.name, self.id])
         else:
-            cursor.execute(upload_group, [self.id, self.admin.id, self.sport, [i.id for i in self.members]])
+            cursor.execute(upload_group, [self.id, self.admin.id, self.sport, [i.id for i in self.members], self.name])
         cursor.close()
 
     def load(self) -> None:  # Обновляет текущую группу из бд
@@ -87,7 +90,7 @@ class Group:
         cursor.close()
 
     def tuple(self) -> tuple:
-        return self.id, str(self.admin.name + " " + self.admin.last_name), \
+        return self.id, self.name, str(self.admin.name + " " + self.admin.last_name), \
                self.sport, [i.name + " " + i.last_name for i in self.members]
 
     def print(self) -> None:

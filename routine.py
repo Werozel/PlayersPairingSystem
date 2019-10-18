@@ -74,8 +74,9 @@ try:
         elif cmd[0] in Commands.create_group:
             if current_user:
                 sport = Sports.get(int(input(Sports.selection)))
+                name = input("Name - ")
                 admin = current_user.id
-                g = Group(admin=User.get(admin), members=[User.get(admin)], sport=sport)
+                g = Group(admin=User.get(admin), members=[User.get(admin)], sport=sport, name=name)
                 current_user.admined_groups.append(g.id)
                 current_user.upload()
                 g.upload()
