@@ -1,6 +1,7 @@
 import globals
 import logging, traceback
 import requests
+import crypto
 from constants import Sports, Commands, Responses
 from Users import User
 from Groups import Group
@@ -9,7 +10,7 @@ from Groups import Group
 try:
     current_user = None
     while not globals.exiting:
-        cmd = input("Enter a command: ").split(' ')
+        cmd = input("> Enter a command: ").split(' ')
         if cmd[0] in Commands.help:
             print(Responses.help)
         elif cmd[0] in Commands.register:
@@ -21,7 +22,7 @@ try:
             if data:
                 print("This login already taken!")
                 continue
-            psw = input("Password - ")
+            psw = crypto.hash(input("Password - "))
             name = input("Name - ")
             last_name = input("Last name - ")
             age = int(input("Age - "))
@@ -32,7 +33,7 @@ try:
             current_user.upload()
         elif cmd[0] in Commands.login:
             login = input("Login - ")
-            psw = input("Password - ")
+            psw = crypto.hash(input("Password - "))
             cursor = globals.connection.cursor()
             cursor.execute(requests.login, [login, psw])
             data = cursor.fetchone()
