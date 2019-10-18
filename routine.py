@@ -1,10 +1,9 @@
-import globals
 import logging, traceback
-import requests
-import crypto
-from constants import Sports, Commands, Responses
-from Users import User
-from Groups import Group
+from constants import requests
+from libs import crypto, globals
+from constants.constants import Sports, Commands, Responses
+from libs.Users import User
+from libs.Groups import Group
 
 
 try:

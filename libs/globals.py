@@ -1,5 +1,5 @@
 import psycopg2
-import config
+from constants import config
 import logging
 import datetime
 

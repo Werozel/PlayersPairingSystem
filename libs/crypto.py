@@ -1,5 +1,5 @@
 import hashlib, binascii
-from config import salt
+from constants.config import salt
 
 
 def hash(s: str):

@@ -1,7 +1,6 @@
 import logging
-import threading
-from requests import update_user, upload_user, get_user, delete_user, update_user_time
-from globals import connection, timestamp
+from constants.requests import update_user, upload_user, get_user, delete_user, update_user_time
+from libs.globals import connection, timestamp
 
 
 class User:
