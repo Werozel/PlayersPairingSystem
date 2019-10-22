@@ -26,7 +26,7 @@ class User:
         self.psw = psw
         self.groups = list(groups)
 
-        if id:
+        if id is not None:
             self.id = int(id)
         else:
             self.id = User.get_valid_id()
@@ -94,7 +94,7 @@ class User:
             self.groups.append(id)
 
     def check(self) -> bool:
-        if not self.id or not self.name or not self.last_name or not \
+        if self.id is None or not self.name or not self.last_name or not \
                self.age or not self.gender or not self.login or not self.psw:
             return False
         else:
@@ -105,4 +105,13 @@ class User:
                self.admined_groups, self.sport, self.login, self.psw, self.groups
 
     def print(self) -> None:
-        print(self.tuple())
+        s = "ID = {0}\n".format(self.id)
+        s += "Name = {0} {1}\n".format(self.name, self.last_name)
+        s += "Age = {0}\n".format(self.age)
+        s += "Gender = {0}\n".format(self.gender)
+        s += "Sports = {0}\n".format(self.sport)
+        s += "Groups = {0}\n".format(self.groups) if len(self.groups) else ""
+        s += "Debug------------------------\n"
+        s += "Login = {0}\n".format(self.login)
+        s += "psw = {0}\n".format(self.psw)
+        print(s)

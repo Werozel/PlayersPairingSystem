@@ -48,6 +48,16 @@ try:
                 current_user.print()
             else:
                 print("You need to log in first!")
+        elif cmd[0] in Commands.info_group:
+            if len(cmd) > 1 and cmd[1] == "-all":
+                cursor = globals.connection.cursor()
+                cursor.execute(requests.get_all_groups)
+                data = cursor.fetchall()
+                cursor.close()
+                for i in data:
+                    print(Group.get(int(i[0])).tuple())
+            else:
+                Group.get(int(input("Enter group id - "))).print()
         elif cmd[0] in Commands.join:
             if not current_user:
                 print("You need to login first!")

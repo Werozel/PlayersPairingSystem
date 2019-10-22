@@ -21,7 +21,7 @@ class Group:
         members = list(members)
         self.members = members
         self.name = name
-        self.id = id if id else Group.get_valid_id()
+        self.id = int(id) if id is not None else Group.get_valid_id()
 
     def is_member(self, user) -> bool:
         if isinstance(user, int):
@@ -93,10 +93,15 @@ class Group:
                self.sport, [i.name + " " + i.last_name for i in self.members]
 
     def print(self) -> None:
-        print(self.tuple())
+        s = "ID = {0}\n".format(self.id)
+        s += "Name = {0}\n".format(self.name)
+        s += "Admin = {0}\n".format(self.admin.name + " " + self.admin.last_name)
+        s += "Sport = {0}\n".format(self.sport)
+        s += "Members = {0}\n".format([i.name + " " + i.last_name for i in self.members])
+        print(s)
 
     def check(self) -> bool:
-        if not self.id or not self.admin or not self.sport or not self.members:
+        if self.id is None or not self.admin or not self.sport or not self.members:
             return False
         else:
             return True

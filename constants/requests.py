@@ -22,6 +22,8 @@ upload_group = "insert into groups(id, admin_id, sport, members, name) " \
 
 get_group = "select * from groups where id = %s"
 
+get_all_groups = "select id from groups"
+
 delete_group = "delete from groups where id = %s"
 
 
