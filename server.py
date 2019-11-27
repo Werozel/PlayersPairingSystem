@@ -1,6 +1,10 @@
 from flask import Flask, render_template, url_for, request, redirect
+from forms import RegistrationForm, LoginForm
+from app_config import *
+
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = SECRET_KEY
 
 
 @app.route("/")
@@ -9,9 +13,11 @@ def index():
     return render_template("index.html", title="Main Page", sidebar=True)
 
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
-    return render_template("login.html", title="Login Page")
+    form = LoginForm()
+    print(request.values)
+    return render_template("login.html", title="Login Page", form=form, successful=True)
 
 
 @app.route("/about")
@@ -19,10 +25,12 @@ def about():
     return render_template("about.html", title="About Page")
 
 
-@app.route("/register")
+@app.route("/register", methods=['GET', 'POST'])
 def register():
-    return render_template("register.html", title="Register Page")
-
+    form = RegistrationForm()
+    print(request.values)
+    return render_template("register.html", title="Register Page", form=form)
+ 
 
 
 
