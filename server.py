@@ -3,20 +3,27 @@ from flask import Flask, render_template, url_for, request, redirect
 app = Flask(__name__)
 
 
-@app.route("/", methods=["POST", "GET"])
+@app.route("/")
+@app.route("/index")
 def index():
-    print(request.values)
-    if request.method == "POST":
-        return redirect(url_for("login"))
-    else:
-        return app.send_static_file("index.html")
+    return render_template("index.html", title="Main Page")
 
 
-@app.route("/login", methods=["POST", "GET"])
+@app.route("/login")
 def login():
-    print(request.values)
+    return render_template("login.html", title="Login Page")
 
-    return app.send_static_file("login.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html", title="About Page")
+
+
+@app.route("/register")
+def register():
+    return render_template("register.html", title="Register Page")
+
+
 
 
 if __name__ == "__main__":
