@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+
+
+{% block content %}
+
+    <div style="text-align: center; font-family: 'Courier 10 Pitch',monospace;">
+        <div style ="">
+            <label about="Login" style="align-self: center;">Login</label>
+            <br>
+            <input type="text" id="login" autocapitalize="off" autocomplete="off"/>
+        </div>
+        <br>
+        <div>
+            <label about="Password">Password</label>
+            <br>
+            <input type="password" id="psw" autocapitalize="off" autocomplete="off"/>
+        </div>
+        <br>
+        <button id="submit" name="Submit">Submit</button>
+    </div>
+
+{% endblock content %}
