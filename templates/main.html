@@ -23,18 +23,18 @@
     <header class="site-header" style="font-family: 'Courier 10 Pitch',monospace;">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="/">Sport</a>
+          <a class="navbar-brand mr-4" href="{{ url_for('index') }}">Sport</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="/about">About</a>
+              <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
-              <a class="nav-item nav-link" href="/login">Login</a>
-              <a class="nav-item nav-link" href="/register">Register</a>
+              <a class="nav-item nav-link" href=" {{ url_for('login') }}">Login</a>
+              <a class="nav-item nav-link" href=" {{ url_for('register') }}">Register</a>
             </div>
           </div>
         </div>
@@ -46,8 +46,19 @@
             {% if sidebar %}
             <div class="col-md-8 mx-auto" style="font-family: 'Courier 10 Pitch',monospace;">
             {% else %}
-            <div class="col-md-5 mx-auto" style="font-family: 'Courier 10 Pitch',monospace;">
+            <div class="col-md-6 mx-auto" style="font-family: 'Courier 10 Pitch',monospace;">
             {% endif %}
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{category}}">
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
                 {% block content %}{% endblock %}
             </div>
             {% if sidebar %}
