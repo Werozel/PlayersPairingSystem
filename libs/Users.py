@@ -1,5 +1,6 @@
 import logging
 from constants.requests import update_user, upload_user, get_user, delete_user, update_user_time
+from constants.requests import login as login_request
 from libs.globals import connection, timestamp
 
 
@@ -115,3 +116,16 @@ class User:
         s += "Login = {0}\n".format(self.login)
         s += "psw = {0}\n".format(self.psw)
         print(s)
+
+
+def login(username, password) -> User:
+    cursor = connection.cursor()
+    cursor.execute(login_request, [username, password])
+    data = cursor.fetchone()
+    cursor.close()
+    if data:
+        current_user = User.get(data[0])
+        current_user.update_time()
+        return current_user
+    else:
+        return None

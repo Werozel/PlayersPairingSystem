@@ -1,16 +1,7 @@
 import psycopg2
 from constants import config
-from flask import Flask
-from app_config import *
-from flask_sqlalchemy import SQLAlchemy
 import logging
 import datetime
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = 'jdbc:postgresql://localhost:5432/sport'
-
-db = SQLAlchemy(app)
 
 exiting = 0
 

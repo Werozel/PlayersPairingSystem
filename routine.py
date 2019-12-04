@@ -2,7 +2,7 @@ import logging, traceback
 from constants import requests
 from libs import crypto, globals
 from constants.constants import Sports, Commands, Responses
-from libs.Users import User
+from libs.Users import User, login
 from libs.Groups import Group
 
 
@@ -31,14 +31,10 @@ try:
                      sport=sport, login=login, psw=psw)
             current_user.upload()
         elif cmd[0] in Commands.login:
-            login = input("Login - ")
-            psw = crypto.hash(input("Password - "))
-            cursor = globals.connection.cursor()
-            cursor.execute(requests.login, [login, psw])
-            data = cursor.fetchone()
-            cursor.close()
-            if data:
-                current_user = User.get(data[0])
+            username = input("Login - ")
+            password = crypto.hash(input("Password - "))
+            current_user = login(username, password)
+            if current_user:
                 current_user.update_time()
                 print("Login successful!")
             else:

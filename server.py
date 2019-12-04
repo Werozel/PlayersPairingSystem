@@ -2,8 +2,16 @@ from flask import Flask, render_template, url_for, request, redirect, flash
 from forms import RegistrationForm, LoginForm
 from flask_sqlalchemy import SQLAlchemy
 from app_config import *
-from libs.globals import app
+import libs.crypto as crypto
+from libs.Users import User
+from libs.Users import login as login_user
 
+app = Flask(__name__)
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost:5432/sport'
+
+db = SQLAlchemy(app)
+print(db)
 
 @app.route("/")
 @app.route("/index")
@@ -16,8 +24,14 @@ def login():
     form = LoginForm()
     if request.method == 'POST':
         print(request.values)
-        if form.username.data == 'admin' and form.password.data == 'admin':
-            #flash('Logged in!', "success")
+        """if form.username.data == 'admin' and form.password.data == 'admin':
+            flash('Logged in!', "success")
+            return redirect(url_for('index'))"""
+        username = form.username.data
+        password = crypto.hash(form.password.data)
+        current_user = login_user(username, password)
+        if current_user:
+            flash('Logged in!', "success")
             return redirect(url_for('index'))
         else:
             flash('Incorrect login!', "danger")
@@ -47,3 +61,4 @@ def edit_profile():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
