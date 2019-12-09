@@ -1,17 +1,12 @@
-from flask import Flask, render_template, url_for, request, redirect, flash
+from flask import render_template, url_for, request, redirect, flash
 from forms import RegistrationForm, LoginForm
-from flask_sqlalchemy import SQLAlchemy
-from app_config import *
+#   from flask_sqlalchemy import SQLAlchemy
 import libs.crypto as crypto
-from libs.Users import User
+#from libs.User import User
+#from libs.Group import Group
 from libs.Users import login as login_user
+from libs.globals import app
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost:5432/sport'
-
-db = SQLAlchemy(app)
-print(db)
 
 @app.route("/")
 @app.route("/index")
@@ -57,6 +52,11 @@ def register():
 @app.route("/edit_profile", methods=['GET', 'POST'])
 def edit_profile():
     return render_template("edit_profile.html", title="Edit profile")
+
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html", title="Profile")
 
 
 if __name__ == "__main__":
