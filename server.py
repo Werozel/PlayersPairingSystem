@@ -1,11 +1,12 @@
 from flask import render_template, url_for, request, redirect, flash
 from forms import RegistrationForm, LoginForm
-#   from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 import libs.crypto as crypto
-#from libs.User import User
-#from libs.Group import Group
+from libs.User import User
+from libs.Group import Group
 from libs.Users import login as login_user
-from libs.globals import app
+from globals import app, db
+
 
 
 @app.route("/")

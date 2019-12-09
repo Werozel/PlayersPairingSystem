@@ -2,7 +2,7 @@ import psycopg2
 from constants import config
 from app_config import SECRET_KEY, DB_URI
 from flask import Flask
-# from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 import logging
 import datetime
 
@@ -10,14 +10,14 @@ import datetime
 def get_app(name: str) -> Flask:
     res = Flask(name)
     res.config['SECRET_KEY'] = SECRET_KEY
-    #res.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
-    #res.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    res.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
+    res.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     return res
 
 
 exiting = 0
 app = get_app(__name__)
-#db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
 
 try:

@@ -1,6 +1,7 @@
 import logging, traceback
 from constants import requests
-from libs import crypto, globals
+from libs import crypto
+import globals
 from constants.constants import Sports, Commands, Responses
 from libs.Users import User, login
 from libs.Groups import Group

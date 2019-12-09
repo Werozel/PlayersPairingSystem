@@ -1,7 +1,7 @@
 import logging
 from constants.requests import update_user, upload_user, get_user, delete_user, update_user_time
 from constants.requests import login as login_request
-from libs.globals import connection, timestamp
+from globals import connection, timestamp
 
 
 class User:

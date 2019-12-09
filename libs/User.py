@@ -1,4 +1,4 @@
-from libs.globals import db, timestamp
+from globals import db, timestamp
 
 
 class User(db.Model):

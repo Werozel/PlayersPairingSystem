@@ -1,6 +1,6 @@
 import logging
 from libs.Users import User
-from libs.globals import connection
+from globals import connection
 from constants.requests import get_group, delete_group, update_group, upload_group
 
 

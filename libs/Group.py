@@ -1,4 +1,4 @@
-from libs.globals import db, timestamp
+from globals import db
 
 
 class Group(db.Model):
