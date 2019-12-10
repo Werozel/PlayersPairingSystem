@@ -59,7 +59,7 @@ def edit_profile():
             current_user.name = form.name.data
             current_user.last_name = form.last_name.data
             current_user.age = form.age.data
-            #current_user.gender = 'M' if form.gender.data == 'Male' else 'F'
+            current_user.gender = form.gender.data
             # TODO add image_file link
             db.session.add(current_user)
             db.session.commit()

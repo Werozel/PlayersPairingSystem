@@ -30,5 +30,6 @@ class EditProfileForm(FlaskForm):
 	name = StringField('Name', validators=[DataRequired(), Length(max=30)])
 	last_name = StringField('Last Name', validators=[DataRequired(), Length(max=50)])
 	age = IntegerField('Age', validators=[NumberRange(min=5, max=100)])
-	#gender = SelectField('Gender', default=18, choices=['Male', 'Female'])
+	gender_choices = [('M', 'Male'), ('F', 'Female')]  # (value, label)
+	gender = SelectField('Gender', default=18, choices=gender_choices)
 	submit = SubmitField('Apply')
