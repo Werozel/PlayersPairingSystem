@@ -3,6 +3,7 @@ from constants import config
 from app_config import SECRET_KEY, DB_URI
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
 import logging
 import datetime
 
@@ -17,6 +18,7 @@ def get_app(name: str) -> Flask:
 
 exiting = 0
 app = get_app(__name__)
+bootstrap =  Bootstrap(app)
 db = SQLAlchemy(app)
 
 

@@ -1,11 +1,11 @@
 from flask import render_template, url_for, request, redirect, flash
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, EditProfileForm
 from flask_sqlalchemy import SQLAlchemy
 import libs.crypto as crypto
 from libs.User import User
 from libs.Group import Group
 from libs.Users import login as login_user
-from globals import app, db
+from globals import app, db, bootstrap
 
 current_user = None
 
@@ -52,7 +52,20 @@ def register():
 
 @app.route("/edit_profile", methods=['GET', 'POST'])
 def edit_profile():
-    return render_template("edit_profile.html", title="Edit profile", current_user=current_user)
+    form = EditProfileForm()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            global current_user
+            current_user.name = form.name.data
+            current_user.last_name = form.last_name.data
+            current_user.age = form.age.data
+            #current_user.gender = 'M' if form.gender.data == 'Male' else 'F'
+            # TODO add image_file link
+            db.session.add(current_user)
+            db.session.commit()
+            flash('Profile edited!', 'success')
+            return redirect(url_for('profile'))
+    return render_template("edit_profile.html", title="Edit profile", current_user=current_user, form=form)
 
 
 @app.route("/profile")
@@ -68,5 +81,6 @@ def log_out():
 
 
 if __name__ == "__main__":
+    print(User.query.all())
     app.run(debug=True)
 

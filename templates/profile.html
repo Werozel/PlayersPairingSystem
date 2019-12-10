@@ -10,9 +10,21 @@
             </small>
         </div>
     {% else %}
-        <h3>{{current_user.name}} {{current_user.last_name}}</h3>
-        <div class="border-top">
-            <img src={{current_user.image_file}} hint="Profile picture"/>
+        <h3 class="ml-2">{{current_user.name}} {{current_user.last_name}}</h3>
+        <div class="border-top content-section">
+            <table>
+                <tr>
+                    <td>
+                        <img src={{current_user.image_file}} hint="Profile picture"/>
+                    </td>
+                    <td>
+                        <div class="border-top">
+                            <p>Age: {{ current_user.age}}</p>
+                            <p>Gender: {{ current_user.gender }}</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
     {% endif %}
 {% endblock content %}
