@@ -10,6 +10,9 @@
             </small>
         </div>
     {% else %}
-        <p>This is your profile:</p>
+        <h3>{{current_user.name}} {{current_user.last_name}}</h3>
+        <div class="border-top">
+            <img src={{current_user.image_file}} hint="Profile picture"/>
+        </div>
     {% endif %}
 {% endblock content %}

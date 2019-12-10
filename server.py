@@ -38,10 +38,10 @@ def about():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
-    global current_user
     form = RegistrationForm()
     if request.method == 'POST':
         if form.validate_on_submit():
+            global current_user
             current_user = User(username=form.username.data, password=crypto.hash(form.password.data), email=form.email.data)
             db.session.add(current_user)
             db.session.commit()
@@ -68,6 +68,5 @@ def log_out():
 
 
 if __name__ == "__main__":
-    print(User.query.all())
     app.run(debug=True)
 
