@@ -32,10 +32,17 @@
               <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
             </div>
             <!-- Navbar Right Side -->
-            <div class="navbar-nav">
-              <a class="nav-item nav-link" href=" {{ url_for('login') }}">Login</a>
-              <a class="nav-item nav-link" href=" {{ url_for('register') }}">Register</a>
-            </div>
+              {% if current_user %}
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href=" {{ url_for('profile') }}">Profile</a>
+                    <a class="nav-item nav-link" href=" {{ url_for('log_out') }}">Log out</a>
+                </div>
+              {% else %}
+                <div class="navbar-nav">
+                 <a class="nav-item nav-link" href=" {{ url_for('login') }}">Login</a>
+                 <a class="nav-item nav-link" href=" {{ url_for('register') }}">Register</a>
+                </div>
+              {% endif %}
           </div>
         </div>
       </nav>

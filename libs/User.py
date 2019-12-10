@@ -4,10 +4,10 @@ from globals import db, timestamp
 class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False)
-    last_name = db.Column(db.String(40), unique=False, nullable=False)
+    name = db.Column(db.String(20), nullable=True)
+    last_name = db.Column(db.String(40), unique=False, nullable=True)
     age = db.Column(db.Integer)
-    gender = db.Column(db.CHAR, nullable=False)
+    gender = db.Column(db.CHAR, nullable=True)
     admined_groups = db.Column(db.ARRAY(db.Integer))
     sport = db.Column(db.ARRAY(db.String))
     username = db.Column(db.String(20), unique=True, nullable=False)

@@ -1,6 +1,15 @@
-{% extends main.html %}
+{% extends "main.html" %}
 
 
 {% block content %}
-    <p>Profile</p>
+    {% if current_user is none %}
+    <p> You need to <a href="{{url_for('login')}}">Sign in</a> first!</p>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Don't have an account? <a class="ml-2" href="{{ url_for('register') }}">Sign up</a>
+            </small>
+        </div>
+    {% else %}
+        <p>This is your profile:</p>
+    {% endif %}
 {% endblock content %}
