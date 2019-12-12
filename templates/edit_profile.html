@@ -2,9 +2,77 @@
 
 {% block content %}
     
-    <div class="content-section">
-        <legend class="border-bottom mb-4">Join now</legend>
-        {{ wtf.quick_form(form) }}
+<!--    <div class="content-section">-->
+<!--        <legend class="border-bottom mb-4">Edit profile</legend>-->
+<!--        {{ wtf.quick_form(form) }}-->
+<!--    </div>-->
+
+        <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Edit profile</legend>
+                <div class="form-group">
+                    {{ form.picture.label(class="form-control-label") }}
+                    {% if form.picture.errors %}
+                        {{ form.picture(class="form-control-file is-invalid") }}
+                        <div class="invalid-feedback>">
+                            <span style="color: red; ">File must be an image</span>
+                        </div>
+                    {% else %}
+                        {{ form.picture(class="form-control-file") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.name.label(class="form-control-label") }}
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback>">
+                            {% for error in form.name.errors %}
+                                <span>{{error}}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.name(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.last_name.label(class="form-control-label") }}
+                    {% if form.last_name.errors %}
+                        {{ form.last_name(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback>">
+                            {% for error in form.last_name.errors %}
+                                <span>{{error}}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.last_name(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.age.label(class="form-control-label") }}
+                    {% if form.age.errors %}
+                        {{ form.age(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback>">
+                            {% for error in form.age.errors %}
+                                <span>{{error}}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.age(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.gender.label(class="form-control-label") }}
+                    {{ form.gender(class="form-control") }}
+                </div>
+                <!--{{ wtf.form_field(form.gender) }} -->
+            </fieldset>
+            <legend class="border-bottom mb-4"></legend>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
     </div>
 
 {% endblock content %}
