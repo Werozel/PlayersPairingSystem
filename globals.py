@@ -22,6 +22,8 @@ app = get_app(__name__)
 bootstrap =  Bootstrap(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'warning'
 
 
 try:

@@ -2,29 +2,15 @@
 
 
 {% block content %}
-    {% if current_user is none %}
-    <p> You need to <a href="{{url_for('login')}}">Sign in</a> first!</p>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Don't have an account? <a class="ml-2" href="{{ url_for('register') }}">Sign up</a>
-            </small>
+
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{current_user.image_file}}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ current_user.username }}</h2>
+          <p class="text-secondary">{{ current_user.name }} {{ current_user.last_name }}</p>
         </div>
-    {% else %}
-        <h3 class="ml-2">{{current_user.name}} {{current_user.last_name}}</h3>
-        <div class="border-top content-section">
-            <table>
-                <tr>
-                    <td>
-                        <img src={{current_user.image_file}} title="Profile picture"/>
-                    </td>
-                    <td>
-                        <div class="border-top">
-                            <p>Age: {{ current_user.age}}</p>
-                            <p>Gender: {{ current_user.gender }}</p>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    {% endif %}
+      </div>
+      <!-- FORM HERE -->
+    </div>
 {% endblock content %}

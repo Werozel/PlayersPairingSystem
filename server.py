@@ -1,6 +1,6 @@
 from flask import render_template, url_for, request, redirect, flash, make_response
 from forms import RegistrationForm, LoginForm, EditProfileForm
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 import libs.crypto as crypto
 from libs.User import User
 from globals import app, db
@@ -23,8 +23,8 @@ def login():
             user = User.query.filter_by(email=username, password=password).first()
         if user:
             login_user(user, remember=form.remember.data)
-            flash('Logged in!', "success")
-            return redirect(url_for('index'))
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('index'))
         else:
             flash('Incorrect login!', "danger")
     return render_template("login.html", title="Login Page", form=form, successful=True)
@@ -49,6 +49,7 @@ def register():
  
 
 @app.route("/edit_profile", methods=['GET', 'POST'])
+@login_required
 def edit_profile():
     form = EditProfileForm()
     if request.method == 'POST':
@@ -66,11 +67,13 @@ def edit_profile():
 
 
 @app.route("/profile")
+@login_required
 def profile():
     return render_template("profile.html", title="Profile", sidebar=True, current_user=current_user)
 
 
 @app.route("/logout", methods=['GET'])
+@login_required
 def logout():
     logout_user()
     return render_template("index.html", title="Main Page", sidebar=True)
