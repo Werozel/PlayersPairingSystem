@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, FileField, IntegerField, SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, NumberRange, regexp, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from libs.User import User
 
 
@@ -37,13 +38,13 @@ class LoginForm(FlaskForm):
 
 
 class EditProfileForm(FlaskForm):
-	picture = FileField('Profile image', validators=[]) # [regexp(r"^[^/\\]\.jpg$")])
+	picture = FileField('Profile image', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 	name = StringField('Name', validators=[DataRequired(), Length(max=30)])
 	last_name = StringField('Last Name', validators=[DataRequired(), Length(max=50)])
 	age = IntegerField('Age', validators=[])
-	gender_choices = [('M', 'Male'), ('F', 'Female')]  # (value, label)
+	gender_choices = [('Male', 'Male'), ('Female', 'Female')]  # (value, label)
 	gender = SelectField('Gender', default=18, choices=gender_choices)
-	submit = SubmitField('Apply')
+	submit = SubmitField('Update')
 
 	def validate_age(self, age):
 		if 10 > age.data > 100:

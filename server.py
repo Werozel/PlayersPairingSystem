@@ -4,6 +4,8 @@ from flask_login import login_user, logout_user, current_user, login_required
 import libs.crypto as crypto
 from libs.User import User
 from globals import app, db
+import secrets
+import os
 
 
 @app.route("/")
@@ -48,12 +50,23 @@ def register():
     return render_template("register.html", title="Register Page", form=form)
  
 
+def set_user_picture(picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+    picture.save(picture_path)
+    current_user.image_file = picture_fn
+
+
 @app.route("/edit_profile", methods=['GET', 'POST'])
 @login_required
 def edit_profile():
     form = EditProfileForm()
     if request.method == 'POST':
         if form.validate_on_submit():
+            if form.picture.data:
+                set_user_picture(form.picture.data)
             current_user.name = form.name.data
             current_user.last_name = form.last_name.data
             current_user.age = form.age.data
@@ -69,7 +82,8 @@ def edit_profile():
 @app.route("/profile")
 @login_required
 def profile():
-    return render_template("profile.html", title="Profile", sidebar=True, current_user=current_user)
+    return render_template("profile.html", title="Profile", sidebar=True,
+                           current_user=current_user)
 
 
 @app.route("/logout", methods=['GET'])
@@ -80,5 +94,7 @@ def logout():
 
 
 if __name__ == "__main__":
+    db.drop_all()
+    db.create_all()
     app.run(debug=True)
 
