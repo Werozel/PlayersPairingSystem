@@ -24,7 +24,7 @@ def login():
         if not user:
             user = User.query.filter_by(email=username, password=password).first()
         if user:
-            login_user(user, remember=form.remember.data)
+            login_user(user, remember=form.remember.data, force=True)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('index'))
         else:
@@ -45,8 +45,9 @@ def register():
             user = User(username=form.username.data, password=crypto.hash(form.password.data), email=form.email.data)
             db.session.add(user)
             db.session.commit()
-            flash('Account created! Now you can login.', 'success')
-            return redirect(url_for('login'))
+            login_user(user, force=True)
+            flash('Account created! Please fill additional information.', 'success')
+            return redirect(url_for('edit_profile'))
     return render_template("register.html", title="Register Page", form=form)
  
 
@@ -71,10 +72,9 @@ def edit_profile():
             current_user.last_name = form.last_name.data
             current_user.age = form.age.data
             current_user.gender = form.gender.data
-            # TODO add image_file link
             db.session.add(current_user)
             db.session.commit()
-            flash('Profile edited!', 'success')
+            flash('Profile updated!', 'success')
             return redirect(url_for('profile'))
     return render_template("edit_profile.html", title="Edit profile", form=form)
 
