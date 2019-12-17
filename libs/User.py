@@ -23,7 +23,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     groups = db.Column(db.ARRAY(db.INTEGER))
     last_login = db.Column(db.TIMESTAMP, nullable=False, default=timestamp())
-    image_file = db.Column(db.String, nullable=False, default=url_for('static', filename='profile_pics/default.jpg'))
+    image_file = db.Column(db.String, nullable=False, default='default.jpg')
     groups_rel = db.relationship('Group', backref='admin', lazy=True)
 
     __tablename__ = "users"
