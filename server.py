@@ -34,7 +34,7 @@ def login():
 
 @app.route("/about")
 def about():
-    return render_template("about.html", title="About Page")
+    return render_template("about.html", title="About Page", sidebar=True)
 
 
 @app.route("/register", methods=['GET', 'POST'])
