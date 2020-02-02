@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    {% if query %}
+        {% for group in query %}
+            <div class="content-section w-75">
+                <div class="media">
+                    <p class="media-body">{{group.name}}</p>
+                    <a class="media-right" href="{{ url_for('joingroup', id=group.id) }}">Join</a>
+                </div>
+                <table>
+                    <tr class="table">
+                        <td><span class="text-muted">admin: </span>{{group.admin.name}} {{group.admin.last_name}}</td>
+                        <td><span class="text-muted">sport: </span>{{group.sport}}</td>
+                    </tr>
+                </table>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h4>No search results</h4>
+    {% endif %}
+    
+
+{% endblock content %} 

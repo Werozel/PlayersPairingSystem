@@ -17,7 +17,7 @@
           <div class="media-right">
               <a href="{{ url_for('edit_profile') }}">
                 <img class="w-75 h-75" title="Edit profile"
-                     src="{{ url_for ('static', filename='buttons/baseline_edit_black_18dp.png')}}"/>
+                     src="{{ url_for('static', filename='buttons/baseline_edit_black_18dp.png')}}"/>
               </a>
           </div>
       </div>
@@ -27,13 +27,12 @@
                 <h5 class="align-left">Sports:</h5>
                 <div class="align-left col-sm-1">
                     {% for sport in current_user.sport %}
-                    <p class="text-secondary"> {{ sport }}</p>
+                    <a href="{{ url_for('search', sport=sport)}}" class="text-secondary"> {{ sport }}</a>
                     {% endfor %}
                 </div>
             {% else %}
              <p class="">No sport added yet!</p>
             {% endif %}
         </div>
-      <!-- FORM HERE -->
     </div>
 {% endblock content %}

@@ -14,6 +14,7 @@ def get_app(name: str) -> Flask:
     res.config['SECRET_KEY'] = SECRET_KEY
     res.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
     res.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    res.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
     return res
 
 

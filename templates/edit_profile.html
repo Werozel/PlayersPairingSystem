@@ -24,7 +24,7 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.name.label(class="form-control-label", default=current_user.name) }}
+                    {{ form.name.label(class="form-control-label") }}
                     {% if form.name.errors %}
                         {{ form.name(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback>">
@@ -69,7 +69,7 @@
                 <!--{{ wtf.form_field(form.gender) }} -->
                 <div class="form-group">
                     {{ form.sport.label(class="form-control-label") }}
-                    {{ form.sport(class="form-control", multiple="multiple") }}
+                    {{ form.sport(class="form-control", multiple="multiple", selected=current_user.sport) }}
                 </div>
 
             </fieldset>

@@ -60,6 +60,7 @@ class EditProfileForm(FlaskForm):
 	gender_choices = [('Male', 'Male'), ('Female', 'Female')]  # (value, label)
 	gender = SelectField('Gender', choices=gender_choices)
 	sport_choices = [(i, i) for i in Sports.get_list()]
+	# TODO add defaults for sport
 	sport = SelectMultipleFields('Sport', choices=sport_choices)
 	submit = SubmitField('Update')
 

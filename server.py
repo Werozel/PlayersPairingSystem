@@ -3,6 +3,7 @@ from forms import RegistrationForm, LoginForm, EditProfileForm
 from flask_login import login_user, logout_user, current_user, login_required
 import libs.crypto as crypto
 from libs.User import User
+from libs.Group import Group
 from globals import app, db
 import secrets
 import os
@@ -72,12 +73,12 @@ def edit_profile():
             current_user.last_name = form.last_name.data
             current_user.age = form.age.data
             current_user.gender = form.gender.data
-            print(form.sport.data)
+            current_user.sport = form.sport.data
             db.session.add(current_user)
             db.session.commit()
             flash('Profile updated!', 'success')
             return redirect(url_for('profile'))
-    return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
+    return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user, current_sport=str(current_user.sport))
 
 
 @app.route("/profile")
@@ -92,6 +93,24 @@ def profile():
 def logout():
     logout_user()
     return render_template("index.html", title="Main Page", sidebar=True)
+
+@app.route("/search", methods=['GET'])
+@login_required
+def search():
+    sport = request.args.get('sport')
+    groups = Group.get_by_sport(sport)
+    return render_template("search.html", query=groups, sidebar=True)
+
+@app.route("/joingroup", methods=['GET'])
+@login_required
+def joingroup():
+    group = Group.get(request.args.get('id'))
+    group.add_member(current_user)
+
+    """ db.session.add(group)
+    db.session.commit() """
+    flash(f"Joined group {group.name}", 'success')
+    return redirect(url_for('index'))
 
 
 if __name__ == "__main__":

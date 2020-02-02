@@ -12,4 +12,22 @@ class Group(db.Model):
     __tablename__ = "groups"
 
     def __repr__(self):
-        return f"{self.name}, {self.admin_id}, {self.members}"
+        return f"{self.name}, {self.sport}, {self.admin_id}, {self.members}"
+
+    @staticmethod
+    def get_by_sport(sport):
+        return Group.query.filter_by(sport=sport).all()
+    
+    @staticmethod
+    def get(id):
+        return Group.query.get(int(id))
+
+    def add_member(self, user):
+        if user.id not in self.members:
+            print(self)
+            self.members.append(user.id)
+            print(self)
+            db.session.add(self)
+            print(self)
+            db.session.commit()
+            print(self)
