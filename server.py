@@ -72,11 +72,12 @@ def edit_profile():
             current_user.last_name = form.last_name.data
             current_user.age = form.age.data
             current_user.gender = form.gender.data
+            print(form.sport.data)
             db.session.add(current_user)
             db.session.commit()
             flash('Profile updated!', 'success')
             return redirect(url_for('profile'))
-    return render_template("edit_profile.html", title="Edit profile", form=form)
+    return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
 
 
 @app.route("/profile")

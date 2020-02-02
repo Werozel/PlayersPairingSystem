@@ -16,6 +16,11 @@ class Sports:
             5: Sports.hockey
         }.get(n, None)
 
+    @staticmethod
+    def get_list():
+        return [Sports.tennis, Sports.football, Sports.basketball, 
+                Sports.volleyball, Sports.hockey]
+
     selection = "Select sport:" + "\n"\
                 "1 - " + tennis + "\n"\
                 "2 - " + football + "\n"\
