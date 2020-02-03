@@ -125,13 +125,6 @@ def search():
     return render_template("search.html", query=groups, sidebar=True)
 
 
-@app.route("/joingroup", methods=['GET'])
-@login_required
-def joingroup():
-    group = Group.query.filter_by(id=int(request.args.get('id'))).first()
-    
-
-
 @app.route("/group", methods=['GET', 'POST'])
 @login_required
 def group():
