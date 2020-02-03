@@ -1,12 +1,12 @@
 from globals import db
+from libs.Member import Member
 
 
 class Group(db.Model):
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     admin_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     sport = db.Column(db.String(50), nullable=False)
-    members = db.Column(db.ARRAY(db.Integer))
     name = db.Column(db.String(50), nullable=False)
 
     __tablename__ = "groups"
@@ -22,9 +22,11 @@ class Group(db.Model):
     def get(id):
         return Group.query.get(int(id))
 
+    def get_members(self):
+        return [i.user for i in Member.query.filter_by(group=self.id).all()]
+
     def add_member(self, user):
         if user.id not in self.members:
             self.members.append(user.id)
             db.session.add(self)
-            # TODO Разобраться почему не коммитит
             db.session.commit()

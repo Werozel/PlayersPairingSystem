@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 import libs.crypto as crypto
 from libs.User import User
 from libs.Group import Group
+from libs.Member import Member
 from globals import app, db
 import secrets
 import os
@@ -33,7 +34,7 @@ def login():
     return render_template("login.html", title="Login Page", form=form, successful=True)
 
 
-@app.route("/about")
+@app.route("/about", methods=['GET'])
 def about():
     return render_template("about.html", title="About Page", sidebar=True)
 
@@ -81,7 +82,7 @@ def edit_profile():
     return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user, current_sport=str(current_user.sport))
 
 
-@app.route("/profile")
+@app.route("/profile", methods=['GET'])
 @login_required
 def profile():
     if request.args.get('id'):
@@ -114,13 +115,18 @@ def search():
 @app.route("/joingroup", methods=['GET'])
 @login_required
 def joingroup():
-    group = Group.get(request.args.get('id'))
+    group = Group.query.filter_by(id=int(request.args.get('id'))).first()
     group.add_member(current_user)
 
-    """ db.session.add(group)
-    db.session.commit() """
+    if current_user.id not in group.members:
+        tmp = group.members.copy()
+        group.members = group.members.append(current_user.id)
+
+    db.session.add(group)
+    db.session.commit()
+    print(group)
     flash(f"Joined group {group.name}", 'success')
-    return redirect(url_for('index'))
+    return redirect(url_for('group', id=group.id))
 
 
 @app.route("/group/<int:id>", methods=['GET'])

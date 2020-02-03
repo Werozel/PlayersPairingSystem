@@ -1,5 +1,6 @@
 from globals import db, timestamp, login_manager
 from libs.Group import Group
+from libs.Member import Member
 from flask_login import UserMixin
 from flask import url_for
 
@@ -11,7 +12,7 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20), nullable=True)
     last_name = db.Column(db.String(40), unique=False, nullable=True)
     age = db.Column(db.Integer)
@@ -34,5 +35,8 @@ class User(db.Model, UserMixin):
     @staticmethod
     def get(id):
         return User.query.get(int(id))
+
+    def get_groups(self):
+        return [i.group for i in Member.query.filter_by(user=self.id).all())]
 
 
