@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <div class="content-section">
+        <div class="media">
+            <div class="media-body">
+                <h4>{{group.name}}</h4>
+            </div>
+            <div class="media-right">
+                <a class="media-right" href="{{ url_for('joingroup', id=group.id) }}">Join</a> 
+            </div>
+        </div>
+        <table class="table">
+            <tr>
+                <td><span class="text-muted">Admin:  </span>{{group.admin.name}} {{group.admin.last_name}}</td>
+                <td><span class="text-muted">Sport:  </span>{{group.sport}}</td>
+            </tr>
+        </table>
+        <legend class="border-bottom mb-3"></legend>
+        <h5 class="mb-4">Members:</h5>
+        <div class="col">
+            {% for user in members %}
+                <a href="{{ url_for('profile', id=user.id) }}"class="text-secondary">{{user.name}} {{user.last_name}}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

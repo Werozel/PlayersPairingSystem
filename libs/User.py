@@ -31,4 +31,8 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.username}', '{self.name}', '{self.last_name}', '{self.email}')"
 
+    @staticmethod
+    def get(id):
+        return User.query.get(int(id))
+
 

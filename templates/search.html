@@ -4,9 +4,10 @@
 
     {% if query %}
         {% for group in query %}
+        <a href="{{ url_for('group', id=group.id) }}">
             <div class="content-section w-75">
                 <div class="media">
-                    <p class="media-body">{{group.name}}</p>
+                    <a class="media-body" href="{{ url_for('group', id=group.id) }}">{{group.name}}</a>
                     <a class="media-right" href="{{ url_for('joingroup', id=group.id) }}">Join</a>
                 </div>
                 <table>
@@ -16,6 +17,7 @@
                     </tr>
                 </table>
             </div>
+        </a>
         {% endfor %}
     {% else %}
         <h4>No search results</h4>

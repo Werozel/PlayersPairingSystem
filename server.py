@@ -84,8 +84,16 @@ def edit_profile():
 @app.route("/profile")
 @login_required
 def profile():
-    return render_template("profile.html", title="Profile", sidebar=True,
-                           current_user=current_user)
+    if request.args.get('id'):
+        user = User.get(request.args.get('id'))
+        groups = [Group.get(id) for id in user.groups]
+        print(user, groups)
+        return render_template("profile.html", title="Profile", sidebar=True,
+                            current_user=user, groups=groups)
+    else:
+        groups = [Group.get(id) for id in current_user.groups]
+        return render_template("profile.html", title="Profile", sidebar=True,
+                            current_user=current_user, groups=groups)
 
 
 @app.route("/logout", methods=['GET'])
@@ -94,12 +102,14 @@ def logout():
     logout_user()
     return render_template("index.html", title="Main Page", sidebar=True)
 
+
 @app.route("/search", methods=['GET'])
 @login_required
 def search():
     sport = request.args.get('sport')
     groups = Group.get_by_sport(sport)
     return render_template("search.html", query=groups, sidebar=True)
+
 
 @app.route("/joingroup", methods=['GET'])
 @login_required
@@ -111,6 +121,15 @@ def joingroup():
     db.session.commit() """
     flash(f"Joined group {group.name}", 'success')
     return redirect(url_for('index'))
+
+
+@app.route("/group/<int:id>", methods=['GET'])
+@login_required
+def group(id):
+    group = Group.get(id)
+    members = [User.get(id) for id in group.members]
+    return render_template('group.html', group=group, members=members, sidebar=True)
+
 
 
 if __name__ == "__main__":

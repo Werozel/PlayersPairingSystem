@@ -24,10 +24,7 @@ class Group(db.Model):
 
     def add_member(self, user):
         if user.id not in self.members:
-            print(self)
             self.members.append(user.id)
-            print(self)
             db.session.add(self)
-            print(self)
+            # TODO Разобраться почему не коммитит
             db.session.commit()
-            print(self)

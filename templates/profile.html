@@ -34,5 +34,16 @@
              <p class="">No sport added yet!</p>
             {% endif %}
         </div>
+            {% if groups %}
+            <legend class="border-bottom mb-4 mt-2"></legend>
+            <div class="container row">
+                <h5 class="align-left">Groups:</h5>
+                <div class="align-left col-sm-1">
+                    {% for group in groups %}
+                      <a href="{{ url_for('group', id=group.id)}}" class="text-secondary"> {{ group.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
     </div>
 {% endblock content %}
