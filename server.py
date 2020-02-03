@@ -16,6 +16,14 @@ def index():
     return render_template("index.html", title="Main Page", sidebar=True)
 
 
+@app.route("/about", methods=['GET'])
+def about():
+    return render_template("about.html", title="About Page", sidebar=True)
+
+
+#----------------------------LOGIN-------------------------------------
+
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -34,11 +42,6 @@ def login():
     return render_template("login.html", title="Login Page", form=form, successful=True)
 
 
-@app.route("/about", methods=['GET'])
-def about():
-    return render_template("about.html", title="About Page", sidebar=True)
-
-
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -51,6 +54,17 @@ def register():
             flash('Account created! Please fill additional information.', 'success')
             return redirect(url_for('edit_profile'))
     return render_template("register.html", title="Register Page", form=form)
+
+
+@app.route("/logout", methods=['GET'])
+@login_required
+def logout():
+    logout_user()
+    return render_template("index.html", title="Main Page", sidebar=True)
+
+
+#-------------------------------------------------------------------------------------------------------------
+#------------------------------------------EDIT PROFILE-------------------------------------------------------
  
 
 def set_user_picture(picture):
@@ -99,11 +113,8 @@ def profile():
                             current_user=current_user, groups=groups)
 
 
-@app.route("/logout", methods=['GET'])
-@login_required
-def logout():
-    logout_user()
-    return render_template("index.html", title="Main Page", sidebar=True)
+#---------------------------------------------------------------------------------------------------------
+#------------------------------------------GROUPS---------------------------------------------------------
 
 
 @app.route("/search", methods=['GET'])
@@ -134,6 +145,25 @@ def group(id):
     group = Group.get(id)
     members = group.get_members()
     return render_template('group.html', group=group, members=members, sidebar=True)
+
+
+#--------------------------------------------------------------------------------------------------------
+#------------------------------------------SIDEBAR-------------------------------------------------------
+
+@app.route("/myGroups", methods=['GET'])
+@login_required
+def my_groups():
+    return redirect(url_for('profile'))
+
+@app.route("/myEvents", methods=['GET'])
+@login_required
+def my_events():
+    return redirect(url_for('profile'))
+
+@app.route("/myMessages", methods=['GET'])
+@login_required
+def my_messages():
+    return redirect(url_for('profile'))
 
 
 
