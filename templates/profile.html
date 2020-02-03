@@ -15,7 +15,7 @@
         </div>
 
           <div class="media-right">
-              <a href="{{ url_for('edit_profile') }}">
+              <a href="{{ url_for('profile', action='edit') }}">
                 <img class="w-75 h-75" title="Edit profile"
                      src="{{ url_for('static', filename='buttons/baseline_edit_black_18dp.png')}}"/>
               </a>
@@ -40,7 +40,7 @@
                 <h5 class="align-left">Groups:</h5>
                 <div class="align-left col-sm-1">
                     {% for group in groups %}
-                      <a href="{{ url_for('group', id=group.id)}}" class="text-secondary"> {{ group.name }}</a>
+                      <a href="{{ url_for('group', id=group.id, action='show')}}" class="text-secondary"> {{ group.name }}</a>
                     {% endfor %}
                 </div>
             </div>

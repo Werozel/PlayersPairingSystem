@@ -24,7 +24,7 @@
         <h5 class="mb-4">Members:</h5>
         <ul style="list-style-type: none; list-style-position: inside; padding: 0px">
             {% for user in members %}
-                <li style="margin-left: 0px;"><a href="{{ url_for('profile', id=user.id) }}"class="text-secondary">{{user.name}} {{user.last_name}}</a></li>
+                <li style="margin-left: 0px;"><a href="{{ url_for('profile', action='show', id=user.id) }}"class="text-secondary">{{user.name}} {{user.last_name}}</a></li>
             {% endfor %}
         </ul>
     </div>

@@ -64,12 +64,29 @@ def logout():
 #-------------------------------------------------------------------------------------------------------------
 #------------------------------------------EDIT PROFILE-------------------------------------------------------
 
-@app.route("/edit_profile", methods=['GET', 'POST'])
+@app.route("/profile", methods=['GET', 'POST'])
 @login_required
-def edit_profile():
-    # TODO Перенести в profile
+def profile():
     form = EditProfileForm()
-    if request.method == 'POST':
+    if request.method == 'GET':
+        action = request.args.get('action')
+        if not action:
+            action = 'my'
+        if action == 'my':
+            groups = current_user.get_groups()
+            return render_template("profile.html", title="Profile", sidebar=True,
+                                current_user=current_user, groups=groups)
+        elif action == 'show':
+            id = request.args.get('id')
+            if not id:
+                id = current_user.id
+            user = User.get(id)
+            groups = user.get_groups()
+            return render_template("profile.html", title="Profile", sidebar=True,
+                                current_user=user, groups=groups)
+        elif action == 'edit':
+            return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
+    else:
         if form.validate_on_submit():
             if form.picture.data:
                 set_user_picture(form.picture.data)
@@ -83,24 +100,7 @@ def edit_profile():
             db.session.commit()
             flash('Profile updated!', 'success')
             return redirect(url_for('profile'))
-    return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
-
-
-@app.route("/profile", methods=['GET', 'POST'])
-@login_required
-def profile():
-    if request.method == 'GET':
-        if request.args.get('id'):
-            user = User.get(request.args.get('id'))
-            groups = user.get_groups()
-            return render_template("profile.html", title="Profile", sidebar=True,
-                                current_user=user, groups=groups)
-        else:
-            groups = current_user.get_groups()
-            return render_template("profile.html", title="Profile", sidebar=True,
-                                current_user=current_user, groups=groups)
-    else:
-        return redirect(request.referrer)
+        return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
 
 
 #---------------------------------------------------------------------------------------------------------
@@ -122,8 +122,8 @@ def group():
     if request.method == 'GET':
         action = request.args.get('action')
         if not action:
-            flash("Invalid request!", 'error')
-            return render_template('my_groups.html', groups=current_user.get_groups(), sidebar=True)
+            flash("Invalid request!", 'warning')
+            return redirect(url_for('group', action='my'))
         if action == 'new':
             return render_template('new_group.html', form=form, groups=current_user.get_groups(), sidebar=True)
         elif action == 'my':
