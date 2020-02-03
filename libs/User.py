@@ -14,18 +14,17 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20), nullable=True)
-    last_name = db.Column(db.String(40), unique=False, nullable=True)
+    last_name = db.Column(db.String(40), nullable=True)
     age = db.Column(db.Integer)
     gender = db.Column(db.String, nullable=True)
-    admined_groups = db.Column(db.ARRAY(db.Integer))
     sport = db.Column(db.ARRAY(db.String))
     username = db.Column(db.String(20), unique=True, nullable=False)
-    password = db.Column(db.String(), unique=False, nullable=False)
+    password = db.Column(db.String(), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    groups = db.Column(db.ARRAY(db.INTEGER))
     last_login = db.Column(db.TIMESTAMP, nullable=False, default=timestamp())
     image_file = db.Column(db.String, nullable=False, default='default.jpg')
     groups_rel = db.relationship('Group', backref='admin', lazy=True)
+    members_rel = db.relationship('Member', backref='user', lazy=True)
 
     __tablename__ = "users"
 
@@ -37,6 +36,6 @@ class User(db.Model, UserMixin):
         return User.query.get(int(id))
 
     def get_groups(self):
-        return [i.group for i in Member.query.filter_by(user=self.id).all())]
+        return [i.group for i in Member.query.filter_by(user_id=self.id).all()]
 
 

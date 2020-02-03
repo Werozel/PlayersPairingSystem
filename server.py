@@ -74,7 +74,8 @@ def edit_profile():
             current_user.last_name = form.last_name.data
             current_user.age = form.age.data
             current_user.gender = form.gender.data
-            current_user.sport = form.sport.data
+            if len(form.sport.data):
+                current_user.sport = form.sport.data
             db.session.add(current_user)
             db.session.commit()
             flash('Profile updated!', 'success')
@@ -87,12 +88,13 @@ def edit_profile():
 def profile():
     if request.args.get('id'):
         user = User.get(request.args.get('id'))
-        groups = [Group.get(id) for id in user.groups]
+        groups = user.get_groups()
         print(user, groups)
         return render_template("profile.html", title="Profile", sidebar=True,
                             current_user=user, groups=groups)
     else:
-        groups = [Group.get(id) for id in current_user.groups]
+        print(current_user.get_groups())
+        groups = current_user.get_groups()
         return render_template("profile.html", title="Profile", sidebar=True,
                             current_user=current_user, groups=groups)
 
@@ -116,16 +118,13 @@ def search():
 @login_required
 def joingroup():
     group = Group.query.filter_by(id=int(request.args.get('id'))).first()
-    group.add_member(current_user)
-
-    if current_user.id not in group.members:
-        tmp = group.members.copy()
-        group.members = group.members.append(current_user.id)
-
-    db.session.add(group)
-    db.session.commit()
-    print(group)
-    flash(f"Joined group {group.name}", 'success')
+    members = group.get_members()
+    print(members)
+    if (current_user not in members):
+        new_row = Member(user_id=current_user.id, group_id=group.id)
+        db.session.add(new_row)
+        db.session.commit()
+        flash(f"Joined group {group.name}", 'success')
     return redirect(url_for('group', id=group.id))
 
 
@@ -133,7 +132,7 @@ def joingroup():
 @login_required
 def group(id):
     group = Group.get(id)
-    members = [User.get(id) for id in group.members]
+    members = group.get_members()
     return render_template('group.html', group=group, members=members, sidebar=True)
 
 

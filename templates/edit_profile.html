@@ -33,7 +33,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.name(class="form-control form-control-lg", value=current_user.name) }}
+                        {{ form.name(class="form-control form-control-lg", value= current_user.name if current_user.name else "") }}
                     {% endif %}
                 </div>
                 <div class="form-group">
@@ -46,7 +46,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.last_name(class="form-control form-control-lg", value=current_user.last_name) }}
+                        {{ form.last_name(class="form-control form-control-lg", value=current_user.last_name if current_user.last_name else "") }}
                     {% endif %}
                 </div>
                 <div class="form-group">
@@ -59,7 +59,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.age(class="form-control form-control-lg", value=current_user.age) }}
+                        {{ form.age(class="form-control form-control-lg", value=current_user.age if current_user.age else "") }}
                     {% endif %}
                 </div>
                 <div class="form-group">
@@ -69,7 +69,7 @@
                 <!--{{ wtf.form_field(form.gender) }} -->
                 <div class="form-group">
                     {{ form.sport.label(class="form-control-label") }}
-                    {{ form.sport(class="form-control", multiple="multiple", selected=current_user.sport) }}
+                    {{ form.sport(class="form-control", multiple="multiple") }}
                 </div>
 
             </fieldset>
