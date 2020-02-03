@@ -129,42 +129,58 @@ def search():
 @login_required
 def joingroup():
     group = Group.query.filter_by(id=int(request.args.get('id'))).first()
-    members = group.get_members()
-    if (current_user not in members):
-        new_row = Member(user_id=current_user.id, group_id=group.id)
-        db.session.add(new_row)
-        db.session.commit()
-    return redirect(url_for('group', id=group.id))
+    
 
 
-@app.route("/group/<int:id>", methods=['GET'])
+@app.route("/group", methods=['GET', 'POST'])
 @login_required
-def group(id):
-    group = Group.get(id)
-    members = group.get_members()
-    is_member = current_user in members
-    return render_template('group.html', group=group, members=members, sidebar=True, is_member=is_member)
+def group():
+    if request.method == 'GET':
+        action = request.args.get('action')
+        if not action:
+            flash("Invalid request!", 'error')
+            return render_template('my_groups.html', groups=current_user.get_groups(), sidebar=True)
+        if action == 'new':
+            print('New group')
+            return render_template('my_groups.html', groups=current_user.get_groups(), sidebar=True)
+        elif action == 'my':
+            return render_template('my_groups.html', groups=current_user.get_groups(), sidebar=True)
 
-
-@app.route("/newgroup", methods=['GET', 'POST'])
-@login_required
-def new_group():
-    return redirect(request.referrer)
-
+        id = int(request.args.get('id'))
+        group = Group.get(id)
+        members = group.get_members()
+        is_member = current_user in members
+        if not is_member:
+            is_member = None
+        if action == 'show':
+            pass
+        elif action == 'join':
+            if current_user not in members:
+                new_row = Member(user_id=current_user.id, group_id=group.id)
+                db.session.add(new_row)
+                db.session.commit()
+                members.append(current_user)
+                is_member = True
+        elif action == 'leave':
+            if current_user in members:
+                row = Member.query.filter_by(user_id=current_user.id, group_id=group.id).first()
+                db.session.delete(row)
+                db.session.commit()
+                members.remove(current_user)
+                is_member = None
+        return render_template('group.html', group=group, members=members, sidebar=True, is_member=is_member)
+    else:
+        print("POST to groups!")
+        return redirect(request.referrer)
 #--------------------------------------------------------------------------------------------------------
 #------------------------------------------SIDEBAR-------------------------------------------------------
 
-@app.route("/mygroups", methods=['GET'])
-@login_required
-def my_groups():
-    return render_template('my_groups.html', groups=current_user.get_groups(), sidebar=True)
-
-@app.route("/mygvents", methods=['GET'])
+@app.route("/myevents", methods=['GET'])
 @login_required
 def my_events():
     return redirect(url_for('profile'))
 
-@app.route("/mygessages", methods=['GET'])
+@app.route("/mymessages", methods=['GET'])
 @login_required
 def my_messages():
     return redirect(url_for('profile'))

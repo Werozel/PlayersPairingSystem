@@ -6,11 +6,13 @@
             <div class="media-body">
                 <h4>{{group.name}}</h4>
             </div>
-            {% if not is_member %}
-                <div class="media-right">
-                    <a class="media-right" href="{{ url_for('joingroup', id=group.id) }}">Join</a> 
-                </div>
-            {% endif %}
+            <div class="media-right">
+                {% if not is_member %}
+                    <a class="media-right" href="{{ url_for('group', id=group.id, action='join') }}">Join</a> 
+                {% else %}
+                    <a class="media-right" href="{{ url_for('group', id=group.id, action='leave') }}">Leave</a> 
+                {% endif %}
+            </div>
         </div>
         <table class="table">
             <tr>

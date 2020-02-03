@@ -4,7 +4,7 @@
     {% if groups %}
         <div class="media">
             <h4 class="h4 media-body">My groups</h4>
-            <a class="media-right" href="{{url_for('new_group')}}">
+            <a class="media-right" href="{{url_for('group', action='new')}}">
                 <img class="w-75 h-75" title="New group"
                      src="{{ url_for('static', filename='buttons/icons8-plus-math-50.png')}}"/>
             </a>
@@ -13,7 +13,7 @@
         {% for group in groups %}
             <div class="content-section w-75">
                 <div class="media">
-                    <a class="media-body" href="{{ url_for('group', id=group.id) }}">{{group.name}}</a>
+                    <a class="media-body" href="{{ url_for('group', id=group.id, action='show')}}">{{group.name}}</a>
                 </div>
                 <table>
                     <tr class="table">
