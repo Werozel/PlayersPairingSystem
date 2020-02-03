@@ -21,6 +21,10 @@ class Sports:
         return [Sports.tennis, Sports.football, Sports.basketball, 
                 Sports.volleyball, Sports.hockey]
 
+    @staticmethod
+    def get_choices():
+        return [(i, i) for i in Sports.get_list()]
+
     selection = "Select sport:" + "\n"\
                 "1 - " + tennis + "\n"\
                 "2 - " + football + "\n"\

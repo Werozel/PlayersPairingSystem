@@ -1,13 +1,11 @@
 from flask import render_template, url_for, request, redirect, flash, make_response
-from forms import RegistrationForm, LoginForm, EditProfileForm
+from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom
 from flask_login import login_user, logout_user, current_user, login_required
 import libs.crypto as crypto
-from libs.User import User
+from libs.User import User, set_user_picture
 from libs.Group import Group
 from libs.Member import Member
 from globals import app, db
-import secrets
-import os
 
 
 @app.route("/")
@@ -65,20 +63,11 @@ def logout():
 
 #-------------------------------------------------------------------------------------------------------------
 #------------------------------------------EDIT PROFILE-------------------------------------------------------
- 
-
-def set_user_picture(picture):
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(picture.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
-    picture.save(picture_path)
-    current_user.image_file = picture_fn
-
 
 @app.route("/edit_profile", methods=['GET', 'POST'])
 @login_required
 def edit_profile():
+    # TODO Перенести в profile
     form = EditProfileForm()
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -94,23 +83,24 @@ def edit_profile():
             db.session.commit()
             flash('Profile updated!', 'success')
             return redirect(url_for('profile'))
-    return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user, current_sport=str(current_user.sport))
+    return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
 
 
-@app.route("/profile", methods=['GET'])
+@app.route("/profile", methods=['GET', 'POST'])
 @login_required
 def profile():
-    if request.args.get('id'):
-        user = User.get(request.args.get('id'))
-        groups = user.get_groups()
-        print(user, groups)
-        return render_template("profile.html", title="Profile", sidebar=True,
-                            current_user=user, groups=groups)
+    if request.method == 'GET':
+        if request.args.get('id'):
+            user = User.get(request.args.get('id'))
+            groups = user.get_groups()
+            return render_template("profile.html", title="Profile", sidebar=True,
+                                current_user=user, groups=groups)
+        else:
+            groups = current_user.get_groups()
+            return render_template("profile.html", title="Profile", sidebar=True,
+                                current_user=current_user, groups=groups)
     else:
-        print(current_user.get_groups())
-        groups = current_user.get_groups()
-        return render_template("profile.html", title="Profile", sidebar=True,
-                            current_user=current_user, groups=groups)
+        return redirect(request.referrer)
 
 
 #---------------------------------------------------------------------------------------------------------
@@ -128,14 +118,14 @@ def search():
 @app.route("/group", methods=['GET', 'POST'])
 @login_required
 def group():
+    form = NewGroupFrom()
     if request.method == 'GET':
         action = request.args.get('action')
         if not action:
             flash("Invalid request!", 'error')
             return render_template('my_groups.html', groups=current_user.get_groups(), sidebar=True)
         if action == 'new':
-            print('New group')
-            return render_template('my_groups.html', groups=current_user.get_groups(), sidebar=True)
+            return render_template('new_group.html', form=form, groups=current_user.get_groups(), sidebar=True)
         elif action == 'my':
             return render_template('my_groups.html', groups=current_user.get_groups(), sidebar=True)
 
@@ -163,8 +153,16 @@ def group():
                 is_member = None
         return render_template('group.html', group=group, members=members, sidebar=True, is_member=is_member)
     else:
-        print("POST to groups!")
-        return redirect(request.referrer)
+        if form.validate_on_submit():
+            group = Group(admin_id=current_user.id, name=form.name.data, sport=form.sport.data)
+            db.session.add(group)
+            db.session.commit()
+            new_row = Member(user_id=current_user.id, group_id=group.id)
+            db.session.add(new_row)
+            db.session.commit()
+            print("Added new group: " + group.name)
+            return redirect(url_for('group', action='my'))
+        return render_template('new_group.html', form=form, groups=current_user.get_groups(), sidebar=True)
 #--------------------------------------------------------------------------------------------------------
 #------------------------------------------SIDEBAR-------------------------------------------------------
 

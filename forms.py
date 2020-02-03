@@ -5,6 +5,7 @@ from wtforms.widgets import ListWidget, CheckboxInput
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
 from libs.User import User
+from libs.Group import Group
 from constants.constants import Sports
 
 
@@ -48,9 +49,6 @@ class SelectMultipleFields(SelectMultipleField):
 	def process_formdata(self, valuelist):
 		self.data = valuelist
 
-class SportField(SelectMultipleField):
-	name = ListWidget(prefix_label=False)
-	check = CheckboxInput()
 
 class EditProfileForm(FlaskForm):
 	picture = FileField('Profile image', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
@@ -59,7 +57,7 @@ class EditProfileForm(FlaskForm):
 	age = IntegerField('Age', validators=[])
 	gender_choices = [('Male', 'Male'), ('Female', 'Female')]  # (value, label)
 	gender = SelectField('Gender', choices=gender_choices)
-	sport_choices = [(i, i) for i in Sports.get_list()]
+	sport_choices = Sports.get_choices()
 	# TODO add defaults for sport
 	sport = SelectMultipleFields('Sport', choices=sport_choices)
 	submit = SubmitField('Update')
@@ -67,4 +65,16 @@ class EditProfileForm(FlaskForm):
 	def validate_age(self, age):
 		if age.data < 10 or age.data > 100:
 			raise ValidationError('Invalid age!')
+
+
+class NewGroupFrom(FlaskForm):
+	name = StringField('Name', validators=[DataRequired(), Length(min=2, max=50)])
+	sport = SelectField('Sport', choices=Sports.get_choices(), validators=[DataRequired()])
+	submit = SubmitField('Create')
+
+	def validate_name(self, name):
+		group = Group.query.filter_by(name=name.data).first()
+		print(group)
+		if group:
+			raise ValidationError('Name already taken!')
 
