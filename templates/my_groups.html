@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    {% if groups %}
+        <div class="media">
+            <h4 class="h4 media-body">My groups</h4>
+            <a class="media-right" href="{{url_for('new_group')}}">
+                <img class="w-75 h-75" title="New group"
+                     src="{{ url_for('static', filename='buttons/icons8-plus-math-50.png')}}"/>
+            </a>
+        </div>
+        <legend class="border-bottom mb-4 mt-2"></legend>
+        {% for group in groups %}
+            <div class="content-section w-75">
+                <div class="media">
+                    <a class="media-body" href="{{ url_for('group', id=group.id) }}">{{group.name}}</a>
+                </div>
+                <table>
+                    <tr class="table">
+                        <td><span class="text-muted">admin: </span>{{group.admin.name}} {{group.admin.last_name}}</td>
+                        <td><span class="text-muted">sport: </span>{{group.sport}}</td>
+                    </tr>
+                </table>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h4>No groups yet!</h4>
+        <p class="text-muted small">Search for a group <a href="{{url_for('search')}}">here</a></p>
+    {% endif %}
+{% endblock %} 

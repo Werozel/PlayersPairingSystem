@@ -130,12 +130,10 @@ def search():
 def joingroup():
     group = Group.query.filter_by(id=int(request.args.get('id'))).first()
     members = group.get_members()
-    print(members)
     if (current_user not in members):
         new_row = Member(user_id=current_user.id, group_id=group.id)
         db.session.add(new_row)
         db.session.commit()
-        flash(f"Joined group {group.name}", 'success')
     return redirect(url_for('group', id=group.id))
 
 
@@ -144,23 +142,29 @@ def joingroup():
 def group(id):
     group = Group.get(id)
     members = group.get_members()
-    return render_template('group.html', group=group, members=members, sidebar=True)
+    is_member = current_user in members
+    return render_template('group.html', group=group, members=members, sidebar=True, is_member=is_member)
 
+
+@app.route("/newgroup", methods=['GET', 'POST'])
+@login_required
+def new_group():
+    return redirect(request.referrer)
 
 #--------------------------------------------------------------------------------------------------------
 #------------------------------------------SIDEBAR-------------------------------------------------------
 
-@app.route("/myGroups", methods=['GET'])
+@app.route("/mygroups", methods=['GET'])
 @login_required
 def my_groups():
-    return redirect(url_for('profile'))
+    return render_template('my_groups.html', groups=current_user.get_groups(), sidebar=True)
 
-@app.route("/myEvents", methods=['GET'])
+@app.route("/mygvents", methods=['GET'])
 @login_required
 def my_events():
     return redirect(url_for('profile'))
 
-@app.route("/myMessages", methods=['GET'])
+@app.route("/mygessages", methods=['GET'])
 @login_required
 def my_messages():
     return redirect(url_for('profile'))

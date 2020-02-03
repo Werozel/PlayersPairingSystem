@@ -6,9 +6,11 @@
             <div class="media-body">
                 <h4>{{group.name}}</h4>
             </div>
-            <div class="media-right">
-                <a class="media-right" href="{{ url_for('joingroup', id=group.id) }}">Join</a> 
-            </div>
+            {% if not is_member %}
+                <div class="media-right">
+                    <a class="media-right" href="{{ url_for('joingroup', id=group.id) }}">Join</a> 
+                </div>
+            {% endif %}
         </div>
         <table class="table">
             <tr>
@@ -18,10 +20,10 @@
         </table>
         <legend class="border-bottom mb-3"></legend>
         <h5 class="mb-4">Members:</h5>
-        <div class="col">
+        <ul style="list-style-type: none; list-style-position: inside; padding: 0px">
             {% for user in members %}
-                <a href="{{ url_for('profile', id=user.id) }}"class="text-secondary">{{user.name}} {{user.last_name}}</a>
+                <li style="margin-left: 0px;"><a href="{{ url_for('profile', id=user.id) }}"class="text-secondary">{{user.name}} {{user.last_name}}</a></li>
             {% endfor %}
-        </div>
+        </ul>
     </div>
 {% endblock content %}
