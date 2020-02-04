@@ -7,7 +7,7 @@
         <a href="{{ url_for('group', id=group.id) }}">
             <div class="content-section w-75">
                 <div class="media">
-                    <a class="media-body" href="{{ url_for('group', id=group.id) }}">{{group.name}}</a>
+                    <a class="media-body" href="{{ url_for('group', id=group.id, action='show') }}">{{group.name}}</a>
                 </div>
                 <table>
                     <tr class="table">
