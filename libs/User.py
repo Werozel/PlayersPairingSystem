@@ -2,7 +2,6 @@ from globals import db, timestamp, login_manager, app
 from libs.Group import Group
 from libs.Member import Member
 from flask_login import UserMixin, current_user
-from flask import url_for
 import secrets
 import os
 

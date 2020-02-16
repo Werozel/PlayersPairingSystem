@@ -4,7 +4,6 @@ from libs.Member import Member
 
 class Group(db.Model):
 
-    # TODO сделать нормальный выбор id
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     admin_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     sport = db.Column(db.String(50), nullable=False)

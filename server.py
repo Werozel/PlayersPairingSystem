@@ -1,4 +1,4 @@
-from flask import render_template, url_for, request, redirect, flash, make_response
+from flask import render_template, url_for, request, redirect, flash
 from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom
 from flask_login import login_user, logout_user, current_user, login_required
 import libs.crypto as crypto
@@ -19,7 +19,7 @@ def about():
     return render_template("about.html", title="About Page", sidebar=True)
 
 
-#----------------------------LOGIN-------------------------------------
+# ----------------------------LOGIN-------------------------------------
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -103,8 +103,8 @@ def profile():
         return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
 
 
-#---------------------------------------------------------------------------------------------------------
-#------------------------------------------GROUPS---------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------
+# ------------------------------------------GROUPS---------------------------------------------------------
 
 
 @app.route("/search", methods=['GET'])

@@ -1,9 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
-from wtforms import Field, RadioField, StringField, SelectMultipleField, PasswordField, SubmitField, BooleanField, FileField, IntegerField, SelectField
-from wtforms.widgets import ListWidget, CheckboxInput
+from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField, BooleanField, FileField, IntegerField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from flask_login import current_user
 from libs.User import User
 from libs.Group import Group
 from constants.constants import Sports
