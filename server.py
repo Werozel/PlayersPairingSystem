@@ -50,7 +50,7 @@ def register():
             db.session.commit()
             login_user(user, force=True)
             flash('Account created! Please fill additional information.', 'success')
-            return redirect(url_for('edit_profile'))
+            return redirect(url_for('profile', action='edit'))
     return render_template("register.html", title="Register Page", form=form)
 
 
@@ -61,8 +61,8 @@ def logout():
     return render_template("index.html", title="Main Page", sidebar=True)
 
 
-#-------------------------------------------------------------------------------------------------------------
-#------------------------------------------EDIT PROFILE-------------------------------------------------------
+# -------------------------------------------------------------------------------------------------------------
+# ------------------------------------------EDIT PROFILE-------------------------------------------------------
 
 @app.route("/profile", methods=['GET', 'POST'])
 @login_required
@@ -110,9 +110,12 @@ def profile():
 @app.route("/search", methods=['GET'])
 @login_required
 def search():
-    sport = request.args.get('sport')
-    groups = Group.get_by_sport(sport)
-    return render_template("search.html", query=groups, sidebar=True)
+    if request.method == 'GET':
+        sport = request.args.get('sport')
+        groups = Group.get_by_sport(sport)
+        return render_template("search.html", query=groups, sidebar=True)
+    else:
+        return render_template("search.html", sidebar=True)
 
 
 @app.route("/group", methods=['GET', 'POST'])
@@ -122,9 +125,8 @@ def group():
     if request.method == 'GET':
         action = request.args.get('action')
         if not action:
-            flash("Invalid request!", 'warning')
             return redirect(url_for('group', action='my'))
-        if action == 'new':
+        elif action == 'new':
             return render_template('new_group.html', form=form, groups=current_user.get_groups(), sidebar=True)
         elif action == 'my':
             return render_template('my_groups.html', groups=current_user.get_groups(), sidebar=True)
@@ -163,8 +165,10 @@ def group():
             print("Added new group: " + group.name)
             return redirect(url_for('group', action='my'))
         return render_template('new_group.html', form=form, groups=current_user.get_groups(), sidebar=True)
-#--------------------------------------------------------------------------------------------------------
-#------------------------------------------SIDEBAR-------------------------------------------------------
+
+
+# --------------------------------------------------------------------------------------------------------
+# ------------------------------------------SIDEBAR-------------------------------------------------------
 
 @app.route("/myevents", methods=['GET'])
 @login_required
@@ -176,6 +180,9 @@ def my_events():
 def my_messages():
     return redirect(url_for('profile'))
 
+
+# --------------------------------------------------------------------------------------------------------
+# ------------------------------------------FRIENDS-------------------------------------------------------
 
 
 if __name__ == "__main__":

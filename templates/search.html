@@ -3,6 +3,7 @@
 {% block content %}
 
     {% if query %}
+        <legend class="border-top mt-4"></legend>
         {% for group in query %}
         <a href="{{ url_for('group', id=group.id) }}">
             <div class="content-section w-75">
@@ -20,6 +21,7 @@
         {% endfor %}
     {% else %}
         <h4>No search results</h4>
+        <p class="text-muted small">Create a new group <a href="{{url_for('group', action='new')}}">here</a></p>
     {% endif %}
     
 

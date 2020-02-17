@@ -4,7 +4,7 @@
     {% if groups %}
         <div class="media">
             <h4 class="h4 media-body">My groups</h4>
-            <a class="media-right" href="{{url_for('group', action='new')}}">
+            <a class="media-right" href="{{url_for('search')}}">
                 <img class="w-75 h-75" title="New group"
                      src="{{ url_for('static', filename='buttons/icons8-plus-math-50.png')}}"/>
             </a>
@@ -23,8 +23,11 @@
                 </table>
             </div>
         {% endfor %}
+        <legend class="border-bottom mb-4 mt-2"></legend>
+        <p class="text-muted small">Create a new group <a href="{{url_for('group', action='new')}}">here</a></p>
     {% else %}
         <h4>No groups yet!</h4>
-        <p class="text-muted small">Search for a group <a href="{{url_for('search')}}">here</a></p>
+        <p class="text-muted small" style="margin-bottom: 0px;">Search for a group <a href="{{url_for('search')}}">here</a></p>
+        <p class="text-muted small">Or create a new one <a href="{{url_for('group', action='new')}}">here</a></p>
     {% endif %}
 {% endblock %} 

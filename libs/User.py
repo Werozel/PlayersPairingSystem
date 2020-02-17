@@ -1,5 +1,6 @@
 from globals import db, timestamp, login_manager, app
 from libs.Group import Group
+from libs.Friends import Friend
 from libs.Member import Member
 from flask_login import UserMixin, current_user
 import secrets
@@ -35,6 +36,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String, nullable=False, default='default.jpg')
     groups_rel = db.relationship('Group', backref='admin', lazy=True)
     members_rel = db.relationship('Member', backref='user', lazy=True)
+    friends_rel = db.relationship('Friend', backref='user', lazy=True)
 
     __tablename__ = "users"
 
@@ -42,8 +44,14 @@ class User(db.Model, UserMixin):
         return f"User('{self.username}', '{self.name}', '{self.last_name}', '{self.email}')"
 
     @staticmethod
-    def get(id):
+    def get(id: int):
         return User.query.get(int(id))
+
+    def friend_add(self, friend_id: int):
+        Friend.add(self.id, friend_id)
+
+    def friend_remove(self, friend_id: int):
+        Friend.remove(self.id, friend_id)
 
     def get_groups(self):
         return [i.group for i in Member.query.filter_by(user_id=self.id).all()]
