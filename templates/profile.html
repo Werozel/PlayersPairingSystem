@@ -18,7 +18,7 @@
             <div class="media-right">
               <a href="{{ url_for('profile', action='edit') }}">
                 <img title="Edit profile"
-                     src="{{ url_for('static', filename='buttons/baseline_edit_black_18dp.png')}}"/>
+                     src="{{ url_for('static', filename='buttons/edit-24px.svg')}}"/>
               </a>
             </div>
           {%  else %}
@@ -36,7 +36,7 @@
                 {%  endif %}
                 <a href="{{ url_for('chat', id=current_user.id) }}">
                         <img title="Show chat"
-                             src="{{ url_for('static', filename='buttons/chat-bubble-outline-24px.svg')}}"/>
+                             src="{{ url_for('static', filename='buttons/chat-24px.svg')}}"/>
                       </a>
             </div>
           {%  endif %}
