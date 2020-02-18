@@ -14,12 +14,29 @@
 
         </div>
 
-          <div class="media-right">
+          {%  if my  %}
+            <div class="media-right">
               <a href="{{ url_for('profile', action='edit') }}">
                 <img class="w-75 h-75" title="Edit profile"
                      src="{{ url_for('static', filename='buttons/baseline_edit_black_18dp.png')}}"/>
               </a>
-          </div>
+            </div>
+          {%  else %}
+            <div class="media-right">
+                {%  if is_friend %}
+                      <a href="{{ url_for('profile', action='friend_remove', id=current_user.id) }}">
+                        <img class="w-75 h-75" title="Remove friend"
+                             src="{{ url_for('static', filename='buttons/remove-24px.svg')}}"/>
+                      </a>
+                {% else %}
+                    <a href="{{ url_for('profile', action='friend_add', id=current_user.id) }}">
+                        <img class="w-75 h-75" title="Add friend"
+                             src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
+                      </a>
+                {%  endif %}
+            </div>
+          {%  endif %}
+
       </div>
         <legend class="border-bottom mb-4"></legend>
         <div class="container row">
@@ -45,5 +62,20 @@
                 </div>
             </div>
             {% endif %}
+
+        {% if friends %}
+            <legend class="border-bottom mb-4 mt-2"></legend>
+            <div class="container row">
+                <h5 class="align-left">Friends:</h5>
+                <div class="align-left col-sm-1">
+                    {% for friend in friends %}
+                      <a href="{{ url_for('profile', id=friend.id, action='show')}}" class="text-secondary">
+                          {{ friend.name }} {{ friend.last_name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+
     </div>
 {% endblock content %}

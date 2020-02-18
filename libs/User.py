@@ -49,11 +49,19 @@ class User(db.Model, UserMixin):
 
     def friend_add(self, friend_id: int):
         from libs.Friend import Friend
-        Friend.add(self.id, friend_id)
+        Friend.add(self.id, int(friend_id))
 
     def friend_remove(self, friend_id: int):
         from libs.Friend import Friend
-        Friend.remove(self.id, friend_id)
+        Friend.remove(self.id, int(friend_id))
+
+    def friends_get(self) -> list:
+        from libs.Friend import Friend
+        first = Friend.query.filter_by(first_id=self.id).all()
+        first_set = set(map(lambda y: User.get(y.second_id), first))
+        second = Friend.query.filter_by(second_id=self.id).all()
+        second_set = set(map(lambda y: User.get(y.first_id), second))
+        return list(first_set.union(second_set))
 
     def get_groups(self):
         return [i.group for i in Member.query.filter_by(user_id=self.id).all()]

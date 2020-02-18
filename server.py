@@ -5,6 +5,7 @@ import libs.crypto as crypto
 from libs.User import User, set_user_picture
 from libs.Group import Group
 from libs.Member import Member
+from libs.Friend import Friend
 from globals import app, db
 
 
@@ -74,22 +75,38 @@ def profile():
             action = 'my'
         if action == 'my':
             groups = current_user.get_groups()
+            friends = current_user.friends_get()
             return render_template("profile.html", title="Profile", sidebar=True,
-                                current_user=current_user, groups=groups)
+                                current_user=current_user, groups=groups, friends=friends, my=True)
         elif action == 'show':
             id = request.args.get('id')
-            if not id:
-                id = current_user.id
+            if not id or id == current_user.id:
+                redirect(url_for("profile", action='my'))
             user = User.get(id)
             groups = user.get_groups()
+            friends = user.friends_get()
+            is_friend = True if current_user in friends else None
             return render_template("profile.html", title="Profile", sidebar=True,
-                                current_user=user, groups=groups)
+                                current_user=user, groups=groups, friends=friends, is_friend=is_friend)
         elif action == 'edit':
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
-        elif action == 'add':
-            id = request.get('id')
+        elif action == 'friend_add':
+            id = request.args.get('id')
             if not id:
-                pass
+                flash("Somthing went wrong! Please try again.", "error")
+                return redirect(request.referrer)
+            current_user.friend_add(id)
+            flash("Friend added!", "success")
+            return redirect(url_for("profile", action='show', id=id))
+        elif action == 'friend_remove':
+            id = request.args.get('id')
+            if not id:
+                flash("Somthing went wrong! Please try again.", "error")
+                return redirect(request.referrer)
+            current_user.friend_remove(id)
+            flash("Friend removed!", "success")
+            return redirect(url_for("profile", action='show', id=id))
+
     else:
         if form.validate_on_submit():
             if form.picture.data:
