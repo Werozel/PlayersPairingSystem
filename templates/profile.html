@@ -17,7 +17,7 @@
           {%  if my  %}
             <div class="media-right">
               <a href="{{ url_for('profile', action='edit') }}">
-                <img class="w-75 h-75" title="Edit profile"
+                <img title="Edit profile"
                      src="{{ url_for('static', filename='buttons/baseline_edit_black_18dp.png')}}"/>
               </a>
             </div>
@@ -25,21 +25,25 @@
             <div class="media-right">
                 {%  if is_friend %}
                       <a href="{{ url_for('profile', action='friend_remove', id=current_user.id) }}">
-                        <img class="w-75 h-75" title="Remove friend"
+                        <img title="Remove friend"
                              src="{{ url_for('static', filename='buttons/remove-24px.svg')}}"/>
                       </a>
                 {% else %}
                     <a href="{{ url_for('profile', action='friend_add', id=current_user.id) }}">
-                        <img class="w-75 h-75" title="Add friend"
+                        <img title="Add friend"
                              src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
                       </a>
                 {%  endif %}
+                <a href="{{ url_for('chat', id=current_user.id) }}">
+                        <img title="Show chat"
+                             src="{{ url_for('static', filename='buttons/chat-bubble-outline-24px.svg')}}"/>
+                      </a>
             </div>
           {%  endif %}
 
       </div>
         <legend class="border-bottom mb-4"></legend>
-        <div class="container row">
+        <div class="container padding-left-0">
             {% if current_user.sport %}
                 <h5 class="align-left">Sports:</h5>
                 <div class="align-left col-sm-1">
@@ -53,7 +57,7 @@
         </div>
             {% if groups %}
             <legend class="border-bottom mb-4 mt-2"></legend>
-            <div class="container row">
+            <div class="container padding-left-0">
                 <h5 class="align-left">Groups:</h5>
                 <div class="align-left col-sm-1">
                     {% for group in groups %}
@@ -65,9 +69,9 @@
 
         {% if friends %}
             <legend class="border-bottom mb-4 mt-2"></legend>
-            <div class="container row">
+            <div class="container padding-left-0">
                 <h5 class="align-left">Friends:</h5>
-                <div class="align-left col-sm-1">
+                <div class="align-left col-sm-12">
                     {% for friend in friends %}
                       <a href="{{ url_for('profile', id=friend.id, action='show')}}" class="text-secondary">
                           {{ friend.name }} {{ friend.last_name }}</a>
