@@ -86,6 +86,10 @@ def profile():
                                 current_user=user, groups=groups)
         elif action == 'edit':
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
+        elif action == 'add':
+            id = request.get('id')
+            if not id:
+                pass
     else:
         if form.validate_on_submit():
             if form.picture.data:

@@ -1,11 +1,13 @@
-from globals import db
+from globals import db, timestamp
+from libs.User import User
 
 
 class Friend(db.Model):
     __tablename__ = "friends"
 
-    first_id = db.Column(db.INTEGER, db.ForeignKey("users.id"), nullable=False)
+    first_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     second_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    time = db.Column(db.TIMESTAMP, nullable=False, default=timestamp())
 
     __table_args__ = (
         db.PrimaryKeyConstraint('first_id', 'second_id'),
@@ -15,6 +17,8 @@ class Friend(db.Model):
     def add(first_id: int, second_id: int):
         if (second_id < first_id):
             first_id, second_id = second_id, first_id
+        if Friend.query.filter_by(first_id=first_id, second_id=second_id).first() is not None:
+            return
         record = Friend(first_id=first_id, second_id=second_id)
         db.session.add(record)
         db.session.commit()
@@ -23,8 +27,10 @@ class Friend(db.Model):
     def remove(first_id: int, second_id: int):
         if (second_id < first_id):
             first_id, second_id = second_id, first_id
+        if Friend.query.filter_by(first_id=first_id, second_id=second_id).first() is None:
+            return
         record = Friend.query.filter_by(first_id=first_id, second_id=second_id).first()
-        db.session.remove(record)
+        db.session.delete(record)
         db.session.commit()
 
     def __repr__(self):
