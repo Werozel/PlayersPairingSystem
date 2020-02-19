@@ -209,7 +209,9 @@ def my_messages():
 @app.route("/chat", methods=['GET'])
 @login_required
 def chat():
-    return redirect(url_for('profile'))
+    id = request.args.get('id')
+    user = User.get(id)
+    return render_template("chatls.html", current_user=user, messages=['First msg', 'Second msg', 'Third msg'], sidebar=True)
 
 
 if __name__ == "__main__":

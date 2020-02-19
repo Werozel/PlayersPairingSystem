@@ -1,0 +1,39 @@
+{%  extends "main.html" %}
+
+{%  block content %}
+    <div class="content-section column">
+{#        <div class="">#}
+{#            <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}">#}
+{#            <p class="">{{ current_user.name }} {{ current_user.last_name }}</p>#}
+{#        </div>#}
+{#        <legend class="border-bottom mb-3"></legend>#}
+        <div class="media-list" style="width: 200px; height: 400px;">
+            <ul id="history">
+            {%  for msg in messages %}
+                <li class="text-muted">{{ msg }}</li>
+            {%  endfor %}
+            </ul>
+        </div>
+        <legend class="border-bottom mb-3" style="width: 100%"></legend>
+        <div class="media-list row" style="align-content: center;">
+            <input class="col-sm-10" id="input">
+            <button type="submit" class="col-sm-2" id="send"><img src="{{ url_for('static', filename='buttons/send-24px.svg') }}"></button>
+        </div>
+    </div>
+{%  endblock %}
+
+
+{%  block script %}
+    <script>
+        document.getElementById('send').onclick = function () {
+            var input = document.getElementById('input')
+            var msg = input.value
+            alert(`got msg: ${msg}`)
+            input.value = ""
+            var li = document.createElement("LI")
+            li.innerHTML = msg
+            li.className = 'text-muted'
+            document.getElementById('history').appendChild(li)
+        }
+    </script>
+{%  endblock %}
