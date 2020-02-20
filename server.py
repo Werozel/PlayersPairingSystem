@@ -6,7 +6,8 @@ from libs.User import User, set_user_picture
 from libs.Group import Group
 from libs.Member import Member
 from libs.Friend import Friend
-from globals import app, db
+from globals import app, db, socketio
+from flask_socketio import send
 
 
 @app.route("/")
@@ -214,6 +215,23 @@ def chat():
     return render_template("chatls.html", current_user=user, messages=['First msg', 'Second msg', 'Third msg'], sidebar=True)
 
 
+@socketio.on('message')
+def handle_msg(msg):
+    print('recieved msg: ' + msg)
+    send('got it')
+
+
+@socketio.on('json')
+def handle_json(json):
+    print('received json: ' + str(json))
+
+
+@socketio.on('my event')
+def handle_my_custom_event(arg):
+    print('received args: ' + str(arg))
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    # app.run(debug=True)
+    socketio.run(app, debug=True, port=5000)
 
