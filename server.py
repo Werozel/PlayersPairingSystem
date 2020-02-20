@@ -6,7 +6,7 @@ from libs.User import User, set_user_picture
 from libs.Group import Group
 from libs.Member import Member
 from libs.Friend import Friend
-from globals import app, db, socketio
+from globals import app, db, socketio, timestamp
 from flask_socketio import send
 
 
@@ -34,6 +34,7 @@ def login():
         if not user:
             user = User.query.filter_by(email=username, password=password).first()
         if user:
+            user.last_login = timestamp()
             login_user(user, remember=form.remember.data, force=True)
             next_page = request.args.get('next')
             return redirect(next_page) if next_page else redirect(url_for('index'))
@@ -47,7 +48,7 @@ def register():
     form = RegistrationForm()
     if request.method == 'POST':
         if form.validate_on_submit():
-            user = User(username=form.username.data, password=crypto.hash(form.password.data), email=form.email.data)
+            user = User(username=form.username.data, password=crypto.hash(form.password.data), email=form.email.data, last_login=timestamp())
             db.session.add(user)
             db.session.commit()
             login_user(user, force=True)
@@ -163,7 +164,7 @@ def group():
             pass
         elif action == 'join':
             if current_user not in members:
-                new_row = Member(user_id=current_user.id, group_id=group.id)
+                new_row = Member(user_id=current_user.id, group_id=group.id, time=timestamp())
                 db.session.add(new_row)
                 db.session.commit()
                 members.append(current_user)
@@ -181,7 +182,7 @@ def group():
             group = Group(admin_id=current_user.id, name=form.name.data, sport=form.sport.data)
             db.session.add(group)
             db.session.commit()
-            new_row = Member(user_id=current_user.id, group_id=group.id)
+            new_row = Member(user_id=current_user.id, group_id=group.id, time=timestamp())
             db.session.add(new_row)
             db.session.commit()
             print("Added new group: " + group.name)

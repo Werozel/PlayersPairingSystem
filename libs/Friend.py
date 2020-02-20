@@ -19,7 +19,7 @@ class Friend(db.Model):
             first_id, second_id = second_id, first_id
         if Friend.query.filter_by(first_id=first_id, second_id=second_id).first() is not None:
             return
-        record = Friend(first_id=first_id, second_id=second_id)
+        record = Friend(first_id=first_id, second_id=second_id, time=timestamp())
         db.session.add(record)
         db.session.commit()
 
