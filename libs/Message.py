@@ -7,8 +7,8 @@ import json
 class Message(db.Model):
     __tablename__ = 'messages'
 
-    id = db.Column(db.BigInteger, nullable=False)
-    chat_id = db.Column(db.BigInteger, db.ForeignKey('chats.id'), nullable=False)
+    id = db.Column(db.BIGINT, nullable=False)
+    chat_id = db.Column(db.Integer, db.ForeignKey('chats.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, default=timestamp())
     is_read = db.Column(db.Boolean, default=False)
@@ -25,4 +25,5 @@ class Message(db.Model):
 
     @staticmethod
     def get_history(chat_id):
+        # TODO Order by time
         return Message.query.filter_by(chat_id=int(chat_id)).all()

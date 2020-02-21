@@ -35,9 +35,9 @@
                       </a>
                 {%  endif %}
                 {%  if chat_id %}
-                    <a href="{{ url_for('chat', id=chat_id) }}">
+                    <a href="{{ url_for('chat', chat_id=chat_id, user_id=current_user.id) }}">
                 {%  else %}
-                    <a href="{{ url_for('chat') }}" >
+                    <a href="{{ url_for('chat', user_id=current_user.id) }}" >
                 {%  endif %}
                         <img title="Show chat"
                              src="{{ url_for('static', filename='buttons/chat-24px.svg')}}"/>

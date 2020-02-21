@@ -51,4 +51,4 @@ def finish():
         connection.close()
 
 def get_rand() -> int:
-    return random.randint(1, 2 ** 64 - 1)
+    return random.randint(1, 9223372036854775807 - 1)

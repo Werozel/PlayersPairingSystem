@@ -104,7 +104,8 @@
             });
 
             socket.on('message', function (msg) {
-                document.getElementById('profile').innerHTML = "Profile (!)"
+                document.getElementById('profile').innerHTML = "Profile (!)";
+                socket.emit('notify', {type: 'message', user: '{{ current_user.id }}'});
             })
         </script>
     {% endblock socket_script %}

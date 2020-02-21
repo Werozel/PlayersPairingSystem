@@ -10,7 +10,7 @@
         <div class="media-list" style="width: 200px; height: 400px;">
             <ul id="history" class="message-secion">
             {%  for msg in messages %}
-                <li class="message">{{ current_user.username }}: <span class="text-muted">{{ msg.text }}</span></li>
+                <li class="">{{ msg.user.username }}: <span class="text-muted">{{ msg.text }}</span></li>
             {%  endfor %}
             </ul>
         </div>
@@ -32,8 +32,13 @@
             socket.emit('opened', {})
         });
 
-        socket.on('message', function (msg) {
-            alert(msg)
+        socket.on('message', function (js_msg) {
+            console.log(js_msg);
+            var msg = JSON.parse(js_msg);
+            console.log(msg.toString());
+            var li = document.createElement("LI");
+            li.innerHTML = `${msg.username}: <span class='text-muted'>${msg.text}</span>`
+            document.getElementById('history').appendChild(li)
         });
 
         document.getElementById('send').onclick = function () {
@@ -42,7 +47,7 @@
             input.value = "";
             var li = document.createElement("LI");
             li.innerHTML = '{{ current_user.username }}' + ': ' + `<span class='text-muted'>${msg}</span>`;
-            socket.send({text: msg});
+            socket.send({text: msg, chat_id: "{{chat_id}}", user_id: "{{ current_user.id }}"});
             document.getElementById('history').appendChild(li);
         };
 

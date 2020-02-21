@@ -83,11 +83,6 @@ a.article-title:hover {
   padding-left: 0px;
 }
 
-.message {
-  background: #5f788a;
-  border-radius: 5px;
-}
-
 .message-secion {
   text-align: left;
   list-style-type: none;

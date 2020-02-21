@@ -13,6 +13,7 @@ from libs.Friend import Friend
 from globals import app, db, socketio, timestamp, get_rand, sessions
 from flask_socketio import send, emit
 import time, logging
+import json
 
 
 @app.route("/")
@@ -217,16 +218,34 @@ def my_messages():
 @app.route("/chat", methods=['GET'])
 @login_required
 def chat():
-    chat_id = request.args.get('id')
+    chat_id = request.args.get('chat_id')
+    user_id = request.args.get('user_id')
+    if user_id is None:
+        flash("Invalid request", 'error')
+        redirect(request.referrer)
     if chat_id is None:
-        chat = Chat(admin_id=current_user.id, time=timestamp())
-        db.session.add(chat)
-        db.session.commit()
-        history=[]
+        chat = ChatMember.get_private_chat(current_user.id, int(user_id))
+        print(f"chat = {chat}")
+        if chat is None:
+            chat = Chat(admin_id=current_user.id, time=timestamp())
+            db.session.add(chat)
+            db.session.commit()
+            chat_id = chat.id
+            chat.add_member(current_user.id, is_group=False)
+            chat.add_member(int(user_id), is_group=False)
+            db.session.commit()
+            history=[]
+        else:
+            return redirect(url_for("chat", chat_id=chat.id))
     else:
-        history = Chat.get(id).get_history()
+        history = Chat.get(int(chat_id)).get_history()
+        for msg in history:
+            msg.is_read = True
+        db.session.commit()
+        # TODO Написать
+        # User.get(int(user_id)).check_messages()
 
-    return render_template("chat.html", current_user=current_user, messages=history, sidebar=True)
+    return render_template("chat.html", current_user=current_user, chat_id=int(chat_id), messages=history, sidebar=True)
 
 
 @socketio.on('opened')
@@ -236,35 +255,19 @@ def handle_new(msg):
 
 @socketio.on('message')
 def handle_msg(msg):
-    print(f'recieved message: {msg}')
-    session = sessions.get(current_user.id)
-    print(session)
-    emit('message', 'got it: ' + str(msg))
-
-
-@socketio.on('json')
-def handle_json(js):
-    text = js.get('text')
-    user_id = int(js.get('user_id'))
-    chat_id = int(js.get('chat_id'))
+    text = msg.get('text')
+    user_id = int(msg.get('user_id'))
+    chat_id = int(msg.get('chat_id'))
     # TODO добавить контент
-    msg = Message(id=get_rand(), chat_id=chat_id, user_id=user_id,
+    message = Message(id=get_rand(), chat_id=chat_id, user_id=user_id,
                   time=timestamp(), text=text)
-    db.session.add(msg)
+    db.session.add(message)
     db.session.commit()
     members = Chat.get(chat_id).get_members()
-    for id in members:
-        if id != user_id:
-            emit('message', js, room=sessions.get(id))
-    print('received json: ' + str(js))
+    for user in members:
+        if user.id != user_id:
+            emit('message', json.dumps({'text': text, 'username': User.get(user_id).username}), room=sessions.get(user.id))
 
-
-
-@socketio.on('my event')
-def handle_my_custom_event(arg):
-    print('received args: ' + str(arg))
-    time.sleep(2)
-    send('got json: ' + arg['text'])
 
 
 if __name__ == "__main__":
