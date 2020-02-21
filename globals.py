@@ -8,6 +8,7 @@ from flask_login import LoginManager
 from flask_socketio import SocketIO
 import logging
 import datetime
+import random
 
 
 def get_app(name: str) -> Flask:
@@ -26,6 +27,8 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'warning'
 socketio = SocketIO(app)
+
+sessions = {}
 
 
 try:
@@ -46,3 +49,6 @@ def timestamp():
 def finish():
     if connection:
         connection.close()
+
+def get_rand() -> int:
+    return random.randint(1, 2 ** 64 - 1)

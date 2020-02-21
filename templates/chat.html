@@ -8,32 +8,54 @@
 {#        </div>#}
 {#        <legend class="border-bottom mb-3"></legend>#}
         <div class="media-list" style="width: 200px; height: 400px;">
-            <ul id="history">
+            <ul id="history" class="message-secion">
             {%  for msg in messages %}
-                <li class="text-muted">{{ msg }}</li>
+                <li class="message">{{ current_user.username }}: <span class="text-muted">{{ msg.text }}</span></li>
             {%  endfor %}
             </ul>
         </div>
         <legend class="border-bottom mb-3" style="width: 100%"></legend>
         <div class="media-list row" style="align-content: center;">
             <input class="col-sm-10" id="input">
-            <img id="send" src="{{ url_for('static', filename='buttons/send-24px.svg') }}">
+            <button id="send"><img src="{{ url_for('static', filename='buttons/send-24px.svg') }}"></button>
         </div>
     </div>
 {%  endblock %}
 
 
-{%  block script %}
-    <script>
+{%  block socket_script %}
+
+    <script type="text/javascript" charset="utf-8">
+        var socket = io();
+
+        socket.on('connect', function () {
+            socket.emit('opened', {})
+        });
+
+        socket.on('message', function (msg) {
+            alert(msg)
+        });
+
         document.getElementById('send').onclick = function () {
-            var input = document.getElementById('input')
-            var msg = input.value
-            alert(`got msg: ${msg}`)
-            input.value = ""
-            var li = document.createElement("LI")
-            li.innerHTML = msg
-            li.className = 'text-muted'
-            document.getElementById('history').appendChild(li)
+            var input = document.getElementById('input');
+            var msg = input.value;
+            input.value = "";
+            var li = document.createElement("LI");
+            li.innerHTML = '{{ current_user.username }}' + ': ' + `<span class='text-muted'>${msg}</span>`;
+            socket.send({text: msg});
+            document.getElementById('history').appendChild(li);
+        };
+
+        var input = document.getElementById("input");
+        input.addEventListener("keyup", function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById("send").click();
+            }
+        });
+
+        window.onunload = function (e) {
+            socket.send('disconnected')
         }
     </script>
 {%  endblock %}

@@ -5,7 +5,7 @@ class Chat(db.Model):
     __tablename__ = 'chats'
 
     id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
-    name = db.Column(db.VARCHAR(100), nullable=False)
+    name = db.Column(db.VARCHAR(100), nullable=True)
     admin_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, default=timestamp())
 

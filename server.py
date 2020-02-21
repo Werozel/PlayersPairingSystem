@@ -2,14 +2,17 @@ from flask import render_template, url_for, request, redirect, flash
 from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom
 from flask_login import login_user, logout_user, current_user, login_required
 import libs.crypto as crypto
+from libs.ChatRole import ChatRole
+from libs.ChatMember import ChatMember
 from libs.User import User, set_user_picture
 from libs.Group import Group
 from libs.Member import Member
 from libs.Chat import Chat
 from libs.Message import Message
 from libs.Friend import Friend
-from globals import app, db, socketio, timestamp
-from flask_socketio import send
+from globals import app, db, socketio, timestamp, get_rand, sessions
+from flask_socketio import send, emit
+import time, logging
 
 
 @app.route("/")
@@ -89,8 +92,9 @@ def profile():
             user = User.get(id)
             groups = user.get_groups()
             friends = user.friends_get()
+            chat = ChatMember.get_private_chat(current_user.id, id)
             is_friend = True if current_user in friends else None
-            return render_template("profile.html", title="Profile", sidebar=True,
+            return render_template("profile.html", title="Profile", sidebar=True, chat_id=chat.id if chat else None,
                                 current_user=user, groups=groups, friends=friends, is_friend=is_friend)
         elif action == 'edit':
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
@@ -214,26 +218,48 @@ def my_messages():
 @login_required
 def chat():
     chat_id = request.args.get('id')
-    history = Message.get_history(chat_id=chat_id)
+    if chat_id is None:
+        chat = Chat(admin_id=current_user.id, time=timestamp())
+        db.session.add(chat)
+        db.session.commit()
+        history=[]
+    else:
+        history = Message.get_history(chat_id=chat_id)
+
     return render_template("chat.html", current_user=current_user, messages=history, sidebar=True)
 
 
+@socketio.on('opened')
+def handle_new(msg):
+    sessions.update({current_user.id: request.sid})
+    print(sessions)
+
 @socketio.on('message')
 def handle_msg(msg):
-    print('recieved msg: ' + msg)
-    send('got it')
+    print(f'recieved message: {msg}')
+    session = sessions.get(current_user.id)
+    print(session)
+    emit('message', 'got it: ' + str(msg))
 
 
 @socketio.on('json')
 def handle_json(json):
+
     print('received json: ' + str(json))
+
 
 
 @socketio.on('my event')
 def handle_my_custom_event(arg):
     print('received args: ' + str(arg))
+    time.sleep(2)
+    send('got json: ' + arg['text'])
 
 
 if __name__ == "__main__":
+    db.create_all()
+    logging.getLogger('socketio').setLevel(logging.ERROR)
+    logging.getLogger('engineio').setLevel(logging.ERROR)
+    logging.getLogger('werkzeug').setLevel(logging.ERROR)
     socketio.run(app, debug=True, port=5000)
 

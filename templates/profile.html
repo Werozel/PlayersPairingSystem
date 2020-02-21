@@ -34,7 +34,11 @@
                              src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
                       </a>
                 {%  endif %}
-                <a href="{{ url_for('chat', id=current_user.id) }}">
+                {%  if chat_id %}
+                    <a href="{{ url_for('chat', id=chat_id) }}">
+                {%  else %}
+                    <a href="{{ url_for('chat') }}" >
+                {%  endif %}
                         <img title="Show chat"
                              src="{{ url_for('static', filename='buttons/chat-24px.svg')}}"/>
                       </a>
