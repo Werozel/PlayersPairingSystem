@@ -224,7 +224,7 @@ def chat():
         db.session.commit()
         history=[]
     else:
-        history = Message.get_history(chat_id=chat_id)
+        history = Chat.get(id).get_history()
 
     return render_template("chat.html", current_user=current_user, messages=history, sidebar=True)
 
@@ -243,9 +243,20 @@ def handle_msg(msg):
 
 
 @socketio.on('json')
-def handle_json(json):
-
-    print('received json: ' + str(json))
+def handle_json(js):
+    text = js.get('text')
+    user_id = int(js.get('user_id'))
+    chat_id = int(js.get('chat_id'))
+    # TODO добавить контент
+    msg = Message(id=get_rand(), chat_id=chat_id, user_id=user_id,
+                  time=timestamp(), text=text)
+    db.session.add(msg)
+    db.session.commit()
+    members = Chat.get(chat_id).get_members()
+    for id in members:
+        if id != user_id:
+            emit('message', js, room=sessions.get(id))
+    print('received json: ' + str(js))
 
 
 

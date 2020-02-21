@@ -17,3 +17,12 @@ class Chat(db.Model):
     def get(id):
         return Chat.query.get(int(id))
 
+
+    def get_history(self):
+        from libs.Message import Message
+        return Message.get_history(self.id)
+
+    def get_members(self):
+        from libs.ChatMember import ChatMember
+        return [i.user for i in ChatMember.query.filter_by(chat_id=self.id).all()]
+
