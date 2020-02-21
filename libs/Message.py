@@ -25,5 +25,4 @@ class Message(db.Model):
 
     @staticmethod
     def get_history(chat_id):
-        # TODO Order by time
-        return Message.query.filter_by(chat_id=int(chat_id)).all()
+        return Message.query.filter_by(chat_id=int(chat_id)).order_by(Message.time).all()
