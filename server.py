@@ -5,6 +5,8 @@ import libs.crypto as crypto
 from libs.User import User, set_user_picture
 from libs.Group import Group
 from libs.Member import Member
+from libs.Chat import Chat
+from libs.Message import Message
 from libs.Friend import Friend
 from globals import app, db, socketio, timestamp
 from flask_socketio import send
@@ -211,9 +213,9 @@ def my_messages():
 @app.route("/chat", methods=['GET'])
 @login_required
 def chat():
-    id = request.args.get('id')
-    user = User.get(id)
-    return render_template("chatls.html", current_user=user, messages=['First msg', 'Second msg', 'Third msg'], sidebar=True)
+    chat_id = request.args.get('id')
+    history = Message.get_history(chat_id=chat_id)
+    return render_template("chat.html", current_user=current_user, messages=history, sidebar=True)
 
 
 @socketio.on('message')
@@ -233,6 +235,5 @@ def handle_my_custom_event(arg):
 
 
 if __name__ == "__main__":
-    # app.run(debug=True)
     socketio.run(app, debug=True, port=5000)
 

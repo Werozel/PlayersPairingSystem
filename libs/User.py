@@ -73,3 +73,8 @@ class User(db.Model, UserMixin):
         return [i.group for i in Member.query.filter_by(user_id=self.id).all()]
 
 
+    def get_chats(self):
+        from libs.ChatMember import ChatMember
+        return ChatMember.query.filter_by(user_id=self.id).all()
+
+
