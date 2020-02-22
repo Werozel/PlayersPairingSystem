@@ -7,6 +7,8 @@
 {#            <p class="">{{ current_user.name }} {{ current_user.last_name }}</p>#}
 {#        </div>#}
 {#        <legend class="border-bottom mb-3"></legend>#}
+        <h4>{{ namespace }}</h4>
+        <legend class="border-bottom mb-3" style="width: 100%"></legend>
         <div class="media-list" style="width: 200px; height: 400px;">
             <ul id="history" class="message-secion">
             {%  for msg in messages %}
@@ -35,10 +37,15 @@
         socket.on('message', function (js_msg) {
             console.log(js_msg);
             var msg = JSON.parse(js_msg);
-            console.log(msg.toString());
-            var li = document.createElement("LI");
-            li.innerHTML = `${msg.username}: <span class='text-muted'>${msg.text}</span>`
-            document.getElementById('history').appendChild(li)
+            if (Number.parseInt('{{ user_id }}') == msg.user_id) {
+                var li = document.createElement("LI");
+                li.innerHTML = `${msg.username}: <span class='text-muted'>${msg.text}</span>`;
+                document.getElementById('history').appendChild(li)
+            } else {
+                alert('got foreign message');
+                document.getElementById('profile').innerHTML = "{{current_user.username}} (!)";
+                socket.emit('notify', {type: 'message', user: '{{ current_user.id }}'});
+            }
         });
 
         document.getElementById('send').onclick = function () {
@@ -58,9 +65,5 @@
                 document.getElementById("send").click();
             }
         });
-
-        window.onunload = function (e) {
-            socket.send('disconnected')
-        }
     </script>
 {%  endblock %}

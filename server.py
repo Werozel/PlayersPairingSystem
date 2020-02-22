@@ -87,9 +87,9 @@ def profile():
             return render_template("profile.html", title="Profile", sidebar=True,
                                 current_user=current_user, groups=groups, friends=friends, my=True)
         elif action == 'show':
-            id = request.args.get('id')
+            id = int(request.args.get('id'))
             if not id or id == current_user.id:
-                redirect(url_for("profile", action='my'))
+                return redirect(url_for("profile", action='my'))
             user = User.get(id)
             groups = user.get_groups()
             friends = user.friends_get()
@@ -219,13 +219,15 @@ def my_messages():
 @login_required
 def chat():
     chat_id = request.args.get('chat_id')
+    # С кем чат
     user_id = request.args.get('user_id')
     if user_id is None:
         flash("Invalid request", 'error')
-        redirect(request.referrer)
+        return redirect(request.referrer)
+    else:
+        user_id=int(user_id)
     if chat_id is None:
         chat = ChatMember.get_private_chat(current_user.id, int(user_id))
-        print(f"chat = {chat}")
         if chat is None:
             chat = Chat(admin_id=current_user.id, time=timestamp())
             db.session.add(chat)
@@ -236,7 +238,7 @@ def chat():
             db.session.commit()
             history=[]
         else:
-            return redirect(url_for("chat", chat_id=chat.id))
+            return redirect(url_for("chat", chat_id=chat.id, user_id=user_id))
     else:
         history = Chat.get(int(chat_id)).get_history()
         for msg in history:
@@ -245,17 +247,17 @@ def chat():
         # TODO Написать
         # User.get(int(user_id)).check_messages()
 
-    return render_template("chat.html", current_user=current_user, chat_id=int(chat_id), messages=history, sidebar=True)
+    return render_template("chat.html", user_id=user_id, current_user=current_user, namespace=User.get(user_id).username, chat_id=int(chat_id), messages=history, sidebar=True)
 
 
 @socketio.on('opened')
 def handle_new(msg):
     sessions.update({current_user.id: request.sid})
-    print(sessions)
 
 @socketio.on('message')
 def handle_msg(msg):
     text = msg.get('text')
+    # от кого пришло сообщение
     user_id = int(msg.get('user_id'))
     chat_id = int(msg.get('chat_id'))
     # TODO добавить контент
@@ -266,7 +268,7 @@ def handle_msg(msg):
     members = Chat.get(chat_id).get_members()
     for user in members:
         if user.id != user_id:
-            emit('message', json.dumps({'text': text, 'username': User.get(user_id).username}), room=sessions.get(user.id))
+            emit('message', json.dumps({'text': text, 'username': User.get(user_id).username, 'user_id': user_id}), room=sessions.get(user.id))
 
 
 
