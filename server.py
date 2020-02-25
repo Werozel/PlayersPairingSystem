@@ -248,7 +248,7 @@ def chats():
                 return redirect(url_for("chats", action='show', chat_id=chat.id, user_id=user_id))
         else:
             history = Chat.get(int(chat_id)).get_history()
-            Notification.remove(user_id=int(user_id), chat_id=int(chat_id))
+            Notification.remove(user_id=current_user.id, chat_id=int(chat_id))
             # TODO Написать
             # User.get(int(user_id)).check_messages()
 
@@ -259,7 +259,7 @@ def chats():
             if i.name is None:
                 members = i.get_members()
                 i.name = members[0].username if members[0].id != current_user.id else members[1].username
-        return render_template("my_chats.html", current_user=current_user, chats=chats)
+        return render_template("my_chats.html", notifications=current_user.get_notifications(), current_user=current_user, chats=chats)
     elif action == 'delete':
         chat_id = request.args.get('chat_id')
         if chat_id is None:
@@ -282,12 +282,14 @@ def handle_new(msg):
 def handle_msg(msg):
     text = msg.get('text')
     # от кого пришло сообщение
+    # current_user - тоже от кого пришло сообщение
     user_id = int(msg.get('user_id'))
     chat_id = int(msg.get('chat_id'))
     # TODO добавить контент
     message = Message(id=get_rand(), chat_id=chat_id, user_id=user_id,
                   time=timestamp(), text=text)
-    Notification.add(chat_id=chat_id, user_id=user_id)
+    members = Chat.get(chat_id).get_members()
+    Notification.add(chat_id=chat_id, user_id=members[0].id if members[0].id != user_id else members[1].id)
     db.session.add(message)
     db.session.commit()
     chat = Chat.get(chat_id)
@@ -304,7 +306,7 @@ def handle_notify(msg):
     type = msg.get('type')
     if type == 'message':
         chat_id = msg.get('chat_id')
-        print(f'chat_id = {chat_id}')
+        members = Chat.get(chat_id).get_members()
         Notification.remove(chat_id=chat_id, user_id=current_user.id)
         db.session.commit()
     else:

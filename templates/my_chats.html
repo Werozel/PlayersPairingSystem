@@ -1,9 +1,14 @@
 {%  extends "main.html" %}
 
 {%  block content %}
+    <div id="chats">
     {%  if chats %}
         {%  for chat in chats %}
-            <div class="content-section w-75">
+            {% if chat in notifications %}
+            <div class="content-section w-75" style="border-color: red" id="{{ chat.id }}">
+            {%  else %}
+            <div class="content-section w-75" id="{{ chat.id }}">
+            {%  endif %}
                 <div class="media">
                     <h5 id="name" class="media-body"><a href="{{ url_for('chats', action='show', chat_id=chat.id) }}">{{ chat.name }}</a></h5>
                     <a class="media-right" title="Delete chat" href="{{ url_for('chats', action='delete', chat_id=chat.id) }}">
@@ -12,11 +17,37 @@
                 </div>
                 <legend class="border-bottom mb-3" style="width: 100%"></legend>
                 {%  if chat.last_message %}
-                    <p>{{ chat.last_message.user.username }}: {{ chat.last_message.text }}</p>
+                    <p id="{{ chat.id }}-last-msg">{{ chat.last_message.user.username }}: {{ chat.last_message.text }}</p>
                 {%  endif %}
             </div>
         {%  endfor %}
     {%  else %}
-        <p>You don't have any chats yet!</p>
+        <p id="no_chats">You don't have any chats yet!</p>
     {%  endif %}
+    </div>
+{%  endblock %}
+
+
+{% block socket_script %}
+<script type="text/javascript" charset="utf-8">
+    var socket = io();
+
+    socket.on('connect', function () {
+        socket.emit('opened', {})
+    });
+
+    socket.on('message', function (json_msg) {
+        console.log(json_msg);
+        var msg = JSON.parse(json_msg);
+        var chat = document.getElementById(msg.chat_id);
+        var last_msg = document.getElementById(`${msg.chat_id}-last-msg`);
+        if (chat === null) {
+            document.getElementById('messages').innerHTML = "<span style='color: red;'>Messages (!)</span>";
+        } else {
+            chat.style = "border-color: red;";
+            last_msg.innerHTML = `${msg.username}: <span class='text-secondary'>${msg.text}</span>`
+        }
+        // socket.emit('notify', {type: 'message', 'message_id': msg.message_id, user: '{{ current_user.id }}'});
+    })
+</script>
 {%  endblock %}

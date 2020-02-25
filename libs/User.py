@@ -80,9 +80,12 @@ class User(db.Model, UserMixin):
         from libs.ChatMember import ChatMember
         return [i.chat for i in ChatMember.query.filter_by(user_id=self.id).all()]
 
+    def get_notifications(self):
+        from libs.Notification import Notification
+        return [i.chat for i in Notification.get_notifications(self.id)]
+
     def is_notified(self):
-        for i in self.get_chats():
-            if i.last_message and i.last_message.user_id != self.id and not i.last_message.is_read:
-                return True
-        return False
+        print(self.get_notifications())
+        return len(self.get_notifications()) != 0
+
 

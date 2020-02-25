@@ -38,9 +38,9 @@
             socket.emit('opened', {})
         });
 
-        socket.on('message', function (js_msg) {
-            console.log(js_msg);
-            var msg = JSON.parse(js_msg);
+        socket.on('message', function (json_msg) {
+            console.log(json_msg);
+            var msg = JSON.parse(json_msg);
             if (Number.parseInt('{{ user_id }}') == msg.user_id) {
                 var li = document.createElement("P");
                 li.innerHTML = `${msg.username}: <span class='text-muted'>${msg.text}</span>`;
