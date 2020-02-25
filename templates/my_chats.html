@@ -5,7 +5,7 @@
         {%  for chat in chats %}
             <div class="content-section w-75">
                 <div class="media">
-                    <h5 id="name" class="media-body"><a href="{{ url_for('chats', chat_id=chat.id) }}">{{ chat.name }}</a></h5>
+                    <h5 id="name" class="media-body"><a href="{{ url_for('chats', action='show', chat_id=chat.id) }}">{{ chat.name }}</a></h5>
                     <a class="media-right" title="Delete chat" href="{{ url_for('chats', action='delete', chat_id=chat.id) }}">
                         <img src="{{ url_for('static', filename='buttons/close-24px.svg') }}">
                     </a>

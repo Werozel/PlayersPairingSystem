@@ -228,7 +228,7 @@ def chats():
                 flash("group chat detected", 'error')
                 return redirect(request.referrer)
             user_id = members[0].id if members[0].id != current_user.id else members[1].id
-            return redirect(url_for("chats", chat_id=chat_id, user_id=user_id))
+            return redirect(url_for("chats", action='show', chat_id=chat_id, user_id=user_id))
         else:
             user_id=int(user_id)
         if chat_id is None:
@@ -243,7 +243,7 @@ def chats():
                 db.session.commit()
                 history=[]
             else:
-                return redirect(url_for("chats", chat_id=chat.id, user_id=user_id))
+                return redirect(url_for("chats", action='show', chat_id=chat.id, user_id=user_id))
         else:
             history = Chat.get(int(chat_id)).get_history()
             for msg in history:

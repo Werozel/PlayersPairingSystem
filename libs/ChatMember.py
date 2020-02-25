@@ -41,5 +41,5 @@ class ChatMember(db.Model):
     @staticmethod
     def get_user_chats(user_id):
         user_id = int(user_id)
-        return list(filter(lambda x: x.deleted is None or x.deleted < x.last_message.time ,[i.chat for i in ChatMember.query.filter_by(user_id=user_id).all()]))
+        return [i.chat for i in list(filter(lambda x: x.deleted is None or x.deleted < x.chat.last_message.time, ChatMember.query.filter_by(user_id=user_id).all()))]
 
