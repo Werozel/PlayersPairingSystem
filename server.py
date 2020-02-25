@@ -193,7 +193,7 @@ def group():
             db.session.commit()
             new_row = Member(user_id=current_user.id, group_id=group.id, time=timestamp())
             db.session.add(new_row)
-            db.session.commit()\
+            db.session.commit()
             return redirect(url_for('group', action='my'))
         return render_template('new_group.html', form=form, groups=current_user.get_groups())
 
@@ -316,5 +316,5 @@ if __name__ == "__main__":
     logging.getLogger('engineio').setLevel(logging.ERROR)
     logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
-    socketio.run(app, debug=True, port=5000)
+    socketio.run(app, debug=True, port=5000, host='0.0.0.0')
 
