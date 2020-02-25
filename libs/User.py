@@ -83,7 +83,6 @@ class User(db.Model, UserMixin):
         return [i.chat for i in Notification.get_notifications(self.id)]
 
     def is_notified(self):
-        print(self.get_notifications())
         return len(self.get_notifications()) != 0
 
 

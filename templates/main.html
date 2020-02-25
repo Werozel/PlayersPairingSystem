@@ -50,7 +50,7 @@
 
     <main role="main" class="container">
         <div class="row">
-            <div class="col-md-6 mx-auto" style="font-family: 'Courier 10 Pitch',monospace;">
+            <div class="col-md-8 mx-auto" style="font-family: 'Courier 10 Pitch',monospace;">
 
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
@@ -67,7 +67,7 @@
 
             {% if hide_sidebar %}
             {%  else %}
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="content-section">
                         <h5>Sidebar</h5>
                         <ul class="list-group">

@@ -193,8 +193,7 @@ def group():
             db.session.commit()
             new_row = Member(user_id=current_user.id, group_id=group.id, time=timestamp())
             db.session.add(new_row)
-            db.session.commit()
-            print("Added new group: " + group.name)
+            db.session.commit()\
             return redirect(url_for('group', action='my'))
         return render_template('new_group.html', form=form, groups=current_user.get_groups())
 
