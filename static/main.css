@@ -98,3 +98,11 @@ a.article-title:hover {
   margin-bottom: 0;
   margin-top: 0;
 }
+
+.my-list-group-item{
+  position:relative;
+  display:block;
+  padding:10px 15px;
+  margin-bottom:-1px;
+  background-color:#fff;
+}

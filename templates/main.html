@@ -69,26 +69,24 @@
             {%  else %}
                 <div class="col-md-4">
                     <div class="content-section">
-                        <h3>Sidebar</h3>
-                            <p class='text-muted'>Right side navigation bar
-                            <ul class="list-group">
-                                <li class="list-group-item list-group-item-light">
-                                    <a href="{{url_for('group', action='my')}}" class="text-secondary">Groups</a>
+                        <h5>Sidebar</h5>
+                        <ul class="list-group">
+                            <li class="my-list-group-item list-group-item-light">
+                                <a href="{{url_for('group', action='my')}}" class="text-secondary">Groups</a>
+                            </li>
+                            <li class="my-list-group-item list-group-item-light">
+                                <a href="{{url_for('my_events')}}" class="text-secondary">Events</a>
+                            </li>
+                            {%  if current_user.is_notified and current_user.is_notified() == true %}
+                                <li class="my-list-group-item list-group-item-light">
+                                    <a id="messages" href="{{url_for('chats', action='all')}}" class="text-secondary"><span style="color: red">Messages (!)</span></a>
                                 </li>
-                                <li class="list-group-item list-group-item-light">
-                                    <a href="{{url_for('my_events')}}" class="text-secondary">Events</a>
+                            {% else %}
+                                <li class="my-list-group-item list-group-item-light">
+                                    <a id="messages" href="{{url_for('chats', action='all')}}" class="text-secondary">Messages</a>
                                 </li>
-                                {%  if current_user.is_notified and current_user.is_notified() == true %}
-                                    <li class="list-group-item list-group-item-light">
-                                        <a id="messages" href="{{url_for('chats', action='all')}}" class="text-secondary"><span style="color: red">Messages (!)</span></a>
-                                    </li>
-                                {% else %}
-                                    <li class="list-group-item list-group-item-light">
-                                        <a id="messages" href="{{url_for('chats', action='all')}}" class="text-secondary">Messages</a>
-                                    </li>
-                                {%  endif %}
+                            {%  endif %}
                     </ul>
-                            </p>
                     </div>
                 </div>
             {% endif %}
