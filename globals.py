@@ -51,4 +51,12 @@ def finish():
         connection.close()
 
 def get_rand() -> int:
-    return random.randint(1, 9223372036854775807 - 1)
+    from libs.Message import Message
+    res = random.randint(1, 9223372036854775807 - 1)
+    i = 0
+    while Message.get(res) is not None:
+        res = random.randint(1, 9223372036854775807 - 1)
+        i += 1
+        if i == 10:
+            break
+    return res

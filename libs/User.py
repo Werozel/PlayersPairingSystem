@@ -77,14 +77,12 @@ class User(db.Model, UserMixin):
 
     def get_chats(self):
         from libs.ChatMember import ChatMember
-        return ChatMember.query.filter_by(user_id=self.id).all()
+        return [i.chat for i in ChatMember.query.filter_by(user_id=self.id).all()]
 
-
-    def get_unread_messages(self, chat_id=None):
-        from libs.Message import Message
-        if chat_id is None:
-            return Message.query.filter_by(user_id=self.id, is_read=False).all()
-        else:
-            return Message.query.filter_by(user_id=self.id, is_read=False, chat_id=chat_id).all()
-
+    def is_notified(self):
+        for i in self.get_chats():
+            if i.last_message and i.last_message.user_id != self.id and not i.last_message.is_read:
+                print(i.last_message)
+                return True
+        return False
 

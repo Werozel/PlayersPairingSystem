@@ -19,12 +19,12 @@ import json
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("index.html", title="Main Page", sidebar=True)
+    return render_template("index.html", title="Main Page")
 
 
 @app.route("/about", methods=['GET'])
 def about():
-    return render_template("about.html", title="About Page", sidebar=True)
+    return render_template("about.html", title="About Page")
 
 
 # ----------------------------LOGIN-------------------------------------
@@ -67,7 +67,7 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return render_template("index.html", title="Main Page", sidebar=True)
+    return render_template("index.html", title="Main Page")
 
 
 # -------------------------------------------------------------------------------------------------------------
@@ -79,9 +79,9 @@ def search():
     if request.method == 'GET':
         sport = request.args.get('sport')
         groups = Group.get_by_sport(sport)
-        return render_template("search.html", query=groups, sidebar=True)
+        return render_template("search.html", query=groups)
     else:
-        return render_template("search.html", sidebar=True)
+        return render_template("search.html")
 
 
 # ---------------------------------------------------------------------------------------------------------
@@ -99,8 +99,8 @@ def profile():
         if action == 'my':
             groups = current_user.get_groups()
             friends = current_user.friends_get()
-            return render_template("profile.html", title="Profile", sidebar=True,
-                                current_user=current_user, groups=groups, friends=friends, my=True)
+            return render_template("profile.html", title="Profile", current_user=current_user,
+                                user=current_user, groups=groups, friends=friends, my=True)
         elif action == 'show':
             id = int(request.args.get('id'))
             if not id or id == current_user.id:
@@ -110,8 +110,9 @@ def profile():
             friends = user.friends_get()
             chat = ChatMember.get_private_chat(current_user.id, id)
             is_friend = True if current_user in friends else None
-            return render_template("profile.html", title="Profile", sidebar=True, chat_id=chat.id if chat else None,
-                                current_user=user, groups=groups, friends=friends, is_friend=is_friend)
+            return render_template("profile.html", title="Profile", chat_id=chat.id if chat else None,
+                                current_user=current_user, groups=groups, friends=friends, is_friend=is_friend,
+                                   user=user)
         elif action == 'edit':
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
         elif action == 'friend_add':
@@ -157,9 +158,9 @@ def group():
         if not action:
             return redirect(url_for('group', action='my'))
         elif action == 'new':
-            return render_template('new_group.html', form=form, groups=current_user.get_groups(), sidebar=True)
+            return render_template('new_group.html', form=form, groups=current_user.get_groups())
         elif action == 'my':
-            return render_template('my_groups.html', groups=current_user.get_groups(), sidebar=True)
+            return render_template('my_groups.html', groups=current_user.get_groups())
 
         id = int(request.args.get('id'))
         group = Group.get(id)
@@ -183,7 +184,7 @@ def group():
                 db.session.commit()
                 members.remove(current_user)
                 is_member = None
-        return render_template('group.html', group=group, members=members, sidebar=True, is_member=is_member)
+        return render_template('group.html', group=group, members=members, is_member=is_member)
     else:
         if form.validate_on_submit():
             group = Group(admin_id=current_user.id, name=form.name.data, sport=form.sport.data)
@@ -194,7 +195,7 @@ def group():
             db.session.commit()
             print("Added new group: " + group.name)
             return redirect(url_for('group', action='my'))
-        return render_template('new_group.html', form=form, groups=current_user.get_groups(), sidebar=True)
+        return render_template('new_group.html', form=form, groups=current_user.get_groups())
 
 
 # --------------------------------------------------------------------------------------------------------
@@ -247,19 +248,20 @@ def chats():
         else:
             history = Chat.get(int(chat_id)).get_history()
             for msg in history:
-                msg.is_read = True
+                if msg.user_id != current_user.id:
+                    msg.is_read = True
             db.session.commit()
             # TODO Написать
             # User.get(int(user_id)).check_messages()
 
-        return render_template("chat.html", user_id=user_id, current_user=current_user, namespace=User.get(user_id).username, chat_id=int(chat_id), messages=history, sidebar=True)
+        return render_template("chat.html", user_id=user_id, current_user=current_user, namespace=User.get(user_id).username, chat_id=int(chat_id), messages=history)
     elif action == 'all':
         chats = ChatMember.get_user_chats(current_user.id)
         for i in chats:
             if i.name is None:
                 members = i.get_members()
                 i.name = members[0].username if members[0].id != current_user.id else members[1].username
-        return render_template("my_chats.html", current_user=current_user, sidebar=True, chats=chats)
+        return render_template("my_chats.html", current_user=current_user, chats=chats)
     elif action == 'delete':
         chat_id = request.args.get('chat_id')
         if chat_id is None:
@@ -294,8 +296,12 @@ def handle_msg(msg):
     chat.update_last_msg(message)
     for user in members:
         if user.id != user_id:
-            emit('message', json.dumps({'text': text, 'username': User.get(user_id).username, 'user_id': user_id}), room=sessions.get(user.id))
+            emit('message', json.dumps({'text': text, 'message_id': message.id,'username': User.get(user_id).username, 'user_id': user_id}), room=sessions.get(user.id))
 
+
+@socketio.on('notify')
+def handle_notify(msg):
+    pass
 
 
 if __name__ == "__main__":
@@ -303,5 +309,6 @@ if __name__ == "__main__":
     logging.getLogger('socketio').setLevel(logging.ERROR)
     logging.getLogger('engineio').setLevel(logging.ERROR)
     logging.getLogger('werkzeug').setLevel(logging.ERROR)
+
     socketio.run(app, debug=True, port=5000)
 

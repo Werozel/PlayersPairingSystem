@@ -18,9 +18,12 @@ class Message(db.Model):
     chat_last_msg_rel = db.relationship('Chat', backref='last_message', lazy=True, primaryjoin="Message.id==Chat.last_msg_id")
 
     @staticmethod
-    def get(id, chat_id, user_id):
-        return Message.query.filter_by(id=int(id), chat_id=int(chat_id), user_id=int(user_id)).first()
+    def get(id):
+        return Message.query.filter_by(id=int(id)).first()
 
     @staticmethod
     def get_history(chat_id):
         return Message.query.filter_by(chat_id=int(chat_id)).order_by(Message.time).all()
+
+    def __repr__(self):
+        return f"{self.user.username}: {self.text} || {self.is_read}"

@@ -5,12 +5,12 @@
 
     <div class="content-section">
       <div class="media">
-        <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}">
+        <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}">
         <div class="media-body">
-          <h2 class="account-heading">{{ current_user.username }}</h2>
-          <p class="text-secondary">{{ current_user.name }} {{ current_user.last_name }}</p>
-          <p class="text-secondary">Age {{ current_user.age }}</p>
-          <p class="text-secondary">Gender {{ current_user.gender }}</p>
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <p class="text-secondary">{{ user.name }} {{ user.last_name }}</p>
+          <p class="text-secondary">Age {{ user.age }}</p>
+          <p class="text-secondary">Gender {{ user.gender }}</p>
 
         </div>
 
@@ -24,20 +24,20 @@
           {%  else %}
             <div class="media-right">
                 {%  if is_friend %}
-                      <a href="{{ url_for('profile', action='friend_remove', id=current_user.id) }}">
+                      <a href="{{ url_for('profile', action='friend_remove', id=user.id) }}">
                         <img title="Remove friend"
                              src="{{ url_for('static', filename='buttons/remove-24px.svg')}}"/>
                       </a>
                 {% else %}
-                    <a href="{{ url_for('profile', action='friend_add', id=current_user.id) }}">
+                    <a href="{{ url_for('profile', action='friend_add', id=user.id) }}">
                         <img title="Add friend"
                              src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
                       </a>
                 {%  endif %}
                 {%  if chat_id %}
-                    <a href="{{ url_for('chats', action='show', chat_id=chat_id, user_id=current_user.id) }}">
+                    <a href="{{ url_for('chats', action='show', chat_id=chat_id, user_id=user.id) }}">
                 {%  else %}
-                    <a href="{{ url_for('chats', action='show', user_id=current_user.id) }}" >
+                    <a href="{{ url_for('chats', action='show', user_id=user.id) }}" >
                 {%  endif %}
                         <img title="Show chat"
                              src="{{ url_for('static', filename='buttons/chat-24px.svg')}}"/>
@@ -48,10 +48,10 @@
       </div>
         <legend class="border-bottom mb-4"></legend>
         <div class="container padding-left-0">
-            {% if current_user.sport %}
+            {% if user.sport %}
                 <h5 class="align-left">Sports:</h5>
                 <div class="align-left col-sm-1">
-                    {% for sport in current_user.sport %}
+                    {% for sport in user.sport %}
                     <a href="{{ url_for('search', sport=sport)}}" class="text-secondary"> {{ sport }}</a>
                     {% endfor %}
                 </div>

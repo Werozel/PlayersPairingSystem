@@ -50,25 +50,23 @@
 
     <main role="main" class="container">
         <div class="row">
-            {% if sidebar %}
-            <div class="col-md-8 mx-auto" style="font-family: 'Courier 10 Pitch',monospace;">
-            {% else %}
             <div class="col-md-6 mx-auto" style="font-family: 'Courier 10 Pitch',monospace;">
-            {% endif %}
 
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{category}}">
-                                {{message}}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{category}}">
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
-                {% block content %}{% endblock %}
+            {% block content %}{% endblock %}
             </div>
-            {% if sidebar %}
+
+            {% if hide_sidebar %}
+            {%  else %}
                 <div class="col-md-4">
                     <div class="content-section">
                         <h3>Sidebar</h3>
@@ -80,10 +78,16 @@
                                 <li class="list-group-item list-group-item-light">
                                     <a href="{{url_for('my_events')}}" class="text-secondary">Events</a>
                                 </li>
-                                <li class="list-group-item list-group-item-light">
-                                    <a href="{{url_for('chats', action='all')}}" class="text-secondary">Messages</a>
-                                </li>
-                            </ul>
+                                {%  if current_user.is_notified and current_user.is_notified() == true %}
+                                    <li class="list-group-item list-group-item-light">
+                                        <a id="messages" href="{{url_for('chats', action='all')}}" class="text-secondary"><span style="color: red">Messages (!)</span></a>
+                                    </li>
+                                {% else %}
+                                    <li class="list-group-item list-group-item-light">
+                                        <a id="messages" href="{{url_for('chats', action='all')}}" class="text-secondary">Messages</a>
+                                    </li>
+                                {%  endif %}
+                    </ul>
                             </p>
                     </div>
                 </div>
@@ -104,8 +108,8 @@
             });
 
             socket.on('message', function (msg) {
-                document.getElementById('profile').innerHTML = "{{ current_user.username }} (!)";
-                socket.emit('notify', {type: 'message', user: '{{ current_user.id }}'});
+                document.getElementById('messages').innerHTML = "<span style='color: red;'>Messages (!)</span>";
+                socket.emit('notify', {type: 'message', 'message_id': msg.message_id, user: '{{ current_user.id }}'});
             })
         </script>
     {% endblock socket_script %}
