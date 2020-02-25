@@ -10,6 +10,7 @@ class ChatMember(db.Model):
     chat_id = db.Column(db.Integer, db.ForeignKey('chats.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, default=timestamp())
     is_group = db.Column(db.Boolean, default=False)
+    deleted = db.Column(db.TIMESTAMP, default=None)
 
     __table_args__ = (
         db.PrimaryKeyConstraint('user_id', 'chat_id'),
@@ -40,5 +41,5 @@ class ChatMember(db.Model):
     @staticmethod
     def get_user_chats(user_id):
         user_id = int(user_id)
-        return [i.chat for i in ChatMember.query.filter_by(user_id=user_id).all()]
+        return list(filter(lambda x: x.deleted is None or x.deleted < x.last_message.time ,[i.chat for i in ChatMember.query.filter_by(user_id=user_id).all()]))
 

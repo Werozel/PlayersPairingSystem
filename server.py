@@ -206,62 +206,72 @@ def my_events():
     return redirect(url_for('profile'))
 
 
-@app.route("/mymessages", methods=['GET'])
-@login_required
-def my_messages():
-    chats = ChatMember.get_user_chats(current_user.id)
-    for i in chats:
-        if i.name is None:
-            members = i.get_members()
-            i.name = members[0].username if members[0].id != current_user.id else members[1].username
-    return render_template("my_chats.html", current_user=current_user, sidebar=True, chats=chats)
-
-
 # --------------------------------------------------------------------------------------------------------
 # ------------------------------------------MESSAGES------------------------------------------------------
 
 
-@app.route("/chat", methods=['GET'])
+@app.route("/chats", methods=['GET'])
 @login_required
-def chat():
-    chat_id = request.args.get('chat_id')
-    # С кем чат
-    user_id = request.args.get('user_id')
-    if user_id is None:
-        if chat_id is None:
-            return redirect(request.referrer)
-        chat = Chat.get(int(chat_id))
-        members = chat.get_members()
-        if len(members) > 2:
-            # TODO добавить редирект на групповой чат
-            flash("group chat detected", 'error')
-            return redirect(request.referrer)
-        user_id = members[0].id if members[0].id != current_user.id else members[1].id
-        return redirect(url_for("chat", chat_id=chat_id, user_id=user_id))
-    else:
-        user_id=int(user_id)
-    if chat_id is None:
-        chat = ChatMember.get_private_chat(current_user.id, int(user_id))
-        if chat is None:
-            chat = Chat(admin_id=current_user.id, time=timestamp())
-            db.session.add(chat)
-            db.session.commit()
-            chat_id = chat.id
-            chat.add_member(current_user.id, is_group=False)
-            chat.add_member(int(user_id), is_group=False)
-            db.session.commit()
-            history=[]
+def chats():
+    action = request.args.get('action')
+    if action == 'show':
+        chat_id = request.args.get('chat_id')
+        # С кем чат
+        user_id = request.args.get('user_id')
+        if user_id is None:
+            if chat_id is None:
+                return redirect(url_for('chat', action='all'))
+            chat = Chat.get(int(chat_id))
+            members = chat.get_members()
+            if len(members) > 2:
+                # TODO добавить редирект на групповой чат
+                flash("group chat detected", 'error')
+                return redirect(request.referrer)
+            user_id = members[0].id if members[0].id != current_user.id else members[1].id
+            return redirect(url_for("chats", chat_id=chat_id, user_id=user_id))
         else:
-            return redirect(url_for("chat", chat_id=chat.id, user_id=user_id))
-    else:
-        history = Chat.get(int(chat_id)).get_history()
-        for msg in history:
-            msg.is_read = True
-        db.session.commit()
-        # TODO Написать
-        # User.get(int(user_id)).check_messages()
+            user_id=int(user_id)
+        if chat_id is None:
+            chat = ChatMember.get_private_chat(current_user.id, int(user_id))
+            if chat is None:
+                chat = Chat(admin_id=current_user.id, time=timestamp())
+                db.session.add(chat)
+                db.session.commit()
+                chat_id = chat.id
+                chat.add_member(current_user.id, is_group=False)
+                chat.add_member(int(user_id), is_group=False)
+                db.session.commit()
+                history=[]
+            else:
+                return redirect(url_for("chats", chat_id=chat.id, user_id=user_id))
+        else:
+            history = Chat.get(int(chat_id)).get_history()
+            for msg in history:
+                msg.is_read = True
+            db.session.commit()
+            # TODO Написать
+            # User.get(int(user_id)).check_messages()
 
-    return render_template("chat.html", user_id=user_id, current_user=current_user, namespace=User.get(user_id).username, chat_id=int(chat_id), messages=history, sidebar=True)
+        return render_template("chat.html", user_id=user_id, current_user=current_user, namespace=User.get(user_id).username, chat_id=int(chat_id), messages=history, sidebar=True)
+    elif action == 'all':
+        chats = ChatMember.get_user_chats(current_user.id)
+        for i in chats:
+            if i.name is None:
+                members = i.get_members()
+                i.name = members[0].username if members[0].id != current_user.id else members[1].username
+        return render_template("my_chats.html", current_user=current_user, sidebar=True, chats=chats)
+    elif action == 'delete':
+        chat_id = request.args.get('chat_id')
+        if chat_id is None:
+            return redirect(url_for('chats', action='all'))
+        chat_id = int(chat_id)
+        chat_member = ChatMember.query.filter_by(chat_id=chat_id, user_id=current_user.id).first()
+        chat_member.deleted = timestamp()
+        db.session.commit()
+        return redirect(url_for('chats', action='all'))
+    else:
+        return redirect(url_for('chats', action='all'))
+
 
 
 @socketio.on('opened')
@@ -279,7 +289,9 @@ def handle_msg(msg):
                   time=timestamp(), text=text)
     db.session.add(message)
     db.session.commit()
-    members = Chat.get(chat_id).get_members()
+    chat = Chat.get(chat_id)
+    members = chat.get_members()
+    chat.update_last_msg(message)
     for user in members:
         if user.id != user_id:
             emit('message', json.dumps({'text': text, 'username': User.get(user_id).username, 'user_id': user_id}), room=sessions.get(user.id))

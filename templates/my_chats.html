@@ -3,10 +3,17 @@
 {%  block content %}
     {%  if chats %}
         {%  for chat in chats %}
-            <div class="content-section">
-                <h5 id="name"><a href="{{ url_for('chat', chat_id=chat.id) }}">{{ chat.name }}</a></h5>
+            <div class="content-section w-75">
+                <div class="media">
+                    <h5 id="name" class="media-body"><a href="{{ url_for('chats', chat_id=chat.id) }}">{{ chat.name }}</a></h5>
+                    <a class="media-right" title="Delete chat" href="{{ url_for('chats', action='delete', chat_id=chat.id) }}">
+                        <img src="{{ url_for('static', filename='buttons/close-24px.svg') }}">
+                    </a>
+                </div>
                 <legend class="border-bottom mb-3" style="width: 100%"></legend>
-                <p>Additional info</p>
+                {%  if chat.last_message %}
+                    <p>{{ chat.last_message.user.username }}: {{ chat.last_message.text }}</p>
+                {%  endif %}
             </div>
         {%  endfor %}
     {%  else %}

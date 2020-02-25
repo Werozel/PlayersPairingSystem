@@ -1,5 +1,6 @@
 from globals import db, timestamp
 from libs.User import User
+import copy
 
 class Chat(db.Model):
     __tablename__ = 'chats'
@@ -8,7 +9,7 @@ class Chat(db.Model):
     name = db.Column(db.VARCHAR(100), nullable=True)
     admin_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, default=timestamp())
-    last_msg_id = db.Column(db.Integer, db.ForeignKey('messages.id'), nullable=True)
+    last_msg_id = db.Column(db.BIGINT, db.ForeignKey('messages.id'), nullable=True)
 
     chat_role_rel = db.relationship('ChatRole', backref='chat', lazy=True)
     chat_member_rel = db.relationship('ChatMember', backref='chat', lazy=True)
@@ -31,3 +32,14 @@ class Chat(db.Model):
         new = ChatMember(user_id=id, chat_id=self.id, is_group=is_group, time=timestamp())
         db.session.add(new)
         db.session.commit()
+
+    def update_last_msg(self, message):
+        self.last_message = message
+        db.session.commit()
+
+    def get_new_messages(self, user_id=None):
+        from libs.Message import Message
+        if user_id is None:
+            return Message.query.filter_by(chat_id=self.id, is_read=False).all()
+        else:
+            return list(filter(lambda x: x.user_id != user_id, Message.query.filter_by(chat_id=self.id, is_read=False).all()))

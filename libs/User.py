@@ -79,8 +79,12 @@ class User(db.Model, UserMixin):
         from libs.ChatMember import ChatMember
         return ChatMember.query.filter_by(user_id=self.id).all()
 
-    def get_unread_messages(self):
+
+    def get_unread_messages(self, chat_id=None):
         from libs.Message import Message
-        return Message.query.filter_by(user_id=self.id, is_read=False).all()
+        if chat_id is None:
+            return Message.query.filter_by(user_id=self.id, is_read=False).all()
+        else:
+            return Message.query.filter_by(user_id=self.id, is_read=False, chat_id=chat_id).all()
 
 

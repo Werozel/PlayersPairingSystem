@@ -48,9 +48,6 @@
                 document.getElementById('history').appendChild(li);
                 var objDiv = document.getElementById("history");
                 objDiv.scrollTop = objDiv.scrollHeight;
-            } else {
-                document.getElementById('profile').innerHTML = "{{current_user.username}} (!)";
-                socket.emit('notify', {type: 'message', user: '{{ current_user.id }}'});
             }
         });
 
