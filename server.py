@@ -222,8 +222,16 @@ def chat():
     # С кем чат
     user_id = request.args.get('user_id')
     if user_id is None:
-        flash("Invalid request", 'error')
-        return redirect(request.referrer)
+        if chat_id is None:
+            return redirect(request.referrer)
+        chat = Chat.get(int(chat_id))
+        members = chat.get_members()
+        if len(members) > 2:
+            # TODO добавить редирект на групповой чат
+            flash("group chat detected", 'error')
+            return redirect(request.referrer)
+        user_id = members[0].id if members[0].id != current_user.id else members[1].id
+        return redirect(url_for("chat", chat_id=chat_id, user_id=user_id))
     else:
         user_id=int(user_id)
     if chat_id is None:

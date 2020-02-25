@@ -9,12 +9,16 @@
 {#        <legend class="border-bottom mb-3"></legend>#}
         <h4>{{ namespace }}</h4>
         <legend class="border-bottom mb-3" style="width: 100%"></legend>
-        <div class="media-list" style="width: 200px; height: 400px;">
-            <ul id="history" class="message-secion">
-            {%  for msg in messages %}
-                <li class="">{{ msg.user.username }}: <span class="text-muted">{{ msg.text }}</span></li>
-            {%  endfor %}
-            </ul>
+        <div class="media-body" style="overflow: hidden;">
+        <div class="message-section" style="" id="history">
+        {%  for msg in messages %}
+            {%  if msg.user.id == current_user.id %}
+            <p class="message" style="text-align: right; margin-right: 5%;"><span class="text-muted">{{ msg.text }}</span></p>
+            {%  else %}
+            <p class="message" style="">{{ msg.user.username }}: <span class="text-muted">{{ msg.text }}</span></p>
+            {%  endif %}
+        {%  endfor %}
+        </div>
         </div>
         <legend class="border-bottom mb-3" style="width: 100%"></legend>
         <div class="media-list row" style="align-content: center;">
@@ -38,11 +42,13 @@
             console.log(js_msg);
             var msg = JSON.parse(js_msg);
             if (Number.parseInt('{{ user_id }}') == msg.user_id) {
-                var li = document.createElement("LI");
+                var li = document.createElement("P");
                 li.innerHTML = `${msg.username}: <span class='text-muted'>${msg.text}</span>`;
-                document.getElementById('history').appendChild(li)
+                li.className = "message";
+                document.getElementById('history').appendChild(li);
+                var objDiv = document.getElementById("history");
+                objDiv.scrollTop = objDiv.scrollHeight;
             } else {
-                alert('got foreign message');
                 document.getElementById('profile').innerHTML = "{{current_user.username}} (!)";
                 socket.emit('notify', {type: 'message', user: '{{ current_user.id }}'});
             }
@@ -52,10 +58,14 @@
             var input = document.getElementById('input');
             var msg = input.value;
             input.value = "";
-            var li = document.createElement("LI");
-            li.innerHTML = '{{ current_user.username }}' + ': ' + `<span class='text-muted'>${msg}</span>`;
+            var li = document.createElement("P");
+            li.innerHTML = `<span class='text-muted'>${msg}</span>`;
+            li.className = "message";
+            li.style = "text-align: right; margin-right: 5%";
             socket.send({text: msg, chat_id: "{{chat_id}}", user_id: "{{ current_user.id }}"});
             document.getElementById('history').appendChild(li);
+            var objDiv = document.getElementById("history");
+            objDiv.scrollTop = objDiv.scrollHeight;
         };
 
         var input = document.getElementById("input");

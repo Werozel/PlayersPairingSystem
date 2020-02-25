@@ -1,5 +1,11 @@
 {%  extends "main.html" %}
 
 {%  block content %}
+    {%  for chat in chats %}
+        <div class="content-section">
+            <h5 id="name"><a href="{{ url_for('chat', chat_id=chat.id) }}">{{ chat.name }}</a></h5>
+            <legend class="border-bottom mb-3" style="width: 100%"></legend>
 
+        </div>
+    {%  endfor %}
 {%  endblock %}

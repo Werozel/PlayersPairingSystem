@@ -36,3 +36,4 @@ class ChatMember(db.Model):
             return chat[0].chat
         else:
             return None
+
