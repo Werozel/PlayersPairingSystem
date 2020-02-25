@@ -33,10 +33,17 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     last_login = db.Column(db.TIMESTAMP, nullable=False, default=timestamp())
     image_file = db.Column(db.String, nullable=False, default='default.jpg')
+
     groups_rel = db.relationship('Group', backref='admin', lazy=True)
     members_rel = db.relationship('Member', backref='user', lazy=True)
-    friends_rel_1 = db.relationship('Friend', backref='first', lazy=True, primaryjoin="User.id == Friend.first_id")
-    friends_rel_2 = db.relationship('Friend', backref='second', lazy=True, primaryjoin="User.id == Friend.second_id")
+    friends_rel_1 = db.relationship('Friend', backref='first', lazy=True, primaryjoin="User.id==Friend.first_id")
+    friends_rel_2 = db.relationship('Friend', backref='second', lazy=True, primaryjoin="User.id==Friend.second_id")
+    chat_admin_rel = db.relationship('Chat', backref='admin', lazy=True)
+    chat_role_rel = db.relationship('ChatRole', backref='user', lazy=True)
+    chat_member_rel = db.relationship('ChatMember', backref='user', lazy=True)
+    message_rel = db.relationship('Message', backref='user', lazy=True)
+    notification_rel = db.relationship('Notification', backref='user', lazy=True)
+
 
     __tablename__ = "users"
 
@@ -65,5 +72,17 @@ class User(db.Model, UserMixin):
 
     def get_groups(self):
         return [i.group for i in Member.query.filter_by(user_id=self.id).all()]
+
+
+    def get_chats(self):
+        from libs.ChatMember import ChatMember
+        return [i.chat for i in ChatMember.query.filter_by(user_id=self.id).all()]
+
+    def get_notifications(self):
+        from libs.Notification import Notification
+        return [i.chat for i in Notification.get_notifications(self.id)]
+
+    def is_notified(self):
+        return len(self.get_notifications()) != 0
 
 

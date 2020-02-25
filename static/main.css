@@ -80,5 +80,29 @@ a.article-title:hover {
 }
 
 .padding-left-0 {
-  padding-left: 0px;
+  padding-left: 0;
+}
+
+.message-section {
+  text-align: left;
+  list-style-type: none;
+  height: 500px;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.message {
+  padding-bottom: 0;
+  padding-top: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.my-list-group-item{
+  position:relative;
+  display:block;
+  padding:10px 15px;
+  margin-bottom:-1px;
+  background-color:#fff;
 }

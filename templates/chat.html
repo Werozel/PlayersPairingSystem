@@ -1,0 +1,80 @@
+{%  extends "main.html" %}
+
+{%  block content %}
+    <div class="content-section column">
+{#        <div class="">#}
+{#            <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}">#}
+{#            <p class="">{{ current_user.name }} {{ current_user.last_name }}</p>#}
+{#        </div>#}
+{#        <legend class="border-bottom mb-3"></legend>#}
+        <h4>{{ namespace }}</h4>
+        <legend class="border-bottom mb-3" style="width: 100%"></legend>
+        <div class="media-body" style="overflow: hidden;">
+        <div class="message-section" style="" id="history">
+        {%  for msg in messages %}
+            {%  if msg.user.id == current_user.id %}
+            <p class="message" style="text-align: right; margin-right: 5%;"><span class="text-muted">{{ msg.text }}</span></p>
+            {%  else %}
+            <p class="message" style="">{{ msg.user.username }}: <span class="text-muted">{{ msg.text }}</span></p>
+            {%  endif %}
+        {%  endfor %}
+        </div>
+        </div>
+        <legend class="border-bottom mb-3" style="width: 100%"></legend>
+        <div class="media-list row" style="align-content: center;">
+            <input class="col-sm-10" id="input">
+            <button id="send"><img src="{{ url_for('static', filename='buttons/send-24px.svg') }}"></button>
+        </div>
+    </div>
+{%  endblock %}
+
+
+{%  block socket_script %}
+
+    <script type="text/javascript" charset="utf-8">
+        var socket = io();
+
+        socket.on('connect', function () {
+            socket.emit('opened', {})
+        });
+
+        socket.on('message', function (json_msg) {
+            console.log(json_msg);
+            var msg = JSON.parse(json_msg);
+            if (Number.parseInt('{{ user_id }}') == msg.user_id) {
+                var li = document.createElement("P");
+                li.innerHTML = `${msg.username}: <span class='text-muted'>${msg.text}</span>`;
+                li.className = "message";
+                document.getElementById('history').appendChild(li);
+                var objDiv = document.getElementById("history");
+                objDiv.scrollTop = objDiv.scrollHeight;
+                socket.emit('notify', {type: 'message', 'message_id': msg.message_id, user: '{{ current_user.id }}',
+                                        'chat_id': msg.chat_id})
+            } else {
+                document.getElementById('messages').innerHTML = "<span style='color: red;'>Messages (!)</span>";
+            }
+        });
+
+        document.getElementById('send').onclick = function () {
+            var input = document.getElementById('input');
+            var msg = input.value;
+            input.value = "";
+            var li = document.createElement("P");
+            li.innerHTML = `<span class='text-muted'>${msg}</span>`;
+            li.className = "message";
+            li.style = "text-align: right; margin-right: 5%";
+            socket.send({text: msg, chat_id: "{{chat_id}}", user_id: "{{ current_user.id }}"});
+            document.getElementById('history').appendChild(li);
+            var objDiv = document.getElementById("history");
+            objDiv.scrollTop = objDiv.scrollHeight;
+        };
+
+        var input = document.getElementById("input");
+        input.addEventListener("keyup", function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById("send").click();
+            }
+        });
+    </script>
+{%  endblock %}
