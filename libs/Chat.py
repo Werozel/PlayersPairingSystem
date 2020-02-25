@@ -8,10 +8,11 @@ class Chat(db.Model):
     name = db.Column(db.VARCHAR(100), nullable=True)
     admin_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, default=timestamp())
+    last_msg_id = db.Column(db.Integer, db.ForeignKey('messages.id'), nullable=True)
 
     chat_role_rel = db.relationship('ChatRole', backref='chat', lazy=True)
     chat_member_rel = db.relationship('ChatMember', backref='chat', lazy=True)
-    message_rel = db.relationship('Message', backref='chat', lazy=True)
+    message_rel = db.relationship('Message', backref='chat', lazy=True, primaryjoin="Chat.id==Message.chat_id")
 
     @staticmethod
     def get(id):

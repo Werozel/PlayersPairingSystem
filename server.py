@@ -73,6 +73,21 @@ def logout():
 # -------------------------------------------------------------------------------------------------------------
 # ------------------------------------------EDIT PROFILE-------------------------------------------------------
 
+@app.route("/search", methods=['GET'])
+@login_required
+def search():
+    if request.method == 'GET':
+        sport = request.args.get('sport')
+        groups = Group.get_by_sport(sport)
+        return render_template("search.html", query=groups, sidebar=True)
+    else:
+        return render_template("search.html", sidebar=True)
+
+
+# ---------------------------------------------------------------------------------------------------------
+# ------------------------------------------GROUPS---------------------------------------------------------
+
+
 @app.route("/profile", methods=['GET', 'POST'])
 @login_required
 def profile():
@@ -133,21 +148,6 @@ def profile():
         return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
 
 
-# ---------------------------------------------------------------------------------------------------------
-# ------------------------------------------GROUPS---------------------------------------------------------
-
-
-@app.route("/search", methods=['GET'])
-@login_required
-def search():
-    if request.method == 'GET':
-        sport = request.args.get('sport')
-        groups = Group.get_by_sport(sport)
-        return render_template("search.html", query=groups, sidebar=True)
-    else:
-        return render_template("search.html", sidebar=True)
-
-
 @app.route("/group", methods=['GET', 'POST'])
 @login_required
 def group():
@@ -205,10 +205,16 @@ def group():
 def my_events():
     return redirect(url_for('profile'))
 
+
 @app.route("/mymessages", methods=['GET'])
 @login_required
 def my_messages():
-    return redirect(url_for('profile'))
+    chats = ChatMember.get_user_chats(current_user.id)
+    for i in chats:
+        if i.name is None:
+            members = i.get_members()
+            i.name = members[0].username if members[0].id != current_user.id else members[1].username
+    return render_template("my_chats.html", current_user=current_user, sidebar=True, chats=chats)
 
 
 # --------------------------------------------------------------------------------------------------------

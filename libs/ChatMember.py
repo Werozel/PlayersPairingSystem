@@ -37,3 +37,8 @@ class ChatMember(db.Model):
         else:
             return None
 
+    @staticmethod
+    def get_user_chats(user_id):
+        user_id = int(user_id)
+        return [i.chat for i in ChatMember.query.filter_by(user_id=user_id).all()]
+

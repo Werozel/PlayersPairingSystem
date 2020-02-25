@@ -7,7 +7,7 @@ import json
 class Message(db.Model):
     __tablename__ = 'messages'
 
-    id = db.Column(db.BIGINT, nullable=False)
+    id = db.Column(db.BIGINT, nullable=False, primary_key=True, autoincrement=True)
     chat_id = db.Column(db.Integer, db.ForeignKey('chats.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, default=timestamp())
@@ -15,9 +15,7 @@ class Message(db.Model):
     content = db.Column(db.JSON, default=json.dumps({'photos': [], 'audios': [], 'videos': [], 'map_pins': []}))
     text = db.Column(db.VARCHAR(1000), default="")
 
-    __table_args__ = (
-        db.PrimaryKeyConstraint('id', 'user_id', 'chat_id'),
-    )
+    chat_last_msg_rel = db.relationship('Chat', backref='last_message', lazy=True, primaryjoin="Message.id==Chat.last_msg_id")
 
     @staticmethod
     def get(id, chat_id, user_id):

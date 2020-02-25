@@ -38,8 +38,8 @@ class User(db.Model, UserMixin):
 
     groups_rel = db.relationship('Group', backref='admin', lazy=True)
     members_rel = db.relationship('Member', backref='user', lazy=True)
-    friends_rel_1 = db.relationship('Friend', backref='first', lazy=True, primaryjoin="User.id == Friend.first_id")
-    friends_rel_2 = db.relationship('Friend', backref='second', lazy=True, primaryjoin="User.id == Friend.second_id")
+    friends_rel_1 = db.relationship('Friend', backref='first', lazy=True, primaryjoin="User.id==Friend.first_id")
+    friends_rel_2 = db.relationship('Friend', backref='second', lazy=True, primaryjoin="User.id==Friend.second_id")
     chat_admin_rel = db.relationship('Chat', backref='admin', lazy=True)
     chat_role_rel = db.relationship('ChatRole', backref='user', lazy=True)
     chat_member_rel = db.relationship('ChatMember', backref='user', lazy=True)
