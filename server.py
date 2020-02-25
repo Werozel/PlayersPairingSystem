@@ -8,6 +8,7 @@ from libs.User import User, set_user_picture
 from libs.Group import Group
 from libs.Member import Member
 from libs.Chat import Chat
+from libs.Notification import Notification
 from libs.Message import Message
 from libs.Friend import Friend
 from globals import app, db, socketio, timestamp, get_rand, sessions
@@ -247,10 +248,7 @@ def chats():
                 return redirect(url_for("chats", action='show', chat_id=chat.id, user_id=user_id))
         else:
             history = Chat.get(int(chat_id)).get_history()
-            for msg in history:
-                if msg.user_id != current_user.id:
-                    msg.is_read = True
-            db.session.commit()
+            Notification.remove(user_id=int(user_id), chat_id=int(chat_id))
             # TODO Написать
             # User.get(int(user_id)).check_messages()
 
@@ -289,6 +287,7 @@ def handle_msg(msg):
     # TODO добавить контент
     message = Message(id=get_rand(), chat_id=chat_id, user_id=user_id,
                   time=timestamp(), text=text)
+    Notification.add(chat_id=chat_id, user_id=user_id)
     db.session.add(message)
     db.session.commit()
     chat = Chat.get(chat_id)
@@ -296,12 +295,20 @@ def handle_msg(msg):
     chat.update_last_msg(message)
     for user in members:
         if user.id != user_id:
-            emit('message', json.dumps({'text': text, 'message_id': message.id,'username': User.get(user_id).username, 'user_id': user_id}), room=sessions.get(user.id))
+            emit('message', json.dumps({'text': text, 'message_id': message.id,'username': User.get(user_id).username,
+                                        'chat_id': chat_id, 'user_id': user_id}), room=sessions.get(user.id))
 
 
 @socketio.on('notify')
 def handle_notify(msg):
-    pass
+    type = msg.get('type')
+    if type == 'message':
+        chat_id = msg.get('chat_id')
+        print(f'chat_id = {chat_id}')
+        Notification.remove(chat_id=chat_id, user_id=current_user.id)
+        db.session.commit()
+    else:
+        pass
 
 
 if __name__ == "__main__":

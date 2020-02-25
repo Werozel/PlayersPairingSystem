@@ -44,6 +44,7 @@ class User(db.Model, UserMixin):
     chat_role_rel = db.relationship('ChatRole', backref='user', lazy=True)
     chat_member_rel = db.relationship('ChatMember', backref='user', lazy=True)
     message_rel = db.relationship('Message', backref='user', lazy=True)
+    notification_rel = db.relationship('Notification', backref='user', lazy=True)
 
 
     __tablename__ = "users"
@@ -82,7 +83,6 @@ class User(db.Model, UserMixin):
     def is_notified(self):
         for i in self.get_chats():
             if i.last_message and i.last_message.user_id != self.id and not i.last_message.is_read:
-                print(i.last_message)
                 return True
         return False
 

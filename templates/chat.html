@@ -48,9 +48,10 @@
                 document.getElementById('history').appendChild(li);
                 var objDiv = document.getElementById("history");
                 objDiv.scrollTop = objDiv.scrollHeight;
+                socket.emit('notify', {type: 'message', 'message_id': msg.message_id, user: '{{ current_user.id }}',
+                                        'chat_id': msg.chat_id})
             } else {
                 document.getElementById('messages').innerHTML = "<span style='color: red;'>Messages (!)</span>";
-                socket.emit('notify', {type: 'message', 'message_id': msg.message_id, user: '{{ current_user.id }}'})
             }
         });
 

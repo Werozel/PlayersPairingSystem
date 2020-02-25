@@ -23,7 +23,7 @@ class Message(db.Model):
 
     @staticmethod
     def get_history(chat_id):
-        return Message.query.filter_by(chat_id=int(chat_id)).order_by(Message.time).all()
+        return Message.query.filter_by(chat_id=int(chat_id)).order_by(Message.time).limit(50).all()
 
     def __repr__(self):
         return f"{self.user.username}: {self.text} || {self.is_read}"
