@@ -249,8 +249,6 @@ def chats():
         else:
             history = Chat.get(int(chat_id)).get_history()
             Notification.remove(user_id=current_user.id, chat_id=int(chat_id))
-            # TODO Написать
-            # User.get(int(user_id)).check_messages()
 
         return render_template("chat.html", user_id=user_id, current_user=current_user, namespace=User.get(user_id).username, chat_id=int(chat_id), messages=history)
     elif action == 'all':
