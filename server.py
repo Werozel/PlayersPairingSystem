@@ -20,12 +20,12 @@ import json
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("index.html", title="Main Page")
+    return render_template("index.html")
 
 
 @app.route("/about", methods=['GET'])
 def about():
-    return render_template("about.html", title="About Page")
+    return render_template("about.html")
 
 
 # ----------------------------LOGIN-------------------------------------

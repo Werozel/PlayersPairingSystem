@@ -12,11 +12,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
     <meta charset="UTF-8">
-    {% if title %}
-        <title> {{ title }}</title>
-    {% else %}
-        <title>Title</title>
-    {% endif %}
+    {%  block title %}
+        <title>Main Page</title>
+    {%  endblock title %}
 </head>
 <body>
 
