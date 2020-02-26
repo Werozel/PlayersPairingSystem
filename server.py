@@ -81,7 +81,10 @@ def search():
     form = SearchForm()
     if request.method == 'GET':
         sport = request.args.get('sport')
-        groups = Group.get_by_sport(sport)
+        if sport is None:
+            groups = Group.query.limit(30).all()
+        else:
+            groups = Group.get_by_sport(sport)
         return render_template("search.html", query=groups, form=form)
     elif request.method == 'POST':
         name = form.name.data
