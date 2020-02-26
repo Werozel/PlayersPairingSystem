@@ -1,0 +1,27 @@
+{%  extends "main.html" %}
+
+
+{%  block content %}
+    <div id="users">
+        {%  for user in users %}
+            <div class="content-section">
+                <h5><a href="{{ url_for('profile', action='show', id=user.id) }}">{{ user.name }} {{ user.last_name }}</a></h5>
+                <legend class="border-bottom mb-3" style="width: 100%"></legend>
+                <div id="bottom" class="column ml-3">
+                    <p class="row" style="white-space: pre-wrap">Age:<span class="text-secondary">   {{ user.age }}</span></p>
+                    <div class="row">
+                        <p class="mb-0 mr-1">Sport:</p>
+                        <p>
+                            {%  for sport in user.sport %}
+                                <span style="list-style-type: none; padding-left: 3px;" class="text-secondary">
+                                    <a href="{{ url_for('search', sport=sport) }}" class="text-secondary">{{ sport }}</a>
+                                </span>
+                            {%  endfor  %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {%  endfor %}
+    </div>
+{%  endblock %}
+

@@ -55,7 +55,8 @@ def register():
     form = RegistrationForm()
     if request.method == 'POST':
         if form.validate_on_submit():
-            user = User(username=form.username.data, password=crypto.hash(form.password.data), email=form.email.data, last_login=timestamp())
+            user = User(username=form.username.data, password=crypto.hash(form.password.data), email=form.email.data,
+                        register_time=timestamp(), last_login=timestamp())
             db.session.add(user)
             db.session.commit()
             login_user(user, force=True)
@@ -207,6 +208,18 @@ def my_events():
     return redirect(url_for('profile'))
 
 
+@app.route("/friends", methods=['GET'])
+@login_required
+def friends():
+    action = request.args.get('action')
+    if action == 'search':
+        users = User.query.order_by(User.register_time).all()
+        return render_template("show_users.html", current_user=current_user, users=users)
+    else:
+        return redirect(request.referrer)
+
+
+
 # --------------------------------------------------------------------------------------------------------
 # ------------------------------------------MESSAGES------------------------------------------------------
 
@@ -303,7 +316,6 @@ def handle_notify(msg):
     type = msg.get('type')
     if type == 'message':
         chat_id = msg.get('chat_id')
-        members = Chat.get(chat_id).get_members()
         Notification.remove(chat_id=chat_id, user_id=current_user.id)
         db.session.commit()
     else:

@@ -77,6 +77,9 @@
                             <li class="my-list-group-item list-group-item-light">
                                 <a href="{{url_for('my_events')}}" class="text-secondary">Events</a>
                             </li>
+                            <li class="my-list-group-item list-group-item-light">
+                                <a href="{{url_for('friends', action='search')}}" class="text-secondary">Users</a>
+                            </li>
                             {%  if current_user.is_notified and current_user.is_notified() == true %}
                                 <li class="my-list-group-item list-group-item-light">
                                     <a id="messages" href="{{url_for('chats', action='all')}}" class="text-secondary"><span style="color: red">Messages (!)</span></a>
