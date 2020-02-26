@@ -90,7 +90,8 @@ def search():
             filter(Group.sport == sport if sport != "None" else Group.sport == Group.sport).all()
         return  render_template("search.html", query=groups, form=form)
     else:
-        return render_template("search.html")
+        groups = Group.query.limit(50).all()
+        return render_template("search.html", query=groups, form=form)
 
 
 # ---------------------------------------------------------------------------------------------------------
