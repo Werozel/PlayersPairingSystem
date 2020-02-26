@@ -2,8 +2,23 @@
 
 {% block content %}
     <h4>Groups</h4>
+    <legend class="border-top mt-2"></legend>
+        <form method="POST" class="form form-horizontal row">
+            {{ form.hidden_tag() }}
+            <div class="form-group col-sm-6">
+                {{ form.name.label(class="form-control-label") }}
+                {{ form.name(class="form-control form-control-sm") }}
+            </div>
+            <div class="col-sm-6">
+                {{ form.sport.label(class="form-control-label") }}
+                {{ form.sport(class="form-control form-control-sm") }}
+            </div>
+            <div class="form-group mt-3 ml-3">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    <legend class="border-top mt-2"></legend>
     {% if query %}
-        <legend class="border-top mt-4"></legend>
         {% for group in query %}
         <a href="{{ url_for('group', id=group.id) }}">
             <div class="content-section w-75">

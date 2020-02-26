@@ -1,5 +1,5 @@
 from flask import render_template, url_for, request, redirect, flash
-from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom
+from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom, SearchForm
 from flask_login import login_user, logout_user, current_user, login_required
 import libs.crypto as crypto
 from libs.ChatRole import ChatRole
@@ -75,13 +75,19 @@ def logout():
 # -------------------------------------------------------------------------------------------------------------
 # ------------------------------------------EDIT PROFILE-------------------------------------------------------
 
-@app.route("/search", methods=['GET'])
+@app.route("/search", methods=['GET', 'POST'])
 @login_required
 def search():
+    form = SearchForm()
     if request.method == 'GET':
         sport = request.args.get('sport')
         groups = Group.get_by_sport(sport)
-        return render_template("search.html", query=groups)
+        return render_template("search.html", query=groups, form=form)
+    elif request.method == 'POST':
+        name = form.sport.data
+        sport = form.sport.data
+        groups = Group.query.filter(Group.name.ilike(f"%{name}%")).filter(Group.sport in sport).all()
+        return  render_template("search.html", query=groups, form=form)
     else:
         return render_template("search.html")
 
@@ -286,7 +292,8 @@ def chats():
 
 @socketio.on('opened')
 def handle_new(msg):
-    sessions.update({current_user.id: request.sid})
+    if current_user.is_authenticated:
+        sessions.update({current_user.id: request.sid})
 
 @socketio.on('message')
 def handle_msg(msg):
