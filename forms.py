@@ -80,6 +80,8 @@ class NewGroupFrom(FlaskForm):
 
 class SearchForm(FlaskForm):
 	name = StringField('Name', validators=[Length(max=50)])
-	sport = SelectField('Sport', choices=Sports.get_choices())
+	choices = Sports.get_choices()
+	choices.append(("None", "None"))
+	sport = SelectField('Sport', choices=choices, default="None")
 
 	submit = SubmitField('Search')

@@ -84,9 +84,10 @@ def search():
         groups = Group.get_by_sport(sport)
         return render_template("search.html", query=groups, form=form)
     elif request.method == 'POST':
-        name = form.sport.data
+        name = form.name.data
         sport = form.sport.data
-        groups = Group.query.filter(Group.name.ilike(f"%{name}%")).filter(Group.sport in sport).all()
+        groups = Group.query.filter(Group.name.ilike(f"%{name}%")).\
+            filter(Group.sport == sport if sport != "None" else Group.sport == Group.sport).all()
         return  render_template("search.html", query=groups, form=form)
     else:
         return render_template("search.html")
