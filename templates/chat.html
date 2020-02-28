@@ -5,7 +5,7 @@
 {%  endblock title %}
 
 {%  block content %}
-    <div class="content-section column" style="height: 600px">
+    <div class="content-section column" style="height: 620px">
 {#        <div class="">#}
 {#            <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}">#}
 {#            <p class="">{{ current_user.name }} {{ current_user.last_name }}</p>#}
@@ -13,19 +13,19 @@
 {#        <legend class="border-bottom mb-3"></legend>#}
         <h4>{{ namespace }}</h4>
         <legend class="border-bottom mb-3" style="width: 100%"></legend>
-        <div class="media-body" style="overflow: hidden;">
-        <div class="message-section" style="" id="history">
-        {%  for msg in messages %}
-            {%  if msg.user.id == current_user.id %}
-            <p class="message" style="text-align: right; margin-right: 5%;"><span class="text-muted">{{ msg.text }}</span></p>
-            {%  else %}
-            <p class="message" style="">{{ msg.user.username }}: <span class="text-muted">{{ msg.text }}</span></p>
-            {%  endif %}
-        {%  endfor %}
+        <div class="" style="overflow: hidden;">
+            <div class="message-section" style="" id="history">
+            {%  for msg in messages %}
+                {%  if msg.user.id == current_user.id %}
+                <p class="message" style="text-align: right; margin-right: 5%;"><span class="text-muted">{{ msg.text }}</span></p>
+                {%  else %}
+                <p class="message" style="">{{ msg.user.username }}: <span class="text-muted">{{ msg.text }}</span></p>
+                {%  endif %}
+            {%  endfor %}
+            </div>
         </div>
-        </div>
-        <legend class="border-bottom mb-3" style="width: 100%"></legend>
-        <div class="media-list row" style="align-content: center;">
+        <legend class="border-bottom mb-2" style="width: 100%"></legend>
+        <div class="media-list ml-1 row" style="align-content: center;">
             <input class="col-sm-10" id="input">
             <button id="send"><img src="{{ url_for('static', filename='buttons/send-24px.svg') }}"></button>
         </div>

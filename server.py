@@ -235,6 +235,32 @@ def friends():
 # ------------------------------------------MESSAGES------------------------------------------------------
 
 
+@app.route("/groupchats", methods=['GET'])
+@login_required
+def group_chats():
+
+    def args_error():
+        flash('Invalid request!', 'error')
+        return redirect(request.referrer)
+
+    action = request.args.get('action')
+    if action == 'all':
+        group_id = request.args.get('id')
+        if group_id is None:
+            return args_error()
+        group_id = int(group_id)
+        chats = Chat.query.filter_by(group_id=group_id).all()
+        return render_template("group_chats.html", chats=chats, group=Group.get(group_id), notification=current_user.get_notifications())
+    elif action == 'new':
+        group_id = request.args.get('id')
+        if group_id is None:
+            return args_error()
+        group_id = int(group_id)
+        return render_template("new_group_chats.html")
+    else:
+        return args_error()
+
+
 @app.route("/chats", methods=['GET'])
 @login_required
 def chats():
@@ -309,7 +335,7 @@ def handle_msg(msg):
     chat_id = int(msg.get('chat_id'))
     # TODO добавить контент
     message = Message(id=get_rand(), chat_id=chat_id, user_id=user_id,
-                  time=timestamp(), text=text)
+                      time=timestamp(), text=text)
     members = Chat.get(chat_id).get_members()
     Notification.add(chat_id=chat_id, user_id=members[0].id if members[0].id != user_id else members[1].id)
     db.session.add(message)
@@ -319,8 +345,10 @@ def handle_msg(msg):
     chat.update_last_msg(message)
     for user in members:
         if user.id != user_id:
-            emit('message', json.dumps({'text': text, 'message_id': message.id,'username': User.get(user_id).username,
-                                        'chat_id': chat_id, 'user_id': user_id}), room=sessions.get(user.id))
+            session = sessions.get(user.id)
+            if session:
+                emit('message', json.dumps({'text': text, 'message_id': message.id,'username': User.get(user_id).username,
+                                            'chat_id': chat_id, 'user_id': user_id}), room=session)
 
 
 @socketio.on('notify')

@@ -86,7 +86,8 @@ a.article-title:hover {
 .message-section {
   text-align: left;
   list-style-type: none;
-  height: 500px;
+  min-height: 500px;
+  height: 80%;
   width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -97,6 +98,10 @@ a.article-title:hover {
   padding-top: 0;
   margin-bottom: 0;
   margin-top: 0;
+}
+
+.img-buttons {
+  text-decoration: none;
 }
 
 .my-list-group-item{

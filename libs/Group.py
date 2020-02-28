@@ -8,7 +8,9 @@ class Group(db.Model):
     admin_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     sport = db.Column(db.String(50), nullable=False)
     name = db.Column(db.String(50), nullable=False)
+
     members_rel = db.relationship('Member', backref='group', lazy=True)
+    chats_rel = db.relationship('Chat', backref='group', lazy=True)
 
     __tablename__ = "groups"
 
