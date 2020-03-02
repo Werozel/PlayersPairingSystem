@@ -10,7 +10,8 @@ class Chat(db.Model):
     admin_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, default=timestamp())
     last_msg_id = db.Column(db.BIGINT, db.ForeignKey('messages.id'), nullable=True)
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=True) # is_group
+    deleted = db.Column(db.TIMESTAMP, nullable=True, default=None)
 
     chat_role_rel = db.relationship('ChatRole', backref='chat', lazy=True)
     chat_member_rel = db.relationship('ChatMember', backref='chat', lazy=True)

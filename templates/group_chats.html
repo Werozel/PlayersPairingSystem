@@ -7,7 +7,8 @@
 {%  block content %}
     <div class="media">
         <h4 class="media-body">{{ group.name }}</h4>
-        <a class="media-right" href="{{ url_for('group_chats', action='new', id=group.id) }}"><img src="{{ url_for('static', filename='buttons/add-24px.svg') }}"/></a>
+        <a id="new-chat" class="media-right" href="javascript:;"><img src="{{ url_for('static', filename='buttons/add-24px.svg') }}"/></a>
+        <input id="new-chat-name" hidden=True name="New chat name" placeholder="New chat name" class="my-input"/>
     </div>
     <legend class="border-bottom mb-2" style="width: 100%"></legend>
     <div id="chats">
@@ -19,14 +20,16 @@
             <div class="content-section w-75" id="{{ chat.id }}">
             {%  endif %}
                 <div class="media">
-                    <h5 id="name" class="media-body"><a href="{{ url_for('chats', action='show', chat_id=chat.id) }}">{{ chat.name }}</a></h5>
-                    <a class="media-right" title="Delete chat" href="{{ url_for('chats', action='delete', chat_id=chat.id) }}">
+                    <h5 id="name" class="media-body"><a href="{{ url_for('group_chats', action='show', chat_id=chat.id) }}">{{ chat.name }}</a></h5>
+                    <a class="media-right" title="Delete chat" href="{{ url_for('group_chats', action='delete', chat_id=chat.id) }}">
                         <img src="{{ url_for('static', filename='buttons/close-24px.svg') }}">
                     </a>
                 </div>
                 <legend class="border-bottom mb-3" style="width: 100%"></legend>
                 {%  if chat.last_message %}
-                    <p id="{{ chat.id }}-last-msg">{{ chat.last_message.user.username }}: {{ chat.last_message.text }}</p>
+                    <p id="{{ chat.id }}-last-msg" class="text-secondary">{{ chat.last_message.user.username }}: {{ chat.last_message.text }}</p>
+                {%  else %}
+                    <p id="{{ chat.id }}-last-msg" class="text-secondary">Chat created!</p>
                 {%  endif %}
             </div>
         {%  endfor %}
@@ -56,7 +59,26 @@
             chat.style = "border-color: red;";
             last_msg.innerHTML = `${msg.username}: <span class='text-secondary'>${msg.text}</span>`
         }
+
         // socket.emit('notify', {type: 'message', 'message_id': msg.message_id, user: '{{ current_user.id }}'});
-    })
+    });
+
+    document.getElementById('new-chat').onclick = function () {
+        var input = document.getElementById("new-chat-name");
+        input.hidden = false;
+        input.focus();
+    };
+
+    var input = document.getElementById("new-chat-name");
+    input.addEventListener("keyup", function (event) {
+        if (event.key === "Enter" && input.value !== "") {
+            socket.emit('new_group_chat', {'name': input.value, 'group_id': '{{ group.id }}'});
+            input.value = ""
+        }
+    });
+
+    socket.on('new_group_chat_ack', function (msg) {
+        location.reload()
+    });
 </script>
-{%  endblock %}
+{% endblock %}

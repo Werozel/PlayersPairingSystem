@@ -85,3 +85,6 @@ class SearchForm(FlaskForm):
 	sport = SelectField('Sport', choices=choices, default="None")
 
 	submit = SubmitField('Search')
+
+
+

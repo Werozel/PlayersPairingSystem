@@ -249,14 +249,24 @@ def group_chats():
         if group_id is None:
             return args_error()
         group_id = int(group_id)
-        chats = Chat.query.filter_by(group_id=group_id).all()
+        chats = Chat.query.filter_by(group_id=group_id, deleted=None).all()
         return render_template("group_chats.html", chats=chats, group=Group.get(group_id), notification=current_user.get_notifications())
-    elif action == 'new':
-        group_id = request.args.get('id')
-        if group_id is None:
-            return args_error()
-        group_id = int(group_id)
-        return render_template("new_group_chats.html")
+    elif action == 'delete':
+        chat_id = request.args.get('chat_id')
+        if chat_id is None:
+            return redirect(request.referrer)
+        else:
+            chat_id = int(chat_id)
+        chat = Chat.get(chat_id)
+        chat.deleted = timestamp()
+        members = ChatMember.query.filter_by(chat_id=chat_id).all()
+        for member in members:
+            member.deleted = timestamp()
+        db.session.commit()
+        return redirect(request.referrer)
+    elif action == 'show':
+
+        return redirect(request.referrer)
     else:
         return args_error()
 
@@ -313,8 +323,12 @@ def chats():
             return redirect(url_for('chats', action='all'))
         chat_id = int(chat_id)
         chat_member = ChatMember.query.filter_by(chat_id=chat_id, user_id=current_user.id).first()
+        if chat_member is None:
+            return redirect(request.referrer)
         chat_member.deleted = timestamp()
         db.session.commit()
+        if chat_member.is_group:
+            return redirect(request.referrer)
         return redirect(url_for('chats', action='all'))
     else:
         return redirect(url_for('chats', action='all'))
@@ -360,6 +374,19 @@ def handle_notify(msg):
         db.session.commit()
     else:
         pass
+
+
+@socketio.on('new_group_chat')
+def handle_new_group_chat(msg):
+    name = msg.get('name')
+    group_id = int(msg.get('group_id'))
+    chat = Chat(name=name, admin_id=current_user.id, time=timestamp(), group_id=group_id)
+    db.session.add(chat)
+    db.session.commit()
+    chat_member = ChatMember(user_id=current_user.id, chat_id=chat.id, is_group=True)
+    db.session.add(chat_member)
+    db.session.commit()
+    emit('new_group_chat_ack', 'ack')
 
 
 if __name__ == "__main__":
