@@ -6,16 +6,12 @@
 
 {%  block content %}
     <div class="content-section column" style="height: 620px">
-        {%  if group %}
-            <div class="media">
-                <h4 class="media-body">{{ group.name }}</h4>
-                <a href="{{ url_for('group_chats', action='add_members', chat_id=chat.id, group_id=group.id) }}" class="media-right">
-                    <img src="{{ url_for('static', filename='buttons/add-24px.svg') }}"/>
-                </a>
-            </div>
-        {%  else %}
-            <h4>{{ chat_name }}</h4>
-        {%  endif %}
+        <div class="media">
+            <h4 class="media-body">{{ group.name }}</h4>
+            <a href="{{ url_for('group_chats', action='add_members', chat_id=chat.id, group_id=group.id) }}" class="media-right">
+                <img src="{{ url_for('static', filename='buttons/add-24px.svg') }}"/>
+            </a>
+        </div>
         <legend class="border-bottom mb-3" style="width: 100%"></legend>
         <div class="" style="overflow: hidden;">
             <div class="message-section" style="" id="history">

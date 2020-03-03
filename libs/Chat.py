@@ -28,13 +28,14 @@ class Chat(db.Model):
 
     def get_members(self):
         from libs.ChatMember import ChatMember
-        return [i.user for i in ChatMember.query.filter_by(chat_id=self.id).all()]
+        return [i.user for i in ChatMember.query.filter_by(chat_id=self.id, deleted=None).all()]
 
     def add_member(self, id: int, is_group=True):
         from libs.ChatMember import ChatMember
-        new = ChatMember(user_id=id, chat_id=self.id, is_group=is_group, time=timestamp())
-        db.session.add(new)
-        db.session.commit()
+        if id not in [i.id for i in self.get_members()]:
+            new = ChatMember(user_id=id, chat_id=self.id, is_group=is_group, time=timestamp())
+            db.session.add(new)
+            db.session.commit()
 
     def update_last_msg(self, message):
         self.last_message = message

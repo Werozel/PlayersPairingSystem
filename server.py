@@ -234,13 +234,12 @@ def friends():
 # --------------------------------------------------------------------------------------------------------
 # ------------------------------------------MESSAGES------------------------------------------------------
 
-
 @app.route("/groupchats", methods=['GET'])
 @login_required
 def group_chats():
 
     def args_error():
-        flash('Invalid request!', 'error')
+        flash('Invalid request! Try updating the page.', 'error')
         return redirect(request.referrer)
 
     action = request.args.get('action')
@@ -254,7 +253,7 @@ def group_chats():
     elif action == 'delete':
         chat_id = request.args.get('chat_id')
         if chat_id is None:
-            return redirect(request.referrer)
+            return args_error()
         else:
             chat_id = int(chat_id)
         chat = Chat.get(chat_id)
@@ -265,7 +264,16 @@ def group_chats():
         db.session.commit()
         return redirect(request.referrer)
     elif action == 'show':
-
+        try:
+            chat_id = int(request.args.get('chat_id'))
+        except:
+            return args_error()
+        chat = Chat.get(chat_id)
+        group = Group.get(chat.group_id)
+        chat.add_member(id=current_user.id)
+        Notification.remove(user_id=current_user.id, chat_id=chat_id)
+        return render_template("chat.html", group=group, chat=chat, current_user=current_user, messages=chat.get_history())
+    elif action == 'add_members':
         return redirect(request.referrer)
     else:
         return args_error()
@@ -283,12 +291,15 @@ def chats():
             if chat_id is None:
                 return redirect(url_for('chat', action='all'))
             chat = Chat.get(int(chat_id))
+            if chat.deleted is not None:
+                redirect(url_for('chats', action='all'))
             members = chat.get_members()
             if len(members) > 2:
-                # TODO добавить редирект на групповой чат
-                flash("group chat detected", 'error')
-                return redirect(request.referrer)
-            user_id = members[0].id if members[0].id != current_user.id else members[1].id
+                return redirect(url_for('group_chats', action='show', chat_id=chat_id))
+            elif len(members) < 2:
+                user_id = 'Deleted'
+            else:
+                 user_id = members[0].id if members[0].id != current_user.id else members[1].id
             return redirect(url_for("chats", action='show', chat_id=chat_id, user_id=user_id))
         else:
             user_id=int(user_id)
@@ -303,19 +314,23 @@ def chats():
                 chat.add_member(int(user_id), is_group=False)
                 db.session.commit()
                 history=[]
+            elif chat.deleted is not None:
+                return redirect(url_for('chats', action='all'))
             else:
                 return redirect(url_for("chats", action='show', chat_id=chat.id, user_id=user_id))
         else:
             history = Chat.get(int(chat_id)).get_history()
             Notification.remove(user_id=current_user.id, chat_id=int(chat_id))
 
-        return render_template("chat.html", user_id=user_id, current_user=current_user, namespace=User.get(user_id).username, chat_id=int(chat_id), messages=history)
+        return render_template("chat.html", user_id=user_id, current_user=current_user, chat_name=User.get(user_id).username, chat=Chat.get(int(chat_id)), messages=history)
     elif action == 'all':
         chats = ChatMember.get_user_chats(current_user.id)
         for i in chats:
             if i.name is None:
                 members = i.get_members()
-                i.name = members[0].username if members[0].id != current_user.id else members[1].username
+                for u in members:
+                    if u.id != current_user.id:
+                        i.name = u.username
         return render_template("my_chats.html", notifications=current_user.get_notifications(), current_user=current_user, chats=chats)
     elif action == 'delete':
         chat_id = request.args.get('chat_id')
@@ -351,18 +366,21 @@ def handle_msg(msg):
     message = Message(id=get_rand(), chat_id=chat_id, user_id=user_id,
                       time=timestamp(), text=text)
     members = Chat.get(chat_id).get_members()
-    Notification.add(chat_id=chat_id, user_id=members[0].id if members[0].id != user_id else members[1].id)
+    for i in members:
+        if i.id != user_id:
+            Notification.add(chat_id=chat_id, user_id=i.id)
     db.session.add(message)
     db.session.commit()
     chat = Chat.get(chat_id)
-    members = chat.get_members()
-    chat.update_last_msg(message)
-    for user in members:
-        if user.id != user_id:
-            session = sessions.get(user.id)
-            if session:
-                emit('message', json.dumps({'text': text, 'message_id': message.id,'username': User.get(user_id).username,
-                                            'chat_id': chat_id, 'user_id': user_id}), room=session)
+    if chat is not None and chat.deleted is None:
+        members = chat.get_members()
+        chat.update_last_msg(message)
+        for user in members:
+            if user.id != user_id:
+                session = sessions.get(user.id)
+                if session:
+                    emit('message', json.dumps({'text': text, 'message_id': message.id,'username': User.get(user_id).username,
+                                                'chat_id': chat_id, 'user_id': user_id}), room=session)
 
 
 @socketio.on('notify')

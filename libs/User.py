@@ -77,9 +77,8 @@ class User(db.Model, UserMixin):
 
     def get_chats(self):
         from libs.ChatMember import ChatMember
-        return [i.chat for i in ChatMember.query.filter(ChatMember.user_id==self.id and
-                                                        ((ChatMember.is_group == False) or
-                                                         (ChatMember.is_group==True and ChatMember.deleted==None))).all()]
+        return list(filter(lambda x: x.deleted is None,[i.chat for i in ChatMember.query.filter(ChatMember.user_id==self.id and
+                                                        ChatMember.deleted is None).all()]))
 
     def get_notifications(self):
         from libs.Notification import Notification

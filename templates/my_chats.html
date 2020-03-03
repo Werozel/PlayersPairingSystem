@@ -22,6 +22,8 @@
                 <legend class="border-bottom mb-3" style="width: 100%"></legend>
                 {%  if chat.last_message %}
                     <p id="{{ chat.id }}-last-msg">{{ chat.last_message.user.username }}: {{ chat.last_message.text }}</p>
+                {%  else %}
+                    <p id="{{ chat.id }}-last-msg">Chat created!</p>
                 {%  endif %}
             </div>
         {%  endfor %}
