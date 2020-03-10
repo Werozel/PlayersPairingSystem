@@ -5,12 +5,12 @@ import copy
 class Chat(db.Model):
     __tablename__ = 'chats'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
     name = db.Column(db.VARCHAR(100), nullable=True)
-    admin_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    admin_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, default=timestamp())
-    last_msg_id = db.Column(db.BIGINT, db.ForeignKey('messages.id'), nullable=True)
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=True) # is_group
+    last_msg_id = db.Column(db.BigInteger, db.ForeignKey('messages.id'), nullable=True)
+    group_id = db.Column(db.BigInteger, db.ForeignKey('groups.id'), nullable=True) # is_group
     deleted = db.Column(db.TIMESTAMP, nullable=True, default=None)
 
     chat_role_rel = db.relationship('ChatRole', backref='chat', lazy=True)

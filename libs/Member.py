@@ -3,8 +3,8 @@ from globals import db, timestamp
 
 class Member(db.Model):
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False)
+    user_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)
+    group_id = db.Column(db.BigInteger, db.ForeignKey('groups.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, nullable=False, default=timestamp())
 
     __tablename__ = "members"

@@ -6,8 +6,8 @@ from libs.Chat import Chat
 class ChatMember(db.Model):
     __tablename__ = 'chat_members'
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    chat_id = db.Column(db.Integer, db.ForeignKey('chats.id'), nullable=False)
+    user_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)
+    chat_id = db.Column(db.BigInteger, db.ForeignKey('chats.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, default=timestamp())
     is_group = db.Column(db.Boolean, default=False)
     deleted = db.Column(db.TIMESTAMP, default=None)

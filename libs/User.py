@@ -22,7 +22,7 @@ def set_user_picture(picture):
 
 class User(db.Model, UserMixin):
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20), nullable=True)
     last_name = db.Column(db.String(40), nullable=True)
     age = db.Column(db.Integer)

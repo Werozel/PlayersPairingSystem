@@ -5,8 +5,8 @@ from libs.User import User
 class Friend(db.Model):
     __tablename__ = "friends"
 
-    first_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    second_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    first_id = db.Column(db.BigInteger, db.ForeignKey("users.id"), nullable=False)
+    second_id = db.Column(db.BigInteger, db.ForeignKey("users.id"), nullable=False)
     time = db.Column(db.TIMESTAMP, nullable=False, default=timestamp())
 
     __table_args__ = (

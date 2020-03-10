@@ -4,8 +4,8 @@ from libs.Member import Member
 
 class Group(db.Model):
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    admin_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
+    admin_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)
     sport = db.Column(db.String(50), nullable=False)
     name = db.Column(db.String(50), nullable=False)
 
