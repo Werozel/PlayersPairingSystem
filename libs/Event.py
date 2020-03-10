@@ -24,3 +24,15 @@ class Event(db.Model):
             raise TypeError("Not valid id")
         return Event.query.filter_by(id=id).first()
 
+
+    def add_member(self, user):
+        res = EventMember.query.filter_by(event_id=self.id, user_id=user.id).first()
+        if res is not None:
+            return
+        new_member = EventMember(self.id, user.id, timestamp())
+        db.session.add(new_member)
+        db.session.commit()
+
+
+    def get_members(self):
+        return EventMember.query.filter_by(event_id=self.id).all()

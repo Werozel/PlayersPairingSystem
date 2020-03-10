@@ -89,3 +89,9 @@ class User(db.Model, UserMixin):
         return len(self.get_notifications()) != 0
 
 
+    def get_events(self):
+        from libs.EventMember import EventMember
+        return EventMember.query.filter_by(user_id=self.id).all()
+
+
+
