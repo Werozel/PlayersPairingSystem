@@ -9,7 +9,7 @@ class EventMember(db.Model):
     time = db.Column(db.TIMESTAMP, default=timestamp())
 
     __table_args__ = (
-        db.PrimaryKeyConstraint('event_id', 'user_id')
+        db.PrimaryKeyConstraint('event_id', 'user_id'),
     )
 
 

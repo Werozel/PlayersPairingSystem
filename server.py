@@ -211,12 +211,18 @@ def group():
 
 
 # --------------------------------------------------------------------------------------------------------
-# ------------------------------------------SIDEBAR-------------------------------------------------------
+# ------------------------------------------ SIDEBAR -----------------------------------------------------
 
-@app.route("/myevents", methods=['GET'])
+@app.route("/events", methods=['GET'])
 @login_required
-def my_events():
-    return redirect(url_for('profile'))
+def events():
+    action = request.args.get('action')
+    if action == "my":
+        events = current_user.get_events()
+        return render_template("my_events.html", events=events if len(events) > 0 else None, current_user=current_user)
+    else:
+        flash("Invalid request", 'error')
+        return redirect(url_for(request.referrer))
 
 
 @app.route("/friends", methods=['GET'])

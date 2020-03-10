@@ -1,5 +1,6 @@
 from globals import db
 from libs.Member import Member
+from libs.Event import Event
 
 
 class Group(db.Model):

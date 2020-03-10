@@ -1,0 +1,19 @@
+{%  extends "main.html" %}
+
+{%  block content %}
+    <h4>My events</h4>
+    <legend class="border-bottom mb-3" style="width: 100%"></legend>
+    {%  if events %}
+        {%  for event in events %}
+            <div class="content-section">
+                <h5>{{ event.name }}</h5>
+                <legend class="border-bottom mb-3" style="width: 100%"></legend>
+                <div class="column">
+                    <p class="col-lg-1">Description: <span class="text-secondary">{{ event.description }}</span></p>
+                </div>
+            </div>
+        {%  endfor %}
+    {%  else %}
+        <p>You have no events yet</p>
+    {%  endif %}
+{%  endblock %}
