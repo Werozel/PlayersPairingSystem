@@ -44,6 +44,7 @@ class User(db.Model, UserMixin):
     chat_member_rel = db.relationship('ChatMember', backref='user', lazy=True)
     message_rel = db.relationship('Message', backref='user', lazy=True)
     notification_rel = db.relationship('Notification', backref='user', lazy=True)
+    event_rel = db.relationship('EventMember', backref='user', lazy=True)
 
 
     __tablename__ = "users"

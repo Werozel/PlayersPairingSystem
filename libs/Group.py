@@ -11,6 +11,7 @@ class Group(db.Model):
 
     members_rel = db.relationship('Member', backref='group', lazy=True)
     chats_rel = db.relationship('Chat', backref='group', lazy=True)
+    event_rel = db.relationship('Event', backref='group', lazy=True)
 
     __tablename__ = "groups"
 
