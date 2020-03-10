@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
-from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField, BooleanField, FileField, IntegerField, SelectField
+from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField, BooleanField, \
+					FileField, IntegerField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.fields.html5 import DateTimeLocalField, DateField, TimeField
 from libs.User import User
 from libs.Group import Group
 from constants.constants import Sports
@@ -85,6 +87,24 @@ class SearchForm(FlaskForm):
 	sport = SelectField('Sport', choices=choices, default="None")
 
 	submit = SubmitField('Search')
+
+
+class NewEventForm(FlaskForm):
+	name = StringField('Name', validators=[Length(max=100), DataRequired()])
+	description = TextAreaField('Description', validators=[Length(max=300)])
+	sport_choices = Sports.get_choices()
+	sport = SelectField('Sport', choices=sport_choices, default="Tennis")
+	assigned_group = SelectField('Group')
+	# date = DateField("Date")
+	# time = TimeField("Time")
+	time = DateTimeLocalField("Time", format='%Y-%m-%dT%H:%M')
+	submit = SubmitField('Create')
+
+	def __init__(self, groups, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		group_choices = [(str(i.id), i.name) for i in groups]
+		group_choices.append(("None", "None"))
+		self.assigned_group.choices = group_choices
 
 
 

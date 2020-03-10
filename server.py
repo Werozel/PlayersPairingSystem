@@ -1,5 +1,5 @@
 from flask import render_template, url_for, request, redirect, flash
-from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom, SearchForm
+from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom, SearchForm, NewEventForm
 from flask_login import login_user, logout_user, current_user, login_required
 import libs.crypto as crypto
 from libs.ChatRole import ChatRole
@@ -181,6 +181,8 @@ def group():
         group = Group.get(id)
         members = group.get_members()
         is_member = current_user in members
+        events = group.get_events()
+        print(f"events = {events}")
         if not is_member:
             is_member = None
         if action == 'show':
@@ -199,7 +201,7 @@ def group():
                 db.session.commit()
                 members.remove(current_user)
                 is_member = None
-        return render_template('group.html', group=group, members=members, is_member=is_member)
+        return render_template('group.html', group=group, members=members, is_member=is_member, events=events)
     else:
         if form.validate_on_submit():
             group = Group(admin_id=current_user.id, name=form.name.data, sport=form.sport.data)
@@ -215,47 +217,70 @@ def group():
 # --------------------------------------------------------------------------------------------------------
 # ------------------------------------------ SIDEBAR -----------------------------------------------------
 
-@app.route("/event", methods=['GET'])
+@app.route("/event", methods=['GET', 'POST'])
 @login_required
 def event():
+    form=NewEventForm(groups=current_user.get_groups())
 
     def args_error():
         flash("Invalid request", 'error')
         return redirect(url_for(request.referrer))
 
     action = request.args.get('action')
-    if action == "my":
-        events = current_user.get_events()
-        return render_template("my_events.html", events=events if len(events) > 0 else None, current_user=current_user)
-    elif action == "show":
-        try:
-            event_id = int(request.args.get('id'))
-        except:
-            args_error()
-        event = Event.get(event_id)
-        if event is None:
-            return args_error()
-        group = event.group
-        group = group if group else None
-        members = event.get_members()
-        is_member = True if current_user in members else None
-        members = members if len(members) > 0 else None
-        return render_template("event.html", event=event, group=group, members=members, is_member=is_member)
-    elif action == "join" or action == "leave":
-        try:
-            event_id = int(request.args.get('id'))
-        except:
-            args_error()
-        event = Event.get(event_id)
-        if event is None:
-            return args_error()
-        if action == "join":
-            event.add_member(current_user)
+    if request.method == 'GET':
+        if action == "my":
+            events = current_user.get_events()
+            return render_template("my_events.html", events=events if len(events) > 0 else None, current_user=current_user)
+        elif action == "show":
+            try:
+                event_id = int(request.args.get('id'))
+            except:
+                args_error()
+            event = Event.get(event_id)
+            if event is None:
+                return args_error()
+            group = event.group
+            group = group if group else None
+            members = event.get_members()
+            is_member = True if current_user in members else None
+            members = members if len(members) > 0 else None
+            return render_template("event.html", event=event, group=group, members=members, is_member=is_member)
+        elif action == "join" or action == "leave":
+            try:
+                event_id = int(request.args.get('id'))
+            except:
+                args_error()
+            event = Event.get(event_id)
+            if event is None:
+                return args_error()
+            if action == "join":
+                event.add_member(current_user)
+            else:
+                event.remove_member(current_user)
+            return redirect(url_for('event', action='show', id=event_id))
+        elif action == "new":
+            return render_template("new_event.html", form=form)
         else:
-            event.remove_member(current_user)
-        return redirect(url_for('event', action='show', id=event_id))
+            args_error()
     else:
-        args_error()
+        if form.validate_on_submit():
+            name = form.name.data
+            description = form.description.data
+            sport = form.sport.data
+            group_id = form.assigned_group.data
+            group_id = None if group_id == "None" else int(group_id)
+            time = form.time.data
+            new_event = Event(name=name, description=description, sport=sport, group_id=group_id,
+                              creation_time=timestamp(), creator=current_user.id, time=time)
+            db.session.add(new_event)
+            db.session.commit()
+            new_event_member = EventMember(event_id=new_event.id, user_id=current_user.id, time=timestamp())
+            db.session.add(new_event_member)
+            db.session.commit()
+            return redirect(url_for('event', action='my'))
+        else:
+            return redirect(request.url)
+
 
 
 

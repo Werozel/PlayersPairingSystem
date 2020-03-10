@@ -36,3 +36,6 @@ class Group(db.Model):
             self.members.append(user.id)
             db.session.add(self)
             db.session.commit()
+
+    def get_events(self):
+        return Event.query.filter_by(group_id=self.id).all()

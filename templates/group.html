@@ -30,9 +30,16 @@
         </table>
         <legend class="border-bottom mb-3"></legend>
         <h5 class="mb-4">Members:</h5>
-        <ul style="list-style-type: none; list-style-position: inside; padding: 0px">
+        <ul style="list-style-type: none; list-style-position: inside; padding: 0">
             {% for user in members %}
-                <li style="margin-left: 0px;"><a href="{{ url_for('profile', action='show', id=user.id) }}"class="text-secondary">{{user.name}} {{user.last_name}}</a></li>
+                <li style="margin-left: 0;"><a href="{{ url_for('profile', action='show', id=user.id) }}"class="text-secondary">{{user.name}} {{user.last_name}}</a></li>
+            {% endfor %}
+        </ul>
+        <legend class="border-bottom mb-3"></legend>
+        <h5 class="mb-4">Events:</h5>
+        <ul style="list-style-type: none; list-style-position: inside; padding: 0">
+            {% for event in events %}
+                <li style="margin-left: 0;"><a href="{{ url_for('event', action='show', id=event.id) }}"class="text-secondary">{{event.name}}</a></li>
             {% endfor %}
         </ul>
     </div>

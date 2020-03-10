@@ -1,15 +1,22 @@
 {%  extends "main.html" %}
 
 {%  block content %}
-    <h4>My events</h4>
+    <div class="media">
+        <h4 class="media-body">My events</h4>
+        <a class="media-right" href="{{url_for('event', action='new')}}">
+            <img class="" title="New group"
+                 src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
+        </a>
+    </div>
     <legend class="border-bottom mb-3" style="width: 100%"></legend>
     {%  if events %}
         {%  for event in events %}
             <div class="content-section">
                 <h5><a href="{{ url_for('event', action='show', id=event.id) }}">{{ event.name }}</a></h5>
                 <legend class="border-bottom mb-3" style="width: 100%"></legend>
-                <div class="column">
-                    <p class="col-lg-1">Description: <span class="text-secondary">{{ event.description }}</span></p>
+                <div>
+                    <p class="mb-1">Description: </p>
+                    <p class="text-secondary" style="white-space: pre-wrap">  {{ event.description }}</p>
                 </div>
             </div>
         {%  endfor %}
