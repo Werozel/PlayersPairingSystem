@@ -1,13 +1,13 @@
 from globals import db, timestamp
 
 
-class Member(db.Model):
+class GroupMember(db.Model):
 
     user_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)
     group_id = db.Column(db.BigInteger, db.ForeignKey('groups.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, nullable=False, default=timestamp())
 
-    __tablename__ = "members"
+    __tablename__ = "group_members"
 
     __table_args__ = (
         db.PrimaryKeyConstraint('user_id', 'group_id'),

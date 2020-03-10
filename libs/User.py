@@ -1,6 +1,6 @@
 from globals import db, timestamp, login_manager, app
 from libs.Group import Group
-from libs.Member import Member
+from libs.GroupMember import GroupMember
 from flask_login import UserMixin, current_user
 import secrets
 import os
@@ -36,7 +36,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String, nullable=False, default='default.jpg')
 
     groups_rel = db.relationship('Group', backref='admin', lazy=True)
-    members_rel = db.relationship('Member', backref='user', lazy=True)
+    members_rel = db.relationship('GroupMember', backref='user', lazy=True)
     friends_rel_1 = db.relationship('Friend', backref='first', lazy=True, primaryjoin="User.id==Friend.first_id")
     friends_rel_2 = db.relationship('Friend', backref='second', lazy=True, primaryjoin="User.id==Friend.second_id")
     chat_admin_rel = db.relationship('Chat', backref='admin', lazy=True)
@@ -44,7 +44,8 @@ class User(db.Model, UserMixin):
     chat_member_rel = db.relationship('ChatMember', backref='user', lazy=True)
     message_rel = db.relationship('Message', backref='user', lazy=True)
     notification_rel = db.relationship('Notification', backref='user', lazy=True)
-    event_rel = db.relationship('EventMember', backref='user', lazy=True)
+    event_member_rel = db.relationship('EventMember', backref='user', lazy=True)
+    event_rel = db.relationship('Event', backref='user', lazy=True)
 
 
     __tablename__ = "users"
@@ -73,7 +74,7 @@ class User(db.Model, UserMixin):
         return list(first_set.union(second_set))
 
     def get_groups(self):
-        return [i.group for i in Member.query.filter_by(user_id=self.id).all()]
+        return [i.group for i in GroupMember.query.filter_by(user_id=self.id).all()]
 
 
     def get_chats(self):
@@ -91,7 +92,7 @@ class User(db.Model, UserMixin):
 
     def get_events(self):
         from libs.EventMember import EventMember
-        return EventMember.query.filter_by(user_id=self.id).all()
+        return [i.event for i in EventMember.query.filter_by(user_id=self.id).all()]
 
 
 

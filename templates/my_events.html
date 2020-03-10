@@ -6,7 +6,7 @@
     {%  if events %}
         {%  for event in events %}
             <div class="content-section">
-                <h5>{{ event.name }}</h5>
+                <h5><a href="{{ url_for('event', action='show', id=event.id) }}">{{ event.name }}</a></h5>
                 <legend class="border-bottom mb-3" style="width: 100%"></legend>
                 <div class="column">
                     <p class="col-lg-1">Description: <span class="text-secondary">{{ event.description }}</span></p>

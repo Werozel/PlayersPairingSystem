@@ -6,12 +6,14 @@ from libs.ChatRole import ChatRole
 from libs.ChatMember import ChatMember
 from libs.User import User, set_user_picture
 from libs.Group import Group
-from libs.Member import Member
+from libs.GroupMember import GroupMember
 from libs.Chat import Chat
 from libs.Notification import Notification
 from libs.Message import Message
 from libs.Friend import Friend
-from globals import app, db, socketio, timestamp, get_rand, sessions
+from libs.Event import Event
+from libs.EventMember import EventMember
+from globals import app, db, socketio, timestamp, get_rand, sessions, format_time
 from flask_socketio import send, emit
 import time, logging
 import json
@@ -185,14 +187,14 @@ def group():
             pass
         elif action == 'join':
             if current_user not in members:
-                new_row = Member(user_id=current_user.id, group_id=group.id, time=timestamp())
+                new_row = GroupMember(user_id=current_user.id, group_id=group.id, time=timestamp())
                 db.session.add(new_row)
                 db.session.commit()
                 members.append(current_user)
                 is_member = True
         elif action == 'leave':
             if current_user in members:
-                row = Member.query.filter_by(user_id=current_user.id, group_id=group.id).first()
+                row = GroupMember.query.filter_by(user_id=current_user.id, group_id=group.id).first()
                 db.session.delete(row)
                 db.session.commit()
                 members.remove(current_user)
@@ -203,7 +205,7 @@ def group():
             group = Group(admin_id=current_user.id, name=form.name.data, sport=form.sport.data)
             db.session.add(group)
             db.session.commit()
-            new_row = Member(user_id=current_user.id, group_id=group.id, time=timestamp())
+            new_row = GroupMember(user_id=current_user.id, group_id=group.id, time=timestamp())
             db.session.add(new_row)
             db.session.commit()
             return redirect(url_for('group', action='my'))
@@ -213,16 +215,48 @@ def group():
 # --------------------------------------------------------------------------------------------------------
 # ------------------------------------------ SIDEBAR -----------------------------------------------------
 
-@app.route("/events", methods=['GET'])
+@app.route("/event", methods=['GET'])
 @login_required
-def events():
+def event():
+
+    def args_error():
+        flash("Invalid request", 'error')
+        return redirect(url_for(request.referrer))
+
     action = request.args.get('action')
     if action == "my":
         events = current_user.get_events()
         return render_template("my_events.html", events=events if len(events) > 0 else None, current_user=current_user)
+    elif action == "show":
+        try:
+            event_id = int(request.args.get('id'))
+        except:
+            args_error()
+        event = Event.get(event_id)
+        if event is None:
+            return args_error()
+        group = event.group
+        group = group if group else None
+        members = event.get_members()
+        is_member = True if current_user in members else None
+        members = members if len(members) > 0 else None
+        return render_template("event.html", event=event, group=group, members=members, is_member=is_member)
+    elif action == "join" or action == "leave":
+        try:
+            event_id = int(request.args.get('id'))
+        except:
+            args_error()
+        event = Event.get(event_id)
+        if event is None:
+            return args_error()
+        if action == "join":
+            event.add_member(current_user)
+        else:
+            event.remove_member(current_user)
+        return redirect(url_for('event', action='show', id=event_id))
     else:
-        flash("Invalid request", 'error')
-        return redirect(url_for(request.referrer))
+        args_error()
+
 
 
 @app.route("/friends", methods=['GET'])
@@ -415,6 +449,9 @@ def handle_new_group_chat(msg):
 
 if __name__ == "__main__":
     db.create_all()
+
+    app.jinja_env.globals.update(format_time=format_time)
+
     logging.getLogger('socketio').setLevel(logging.ERROR)
     logging.getLogger('engineio').setLevel(logging.ERROR)
     logging.getLogger('werkzeug').setLevel(logging.ERROR)

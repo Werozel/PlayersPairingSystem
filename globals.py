@@ -34,6 +34,9 @@ sessions = {}
 def timestamp():
     return datetime.datetime.now()
 
+def format_time(time):
+    return str(time)
+
 def get_rand() -> int:
     from libs.Message import Message
     res = random.randint(1, 9223372036854775807 - 1)

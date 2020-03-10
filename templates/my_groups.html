@@ -5,17 +5,15 @@
 {%  endblock title %}
 
 {% block content %}
-    <h4>My groups</h4>
+    <div class="media">
+        <h4 class="h4 media-body">My groups</h4>
+        <a class="media-right" href="{{url_for('search')}}">
+            <img class="" title="New group"
+                 src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
+        </a>
+    </div>
     <legend class="border-bottom mb-3" style="width: 100%"></legend>
     {% if groups %}
-        <div class="media">
-            <h4 class="h4 media-body">My groups</h4>
-            <a class="media-right" href="{{url_for('search')}}">
-                <img class="" title="New group"
-                     src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
-            </a>
-        </div>
-        <legend class="border-bottom mb-4 mt-2"></legend>
         {% for group in groups %}
             <div class="content-section w-75">
                 <div class="media">
