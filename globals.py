@@ -1,12 +1,9 @@
-import psycopg2
-from constants import config
 from app_config import SECRET_KEY, DB_URL
-from flask import Flask, flash
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_socketio import SocketIO
-import logging
 import datetime
 import random
 
@@ -21,12 +18,12 @@ def get_app(name: str) -> Flask:
 
 exiting = 0
 app = get_app(__name__)
-bootstrap =  Bootstrap(app)
+bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'warning'
-socketio = SocketIO(app)
+socketIO = SocketIO(app)
 
 sessions = {}
 
@@ -34,8 +31,10 @@ sessions = {}
 def timestamp():
     return datetime.datetime.now()
 
-def format_time(time):
+
+def format_time(time) -> str:
     return str(time)
+
 
 def get_rand() -> int:
     from libs.Message import Message

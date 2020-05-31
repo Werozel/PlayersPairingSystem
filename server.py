@@ -3,6 +3,7 @@ from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom, Se
 from flask_login import login_user, logout_user, current_user, login_required
 import libs.crypto as crypto
 from libs.ChatRole import ChatRole
+from libs.Friend import Friend
 from libs.ChatMember import ChatMember
 from libs.User import User, set_user_picture
 from libs.Group import Group
@@ -10,12 +11,11 @@ from libs.GroupMember import GroupMember
 from libs.Chat import Chat
 from libs.Notification import Notification
 from libs.Message import Message
-from libs.Friend import Friend
 from libs.Event import Event
 from libs.EventMember import EventMember
-from globals import app, db, socketio, timestamp, get_rand, sessions, format_time
-from flask_socketio import send, emit
-import time, logging
+from globals import app, db, socketIO, timestamp, get_rand, sessions, format_time
+from flask_socketio import emit
+import logging
 import json
 
 
@@ -215,12 +215,12 @@ def group():
 
 
 # --------------------------------------------------------------------------------------------------------
-# ------------------------------------------ SIDEBAR -----------------------------------------------------
+# ------------------------------------------ EVENTS ------------------------------------------------------
 
 @app.route("/event", methods=['GET', 'POST'])
 @login_required
 def event():
-    form=NewEventForm(groups=current_user.get_groups())
+    form = NewEventForm(groups=current_user.get_groups())
 
     def args_error():
         flash("Invalid request", 'error')
@@ -248,7 +248,7 @@ def event():
         elif action == "join" or action == "leave":
             try:
                 event_id = int(request.args.get('id'))
-            except:
+            except Exception as e:
                 args_error()
             event = Event.get(event_id)
             if event is None:
@@ -282,8 +282,6 @@ def event():
             return redirect(request.url)
 
 
-
-
 @app.route("/friends", methods=['GET'])
 @login_required
 def friends():
@@ -293,7 +291,6 @@ def friends():
         return render_template("show_users.html", current_user=current_user, users=users)
     else:
         return redirect(request.referrer)
-
 
 
 # --------------------------------------------------------------------------------------------------------
@@ -414,13 +411,13 @@ def chats():
         return redirect(url_for('chats', action='all'))
 
 
-
-@socketio.on('opened')
+@socketIO.on('opened')
 def handle_new(msg):
     if current_user.is_authenticated:
         sessions.update({current_user.id: request.sid})
 
-@socketio.on('message')
+
+@socketIO.on('message')
 def handle_msg(msg):
     text = msg.get('text')
     # от кого пришло сообщение
@@ -448,7 +445,7 @@ def handle_msg(msg):
                                                 'chat_id': chat_id, 'user_id': user_id}), room=session)
 
 
-@socketio.on('notify')
+@socketIO.on('notify')
 def handle_notify(msg):
     type = msg.get('type')
     if type == 'message':
@@ -459,7 +456,7 @@ def handle_notify(msg):
         pass
 
 
-@socketio.on('new_group_chat')
+@socketIO.on('new_group_chat')
 def handle_new_group_chat(msg):
     name = msg.get('name')
     group_id = int(msg.get('group_id'))
@@ -481,5 +478,5 @@ if __name__ == "__main__":
     logging.getLogger('engineio').setLevel(logging.ERROR)
     logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
-    socketio.run(app, debug=True, port=5000, host='0.0.0.0')
+    socketIO.run(app, debug=True, port=5000, host='0.0.0.0')
 
