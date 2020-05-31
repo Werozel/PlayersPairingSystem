@@ -50,7 +50,7 @@ telebot==0.0.3
 Telethon==1.11.3
 tornado==6.0.3
 tzlocal==2.0.0
-urllib3==1.22
+urllib3==1.24.2
 visitor==0.1.3
 vk-api==11.7.0
 Werkzeug==0.16.1
