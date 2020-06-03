@@ -7,6 +7,9 @@
 {% block content %}
     <div class="media">
         <h4 class="h4 media-body">My groups</h4>
+        <a class="media-right m-right-8" href="{{ url_for('search_group') }}">
+            <img title="Search event" src="{{ url_for('static', filename='buttons/search-black-24dp.svg') }}">
+        </a>
         <a class="media-right" href="{{url_for('group', action='new')}}">
             <img class="" title="New group"
                  src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
