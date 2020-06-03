@@ -6,6 +6,11 @@
         <div class="content-section">
             <div class="media">
                 <h4 class="media-body">{{ event.name }}</h4>
+                <a class="media-right"
+                   style="margin-right: 16px"
+                   href="{{ url_for('event', action='find_people', id=event.id) }}">
+                    Find people
+                </a>
                 {%  if is_member %}
                     <a class="media-right" href="{{ url_for('event', action='leave', id=event.id) }}">Leave</a>
                 {%  else %}
@@ -23,7 +28,9 @@
                 <legend class="border-bottom mb-3" style="width: 100%"></legend>
                 <p class="mb-1">Members:</p>
                 {%  for user in members %}
-                    <a href="{{ url_for('profile', action=show, id=user.id) }}" class="text-secondary">{{ user.name }} {{ user.last_name }}</a>
+                    <p class="m-bottom-4">
+                        <a href="{{ url_for('profile', action=show, id=user.id) }}" class="text-secondary">{{ user.name }} {{ user.last_name }}</a>
+                    </p>
                 {%  endfor %}
             {%  endif %}
         </div>

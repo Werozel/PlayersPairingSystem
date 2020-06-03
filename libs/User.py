@@ -76,10 +76,9 @@ class User(db.Model, UserMixin):
     def get_groups(self):
         return [i.group for i in GroupMember.query.filter_by(user_id=self.id).all()]
 
-
     def get_chats(self):
         from libs.ChatMember import ChatMember
-        return list(filter(lambda x: x.deleted is None,[i.chat for i in ChatMember.query.filter(ChatMember.user_id==self.id and
+        return list(filter(lambda x: x.deleted is None, [i.chat for i in ChatMember.query.filter(ChatMember.user_id==self.id and
                                                         ChatMember.deleted is None).all()]))
 
     def get_notifications(self):
@@ -88,7 +87,6 @@ class User(db.Model, UserMixin):
 
     def is_notified(self):
         return len(self.get_notifications()) != 0
-
 
     def get_events(self):
         from libs.EventMember import EventMember

@@ -31,7 +31,7 @@
         <p class="text-muted small">Create a new group <a href="{{url_for('group', action='new')}}">here</a></p>
     {% else %}
         <h4>No groups yet!</h4>
-        <p class="text-muted small" style="margin-bottom: 0px;">Search for a group <a href="{{url_for('search')}}">here</a></p>
+        <p class="text-muted small" style="margin-bottom: 0px;">Search for a group <a href="{{url_for('search_group')}}">here</a></p>
         <p class="text-muted small">Or create a new one <a href="{{url_for('group', action='new')}}">here</a></p>
     {% endif %}
 {% endblock %} 

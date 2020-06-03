@@ -79,8 +79,7 @@ class NewGroupFrom(FlaskForm):
 			raise ValidationError('Name already taken!')
 
 
-
-class SearchForm(FlaskForm):
+class SearchGroupForm(FlaskForm):
 	name = StringField('Name', validators=[Length(max=50)])
 	choices = Sports.get_choices()
 	choices.append(("None", "None"))

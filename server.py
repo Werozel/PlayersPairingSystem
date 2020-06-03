@@ -1,5 +1,5 @@
 from flask import render_template, url_for, request, redirect, flash
-from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom, SearchForm, NewEventForm
+from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom, SearchGroupForm, NewEventForm
 from flask_login import login_user, logout_user, current_user, login_required
 import libs.crypto as crypto
 from libs.ChatRole import ChatRole
@@ -77,26 +77,26 @@ def logout():
 # -------------------------------------------------------------------------------------------------------------
 # ------------------------------------------EDIT PROFILE-------------------------------------------------------
 
-@app.route("/search", methods=['GET', 'POST'])
+@app.route("/search_group", methods=['GET', 'POST'])
 @login_required
-def search():
-    form = SearchForm()
+def search_group():
+    search_group_form = SearchGroupForm()
     if request.method == 'GET':
         sport = request.args.get('sport')
         if sport is None:
             groups = Group.query.limit(30).all()
         else:
             groups = Group.get_by_sport(sport)
-        return render_template("search.html", query=groups, form=form)
+        return render_template("search_group.html", query=groups, form=search_group_form)
     elif request.method == 'POST':
-        name = form.name.data
-        sport = form.sport.data
+        name = search_group_form.name.data
+        sport = search_group_form.sport.data
         groups = Group.query.filter(Group.name.ilike(f"%{name}%")).\
             filter(Group.sport == sport if sport != "None" else Group.sport == Group.sport).all()
-        return  render_template("search.html", query=groups, form=form)
+        return render_template("search_group.html", query=groups, form=search_group_form)
     else:
         groups = Group.query.limit(50).all()
-        return render_template("search.html", query=groups, form=form)
+        return render_template("search_group.html", query=groups, form=search_group_form)
 
 
 # ---------------------------------------------------------------------------------------------------------
@@ -220,7 +220,7 @@ def group():
 @app.route("/event", methods=['GET', 'POST'])
 @login_required
 def event():
-    form = NewEventForm(groups=current_user.get_groups())
+    new_event_form = NewEventForm(groups=current_user.get_groups())
 
     def args_error():
         flash("Invalid request", 'error')
@@ -234,7 +234,7 @@ def event():
         elif action == "show":
             try:
                 event_id = int(request.args.get('id'))
-            except:
+            except Exception as e:
                 args_error()
             event = Event.get(event_id)
             if event is None:
@@ -259,17 +259,39 @@ def event():
                 event.remove_member(current_user)
             return redirect(url_for('event', action='show', id=event_id))
         elif action == "new":
-            return render_template("new_event.html", form=form)
+            return render_template("new_event.html", form=new_event_form)
+        elif action == "find_people":
+            try:
+                event_id = int(request.args.get('id'))
+            except Exception as e:
+                args_error()
+            event = Event.get(event_id)
+            # FIXME сделать нормальный фильтр
+            event_users = set(event.get_members())
+            all_users = set(User.query.order_by(User.register_time).all())
+            users: list = list(filter(lambda user: event.sport in user.sport, list(all_users - event_users)))
+            return render_template("find_people.html", event_id=event.id, people=users if len(users) > 0 else None)
+        elif action == "add_user":
+            try:
+                user_id = int(request.args.get('user_id'))
+                event_id = int(request.args.get('event_id'))
+            except Exception as e:
+                args_error()
+            user = User.get(user_id)
+            event = Event.get(event_id)
+            event.add_member(user)
+            # TODO делать не редирект, а изменение кнопки
+            return redirect(url_for('event', action='find_people', id=event_id))
         else:
             args_error()
     else:
-        if form.validate_on_submit():
-            name = form.name.data
-            description = form.description.data
-            sport = form.sport.data
-            group_id = form.assigned_group.data
+        if new_event_form.validate_on_submit():
+            name = new_event_form.name.data
+            description = new_event_form.description.data
+            sport = new_event_form.sport.data
+            group_id = new_event_form.assigned_group.data
             group_id = None if group_id == "None" else int(group_id)
-            time = form.time.data
+            time = new_event_form.time.data
             new_event = Event(name=name, description=description, sport=sport, group_id=group_id,
                               creation_time=timestamp(), creator=current_user.id, time=time)
             db.session.add(new_event)
@@ -411,6 +433,10 @@ def chats():
         return redirect(url_for('chats', action='all'))
 
 
+# ---------------------------------------------------------------------------------------------------
+# ---------------------------------------- SocketIO -------------------------------------------------
+
+
 @socketIO.on('opened')
 def handle_new(msg):
     if current_user.is_authenticated:
@@ -420,7 +446,6 @@ def handle_new(msg):
 @socketIO.on('message')
 def handle_msg(msg):
     text = msg.get('text')
-    # от кого пришло сообщение
     # current_user - тоже от кого пришло сообщение
     user_id = int(msg.get('user_id'))
     chat_id = int(msg.get('chat_id'))
@@ -471,8 +496,6 @@ def handle_new_group_chat(msg):
 
 if __name__ == "__main__":
     db.create_all()
-
-    app.jinja_env.globals.update(format_time=format_time)
 
     logging.getLogger('socketio').setLevel(logging.ERROR)
     logging.getLogger('engineio').setLevel(logging.ERROR)

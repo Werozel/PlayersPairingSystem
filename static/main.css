@@ -8,6 +8,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
 
+
 .bg-steel {
   background-color: #5f788a;
 }
@@ -117,4 +118,8 @@ a.article-title:hover {
   border-radius: 5px;
   border-style: solid;
   border-width: 1px;
+}
+
+.m-bottom-4 {
+  margin-bottom: 4px;
 }

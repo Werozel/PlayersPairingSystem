@@ -25,11 +25,11 @@
                             {%  if user.sport %}
                                 {%  for sport in user.sport %}
                                     <span style="list-style-type: none; padding-left: 3px;" class="text-secondary">
-                                        <a href="{{ url_for('search', sport=sport) }}" class="text-secondary">{{ sport }}</a>
+                                        <a href="{{ url_for('search_group', sport=sport) }}" class="text-secondary">{{ sport }}</a>
                                     </span>
                                 {%  endfor  %}
                             {%  else %}
-                                No sport added yet!
+                                <p class="text-secondary">No sport added yet!</p>
                             {%  endif %}
                         </p>
                     </div>
