@@ -13,7 +13,7 @@ from libs.Notification import Notification
 from libs.Message import Message
 from libs.Event import Event
 from libs.EventMember import EventMember
-from globals import app, db, socketIO, timestamp, get_rand, sessions, format_time
+from globals import app, db, socketIO, timestamp, get_rand, sessions
 from flask_socketio import emit
 import logging
 import json
@@ -115,7 +115,7 @@ def profile():
             groups = current_user.get_groups()
             friends = current_user.friends_get()
             return render_template("profile.html", title="Profile", current_user=current_user,
-                                user=current_user, groups=groups, friends=friends, my=True)
+                                   user=current_user, groups=groups, friends=friends, my=True)
         elif action == 'show':
             id = int(request.args.get('id'))
             if not id or id == current_user.id:
@@ -126,14 +126,14 @@ def profile():
             chat = ChatMember.get_private_chat(current_user.id, id)
             is_friend = True if current_user in friends else None
             return render_template("profile.html", title="Profile", chat_id=chat.id if chat else None,
-                                current_user=current_user, groups=groups, friends=friends, is_friend=is_friend,
+                                   current_user=current_user, groups=groups, friends=friends, is_friend=is_friend,
                                    user=user)
         elif action == 'edit':
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
         elif action == 'friend_add':
             id = request.args.get('id')
             if not id:
-                flash("Somthing went wrong! Please try again.", "error")
+                flash("Something went wrong! Please try again.", "error")
                 return redirect(request.referrer)
             current_user.friend_add(id)
             flash("Friend added!", "success")
@@ -141,7 +141,7 @@ def profile():
         elif action == 'friend_remove':
             id = request.args.get('id')
             if not id:
-                flash("Somthing went wrong! Please try again.", "error")
+                flash("Something went wrong! Please try again.", "error")
                 return redirect(request.referrer)
             current_user.friend_remove(id)
             flash("Friend removed!", "success")
@@ -234,8 +234,8 @@ def event():
         elif action == "show":
             try:
                 event_id = int(request.args.get('id'))
-            except Exception as e:
-                args_error()
+            except ValueError:
+                return args_error()
             event = Event.get(event_id)
             if event is None:
                 return args_error()
@@ -248,8 +248,8 @@ def event():
         elif action == "join" or action == "leave":
             try:
                 event_id = int(request.args.get('id'))
-            except Exception as e:
-                args_error()
+            except ValueError:
+                return args_error()
             event = Event.get(event_id)
             if event is None:
                 return args_error()
@@ -263,8 +263,8 @@ def event():
         elif action == "find_people":
             try:
                 event_id = int(request.args.get('id'))
-            except Exception as e:
-                args_error()
+            except Exception:
+                return args_error()
             event = Event.get(event_id)
             # FIXME сделать нормальный фильтр
             event_users = set(event.get_members())
@@ -275,15 +275,15 @@ def event():
             try:
                 user_id = int(request.args.get('user_id'))
                 event_id = int(request.args.get('event_id'))
-            except Exception as e:
-                args_error()
+            except ValueError:
+                return args_error()
             user = User.get(user_id)
             event = Event.get(event_id)
             event.add_member(user)
             # TODO делать не редирект, а изменение кнопки
             return redirect(url_for('event', action='find_people', id=event_id))
         else:
-            args_error()
+            return args_error()
     else:
         if new_event_form.validate_on_submit():
             name = new_event_form.name.data
@@ -350,7 +350,7 @@ def group_chats():
     elif action == 'show':
         try:
             chat_id = int(request.args.get('chat_id'))
-        except:
+        except ValueError:
             return args_error()
         chat = Chat.get(chat_id)
         group = Group.get(chat.group_id)
@@ -383,7 +383,7 @@ def chats():
             elif len(members) < 2:
                 user_id = 'Deleted'
             else:
-                 user_id = members[0].id if members[0].id != current_user.id else members[1].id
+                user_id = members[0].id if members[0].id != current_user.id else members[1].id
             return redirect(url_for("chats", action='show', chat_id=chat_id, user_id=user_id))
         else:
             user_id=int(user_id)
@@ -397,7 +397,7 @@ def chats():
                 chat.add_member(current_user.id, is_group=False)
                 chat.add_member(int(user_id), is_group=False)
                 db.session.commit()
-                history=[]
+                history = []
             elif chat.deleted is not None:
                 return redirect(url_for('chats', action='all'))
             else:
@@ -406,7 +406,14 @@ def chats():
             history = Chat.get(int(chat_id)).get_history()
             Notification.remove(user_id=current_user.id, chat_id=int(chat_id))
 
-        return render_template("chat.html", user_id=user_id, current_user=current_user, chat_name=User.get(user_id).username, chat=Chat.get(int(chat_id)), messages=history)
+        return render_template(
+            "chat.html",
+            user_id=user_id,
+            current_user=current_user,
+            chat_name=User.get(user_id).username,
+            chat=Chat.get(int(chat_id)),
+            messages=history
+        )
     elif action == 'all':
         chats = ChatMember.get_user_chats(current_user.id)
         for i in chats:
@@ -415,7 +422,12 @@ def chats():
                 for u in members:
                     if u.id != current_user.id:
                         i.name = u.username
-        return render_template("my_chats.html", notifications=current_user.get_notifications(), current_user=current_user, chats=chats)
+        return render_template(
+            "my_chats.html",
+            notifications=current_user.get_notifications(),
+            current_user=current_user,
+            chats=chats
+        )
     elif action == 'delete':
         chat_id = request.args.get('chat_id')
         if chat_id is None:
@@ -438,7 +450,7 @@ def chats():
 
 
 @socketIO.on('opened')
-def handle_new(msg):
+def handle_new(_):
     if current_user.is_authenticated:
         sessions.update({current_user.id: request.sid})
 
@@ -466,8 +478,16 @@ def handle_msg(msg):
             if user.id != user_id:
                 session = sessions.get(user.id)
                 if session:
-                    emit('message', json.dumps({'text': text, 'message_id': message.id,'username': User.get(user_id).username,
-                                                'chat_id': chat_id, 'user_id': user_id}), room=session)
+                    emit(
+                        'message',
+                        json.dumps({
+                            'text': text,
+                            'message_id': message.id,
+                            'username': User.get(user_id).username,
+                            'chat_id': chat_id, 'user_id': user_id
+                        }),
+                        room=session
+                    )
 
 
 @socketIO.on('notify')
@@ -502,4 +522,3 @@ if __name__ == "__main__":
     logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
     socketIO.run(app, debug=True, port=5000, host='0.0.0.0')
-

@@ -1,5 +1,5 @@
 
-var socket = io();
+let socket = io();
 
 socket.on('connect', function () {
     socket.emit('opened', {})

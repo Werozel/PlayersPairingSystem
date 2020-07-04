@@ -62,7 +62,8 @@ class EditProfileForm(FlaskForm):
 	sport = SelectMultipleFields('Sport', choices=sport_choices)
 	submit = SubmitField('Update')
 
-	def validate_age(self, age):
+	@staticmethod
+	def validate_age(age):
 		if age.data < 10 or age.data > 100:
 			raise ValidationError('Invalid age!')
 
@@ -72,7 +73,8 @@ class NewGroupFrom(FlaskForm):
 	sport = SelectField('Sport', choices=Sports.get_choices(), validators=[DataRequired()])
 	submit = SubmitField('Create')
 
-	def validate_name(self, name):
+	@staticmethod
+	def validate_name(name):
 		group = Group.query.filter_by(name=name.data).first()
 		print(group)
 		if group:

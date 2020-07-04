@@ -47,7 +47,6 @@ class User(db.Model, UserMixin):
     event_member_rel = db.relationship('EventMember', backref='user', lazy=True)
     event_rel = db.relationship('Event', backref='user', lazy=True)
 
-
     __tablename__ = "users"
 
     def __repr__(self):
@@ -78,8 +77,10 @@ class User(db.Model, UserMixin):
 
     def get_chats(self):
         from libs.ChatMember import ChatMember
-        return list(filter(lambda x: x.deleted is None, [i.chat for i in ChatMember.query.filter(ChatMember.user_id==self.id and
-                                                        ChatMember.deleted is None).all()]))
+        return list(filter(lambda x: x.deleted is None,
+                           [i.chat for i in ChatMember.query.filter(ChatMember.user_id == self.id
+                                                                    and ChatMember.deleted is None).all()]
+                           ))
 
     def get_notifications(self):
         from libs.Notification import Notification
@@ -91,6 +92,3 @@ class User(db.Model, UserMixin):
     def get_events(self):
         from libs.EventMember import EventMember
         return [i.event for i in EventMember.query.filter_by(user_id=self.id).all()]
-
-
-

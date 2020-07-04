@@ -1,6 +1,7 @@
 from globals import db, timestamp
 from libs.EventMember import EventMember
 
+
 class Event(db.Model):
     __tablename__ = "events"
 
@@ -21,7 +22,7 @@ class Event(db.Model):
     def get(id):
         try:
             id = int(id)
-        except:
+        except Exception:
             raise TypeError("Not valid id")
         return Event.query.filter_by(id=id).first()
 

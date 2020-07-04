@@ -15,7 +15,12 @@ class Message(db.Model):
     content = db.Column(db.JSON, default=json.dumps({'photos': [], 'audios': [], 'videos': [], 'map_pins': []}))
     text = db.Column(db.VARCHAR(1000), default="")
 
-    chat_last_msg_rel = db.relationship('Chat', backref='last_message', lazy=True, primaryjoin="Message.id==Chat.last_msg_id")
+    chat_last_msg_rel = db.relationship(
+        'Chat',
+        backref='last_message',
+        lazy=True,
+        primaryjoin="Message.id==Chat.last_msg_id"
+    )
 
     @staticmethod
     def get(id):

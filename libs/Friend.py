@@ -15,7 +15,7 @@ class Friend(db.Model):
 
     @staticmethod
     def add(first_id: int, second_id: int):
-        if (second_id < first_id):
+        if second_id < first_id:
             first_id, second_id = second_id, first_id
         if Friend.query.filter_by(first_id=first_id, second_id=second_id).first() is not None:
             return
@@ -25,7 +25,7 @@ class Friend(db.Model):
 
     @staticmethod
     def remove(first_id: int, second_id: int):
-        if (second_id < first_id):
+        if second_id < first_id:
             first_id, second_id = second_id, first_id
         if Friend.query.filter_by(first_id=first_id, second_id=second_id).first() is None:
             return
