@@ -12,7 +12,6 @@ class Notification(db.Model):
         db.PrimaryKeyConstraint('user_id', 'chat_id'),
     )
 
-
     @staticmethod
     def get(user_id, chat_id):
         return Notification.query.filter_by(user_id=int(user_id), chat_id=int(chat_id)).first()

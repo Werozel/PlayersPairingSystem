@@ -19,7 +19,6 @@ class ChatMember(db.Model):
     def __eq__(self, other):
         return self.user_id == other.user_id and self.chat_id == other.chat_id
 
-
     @staticmethod
     def get_private_chat(first_id, second_id):
         first_id = int(first_id)
@@ -41,5 +40,6 @@ class ChatMember(db.Model):
     @staticmethod
     def get_user_chats(user_id):
         user_id = int(user_id)
-        return [i.chat for i in list(filter(lambda x: x.deleted is None or (x.chat.last_message is not None and x.deleted < x.chat.last_message.time), ChatMember.query.filter_by(user_id=user_id).all()))]
-
+        return [i.chat for i in list(filter(lambda x: x.deleted is None or (x.chat.last_message is not None and
+                                                                            x.deleted < x.chat.last_message.time),
+                                            ChatMember.query.filter_by(user_id=user_id).all()))]

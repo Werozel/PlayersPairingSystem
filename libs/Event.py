@@ -1,6 +1,7 @@
 from globals import db, timestamp
 from libs.EventMember import EventMember
 
+
 class Event(db.Model):
     __tablename__ = "events"
 
@@ -21,10 +22,9 @@ class Event(db.Model):
     def get(id):
         try:
             id = int(id)
-        except:
+        except Exception:
             raise TypeError("Not valid id")
         return Event.query.filter_by(id=id).first()
-
 
     def add_member(self, user):
         res = EventMember.query.filter_by(event_id=self.id, user_id=user.id).first()
@@ -33,7 +33,6 @@ class Event(db.Model):
         new_member = EventMember(event_id=self.id, user_id=user.id, time=timestamp())
         db.session.add(new_member)
         db.session.commit()
-
 
     def get_members(self):
         return [i.user for i in EventMember.query.filter_by(event_id=self.id).all()]

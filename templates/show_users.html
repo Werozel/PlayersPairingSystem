@@ -9,9 +9,9 @@
         {%  for user in users %}
             <div class="content-section">
                 {%  if user.name and user.last_name %}
-                <h5><a href="{{ url_for('profile', action='show', id=user.id) }}">{{ user.name }} {{ user.last_name }}</a></h5>
+                <h5><a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.name }} {{ user.last_name }}</a></h5>
                 {%  else %}
-                <h5><a href="{{ url_for('profile', action='show', id=user.id) }}">{{ user.username }}</a></h5>
+                <h5><a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.username }}</a></h5>
                 {%  endif %}
 
                 <legend class="border-bottom mb-3" style="width: 100%"></legend>
@@ -25,11 +25,11 @@
                             {%  if user.sport %}
                                 {%  for sport in user.sport %}
                                     <span style="list-style-type: none; padding-left: 3px;" class="text-secondary">
-                                        <a href="{{ url_for('search', sport=sport) }}" class="text-secondary">{{ sport }}</a>
+                                        <a href="{{ url_for('search_group_route', sport=sport) }}" class="text-secondary">{{ sport }}</a>
                                     </span>
                                 {%  endfor  %}
                             {%  else %}
-                                No sport added yet!
+                                <p class="text-secondary">No sport added yet!</p>
                             {%  endif %}
                         </p>
                     </div>

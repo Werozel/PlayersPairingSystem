@@ -1,6 +1,6 @@
 from globals import db, timestamp
 from libs.User import User
-import copy
+
 
 class Chat(db.Model):
     __tablename__ = 'chats'
@@ -10,7 +10,7 @@ class Chat(db.Model):
     admin_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, default=timestamp())
     last_msg_id = db.Column(db.BigInteger, db.ForeignKey('messages.id'), nullable=True)
-    group_id = db.Column(db.BigInteger, db.ForeignKey('groups.id'), nullable=True) # is_group
+    group_id = db.Column(db.BigInteger, db.ForeignKey('groups.id'), nullable=True)    # is_group
     deleted = db.Column(db.TIMESTAMP, nullable=True, default=None)
 
     chat_role_rel = db.relationship('ChatRole', backref='chat', lazy=True)
@@ -38,7 +38,7 @@ class Chat(db.Model):
             db.session.commit()
 
     def update_last_msg(self, message):
-        self.last_message = message
+        self.last_msg_id = message.id
         db.session.commit()
 
     def get_new_messages(self, user_id=None):

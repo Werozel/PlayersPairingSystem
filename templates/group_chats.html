@@ -20,8 +20,8 @@
             <div class="content-section w-75" id="{{ chat.id }}">
             {%  endif %}
                 <div class="media">
-                    <h5 id="name" class="media-body"><a href="{{ url_for('group_chats', action='show', chat_id=chat.id, group_id=group.id) }}">{{ chat.name }}</a></h5>
-                    <a class="media-right" title="Delete chat" href="{{ url_for('group_chats', action='delete', chat_id=chat.id) }}">
+                    <h5 id="name" class="media-body"><a href="{{ url_for('group_chats_route', action='show', chat_id=chat.id, group_id=group.id) }}">{{ chat.name }}</a></h5>
+                    <a class="media-right" title="Delete chat" href="{{ url_for('group_chats_route', action='delete', chat_id=chat.id) }}">
                         <img src="{{ url_for('static', filename='buttons/close-24px.svg') }}">
                     </a>
                 </div>

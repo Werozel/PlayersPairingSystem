@@ -3,6 +3,7 @@ from libs.User import User
 from libs.Chat import Chat
 import json
 
+
 class ChatRole(db.Model):
     __tablename__ = 'chat_roles'
 

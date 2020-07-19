@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+
+{%  block title %}
+    <title>Find people</title>
+{% endblock title %}
+
+{%  block content %}
+    <h4>Find people</h4>
+    <legend class="border-top mt-2"></legend>
+    {%  if people %}
+        {%  for user in people %}
+            <div class="content-section w-75">
+                <div class="media">
+                    <div class="media-body">
+                        {%  if user.name and user.last_name %}
+                        <h5><a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.name }} {{ user.last_name }}</a></h5>
+                        {%  else %}
+                        <h5><a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.username }}</a></h5>
+                        {%  endif %}
+                    </div>
+
+                    <a class="media-right" href="{{ url_for('event_route', action='add_user', user_id=user.id, event_id=event_id) }}">
+                        <img title="Add user" src="{{ url_for('static', filename='buttons/add-24px.svg') }}"/>
+                    </a>
+                </div>
+
+                <legend class="border-bottom mb-3" style="width: 100%"></legend>
+                <div id="bottom" class="column ml-3">
+                    {%  if user.age %}
+                    <p class="row" style="white-space: pre-wrap">Age:<span class="text-secondary">   {{ user.age }}</span></p>
+                    {%  endif %}
+                    {# TODO: add time and place #}
+                </div>
+            </div>
+        {%  endfor %}
+    {%  else %}
+        <p class="text-secondary">No people found</p>
+    {%  endif %}
+{%  endblock content %}

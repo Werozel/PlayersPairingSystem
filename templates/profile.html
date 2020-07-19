@@ -11,16 +11,16 @@
       <div class="media">
         <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}">
         <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
-          <p class="text-secondary">{{ user.name }} {{ user.last_name }}</p>
-          <p class="text-secondary">Age {{ user.age }}</p>
-          <p class="text-secondary">Gender {{ user.gender }}</p>
+          <h2 class="account-heading">{{ user.name }} {{ user.last_name }}</h2>
+          <p class="text-secondary m-bottom-4">{{  user.username }}</p>
+          <p class="text-secondary m-bottom-4">Age: {{ user.age }}</p>
+          <p class="text-secondary m-bottom-4">Gender: {{ user.gender }}</p>
 
         </div>
 
           {%  if my  %}
             <div class="media-right">
-              <a href="{{ url_for('profile', action='edit') }}">
+              <a href="{{ url_for('profile_route', action='edit') }}">
                 <img title="Edit profile"
                      src="{{ url_for('static', filename='buttons/edit-24px.svg')}}"/>
               </a>
@@ -28,20 +28,20 @@
           {%  else %}
             <div class="media-right">
                 {%  if is_friend %}
-                      <a href="{{ url_for('profile', action='friend_remove', id=user.id) }}">
+                      <a href="{{ url_for('profile_route', action='friend_remove', id=user.id) }}">
                         <img title="Remove friend"
                              src="{{ url_for('static', filename='buttons/remove-24px.svg')}}"/>
                       </a>
                 {% else %}
-                    <a href="{{ url_for('profile', action='friend_add', id=user.id) }}">
+                    <a href="{{ url_for('profile_route', action='friend_add', id=user.id) }}">
                         <img title="Add friend"
                              src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
                       </a>
                 {%  endif %}
                 {%  if chat_id %}
-                    <a href="{{ url_for('chats', action='show', chat_id=chat_id, user_id=user.id) }}">
+                    <a href="{{ url_for('chats_route', action='show', chat_id=chat_id, user_id=user.id) }}">
                 {%  else %}
-                    <a href="{{ url_for('chats', action='show', user_id=user.id) }}" >
+                    <a href="{{ url_for('chats_route', action='show', user_id=user.id) }}" >
                 {%  endif %}
                         <img title="Show chat"
                              src="{{ url_for('static', filename='buttons/chat-24px.svg')}}"/>
@@ -54,22 +54,26 @@
         <div class="container padding-left-0">
             {% if user.sport %}
                 <h5 class="align-left">Sports:</h5>
-                <div class="align-left col-sm-1">
+                <div class="align-left col-sm-12">
                     {% for sport in user.sport %}
-                    <a href="{{ url_for('search', sport=sport)}}" class="text-secondary"> {{ sport }}</a>
+                    <p class="m-bottom-4">
+                        <a href="{{ url_for('search_group_route', sport=sport)}}" class="text-secondary"> {{ sport }}</a>
+                    </p>
                     {% endfor %}
                 </div>
             {% else %}
-             <p class="">No sport added yet!</p>
+                <p>No sport added yet!</p>
             {% endif %}
         </div>
             {% if groups %}
             <legend class="border-bottom mb-4 mt-2"></legend>
             <div class="container padding-left-0">
                 <h5 class="align-left">Groups:</h5>
-                <div class="align-left col-sm-1">
+                <div class="align-left col-sm-12">
                     {% for group in groups %}
-                      <a href="{{ url_for('group', id=group.id, action='show')}}" class="text-secondary"> {{ group.name }}</a>
+                        <p class="m-bottom-4">
+                            <a href="{{ url_for('group_route', id=group.id, action='show')}}" class="text-secondary"> {{ group.name }}</a>
+                        </p>
                     {% endfor %}
                 </div>
             </div>
@@ -81,8 +85,10 @@
                 <h5 class="align-left">Friends:</h5>
                 <div class="align-left col-sm-12">
                     {% for friend in friends %}
-                      <a href="{{ url_for('profile', id=friend.id, action='show')}}" class="text-secondary">
-                          {{ friend.name }} {{ friend.last_name }}</a>
+                        <p class="m-bottom-4">
+                            <a href="{{ url_for('profile_route', id=friend.id, action='show')}}" class="text-secondary">
+                            {{ friend.name }} {{ friend.last_name }}</a>
+                        </p>
                     {% endfor %}
                 </div>
             </div>

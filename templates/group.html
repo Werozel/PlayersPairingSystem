@@ -12,13 +12,13 @@
             </div>
             <div class="media-right">
                 <a class="media-right" style="text-decoration: none"
-                   href="{{ url_for('group_chats', id=group.id, action='all') }}">
+                   href="{{ url_for('group_chats_route', id=group.id, action='all') }}">
                     <img src="{{ url_for('static', filename='buttons/chat-24px.svg') }}"/>
                 </a>
                 {% if not is_member %}
-                    <a class="media-right" href="{{ url_for('group', id=group.id, action='join') }}">Join</a> 
+                    <a class="media-right" href="{{ url_for('group_route', id=group.id, action='join') }}">Join</a>
                 {% else %}
-                    <a class="media-right" href="{{ url_for('group', id=group.id, action='leave') }}">Leave</a> 
+                    <a class="media-right" href="{{ url_for('group_route', id=group.id, action='leave') }}">Leave</a>
                 {% endif %}
             </div>
         </div>
@@ -32,14 +32,14 @@
         <h5 class="mb-4">Members:</h5>
         <ul style="list-style-type: none; list-style-position: inside; padding: 0">
             {% for user in members %}
-                <li style="margin-left: 0;"><a href="{{ url_for('profile', action='show', id=user.id) }}"class="text-secondary">{{user.name}} {{user.last_name}}</a></li>
+                <li style="margin-left: 0;"><a href="{{ url_for('profile_route', action='show', id=user.id) }}" class="text-secondary">{{user.name}} {{user.last_name}}</a></li>
             {% endfor %}
         </ul>
         <legend class="border-bottom mb-3"></legend>
         <h5 class="mb-4">Events:</h5>
         <ul style="list-style-type: none; list-style-position: inside; padding: 0">
             {% for event in events %}
-                <li style="margin-left: 0;"><a href="{{ url_for('event', action='show', id=event.id) }}"class="text-secondary">{{event.name}}</a></li>
+                <li style="margin-left: 0;"><a href="{{ url_for('event_route', action='show', id=event.id) }}" class="text-secondary">{{event.name}}</a></li>
             {% endfor %}
         </ul>
     </div>
