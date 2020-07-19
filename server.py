@@ -243,7 +243,7 @@ def event_route():
             event = Event.get(event_id)
             if event is None:
                 return args_error()
-            group = event.group_route
+            group = event.group
             group = group if group else None
             members = event.get_members()
             is_member = True if current_user in members else None

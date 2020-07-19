@@ -73,7 +73,7 @@ class User(db.Model, UserMixin):
         return list(first_set.union(second_set))
 
     def get_groups(self):
-        return [i.group_route for i in GroupMember.query.filter_by(user_id=self.id).all()]
+        return [i.group for i in GroupMember.query.filter_by(user_id=self.id).all()]
 
     def get_chats(self):
         from libs.ChatMember import ChatMember
@@ -91,4 +91,4 @@ class User(db.Model, UserMixin):
 
     def get_events(self):
         from libs.EventMember import EventMember
-        return [i.event_route for i in EventMember.query.filter_by(user_id=self.id).all()]
+        return [i.event for i in EventMember.query.filter_by(user_id=self.id).all()]

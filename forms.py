@@ -10,33 +10,29 @@ from constants.constants import Sports
 
 
 class RegistrationForm(FlaskForm):
-	username = StringField('Username', 
-				validators=[DataRequired(), Length(min=3, max=30)])
-	email = StringField('Email', 
-				validators=[DataRequired(), Email()])
-	password = PasswordField('Password', 
-				validators=[DataRequired()])
-	confirm_password = PasswordField('Confirm password',
-				validators=[DataRequired(), EqualTo('password')])
+	username = StringField('Username', validators=[DataRequired(), Length(min=3, max=30)])
+	email = StringField('Email', validators=[DataRequired(), Email()])
+	password = PasswordField('Password', validators=[DataRequired()])
+	confirm_password = PasswordField('Confirm password',validators=[DataRequired(), EqualTo('password')])
 
 	submit = SubmitField('Sign Up')
 
-	def validate_username(self, username):
+	@staticmethod
+	def validate_username(_, username):
 		user = User.query.filter_by(username=username.data).first()
 		if user:
 			raise ValidationError('This username is already taken')
 
-	def validate_email(self, email):
+	@staticmethod
+	def validate_email(_, email):
 		user = User.query.filter_by(email=email.data).first()
 		if user:
 			raise ValidationError('Account with this email already exists')
 
 
 class LoginForm(FlaskForm):
-	username = StringField('Username', 
-				validators=[DataRequired(), Length(min=3, max=30)])
-	password = PasswordField('Password', 
-				validators=[DataRequired()])
+	username = StringField('Username', validators=[DataRequired(), Length(min=3, max=30)])
+	password = PasswordField('Password', validators=[DataRequired()])
 	remember = BooleanField('Remember me')
 	submit = SubmitField('Login')
 
@@ -46,8 +42,8 @@ class SelectMultipleFields(SelectMultipleField):
 	def pre_validate(self, form):
 		pass
 
-	def process_formdata(self, valuelist):
-		self.data = valuelist
+	def process_formdata(self, value_list):
+		self.data = value_list
 
 
 class EditProfileForm(FlaskForm):
@@ -63,7 +59,7 @@ class EditProfileForm(FlaskForm):
 	submit = SubmitField('Update')
 
 	@staticmethod
-	def validate_age(age):
+	def validate_age(_, age):
 		if age.data < 10 or age.data > 100:
 			raise ValidationError('Invalid age!')
 
@@ -74,7 +70,7 @@ class NewGroupFrom(FlaskForm):
 	submit = SubmitField('Create')
 
 	@staticmethod
-	def validate_name(name):
+	def validate_name(_, name):
 		group = Group.query.filter_by(name=name.data).first()
 		print(group)
 		if group:
