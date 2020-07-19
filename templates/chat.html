@@ -9,7 +9,7 @@
         {%  if group %}
             <div class="media">
                 <h4 class="media-body">{{ group.name }}</h4>
-                <a href="{{ url_for('group_chats', action='add_members', chat_id=chat.id, group_id=group.id) }}" class="media-right">
+                <a href="{{ url_for('group_chats_route', action='add_members', chat_id=chat.id, group_id=group.id) }}" class="media-right">
                     <img src="{{ url_for('static', filename='buttons/add-24px.svg') }}"/>
                 </a>
             </div>
@@ -42,7 +42,7 @@
 {%  block socket_script %}
 
     <script type="text/javascript" charset="utf-8">
-        var socket = io();
+        const socket = io();
 
         socket.on('connect', function () {
             socket.emit('opened', {})
@@ -50,13 +50,13 @@
 
         socket.on('message', function (json_msg) {
             console.log(json_msg);
-            var msg = JSON.parse(json_msg);
+            const msg = JSON.parse(json_msg);
             if (Number.parseInt('{{ chat.id }}') === msg.chat_id) {
-                var li = document.createElement("P");
+                const li = document.createElement("P");
                 li.innerHTML = `${msg.username}: <span class='text-muted'>${msg.text}</span>`;
                 li.className = "message";
                 document.getElementById('history').appendChild(li);
-                var objDiv = document.getElementById("history");
+                const objDiv = document.getElementById("history");
                 objDiv.scrollTop = objDiv.scrollHeight;
                 socket.emit('notify', {type: 'message', 'message_id': msg.message_id, 'user_id': '{{ current_user.id }}',
                                         'chat_id': msg.chat_id})
@@ -66,20 +66,20 @@
         });
 
         document.getElementById('send').onclick = function () {
-            var input = document.getElementById('input');
-            var msg = input.value;
+            const input = document.getElementById('input');
+            const msg = input.value;
             input.value = "";
-            var li = document.createElement("P");
+            const li = document.createElement("P");
             li.innerHTML = `<span class='text-muted'>${msg}</span>`;
             li.className = "message";
             li.style = "text-align: right; margin-right: 5%";
             socket.send({text: msg, chat_id: "{{chat.id}}", user_id: "{{ current_user.id }}"});
             document.getElementById('history').appendChild(li);
-            var objDiv = document.getElementById("history");
+            const objDiv = document.getElementById("history");
             objDiv.scrollTop = objDiv.scrollHeight;
         };
 
-        var input = document.getElementById("input");
+        const input = document.getElementById("input");
         input.addEventListener("keyup", function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();

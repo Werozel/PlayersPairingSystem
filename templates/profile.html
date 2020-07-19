@@ -20,7 +20,7 @@
 
           {%  if my  %}
             <div class="media-right">
-              <a href="{{ url_for('profile', action='edit') }}">
+              <a href="{{ url_for('profile_route', action='edit') }}">
                 <img title="Edit profile"
                      src="{{ url_for('static', filename='buttons/edit-24px.svg')}}"/>
               </a>
@@ -28,20 +28,20 @@
           {%  else %}
             <div class="media-right">
                 {%  if is_friend %}
-                      <a href="{{ url_for('profile', action='friend_remove', id=user.id) }}">
+                      <a href="{{ url_for('profile_route', action='friend_remove', id=user.id) }}">
                         <img title="Remove friend"
                              src="{{ url_for('static', filename='buttons/remove-24px.svg')}}"/>
                       </a>
                 {% else %}
-                    <a href="{{ url_for('profile', action='friend_add', id=user.id) }}">
+                    <a href="{{ url_for('profile_route', action='friend_add', id=user.id) }}">
                         <img title="Add friend"
                              src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
                       </a>
                 {%  endif %}
                 {%  if chat_id %}
-                    <a href="{{ url_for('chats', action='show', chat_id=chat_id, user_id=user.id) }}">
+                    <a href="{{ url_for('chats_route', action='show', chat_id=chat_id, user_id=user.id) }}">
                 {%  else %}
-                    <a href="{{ url_for('chats', action='show', user_id=user.id) }}" >
+                    <a href="{{ url_for('chats_route', action='show', user_id=user.id) }}" >
                 {%  endif %}
                         <img title="Show chat"
                              src="{{ url_for('static', filename='buttons/chat-24px.svg')}}"/>
@@ -57,7 +57,7 @@
                 <div class="align-left col-sm-12">
                     {% for sport in user.sport %}
                     <p class="m-bottom-4">
-                        <a href="{{ url_for('search_group', sport=sport)}}" class="text-secondary"> {{ sport }}</a>
+                        <a href="{{ url_for('search_group_route', sport=sport)}}" class="text-secondary"> {{ sport }}</a>
                     </p>
                     {% endfor %}
                 </div>
@@ -72,7 +72,7 @@
                 <div class="align-left col-sm-12">
                     {% for group in groups %}
                         <p class="m-bottom-4">
-                            <a href="{{ url_for('group', id=group.id, action='show')}}" class="text-secondary"> {{ group.name }}</a>
+                            <a href="{{ url_for('group_route', id=group.id, action='show')}}" class="text-secondary"> {{ group.name }}</a>
                         </p>
                     {% endfor %}
                 </div>
@@ -86,7 +86,7 @@
                 <div class="align-left col-sm-12">
                     {% for friend in friends %}
                         <p class="m-bottom-4">
-                            <a href="{{ url_for('profile', id=friend.id, action='show')}}" class="text-secondary">
+                            <a href="{{ url_for('profile_route', id=friend.id, action='show')}}" class="text-secondary">
                             {{ friend.name }} {{ friend.last_name }}</a>
                         </p>
                     {% endfor %}

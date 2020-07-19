@@ -7,10 +7,10 @@
 {% block content %}
     <div class="media">
         <h4 class="h4 media-body">My groups</h4>
-        <a class="media-right m-right-8" href="{{ url_for('search_group') }}">
+        <a class="media-right m-right-8" href="{{ url_for('search_group_route') }}">
             <img title="Search event" src="{{ url_for('static', filename='buttons/search-black-24dp.svg') }}">
         </a>
-        <a class="media-right" href="{{url_for('group', action='new')}}">
+        <a class="media-right" href="{{url_for('group_route', action='new')}}">
             <img class="" title="New group"
                  src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
         </a>
@@ -20,7 +20,7 @@
         {% for group in groups %}
             <div class="content-section w-75">
                 <div class="media">
-                    <a class="media-body" href="{{ url_for('group', id=group.id, action='show')}}">{{group.name}}</a>
+                    <a class="media-body" href="{{ url_for('group_route', id=group.id, action='show')}}">{{group.name}}</a>
                 </div>
                 <table>
                     <tr class="table">
@@ -31,10 +31,10 @@
             </div>
         {% endfor %}
         <legend class="border-bottom mb-4 mt-2"></legend>
-        <p class="text-muted small">Create a new group <a href="{{url_for('group', action='new')}}">here</a></p>
+        <p class="text-muted small">Create a new group <a href="{{url_for('group_route', action='new')}}">here</a></p>
     {% else %}
         <h4>No groups yet!</h4>
-        <p class="text-muted small" style="margin-bottom: 0px;">Search for a group <a href="{{url_for('search_group')}}">here</a></p>
-        <p class="text-muted small">Or create a new one <a href="{{url_for('group', action='new')}}">here</a></p>
+        <p class="text-muted small" style="margin-bottom: 0px;">Search for a group <a href="{{url_for('search_group_route')}}">here</a></p>
+        <p class="text-muted small">Or create a new one <a href="{{url_for('group_route', action='new')}}">here</a></p>
     {% endif %}
 {% endblock %} 

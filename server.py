@@ -21,12 +21,12 @@ import json
 
 @app.route("/")
 @app.route("/index")
-def index():
+def index_route():
     return render_template("index.html")
 
 
 @app.route("/about", methods=['GET'])
-def about():
+def about_route():
     return render_template("about.html")
 
 
@@ -34,7 +34,7 @@ def about():
 
 
 @app.route("/login", methods=['GET', 'POST'])
-def login():
+def login_route():
     form = LoginForm()
     if request.method == 'POST':
         username = form.username.data
@@ -46,14 +46,14 @@ def login():
             user.last_login = timestamp()
             login_user(user, remember=form.remember.data, force=True)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('index'))
+            return redirect(next_page) if next_page else redirect(url_for('index_route'))
         else:
             flash('Incorrect login!', "danger")
     return render_template("login.html", title="Login Page", form=form, successful=True)
 
 
 @app.route("/register", methods=['GET', 'POST'])
-def register():
+def register_route():
     form = RegistrationForm()
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -63,13 +63,13 @@ def register():
             db.session.commit()
             login_user(user, force=True)
             flash('Account created! Please fill additional information.', 'success')
-            return redirect(url_for('profile', action='edit'))
+            return redirect(url_for('profile_route', action='edit'))
     return render_template("register.html", title="Register Page", form=form)
 
 
 @app.route("/logout", methods=['GET'])
 @login_required
-def logout():
+def logout_route():
     logout_user()
     return render_template("index.html", title="Main Page")
 
@@ -79,7 +79,7 @@ def logout():
 
 @app.route("/search_group", methods=['GET', 'POST'])
 @login_required
-def search_group():
+def search_group_route():
     search_group_form = SearchGroupForm()
     if request.method == 'GET':
         sport = request.args.get('sport')
@@ -105,7 +105,7 @@ def search_group():
 
 @app.route("/profile", methods=['GET', 'POST'])
 @login_required
-def profile():
+def profile_route():
     form = EditProfileForm()
     if request.method == 'GET':
         action = request.args.get('action')
@@ -119,7 +119,7 @@ def profile():
         elif action == 'show':
             id = int(request.args.get('id'))
             if not id or id == current_user.id:
-                return redirect(url_for("profile", action='my'))
+                return redirect(url_for("profile_route", action='my'))
             user = User.get(id)
             groups = user.get_groups()
             friends = user.friends_get()
@@ -137,7 +137,7 @@ def profile():
                 return redirect(request.referrer)
             current_user.friend_add(id)
             flash("Friend added!", "success")
-            return redirect(url_for("profile", action='show', id=id))
+            return redirect(url_for("profile_route", action='show', id=id))
         elif action == 'friend_remove':
             id = request.args.get('id')
             if not id:
@@ -145,7 +145,7 @@ def profile():
                 return redirect(request.referrer)
             current_user.friend_remove(id)
             flash("Friend removed!", "success")
-            return redirect(url_for("profile", action='show', id=id))
+            return redirect(url_for("profile_route", action='show', id=id))
 
     else:
         if form.validate_on_submit():
@@ -160,18 +160,18 @@ def profile():
             db.session.add(current_user)
             db.session.commit()
             flash('Profile updated!', 'success')
-            return redirect(url_for('profile'))
+            return redirect(url_for('profile_route'))
         return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
 
 
 @app.route("/group", methods=['GET', 'POST'])
 @login_required
-def group():
+def group_route():
     form = NewGroupFrom()
     if request.method == 'GET':
         action = request.args.get('action')
         if not action:
-            return redirect(url_for('group', action='my'))
+            return redirect(url_for('group_route', action='my'))
         elif action == 'new':
             return render_template('new_group.html', form=form, groups=current_user.get_groups())
         elif action == 'my':
@@ -210,7 +210,7 @@ def group():
             new_row = GroupMember(user_id=current_user.id, group_id=group.id, time=timestamp())
             db.session.add(new_row)
             db.session.commit()
-            return redirect(url_for('group', action='my'))
+            return redirect(url_for('group_route', action='my'))
         return render_template('new_group.html', form=form, groups=current_user.get_groups())
 
 
@@ -219,7 +219,7 @@ def group():
 
 @app.route("/event", methods=['GET', 'POST'])
 @login_required
-def event():
+def event_route():
     new_event_form = NewEventForm(groups=current_user.get_groups())
 
     def args_error():
@@ -230,7 +230,11 @@ def event():
     if request.method == 'GET':
         if action == "my":
             events = current_user.get_events()
-            return render_template("my_events.html", events=events if len(events) > 0 else None, current_user=current_user)
+            return render_template(
+                "my_events.html",
+                events=events if len(events) > 0 else None,
+                current_user=current_user
+            )
         elif action == "show":
             try:
                 event_id = int(request.args.get('id'))
@@ -239,7 +243,7 @@ def event():
             event = Event.get(event_id)
             if event is None:
                 return args_error()
-            group = event.group
+            group = event.group_route
             group = group if group else None
             members = event.get_members()
             is_member = True if current_user in members else None
@@ -257,7 +261,7 @@ def event():
                 event.add_member(current_user)
             else:
                 event.remove_member(current_user)
-            return redirect(url_for('event', action='show', id=event_id))
+            return redirect(url_for('event_route', action='show', id=event_id))
         elif action == "new":
             return render_template("new_event.html", form=new_event_form)
         elif action == "find_people":
@@ -269,7 +273,7 @@ def event():
             # FIXME сделать нормальный фильтр
             event_users = set(event.get_members())
             all_users = set(User.query.order_by(User.register_time).all())
-            users: list = list(filter(lambda user: event.sport in user.sport, list(all_users - event_users)))
+            users: list = list(filter(lambda user_tmp: event.sport in user_tmp.sport, list(all_users - event_users)))
             return render_template("find_people.html", event_id=event.id, people=users if len(users) > 0 else None)
         elif action == "add_user":
             try:
@@ -281,7 +285,7 @@ def event():
             event = Event.get(event_id)
             event.add_member(user)
             # TODO делать не редирект, а изменение кнопки
-            return redirect(url_for('event', action='find_people', id=event_id))
+            return redirect(url_for('event_route', action='find_people', id=event_id))
         else:
             return args_error()
     else:
@@ -299,14 +303,14 @@ def event():
             new_event_member = EventMember(event_id=new_event.id, user_id=current_user.id, time=timestamp())
             db.session.add(new_event_member)
             db.session.commit()
-            return redirect(url_for('event', action='my'))
+            return redirect(url_for('event_route', action='my'))
         else:
             return redirect(request.url)
 
 
 @app.route("/friends", methods=['GET'])
 @login_required
-def friends():
+def friends_route():
     action = request.args.get('action')
     if action == 'search':
         users = User.query.order_by(User.register_time).all()
@@ -320,7 +324,7 @@ def friends():
 
 @app.route("/groupchats", methods=['GET'])
 @login_required
-def group_chats():
+def group_chats_route():
 
     def args_error():
         flash('Invalid request! Try updating the page.', 'error')
@@ -333,7 +337,9 @@ def group_chats():
             return args_error()
         group_id = int(group_id)
         chats = Chat.query.filter_by(group_id=group_id, deleted=None).all()
-        return render_template("group_chats.html", chats=chats, group=Group.get(group_id), notification=current_user.get_notifications())
+        return render_template("group_chats.html",
+                               chats=chats, group=Group.get(group_id),
+                               notification=current_user.get_notifications())
     elif action == 'delete':
         chat_id = request.args.get('chat_id')
         if chat_id is None:
@@ -356,7 +362,13 @@ def group_chats():
         group = Group.get(chat.group_id)
         chat.add_member(id=current_user.id)
         Notification.remove(user_id=current_user.id, chat_id=chat_id)
-        return render_template("chat.html", group=group, chat=chat, current_user=current_user, messages=chat.get_history())
+        return render_template(
+            "chat.html",
+            group=group,
+            chat=chat,
+            current_user=current_user,
+            messages=chat.get_history()
+        )
     elif action == 'add_members':
         return redirect(request.referrer)
     else:
@@ -365,7 +377,7 @@ def group_chats():
 
 @app.route("/chats", methods=['GET'])
 @login_required
-def chats():
+def chats_route():
     action = request.args.get('action')
     if action == 'show':
         chat_id = request.args.get('chat_id')
@@ -376,15 +388,15 @@ def chats():
                 return redirect(url_for('chat', action='all'))
             chat = Chat.get(int(chat_id))
             if chat.deleted is not None:
-                redirect(url_for('chats', action='all'))
+                redirect(url_for('chats_route', action='all'))
             members = chat.get_members()
             if len(members) > 2:
-                return redirect(url_for('group_chats', action='show', chat_id=chat_id))
+                return redirect(url_for('group_chats_route', action='show', chat_id=chat_id))
             elif len(members) < 2:
                 user_id = 'Deleted'
             else:
                 user_id = members[0].id if members[0].id != current_user.id else members[1].id
-            return redirect(url_for("chats", action='show', chat_id=chat_id, user_id=user_id))
+            return redirect(url_for("chats_route", action='show', chat_id=chat_id, user_id=user_id))
         else:
             user_id=int(user_id)
         if chat_id is None:
@@ -399,9 +411,9 @@ def chats():
                 db.session.commit()
                 history = []
             elif chat.deleted is not None:
-                return redirect(url_for('chats', action='all'))
+                return redirect(url_for('chats_route', action='all'))
             else:
-                return redirect(url_for("chats", action='show', chat_id=chat.id, user_id=user_id))
+                return redirect(url_for("chats_route", action='show', chat_id=chat.id, user_id=user_id))
         else:
             history = Chat.get(int(chat_id)).get_history()
             Notification.remove(user_id=current_user.id, chat_id=int(chat_id))
@@ -431,7 +443,7 @@ def chats():
     elif action == 'delete':
         chat_id = request.args.get('chat_id')
         if chat_id is None:
-            return redirect(url_for('chats', action='all'))
+            return redirect(url_for('chats_route', action='all'))
         chat_id = int(chat_id)
         chat_member = ChatMember.query.filter_by(chat_id=chat_id, user_id=current_user.id).first()
         if chat_member is None:
@@ -440,9 +452,9 @@ def chats():
         db.session.commit()
         if chat_member.is_group:
             return redirect(request.referrer)
-        return redirect(url_for('chats', action='all'))
+        return redirect(url_for('chats_route', action='all'))
     else:
-        return redirect(url_for('chats', action='all'))
+        return redirect(url_for('chats_route', action='all'))
 
 
 # ---------------------------------------------------------------------------------------------------

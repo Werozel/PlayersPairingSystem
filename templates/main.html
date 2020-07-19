@@ -23,24 +23,24 @@
     <header class="site-header" style="font-family: 'Courier 10 Pitch',monospace;">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="{{ url_for('index') }}">Sport</a>
+          <a class="navbar-brand mr-4" href="{{ url_for('index_route') }}">Sport</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
+              <a class="nav-item nav-link" href="{{ url_for('about_route') }}">About</a>
             </div>
             <!-- Navbar Right Side -->
               {% if current_user.is_authenticated %}
                 <div class="navbar-nav">
-                    <a id="profile" class="nav-item nav-link" href=" {{ url_for('profile', action='my') }}">{{current_user.username}}</a>
-                    <a class="nav-item nav-link" href=" {{ url_for('logout') }}">Log out</a>
+                    <a id="profile" class="nav-item nav-link" href=" {{ url_for('profile_route', action='my') }}">{{current_user.username}}</a>
+                    <a class="nav-item nav-link" href=" {{ url_for('logout_route') }}">Log out</a>
                 </div>
               {% else %}
                 <div class="navbar-nav">
-                 <a class="nav-item nav-link" href=" {{ url_for('login') }}">Login</a>
-                 <a class="nav-item nav-link" href=" {{ url_for('register') }}">Register</a>
+                 <a class="nav-item nav-link" href=" {{ url_for('login_route') }}">Login</a>
+                 <a class="nav-item nav-link" href=" {{ url_for('register_route') }}">Register</a>
                 </div>
               {% endif %}
           </div>
@@ -72,21 +72,21 @@
                         <h5>Sidebar</h5>
                         <ul class="list-group">
                             <li class="my-list-group-item list-group-item-light">
-                                <a href="{{url_for('group', action='my')}}" class="text-secondary">Groups</a>
+                                <a href="{{url_for('group_route', action='my')}}" class="text-secondary">Groups</a>
                             </li>
                             <li class="my-list-group-item list-group-item-light">
-                                <a href="{{url_for('event', action='my')}}" class="text-secondary">Events</a>
+                                <a href="{{url_for('event_route', action='my')}}" class="text-secondary">Events</a>
                             </li>
                             <li class="my-list-group-item list-group-item-light">
-                                <a href="{{url_for('friends', action='search')}}" class="text-secondary">Users</a>
+                                <a href="{{url_for('friends_route', action='search')}}" class="text-secondary">Users</a>
                             </li>
                             {%  if current_user.is_notified and current_user.is_notified() == true %}
                                 <li class="my-list-group-item list-group-item-light">
-                                    <a id="messages" href="{{url_for('chats', action='all')}}" class="text-secondary"><span style="color: red">Messages (!)</span></a>
+                                    <a id="messages" href="{{url_for('chats_route', action='all')}}" class="text-secondary"><span style="color: red">Messages (!)</span></a>
                                 </li>
                             {% else %}
                                 <li class="my-list-group-item list-group-item-light">
-                                    <a id="messages" href="{{url_for('chats', action='all')}}" class="text-secondary">Messages</a>
+                                    <a id="messages" href="{{url_for('chats_route', action='all')}}" class="text-secondary">Messages</a>
                                 </li>
                             {%  endif %}
                     </ul>

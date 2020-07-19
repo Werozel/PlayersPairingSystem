@@ -7,7 +7,7 @@
 {% block content %}
     <div class="media">
         <h4 class="media-body">Groups</h4>
-        <a class="media-right" href="{{url_for('group', action='new')}}">
+        <a class="media-right" href="{{url_for('group_route', action='new')}}">
             <img class="" title="New group"
                  src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
         </a>
@@ -30,10 +30,10 @@
     <legend class="border-top m-top-0"></legend>
     {% if query %}
         {% for group in query %}
-        <a href="{{ url_for('group', id=group.id) }}">
+        <a href="{{ url_for('group_route', id=group.id) }}">
             <div class="content-section w-75">
                 <div class="media">
-                    <a class="media-body" href="{{ url_for('group', id=group.id, action='show') }}">{{group.name}}</a>
+                    <a class="media-body" href="{{ url_for('group_route', id=group.id, action='show') }}">{{group.name}}</a>
                 </div>
                 <table>
                     <tr class="table">
@@ -46,7 +46,7 @@
         {% endfor %}
     {% else %}
         <h4>No search results</h4>
-        <p class="text-muted small">Create a new group <a href="{{url_for('group', action='new')}}">here</a></p>
+        <p class="text-muted small">Create a new group <a href="{{url_for('group_route', action='new')}}">here</a></p>
     {% endif %}
     
 

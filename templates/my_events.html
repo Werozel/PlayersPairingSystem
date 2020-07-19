@@ -7,7 +7,7 @@
         <a class="media-right m-right-8" href="">
             <img title="Search event" src="{{ url_for('static', filename='buttons/search-black-24dp.svg') }}">
         </a>
-        <a class="media-right" href="{{url_for('event', action='new')}}">
+        <a class="media-right" href="{{url_for('event_route', action='new')}}">
             <img class="" title="New event"
                  src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
         </a>
@@ -16,7 +16,7 @@
     {%  if events %}
         {%  for event in events %}
             <div class="content-section w-75">
-                <h5><a href="{{ url_for('event', action='show', id=event.id) }}">{{ event.name }}</a></h5>
+                <h5><a href="{{ url_for('event_route', action='show', id=event.id) }}">{{ event.name }}</a></h5>
                 <legend class="border-bottom mb-3" style="width: 100%"></legend>
                 <div>
                     <p class="mb-1">Description: </p>

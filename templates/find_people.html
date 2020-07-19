@@ -13,13 +13,13 @@
                 <div class="media">
                     <div class="media-body">
                         {%  if user.name and user.last_name %}
-                        <h5><a href="{{ url_for('profile', action='show', id=user.id) }}">{{ user.name }} {{ user.last_name }}</a></h5>
+                        <h5><a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.name }} {{ user.last_name }}</a></h5>
                         {%  else %}
-                        <h5><a href="{{ url_for('profile', action='show', id=user.id) }}">{{ user.username }}</a></h5>
+                        <h5><a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.username }}</a></h5>
                         {%  endif %}
                     </div>
 
-                    <a class="media-right" href="{{ url_for('event', action='add_user', user_id=user.id, event_id=event_id) }}">
+                    <a class="media-right" href="{{ url_for('event_route', action='add_user', user_id=user.id, event_id=event_id) }}">
                         <img title="Add user" src="{{ url_for('static', filename='buttons/add-24px.svg') }}"/>
                     </a>
                 </div>
