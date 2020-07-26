@@ -1,7 +1,7 @@
 from globals import db, timestamp
 
 
-class Notification(db.Model):
+class ChatNotification(db.Model):
     __tablename__ = 'notifications'
 
     user_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)
@@ -14,20 +14,20 @@ class Notification(db.Model):
 
     @staticmethod
     def get(user_id, chat_id):
-        return Notification.query.filter_by(user_id=int(user_id), chat_id=int(chat_id)).first()
+        return ChatNotification.query.filter_by(user_id=int(user_id), chat_id=int(chat_id)).first()
 
     @staticmethod
     def get_notifications(user_id):
-        return Notification.query.filter_by(user_id=user_id).all()
+        return ChatNotification.query.filter_by(user_id=user_id).all()
 
     @staticmethod
     def remove(user_id, chat_id):
-        Notification.query.filter_by(user_id=int(user_id), chat_id=int(chat_id)).delete()
+        ChatNotification.query.filter_by(user_id=int(user_id), chat_id=int(chat_id)).delete()
         db.session.commit()
 
     @staticmethod
     def add(user_id, chat_id):
-        if Notification.get(user_id, chat_id) is None:
-            tmp = Notification(user_id=int(user_id), chat_id=int(chat_id), time=timestamp())
+        if ChatNotification.get(user_id, chat_id) is None:
+            tmp = ChatNotification(user_id=int(user_id), chat_id=int(chat_id), time=timestamp())
             db.session.add(tmp)
             db.session.commit()

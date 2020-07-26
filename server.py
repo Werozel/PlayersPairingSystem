@@ -1,15 +1,18 @@
+from typing import List
+
 from flask import render_template, url_for, request, redirect, flash
 from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom, SearchGroupForm, NewEventForm
 from flask_login import login_user, logout_user, current_user, login_required
 import libs.crypto as crypto
 from libs.ChatRole import ChatRole
 from libs.Friend import Friend
+from libs.Invitation import Invitation, InvitationType
 from libs.ChatMember import ChatMember
 from libs.User import User, set_user_picture
 from libs.Group import Group
 from libs.GroupMember import GroupMember
 from libs.Chat import Chat
-from libs.Notification import Notification
+from libs.ChatNotification import ChatNotification
 from libs.Message import Message
 from libs.Event import Event
 from libs.EventMember import EventMember
@@ -131,13 +134,15 @@ def profile_route():
         elif action == 'edit':
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
         elif action == 'friend_add':
-            id = request.args.get('id')
-            if not id:
+            new_friend_id = request.args.get('id')
+            if not new_friend_id:
                 flash("Something went wrong! Please try again.", "error")
                 return redirect(request.referrer)
-            current_user.friend_add(id)
-            flash("Friend added!", "success")
-            return redirect(url_for("profile_route", action='show', id=id))
+            if Invitation.add(InvitationType.FRIEND, referrer_id=current_user.id, recipient_id=new_friend_id):
+                flash("Invitation sent!", "success")
+            else:
+                flash("You already sent an invitation to this user!", "info")
+            return redirect(url_for("profile_route", action='show', id=new_friend_id))
         elif action == 'friend_remove':
             id = request.args.get('id')
             if not id:
@@ -164,6 +169,34 @@ def profile_route():
         return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
 
 
+@app.route("/my_invitations", methods=['GET'])
+@login_required
+def my_invitations_route():
+    action = request.args.get('action')
+    if not action:
+        flash("Something went wrong!", "error")
+        return redirect(url_for('my_invitations_route', action='show'))
+    elif action == 'show':
+        invitations: List[Invitation] = current_user.get_invitations()
+        for i in invitations:
+            i.read = True
+            db.session.add(i)
+        db.session.commit()
+        return render_template('my_invitations.html', invitations=invitations)
+    elif action == 'accept' or action == 'reject':
+        invitation_id = int(request.args.get('id'))
+        invitation = Invitation.get(invitation_id)
+        if current_user.id != invitation.recipient_id:
+            flash("No permission!", "error")
+        elif action == 'accept':
+            invitation.accept()
+        else:
+            invitation.reject()
+        return redirect(url_for("my_invitations_route", action='show'))
+    else:
+        return redirect(url_for('my_invitations_route', action='show'))
+
+
 @app.route("/group", methods=['GET', 'POST'])
 @login_required
 def group_route():
@@ -171,6 +204,7 @@ def group_route():
     if request.method == 'GET':
         action = request.args.get('action')
         if not action:
+            flash("Something went wrong!", "error")
             return redirect(url_for('group_route', action='my'))
         elif action == 'new':
             return render_template('new_group.html', form=form, groups=current_user.get_groups())
@@ -189,11 +223,15 @@ def group_route():
             pass
         elif action == 'join':
             if current_user not in members:
-                new_row = GroupMember(user_id=current_user.id, group_id=group.id, time=timestamp())
-                db.session.add(new_row)
-                db.session.commit()
-                members.append(current_user)
-                is_member = True
+                if group.closed:
+                    Invitation.add(type=InvitationType.TO_GROUP, recipient_id=group.id, referrer_id=current_user.id)
+                    flash("Invitation sent!", "success")
+                else:
+                    new_row = GroupMember(user_id=current_user.id, group_id=group.id, time=timestamp())
+                    db.session.add(new_row)
+                    db.session.commit()
+                    members.append(current_user)
+                    is_member = True
         elif action == 'leave':
             if current_user in members:
                 row = GroupMember.query.filter_by(user_id=current_user.id, group_id=group.id).first()
@@ -258,7 +296,14 @@ def event_route():
             if event is None:
                 return args_error()
             if action == "join":
-                event.add_member(current_user)
+                if event.closed:
+                    Invitation.add(InvitationType.TO_EVENT,
+                                   recipient_id=event.id,
+                                   referrer_id=current_user.id,
+                                   expiration_time=event.time)
+                    flash("Invitation sent!", "success")
+                else:
+                    event.add_member(current_user)
             else:
                 event.remove_member(current_user)
             return redirect(url_for('event_route', action='show', id=event_id))
@@ -294,10 +339,10 @@ def event_route():
             description = new_event_form.description.data
             sport = new_event_form.sport.data
             group_id = new_event_form.assigned_group.data
-            group_id = None if group_id == "None" else int(group_id)
+            group_id = None if group_id == "None" or group_id is None else int(group_id)
             time = new_event_form.time.data
             new_event = Event(name=name, description=description, sport=sport, group_id=group_id,
-                              creation_time=timestamp(), creator=current_user.id, time=time)
+                              creation_time=timestamp(), creator_id=current_user.id, time=time)
             db.session.add(new_event)
             db.session.commit()
             new_event_member = EventMember(event_id=new_event.id, user_id=current_user.id, time=timestamp())
@@ -361,7 +406,7 @@ def group_chats_route():
         chat = Chat.get(chat_id)
         group = Group.get(chat.group_id)
         chat.add_member(id=current_user.id)
-        Notification.remove(user_id=current_user.id, chat_id=chat_id)
+        ChatNotification.remove(user_id=current_user.id, chat_id=chat_id)
         return render_template(
             "chat.html",
             group=group,
@@ -416,7 +461,7 @@ def chats_route():
                 return redirect(url_for("chats_route", action='show', chat_id=chat.id, user_id=user_id))
         else:
             history = Chat.get(int(chat_id)).get_history()
-            Notification.remove(user_id=current_user.id, chat_id=int(chat_id))
+            ChatNotification.remove(user_id=current_user.id, chat_id=int(chat_id))
 
         return render_template(
             "chat.html",
@@ -479,7 +524,7 @@ def handle_msg(msg):
     members = Chat.get(chat_id).get_members()
     for i in members:
         if i.id != user_id:
-            Notification.add(chat_id=chat_id, user_id=i.id)
+            ChatNotification.add(chat_id=chat_id, user_id=i.id)
     db.session.add(message)
     db.session.commit()
     chat = Chat.get(chat_id)
@@ -507,7 +552,7 @@ def handle_notify(msg):
     type = msg.get('type')
     if type == 'message':
         chat_id = msg.get('chat_id')
-        Notification.remove(chat_id=chat_id, user_id=current_user.id)
+        ChatNotification.remove(chat_id=chat_id, user_id=current_user.id)
         db.session.commit()
     else:
         pass
@@ -523,7 +568,7 @@ def handle_new_group_chat(msg):
     chat_member = ChatMember(user_id=current_user.id, chat_id=chat.id, is_group=True)
     db.session.add(chat_member)
     db.session.commit()
-    emit('new_group_chat_ack', 'ack')
+    emit('new_group_chat_ack', 'ack', room=sessions.get(current_user.id))
 
 
 if __name__ == "__main__":

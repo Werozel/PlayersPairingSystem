@@ -1,4 +1,4 @@
-from globals import db
+from globals import db, timestamp
 from libs.GroupMember import GroupMember
 from libs.Event import Event
 
@@ -9,6 +9,7 @@ class Group(db.Model):
     admin_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)
     sport = db.Column(db.String(50), nullable=False)
     name = db.Column(db.String(50), nullable=False)
+    closed = db.Column(db.Boolean, default=False)
 
     members_rel = db.relationship('GroupMember', backref='group', lazy=True)
     chats_rel = db.relationship('Chat', backref='group', lazy=True)
@@ -32,9 +33,9 @@ class Group(db.Model):
         return [i.user for i in members]
 
     def add_member(self, user):
-        if user.id not in self.members:
-            self.members.append(user.id)
-            db.session.add(self)
+        if user.id not in self.get_members():
+            new_row = GroupMember(user_id=user.id, group_id=self.id, time=timestamp())
+            db.session.add(new_row)
             db.session.commit()
 
     def get_events(self):

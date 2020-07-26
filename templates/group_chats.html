@@ -42,7 +42,7 @@
 
 {% block socket_script %}
 <script type="text/javascript" charset="utf-8">
-    var socket = io();
+    const socket = io();
 
     socket.on('connect', function () {
         socket.emit('opened', {})
@@ -50,9 +50,9 @@
 
     socket.on('message', function (json_msg) {
         console.log(json_msg);
-        var msg = JSON.parse(json_msg);
-        var chat = document.getElementById(msg.chat_id);
-        var last_msg = document.getElementById(`${msg.chat_id}-last-msg`);
+        const msg = JSON.parse(json_msg);
+        const chat = document.getElementById(msg.chat_id);
+        const last_msg = document.getElementById(`${msg.chat_id}-last-msg`);
         if (chat === null) {
             document.getElementById('messages').innerHTML = "<span style='color: red;'>Messages (!)</span>";
         } else {
@@ -64,12 +64,12 @@
     });
 
     document.getElementById('new-chat').onclick = function () {
-        var input = document.getElementById("new-chat-name");
+        const input = document.getElementById("new-chat-name");
         input.hidden = false;
         input.focus();
     };
 
-    var input = document.getElementById("new-chat-name");
+    const input = document.getElementById("new-chat-name");
     input.addEventListener("keyup", function (event) {
         if (event.key === "Enter" && input.value !== "") {
             socket.emit('new_group_chat', {'name': input.value, 'group_id': '{{ group.id }}'});

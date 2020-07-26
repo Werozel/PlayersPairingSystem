@@ -43,9 +43,9 @@ class User(db.Model, UserMixin):
     chat_role_rel = db.relationship('ChatRole', backref='user', lazy=True)
     chat_member_rel = db.relationship('ChatMember', backref='user', lazy=True)
     message_rel = db.relationship('Message', backref='user', lazy=True)
-    notification_rel = db.relationship('Notification', backref='user', lazy=True)
+    notification_rel = db.relationship('ChatNotification', backref='user', lazy=True)
     event_member_rel = db.relationship('EventMember', backref='user', lazy=True)
-    event_rel = db.relationship('Event', backref='user', lazy=True)
+    event_rel = db.relationship('Event', backref='creator', lazy=True)
 
     __tablename__ = "users"
 
@@ -83,8 +83,8 @@ class User(db.Model, UserMixin):
                            ))
 
     def get_notifications(self):
-        from libs.Notification import Notification
-        return [i.chat for i in Notification.get_notifications(self.id)]
+        from libs.ChatNotification import ChatNotification
+        return [i.chat for i in ChatNotification.get_notifications(self.id)]
 
     def is_notified(self):
         return len(self.get_notifications()) != 0
@@ -92,3 +92,11 @@ class User(db.Model, UserMixin):
     def get_events(self):
         from libs.EventMember import EventMember
         return [i.event for i in EventMember.query.filter_by(user_id=self.id).all()]
+
+    def get_invitations(self):
+        from libs.Invitation import Invitation
+        return Invitation.query.filter_by(recipient_id=self.id).all()
+
+    def has_invitations(self):
+        return len(list(filter(lambda i: not i.read, self.get_invitations()))) > 0
+

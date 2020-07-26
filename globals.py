@@ -30,7 +30,7 @@ app = get_app(__name__)
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'login_route'
 login_manager.login_message_category = 'warning'
 
 socketIO = SocketIO(app)
@@ -52,3 +52,19 @@ def get_rand() -> int:
         if i == 10:
             break
     return res
+
+
+def create_tables():
+    from libs.Message import Message
+    from libs.Invitation import Invitation
+    from libs.User import User
+    from libs.Chat import Chat
+    from libs.ChatMember import ChatMember
+    from libs.ChatRole import ChatRole
+    from libs.EventMember import EventMember
+    from libs.Event import Event
+    from libs.Friend import Friend
+    from libs.Group import Group
+    from libs.GroupMember import GroupMember
+    from libs.ChatNotification import ChatNotification
+    db.create_all()

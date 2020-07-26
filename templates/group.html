@@ -24,7 +24,7 @@
         </div>
         <table class="table">
             <tr>
-                <td><span class="text-muted">Admin:  </span>{{group.admin.name}} {{group.admin.last_name}}</td>
+                <td><span class="text-muted">Admin:  </span><a href="{{ url_for('profile_route', action='show', id=group.admin.id) }}" class="text-muted">{{group.admin.name}} {{group.admin.last_name}}</a></td>
                 <td><span class="text-muted">Sport:  </span>{{group.sport}}</td>
             </tr>
         </table>

@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/margin.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/padding.css') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='icons/icon2.png') }}" />
 
     <meta charset="UTF-8">
@@ -80,6 +81,15 @@
                             <li class="my-list-group-item list-group-item-light">
                                 <a href="{{url_for('friends_route', action='search')}}" class="text-secondary">Users</a>
                             </li>
+                            {% if current_user.has_invitations and current_user.has_invitations() == true %}
+                                <li class="my-list-group-item list-group-item-light">
+                                    <a id="invitations" href="{{url_for('my_invitations_route', action='show')}}" class="text-secondary"><span style="color: red">Invitations (!)</span></a>
+                                </li>
+                            {% else %}
+                                <li class="my-list-group-item list-group-item-light">
+                                    <a id="invitations" href="{{url_for('my_invitations_route', action='show')}}" class="text-secondary">Invitations</a>
+                                </li>
+                            {% endif %}
                             {%  if current_user.is_notified and current_user.is_notified() == true %}
                                 <li class="my-list-group-item list-group-item-light">
                                     <a id="messages" href="{{url_for('chats_route', action='all')}}" class="text-secondary"><span style="color: red">Messages (!)</span></a>
@@ -102,15 +112,18 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     {% block socket_script %}
         <script type="text/javascript" charset="utf-8">
-            var socket = io();
+            let socket = io();
 
             socket.on('connect', function () {
                 socket.emit('opened', {})
             });
 
-            socket.on('message', function (msg) {
+            socket.on('message', function (_) {
                 document.getElementById('messages').innerHTML = "<span style='color: red;'>Messages (!)</span>";
-                // socket.emit('notify', {type: 'message', 'message_id': msg.message_id, user: '{{ current_user.id }}'});
+            })
+
+            socket.on('invitation', function (_) {
+                document.getElementById('invitations').innerHTML = "<span style='color: red;'>Invitations (!)</span>";
             })
         </script>
     {% endblock socket_script %}

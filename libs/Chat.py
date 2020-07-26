@@ -16,7 +16,7 @@ class Chat(db.Model):
     chat_role_rel = db.relationship('ChatRole', backref='chat', lazy=True)
     chat_member_rel = db.relationship('ChatMember', backref='chat', lazy=True)
     message_rel = db.relationship('Message', backref='chat', lazy=True, primaryjoin="Chat.id==Message.chat_id")
-    notification_rel = db.relationship('Notification', backref='chat', lazy=True)
+    notification_rel = db.relationship('ChatNotification', backref='chat', lazy=True)
 
     @staticmethod
     def get(id):

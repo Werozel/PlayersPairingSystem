@@ -9,7 +9,7 @@
 
     <div class="content-section">
       <div class="media">
-        <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}">
+        <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}" alt="none">
         <div class="media-body">
           <h2 class="account-heading">{{ user.name }} {{ user.last_name }}</h2>
           <p class="text-secondary m-bottom-4">{{  user.username }}</p>
@@ -22,7 +22,7 @@
             <div class="media-right">
               <a href="{{ url_for('profile_route', action='edit') }}">
                 <img title="Edit profile"
-                     src="{{ url_for('static', filename='buttons/edit-24px.svg')}}"/>
+                     src="{{ url_for('static', filename='buttons/edit-24px.svg')}}" alt="none"/>
               </a>
             </div>
           {%  else %}
@@ -30,12 +30,12 @@
                 {%  if is_friend %}
                       <a href="{{ url_for('profile_route', action='friend_remove', id=user.id) }}">
                         <img title="Remove friend"
-                             src="{{ url_for('static', filename='buttons/remove-24px.svg')}}"/>
+                             src="{{ url_for('static', filename='buttons/remove-24px.svg')}}" alt="none"/>
                       </a>
                 {% else %}
                     <a href="{{ url_for('profile_route', action='friend_add', id=user.id) }}">
                         <img title="Add friend"
-                             src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
+                             src="{{ url_for('static', filename='buttons/add-24px.svg')}}" alt="none"/>
                       </a>
                 {%  endif %}
                 {%  if chat_id %}
@@ -44,7 +44,7 @@
                     <a href="{{ url_for('chats_route', action='show', user_id=user.id) }}" >
                 {%  endif %}
                         <img title="Show chat"
-                             src="{{ url_for('static', filename='buttons/chat-24px.svg')}}"/>
+                             src="{{ url_for('static', filename='buttons/chat-24px.svg')}}" alt="none"/>
                       </a>
             </div>
           {%  endif %}

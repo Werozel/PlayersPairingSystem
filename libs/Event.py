@@ -11,8 +11,9 @@ class Event(db.Model):
     sport = db.Column(db.VARCHAR(50), nullable=False)
     group_id = db.Column(db.BigInteger, db.ForeignKey('groups.id'), nullable=True)
     creation_time = db.Column(db.TIMESTAMP, default=timestamp())
-    creator = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)
+    creator_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, nullable=True)
+    closed = db.Column(db.Boolean, default=False)
     # TODO добавить карту
     # TODO добавить повторы
 
