@@ -15,12 +15,19 @@
     <legend class="border-bottom mb-3" style="width: 100%"></legend>
     {%  if events %}
         {%  for event in events %}
-            <div class="content-section w-75">
-                <h5><a href="{{ url_for('event_route', action='show', id=event.id) }}">{{ event.name }}</a></h5>
-                <legend class="border-bottom mb-3" style="width: 100%"></legend>
-                <div>
-                    <p class="mb-1">Description: </p>
-                    <p class="text-secondary" style="white-space: pre-wrap">  {{ event.description }}</p>
+            <div class="content-section w-75" id="{{ event.id }}">
+                <div class="media">
+                    <div class="media-body">
+                        <a href="{{ url_for('event_route', action='show', id=event.id) }}">{{ event.name }}</a>
+                    </div>
+                </div>
+                <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
+                <div class="column ml-3">
+                    <p class="row m-bottom-4" style="white-space: pre-wrap">Organiser: <span class="text-muted">{{ event.creator.name }} {{ event.creator.last_name }}</span></p>
+                    <div class="row m-bottom-4">
+                        <p class="mb-1">Description: </p>
+                        <p class="text-secondary" style="white-space: pre-wrap">  {{ event.description }}</p>
+                    </div>
                 </div>
             </div>
         {%  endfor %}

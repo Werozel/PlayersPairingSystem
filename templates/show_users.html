@@ -7,31 +7,30 @@
 {%  block content %}
     <div id="users">
         {%  for user in users %}
-            <div class="content-section">
-                {%  if user.name and user.last_name %}
-                <h5><a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.name }} {{ user.last_name }}</a></h5>
-                {%  else %}
-                <h5><a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.username }}</a></h5>
-                {%  endif %}
-
-                <legend class="border-bottom mb-3" style="width: 100%"></legend>
+            <div class="content-section w-75" id="{{ user.id }}">
+                <div class="media">
+                    <div class="media-body">
+                        {%  if user.name and user.last_name %}
+                            <a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.name }} {{ user.last_name }}</a>
+                        {%  else %}
+                            <a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.username }}</a>
+                        {%  endif %}
+                    </div>
+                </div>
+                <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
                 <div id="bottom" class="column ml-3">
-                    {%  if user.age %}
-                    <p class="row" style="white-space: pre-wrap">Age:<span class="text-secondary">   {{ user.age }}</span></p>
+                    {% if user.age %}
+                    <p class="row m-bottom-4" style="white-space: pre-wrap">Age:<span class="text-secondary"> {{ user.age }}</span></p>
                     {%  endif %}
-                    <div class="row">
+                    <div class="row m-bottom-4">
                         <p class="mb-0 mr-1">Sport:</p>
-                        <p>
-                            {%  if user.sport %}
-                                {%  for sport in user.sport %}
-                                    <span style="list-style-type: none; padding-left: 3px;" class="text-secondary">
-                                        <a href="{{ url_for('search_group_route', sport=sport) }}" class="text-secondary">{{ sport }}</a>
-                                    </span>
-                                {%  endfor  %}
-                            {%  else %}
-                                <p class="text-secondary">No sport added yet!</p>
-                            {%  endif %}
-                        </p>
+                        {% if user.sport %}
+                            {%  for sport in user.sport %}
+                                <span style="list-style-type: none; padding-left: 3px;" class="text-secondary m-right-8">{{ sport }}</span>
+                            {%  endfor  %}
+                        {% else %}
+                            <p class="text-secondary">No sport added yet!</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
