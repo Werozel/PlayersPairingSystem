@@ -60,8 +60,13 @@ def register_route():
     form = RegistrationForm()
     if request.method == 'POST':
         if form.validate_on_submit():
-            user = User(username=form.username.data, password=crypto.hash(form.password.data), email=form.email.data,
-                        register_time=timestamp(), last_login=timestamp())
+            user = User(
+                username=form.username.data,
+                password=crypto.hash(form.password.data),
+                email=form.email.data,
+                register_time=timestamp(),
+                last_login=timestamp()
+            )
             db.session.add(user)
             db.session.commit()
             login_user(user, force=True)
@@ -138,7 +143,13 @@ def profile_route():
             if not new_friend_id:
                 flash("Something went wrong! Please try again.", "error")
                 return redirect(request.referrer)
-            if Invitation.add(InvitationType.FRIEND, referrer_id=current_user.id, recipient_id=new_friend_id):
+            invitation_id = Invitation.add(
+                InvitationType.FRIEND,
+                referrer_id=current_user.id,
+                recipient_id=new_friend_id
+            )
+            if invitation_id != -1:
+                emit('invitation', json.dumps({'invitation_id': invitation_id}), room=sessions.get(new_friend_id))
                 flash("Invitation sent!", "success")
             else:
                 flash("You already sent an invitation to this user!", "info")

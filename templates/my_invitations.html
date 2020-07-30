@@ -13,7 +13,7 @@
         {% for invitation in invitations %}
             {% if invitation.type == 1 %} {# EVENT #}
                 {% set user = invitation.get_referrer() %}
-                <div class="content-section w-75">
+                <div class="content-section w-75" id="{{ invitation.id }}">
                     <div class="media">
                         <div class="media-body">
                             <b class="m-bottom-0 m-right-16">User</b>
@@ -52,7 +52,7 @@
                 </div>
             {% elif invitation.type == 2 %} {# GROUP #}
                 {% set group = invitation.get_referrer() %}
-                <div class="content-section w-75">
+                <div class="content-section w-75" id="{{ invitation.id }}">
                     <div class="media">
                         <div class="media-body">
                             <b class="m-bottom-0 m-right-8">Group</b>
@@ -75,7 +75,7 @@
                 </div>
             {% elif invitation.type == 3 %} {# EVENt #}
                 {% set event = invitation.get_referrer() %}
-                <div class="content-section w-75">
+                <div class="content-section w-75" id="{{ invitation.id }}">
                     <div class="media">
                         <div class="media-body">
                             <b class="m-bottom-0 m-right-8">Event</b>
@@ -104,4 +104,25 @@
     {% else %}
         <p class="">No invitations sent!</p>
     {% endif %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" charset="utf-8">
+    const socket = io();
+
+    socket.on('connect', function () {
+        socket.emit('opened', {})
+    });
+
+    socket.on('invitation', function (json_msg) {
+        console.log(json_msg);
+        const msg = JSON.parse(json_msg);
+        const invitation = document.getElementById(msg.invitation_id);
+        if (invitation === null) {
+            document.getElementById('messages').innerHTML = "<span style='color: red;'>Messages (!)</span>";
+        } else {
+            invitation.style = "border-color: red;";
+        }
+    })
+</script>
 {% endblock %}

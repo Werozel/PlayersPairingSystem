@@ -59,8 +59,6 @@
             chat.style = "border-color: red;";
             last_msg.innerHTML = `${msg.username}: <span class='text-secondary'>${msg.text}</span>`
         }
-
-        // socket.emit('notify', {type: 'message', 'message_id': msg.message_id, user: '{{ current_user.id }}'});
     });
 
     document.getElementById('new-chat').onclick = function () {
@@ -77,7 +75,7 @@
         }
     });
 
-    socket.on('new_group_chat_ack', function (msg) {
+    socket.on('new_group_chat_ack', function (_) {
         location.reload()
     });
 </script>

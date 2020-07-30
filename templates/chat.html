@@ -38,7 +38,6 @@
 
 
 
-
 {%  block socket_script %}
 
     <script type="text/javascript" charset="utf-8">
@@ -67,8 +66,8 @@
 
         document.getElementById('send').onclick = function () {
             const input = document.getElementById('input');
-            const msg = input.value;
             input.value = "";
+            const msg = input.value;
             const li = document.createElement("P");
             li.innerHTML = `<span class='text-muted'>${msg}</span>`;
             li.className = "message";

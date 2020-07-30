@@ -58,12 +58,12 @@ class Invitation(db.Model):
             return None
 
     @staticmethod
-    def add(type: InvitationType, recipient_id: int, referrer_id: int, expiration_time=None) -> bool:
+    def add(type: InvitationType, recipient_id: int, referrer_id: int, expiration_time=None) -> int:
         if len(Invitation.query.filter(Invitation.recipient_id == recipient_id
                                        and Invitation.referrer_id == referrer_id
                                        and Invitation.type == type
                                        and Invitation.expiration_time > timestamp()).all()) > 0:
-            return False
+            return -1
         invitation = Invitation(type=type,
                                 recipient_id=recipient_id,
                                 referrer_id=referrer_id,
@@ -71,10 +71,7 @@ class Invitation(db.Model):
                                 expiration_time=expiration_time)
         db.session.add(invitation)
         db.session.commit()
-        socket_session = sessions.get(recipient_id)
-        if type in [InvitationType.FRIEND, InvitationType.FROM_EVENT, InvitationType.FROM_GROUP]:
-            socketIO.emit('invitation', '', room=socket_session)
-        return True
+        return invitation.id
 
     def accept(self):
         if self.is_expired():
