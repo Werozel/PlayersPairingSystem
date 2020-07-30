@@ -1,10 +1,9 @@
 from globals import db
-from libs.User import User
-from libs.Chat import Chat
 import json
 
 
 class ChatRole(db.Model):
+
     __tablename__ = 'chat_roles'
 
     user_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)

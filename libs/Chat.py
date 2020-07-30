@@ -1,8 +1,8 @@
 from globals import db, timestamp
-from libs.User import User
 
 
 class Chat(db.Model):
+
     __tablename__ = 'chats'
 
     id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)

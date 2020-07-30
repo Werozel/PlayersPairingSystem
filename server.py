@@ -3,9 +3,7 @@ from typing import List
 from flask import render_template, url_for, request, redirect, flash
 from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom, SearchGroupForm, NewEventForm
 from flask_login import login_user, logout_user, current_user, login_required
-import libs.crypto as crypto
-from libs.ChatRole import ChatRole
-from libs.Friend import Friend
+import src.crypto as crypto
 from libs.Invitation import Invitation, InvitationType
 from libs.ChatMember import ChatMember
 from libs.User import User, set_user_picture
@@ -41,7 +39,7 @@ def login_route():
     form = LoginForm()
     if request.method == 'POST':
         username = form.username.data
-        password = crypto.hash(form.password.data)
+        password = crypto.hash_password(form.password.data)
         user = User.query.filter_by(username=username, password=password).first()
         if not user:
             user = User.query.filter_by(email=username, password=password).first()
@@ -62,7 +60,7 @@ def register_route():
         if form.validate_on_submit():
             user = User(
                 username=form.username.data,
-                password=crypto.hash(form.password.data),
+                password=crypto.hash_password(form.password.data),
                 email=form.email.data,
                 register_time=timestamp(),
                 last_login=timestamp()

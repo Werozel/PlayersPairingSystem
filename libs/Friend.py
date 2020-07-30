@@ -1,5 +1,4 @@
 from globals import db, timestamp
-from libs.User import User
 
 
 class Friend(db.Model):

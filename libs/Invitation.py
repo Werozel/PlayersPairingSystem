@@ -1,8 +1,5 @@
-from globals import db, timestamp, sessions, socketIO
+from globals import db, timestamp
 from enum import IntEnum
-from libs.User import User
-from libs.Group import Group
-from libs.Event import Event
 
 
 class InvitationType(IntEnum):
@@ -17,6 +14,7 @@ EVENTS_FROM_USER = [InvitationType.FRIEND, InvitationType.TO_GROUP, InvitationTy
 
 
 class Invitation(db.Model):
+
     __tablename__ = "invitation"
 
     id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
@@ -38,6 +36,9 @@ class Invitation(db.Model):
         return self.expiration_time is not None and self.expiration_time > timestamp()
 
     def get_referrer(self):
+        from libs.User import User
+        from libs.Group import Group
+        from libs.Event import Event
         if self.type in EVENTS_FROM_USER:
             return User.get(self.referrer_id)
         elif self.type == InvitationType.FROM_GROUP:
@@ -48,6 +49,9 @@ class Invitation(db.Model):
             return None
 
     def get_recipient(self):
+        from libs.User import User
+        from libs.Group import Group
+        from libs.Event import Event
         if self.type in EVENTS_FROM_USER:
             return User.get(self.recipient_id)
         elif self.type == InvitationType.FROM_GROUP:
@@ -74,6 +78,9 @@ class Invitation(db.Model):
         return invitation.id
 
     def accept(self):
+        from libs.User import User
+        from libs.Group import Group
+        from libs.Event import Event
         if self.is_expired():
             pass
         elif self.type == InvitationType.FRIEND:

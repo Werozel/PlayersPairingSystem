@@ -1,6 +1,4 @@
 from globals import db, timestamp
-from libs.User import User
-from libs.Chat import Chat
 import json
 
 

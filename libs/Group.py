@@ -1,6 +1,4 @@
 from globals import db, timestamp
-from libs.GroupMember import GroupMember
-from libs.Event import Event
 
 
 class Group(db.Model):
@@ -29,14 +27,17 @@ class Group(db.Model):
         return Group.query.get(int(id))
 
     def get_members(self):
+        from libs.GroupMember import GroupMember
         members = GroupMember.query.filter_by(group_id=self.id).all()
         return [i.user for i in members]
 
     def add_member(self, user):
+        from libs.GroupMember import GroupMember
         if user.id not in self.get_members():
             new_row = GroupMember(user_id=user.id, group_id=self.id, time=timestamp())
             db.session.add(new_row)
             db.session.commit()
 
     def get_events(self):
+        from libs.Event import Event
         return Event.query.filter_by(group_id=self.id).all()

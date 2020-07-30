@@ -1,9 +1,8 @@
 from globals import db, timestamp
-from libs.User import User
-from libs.Chat import Chat
 
 
 class ChatMember(db.Model):
+
     __tablename__ = 'chat_members'
 
     user_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)

@@ -1,5 +1,4 @@
 from globals import db, timestamp, login_manager, app
-from libs.Group import Group
 from libs.GroupMember import GroupMember
 from flask_login import UserMixin, current_user
 import secrets
@@ -21,6 +20,17 @@ def set_user_picture(picture):
 
 
 class User(db.Model, UserMixin):
+
+    # from libs.Group import Group
+    # from libs.GroupMember import GroupMember
+    from libs.Friend import Friend
+    # from libs.Chat import Chat
+    from libs.ChatRole import ChatRole
+    # from libs.ChatMember import ChatMember
+    # from libs.ChatNotification import ChatNotification
+    # from libs.Message import Message
+    # from libs.Event import Event
+    # from libs.EventMember import EventMember
 
     id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20), nullable=True)

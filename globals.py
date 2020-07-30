@@ -1,4 +1,4 @@
-from app_config import SECRET_KEY, DB_URL
+from constants.app_config import SECRET_KEY, DB_URL
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
@@ -55,16 +55,4 @@ def get_rand() -> int:
 
 
 def create_tables():
-    from libs.Message import Message
-    from libs.Invitation import Invitation
-    from libs.User import User
-    from libs.Chat import Chat
-    from libs.ChatMember import ChatMember
-    from libs.ChatRole import ChatRole
-    from libs.EventMember import EventMember
-    from libs.Event import Event
-    from libs.Friend import Friend
-    from libs.Group import Group
-    from libs.GroupMember import GroupMember
-    from libs.ChatNotification import ChatNotification
     db.create_all()

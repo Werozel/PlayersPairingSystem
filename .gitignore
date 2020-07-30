@@ -2,4 +2,4 @@ env
 .vscode
 __pycache__
 constants/config.py
-app_config.py
+constants/app_config.py
