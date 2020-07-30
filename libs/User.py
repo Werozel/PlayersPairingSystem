@@ -3,6 +3,9 @@ from libs.GroupMember import GroupMember
 from flask_login import UserMixin, current_user
 import secrets
 import os
+import numpy as np
+from src.crop import center_crop
+from PIL import Image
 
 
 @login_manager.user_loader
@@ -11,11 +14,15 @@ def load_user(user_id):
 
 
 def set_user_picture(picture):
-    random_hex = secrets.token_hex(8)
+    random_hex = secrets.token_hex(16)
     _, f_ext = os.path.splitext(picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
-    picture.save(picture_path)
+    picture_path_tmp = picture_path + "-tmp"
+    picture.save(picture_path_tmp)
+    image = Image.open(picture_path_tmp)
+    Image.fromarray(center_crop(np.array(image))).save(picture_path)
+    os.remove(picture_path_tmp)
     current_user.image_file = picture_fn
 
 

@@ -55,4 +55,15 @@ def get_rand() -> int:
 
 
 def create_tables():
+    from libs.Group import Group
+    from libs.GroupMember import GroupMember
+    from libs.Friend import Friend
+    from libs.Chat import Chat
+    from libs.ChatRole import ChatRole
+    from libs.ChatMember import ChatMember
+    from libs.ChatNotification import ChatNotification
+    from libs.Message import Message
+    from libs.Event import Event
+    from libs.EventMember import EventMember
+    from libs.User import User
     db.create_all()
