@@ -70,10 +70,21 @@ a.article-title:hover {
 }
 
 .account-img {
-  max-height: 200px;
-  max-width: 125px;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1;
+  vertical-align: middle;
   margin-right: 20px;
   margin-bottom: 16px;
+}
+
+.account-preview-img {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1;
+  vertical-align: middle;
+  margin-left: 8px;
+  margin-bottom: 8px;
 }
 
 .account-heading {
@@ -118,4 +129,10 @@ a.article-title:hover {
   border-radius: 5px;
   border-style: solid;
   border-width: 1px;
+}
+
+.vertical-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

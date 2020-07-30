@@ -9,7 +9,7 @@
 
     <div class="content-section">
       <div class="media">
-        <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}" alt="none">
+        <img class="rounded-circle account-img" width="125" height="125" src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}" alt="none">
         <div class="media-body">
           <h2 class="account-heading">{{ user.name }} {{ user.last_name }}</h2>
           <p class="text-secondary m-bottom-4">{{  user.username }}</p>

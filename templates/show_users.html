@@ -9,12 +9,24 @@
         {%  for user in users %}
             <div class="content-section w-75" id="{{ user.id }}">
                 <div class="media">
-                    <div class="media-body">
-                        {%  if user.name and user.last_name %}
-                            <a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.name }} {{ user.last_name }}</a>
-                        {%  else %}
-                            <a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.username }}</a>
-                        {%  endif %}
+                    <div class="media-body row">
+                        <a class="m-left-4" href="{{ url_for('profile_route', action='show', id=user.id) }}">
+                            <img class="rounded-circle account-preview-img" width="44"  height="44" src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}"/>
+                        </a>
+                        <div class="vertical-center">
+                            {%  if user.name and user.last_name %}
+                                <a class="m-left-16"
+                                   href="{{ url_for('profile_route', action='show', id=user.id) }}">
+                                    {{ user.name }} {{ user.last_name }}
+                                </a>
+                            {%  else %}
+                                <a class="m-left-16"
+                                   href="{{ url_for('profile_route', action='show', id=user.id) }}">
+                                    {{ user.username }}
+                                </a>
+                            {%  endif %}
+                        </div>
+
                     </div>
                 </div>
                 <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
