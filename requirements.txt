@@ -24,7 +24,7 @@ keyring==10.6.0
 keyrings.alt==3.0
 MarkupSafe==1.1.1
 pika==1.1.0
-Pillow==7.0.0
+Pillow>=7.1.0
 psycopg2==2.8.5
 psycopg2-binary==2.8.4
 pyaes==1.6.1
