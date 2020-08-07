@@ -1,6 +1,6 @@
 {%  extends "main.html" %}
 
-
+{# TODO add chat #}
 {%  block content %}
     {%  if event %}
         <div class="content-section">
@@ -11,10 +11,26 @@
                    href="{{ url_for('event_route', action='find_people', id=event.id) }}">
                     Find people
                 </a>
+                {%  if is_admin %}
+                    <a class="media-right image-button"
+                        href="{{ url_for('event_route', id=event.id, action='edit') }}">
+                        <img title="Edit" src="{{ url_for('static', filename='buttons/edit-24px.svg') }}"/>
+                    </a>
+                {%  endif %}
                 {%  if is_member %}
-                    <a class="media-right" href="{{ url_for('event_route', action='leave', id=event.id) }}">Leave</a>
+                    <a class="media-right image-button" href="{{ url_for('event_route', action='leave', id=event.id) }}">
+                        <img title="Leave event" src="{{ url_for('static', filename='buttons/remove-24px.svg') }}"/>
+                    </a>
                 {%  else %}
-                    <a class="media-right" href="{{ url_for('event_route', action='join', id=event.id) }}">Join</a>
+                    <a class="media-right image-button" href="{{ url_for('event_route', action='join', id=event.id) }}">
+                        <img title="Join event" src="{{ url_for('static', filename='buttons/add-24px.svg') }}"/>
+                    </a>
+                {%  endif %}
+                {%  if is_admin %}
+                    <a class="media-right image-button"
+                        href="{{ url_for('event_route', id=event.id, action='delete') }}">
+                        <img title="Delete event" src="{{ url_for('static', filename='buttons/close-24px.svg') }}"/>
+                    </a>
                 {%  endif %}
             </div>
             <legend class="border-bottom mb-3" style="width: 100%"></legend>

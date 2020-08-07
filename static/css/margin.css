@@ -10,6 +10,10 @@
     margin: 8px;
 }
 
+.m-12 {
+    margin: 12px;
+}
+
 .m-16 {
     margin: 16px;
 }
@@ -24,6 +28,10 @@
 
 .m-bottom-8 {
   margin-bottom: 8px;
+}
+
+.m-bottom-12 {
+  margin-bottom: 12px;
 }
 
 .m-bottom-16 {
@@ -42,6 +50,10 @@
   margin-right: 8px;
 }
 
+.m-right-12 {
+  margin-right: 12px;
+}
+
 .m-right-16 {
   margin-right: 16px;
 }
@@ -58,6 +70,10 @@
   margin-left: 8px;
 }
 
+.m-left-12 {
+  margin-left: 12px;
+}
+
 .m-left-16 {
   margin-left: 16px;
 }
@@ -71,6 +87,10 @@
 }
 
 .m-top-8 {
+  margin-top: 8px;
+}
+
+.m-top-12 {
   margin-top: 8px;
 }
 

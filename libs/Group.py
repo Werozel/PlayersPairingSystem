@@ -41,3 +41,18 @@ class Group(db.Model):
     def get_events(self):
         from libs.Event import Event
         return Event.query.filter_by(group_id=self.id).all()
+
+    def delete(self):
+        from libs.GroupMember import GroupMember
+        if self is None:
+            return
+        for e in self.get_events():
+            db.sessin.delete(e)
+        db.session.commit()
+        for i in GroupMember.query.filter_by(group_id=self.id).all():
+            db.session.delete(i)
+        db.session.commit()
+        db.session.delete(self)
+        db.session.commit()
+
+

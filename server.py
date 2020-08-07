@@ -225,10 +225,17 @@ def group_route():
         members = group.get_members()
         is_member = current_user in members
         events = group.get_events()
+        is_admin = group.admin_id == current_user.id
         print(f"events = {events}")
         if not is_member:
             is_member = None
-        if action == 'show':
+        if action == 'delete':
+            group.delete()
+            return redirect(url_for('group_route', action='my'))
+        elif action == 'edit':
+            # TODO add edit form
+            return redirect(url_for('group_route', action='my'))
+        elif action == 'show':
             pass
         elif action == 'join':
             if current_user not in members:
@@ -248,16 +255,23 @@ def group_route():
                 db.session.commit()
                 members.remove(current_user)
                 is_member = None
-        return render_template('group.html', group=group, members=members, is_member=is_member, events=events)
+        return render_template(
+            'group.html',
+            group=group,
+            members=members,
+            is_member=is_member,
+            events=events,
+            is_admin=is_admin
+        )
     else:
         if form.validate_on_submit():
-            group = Group(admin_id=current_user.id, name=form.name.data, sport=form.sport.data)
+            group = Group(admin_id=current_user.id, name=form.name.data, sport=form.sport.data, closed=form.closed.data)
             db.session.add(group)
             db.session.commit()
             new_row = GroupMember(user_id=current_user.id, group_id=group.id, time=timestamp())
             db.session.add(new_row)
             db.session.commit()
-            return redirect(url_for('group_route', action='my'))
+            return redirect(url_for('group_route', action='show', id=group.id))
         return render_template('new_group.html', form=form, groups=current_user.get_groups())
 
 
@@ -275,14 +289,26 @@ def event_route():
 
     action = request.args.get('action')
     if request.method == 'GET':
-        if action == "my":
+        if action is None:
+            return redirect(url_for("event_route", action="my"))
+        if action == 'my':
             events = current_user.get_events()
             return render_template(
                 "my_events.html",
-                events=events if len(events) > 0 else None,
-                current_user=current_user
+                events=events if len(events) > 0 else None
             )
-        elif action == "show":
+        if action == 'delete':
+            try:
+                event_id = int(request.args.get('id'))
+            except ValueError:
+                return args_error()
+            event = Event.get(event_id)
+            event.delete()
+            return redirect(url_for("event_route", action='my'))
+        if action == 'edit':
+            # TODO add edit form
+            return redirect(url_for("event_route", action="my"))
+        elif action == 'show':
             try:
                 event_id = int(request.args.get('id'))
             except ValueError:
@@ -291,12 +317,19 @@ def event_route():
             if event is None:
                 return args_error()
             group = event.group
-            group = group if group else None
+            group: Group = group if group else None
             members = event.get_members()
             is_member = True if current_user in members else None
             members = members if len(members) > 0 else None
-            return render_template("event.html", event=event, group=group, members=members, is_member=is_member)
-        elif action == "join" or action == "leave":
+            return render_template(
+                "event.html",
+                event=event,
+                group=group,
+                members=members,
+                is_member=is_member,
+                is_admin=event.creator_id == current_user.id or group is not None and group.admin_id == current_user.id
+            )
+        elif action == 'join' or action == 'leave':
             try:
                 event_id = int(request.args.get('id'))
             except ValueError:
@@ -304,7 +337,7 @@ def event_route():
             event = Event.get(event_id)
             if event is None:
                 return args_error()
-            if action == "join":
+            if action == 'join':
                 if event.closed:
                     Invitation.add(InvitationType.TO_EVENT,
                                    recipient_id=event.id,
@@ -316,9 +349,9 @@ def event_route():
             else:
                 event.remove_member(current_user)
             return redirect(url_for('event_route', action='show', id=event_id))
-        elif action == "new":
+        elif action == 'new':
             return render_template("new_event.html", form=new_event_form)
-        elif action == "find_people":
+        elif action == 'find_people':
             try:
                 event_id = int(request.args.get('id'))
             except Exception:
@@ -329,7 +362,7 @@ def event_route():
             all_users = set(User.query.order_by(User.register_time).all())
             users: list = list(filter(lambda user_tmp: event.sport in user_tmp.sport, list(all_users - event_users)))
             return render_template("find_people.html", event_id=event.id, people=users if len(users) > 0 else None)
-        elif action == "add_user":
+        elif action == 'add_user':
             try:
                 user_id = int(request.args.get('user_id'))
                 event_id = int(request.args.get('event_id'))
@@ -350,14 +383,22 @@ def event_route():
             group_id = new_event_form.assigned_group.data
             group_id = None if group_id == "None" or group_id is None else int(group_id)
             time = new_event_form.time.data
-            new_event = Event(name=name, description=description, sport=sport, group_id=group_id,
-                              creation_time=timestamp(), creator_id=current_user.id, time=time)
+            new_event = Event(
+                name=name,
+                description=description,
+                sport=sport,
+                group_id=group_id,
+                creation_time=timestamp(),
+                creator_id=current_user.id,
+                time=time,
+                closed=new_event_form.closed.data
+            )
             db.session.add(new_event)
             db.session.commit()
             new_event_member = EventMember(event_id=new_event.id, user_id=current_user.id, time=timestamp())
             db.session.add(new_event_member)
             db.session.commit()
-            return redirect(url_for('event_route', action='my'))
+            return redirect(url_for('event_route', action='show', id=new_event.id))
         else:
             return redirect(request.url)
 
@@ -379,7 +420,7 @@ def friends_route():
 @app.route("/groupchats", methods=['GET'])
 @login_required
 def group_chats_route():
-
+    # TODO permissions to show
     def args_error():
         flash('Invalid request! Try updating the page.', 'error')
         return redirect(request.referrer)
@@ -391,9 +432,12 @@ def group_chats_route():
             return args_error()
         group_id = int(group_id)
         chats = Chat.query.filter_by(group_id=group_id, deleted=None).all()
-        return render_template("group_chats.html",
-                               chats=chats, group=Group.get(group_id),
-                               notification=current_user.get_notifications())
+        return render_template(
+            "group_chats.html",
+            chats=chats,
+            group=Group.get(group_id),
+            notification=current_user.get_notifications()
+        )
     elif action == 'delete':
         chat_id = request.args.get('chat_id')
         if chat_id is None:
@@ -435,8 +479,7 @@ def chats_route():
     action = request.args.get('action')
     if action == 'show':
         chat_id = request.args.get('chat_id')
-        # С кем чат
-        user_id = request.args.get('user_id')
+        user_id = request.args.get('user_id') # С кем чат
         if user_id is None:
             if chat_id is None:
                 return redirect(url_for('chat', action='all'))
@@ -452,7 +495,7 @@ def chats_route():
                 user_id = members[0].id if members[0].id != current_user.id else members[1].id
             return redirect(url_for("chats_route", action='show', chat_id=chat_id, user_id=user_id))
         else:
-            user_id=int(user_id)
+            user_id = int(user_id)
         if chat_id is None:
             chat = ChatMember.get_private_chat(current_user.id, int(user_id))
             if chat is None:

@@ -27,13 +27,16 @@
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
-    <legend class="border-top m-top-0"></legend>
+    <legend class="border-top m-top-0 w-75"></legend>
     {% if query %}
         {% for group in query %}
         <a href="{{ url_for('group_route', id=group.id) }}">
             <div class="content-section w-75">
                 <div class="media">
                     <a class="media-body" href="{{ url_for('group_route', id=group.id, action='show') }}">{{group.name}}</a>
+                    {% if group.closed %}
+                        <p class="text-muted media-right">Closed</p>
+                    {% endif %}
                 </div>
                 <table>
                     <tr class="table">

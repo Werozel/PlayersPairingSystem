@@ -21,6 +21,7 @@ def get_app(name: str) -> Flask:
 
     # add jinja env variables
     res.jinja_env.globals.update(format_time=format_time)
+    res.jinja_env.globals.update(len=len)
 
     return res
 

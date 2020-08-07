@@ -46,3 +46,13 @@ class Event(db.Model):
         if res is not None:
             db.session.delete(res)
             db.session.commit()
+
+    def delete(self):
+        from libs.EventMember import EventMember
+        if self is None:
+            return
+        for i in EventMember.query.filter_by(event_id=self.id).all():
+            db.session.delete(i)
+        db.session.commit()
+        db.session.delete(self)
+        db.session.commit()

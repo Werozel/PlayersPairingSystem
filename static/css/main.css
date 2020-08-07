@@ -136,3 +136,7 @@ a.article-title:hover {
   justify-content: center;
   align-items: center;
 }
+
+.image-button {
+  text-decoration: none
+}

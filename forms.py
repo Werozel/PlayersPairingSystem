@@ -13,7 +13,7 @@ class RegistrationForm(FlaskForm):
 	username = StringField('Username', validators=[DataRequired(), Length(min=3, max=30)])
 	email = StringField('Email', validators=[DataRequired(), Email()])
 	password = PasswordField('Password', validators=[DataRequired()])
-	confirm_password = PasswordField('Confirm password',validators=[DataRequired(), EqualTo('password')])
+	confirm_password = PasswordField('Confirm password', validators=[DataRequired(), EqualTo('password')])
 
 	submit = SubmitField('Sign Up')
 
@@ -65,6 +65,7 @@ class EditProfileForm(FlaskForm):
 
 
 class NewGroupFrom(FlaskForm):
+	closed = BooleanField('Closed')
 	name = StringField('Name', validators=[DataRequired(), Length(min=2, max=50)])
 	sport = SelectField('Sport', choices=Sports.get_choices(), validators=[DataRequired()])
 	submit = SubmitField('Create')
@@ -87,6 +88,7 @@ class SearchGroupForm(FlaskForm):
 
 
 class NewEventForm(FlaskForm):
+	closed = BooleanField('Closed')
 	name = StringField('Name', validators=[Length(max=100), DataRequired()])
 	description = TextAreaField('Description', validators=[Length(max=300)])
 	sport_choices = Sports.get_choices()
