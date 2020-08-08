@@ -3,9 +3,10 @@ from flask_wtf.file import FileAllowed
 from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField, BooleanField, \
 					FileField, IntegerField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from wtforms.fields.html5 import DateTimeLocalField, DateField, TimeField
+from wtforms.fields.html5 import DateTimeLocalField
 from libs.User import User
 from libs.Group import Group
+from libs.Event import Event
 from constants.constants import Sports
 
 
@@ -68,14 +69,18 @@ class NewGroupFrom(FlaskForm):
 	closed = BooleanField('Closed')
 	name = StringField('Name', validators=[DataRequired(), Length(min=2, max=50)])
 	sport = SelectField('Sport', choices=Sports.get_choices(), validators=[DataRequired()])
-	submit = SubmitField('Create')
+	submit = SubmitField('Submit')
 
 	@staticmethod
-	def validate_name(_, name):
+	def validate_name(form, name):
 		group = Group.query.filter_by(name=name.data).first()
-		print(group)
-		if group:
+		current_group_id = -1 if form.current_group is None else form.current_group.id
+		if group and group.id != current_group_id:
 			raise ValidationError('Name already taken!')
+
+	def __init__(self, current_group=None, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.current_group = current_group
 
 
 class SearchGroupForm(FlaskForm):
@@ -99,6 +104,12 @@ class NewEventForm(FlaskForm):
 	time = DateTimeLocalField("Time", format='%Y-%m-%dT%H:%M')
 	submit = SubmitField('Create')
 
+	@staticmethod
+	def validate_name(_, name):
+		events = Event.query.filter_by(name=name.data).first()
+		if events:
+			raise ValidationError("Name already taken!")
+
 	def __init__(self, groups, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		group_choices = [(str(i.id), i.name) for i in groups]
@@ -106,4 +117,22 @@ class NewEventForm(FlaskForm):
 		self.assigned_group.choices = group_choices
 
 
+class EditEventForm(FlaskForm):
+	closed = BooleanField('Closed')
+	name = StringField('Name', validators=[Length(max=100), DataRequired()])
+	description = TextAreaField('Description', validators=[Length(max=300)])
+	sport_choices = Sports.get_choices()
+	sport = SelectField('Sport', choices=sport_choices, default="Tennis")
+	time = DateTimeLocalField('Time', format='%Y-%m-%dT%H:%M')
+	submit = SubmitField('Update')
 
+	@staticmethod
+	def validate_name(form, name):
+		current_event_id = -1 if form.current_event is None else form.current_event.id
+		event = Event.query.filter_by(name=name.data).first()
+		if event and event.id != current_event_id:
+			raise ValidationError("Name already taken!")
+
+	def __init__(self, current_event=None, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.current_event = current_event

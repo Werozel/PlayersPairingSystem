@@ -7,8 +7,12 @@
 {% block content %}
     <div class="content-section">
         <div class="media">
-            <div class="media-body">
+            <div class="media-body row m-left-0">
                 <h4>{{group.name}}</h4>
+                {% if group.closed %}
+                    <img title="Closed group" class="m-left-4 m-bottom-4 image-button"
+                         src="{{ url_for('static', filename='buttons/lock-black-18dp.svg') }}" />
+                {% endif %}
             </div>
             <div class="media-right">
                 {%  if is_admin %}

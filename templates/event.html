@@ -5,7 +5,13 @@
     {%  if event %}
         <div class="content-section">
             <div class="media">
-                <h4 class="media-body">{{ event.name }}</h4>
+                <div class="media-body row m-left-0">
+                    <h4>{{ event.name }}</h4>
+                    {% if event.closed %}
+                        <img title="Closed event" class="m-left-4 m-bottom-4 image-button"
+                             src="{{ url_for('static', filename='buttons/lock-black-18dp.svg') }}" />
+                    {% endif %}
+                </div>
                 <a class="media-right"
                    style="margin-right: 16px"
                    href="{{ url_for('event_route', action='find_people', id=event.id) }}">

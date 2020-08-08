@@ -1,16 +1,17 @@
-{% extends 'main.html' %}
-
+{% extends "main.html" %}
 
 {%  block title %}
-        <title>New group</title>
+        <title>Edit group</title>
 {%  endblock title %}
 
+
 {% block content %}
+
     <div class=content-section>
-        <form method="POST" action="{{ url_for('group_route', type='new') }}">
+        <form method="POST" action="{{ url_for('group_route', type='edit', id=group.id) }}">
             {{form.hidden_tag()}}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">New group</legend>
+                <legend class="border-bottom mb-4">Edit group</legend>
                 <div class="form-check m-bottom-16 m-left-4">
                     {{ form.closed(class="form-check-input") }}
                     {{ form.closed.label(class="form-check-label m-left-8") }}
@@ -27,7 +28,7 @@
                     {% else %}
                         {{ form.name(class="form-control form-control-lg") }}
                     {% endif %}
-                    
+
                 </div>
                 <div>
                     {{ form.sport.label(class="form-control-label") }}
@@ -41,4 +42,5 @@
         </form>
 
     </div>
-{% endblock content %}  
+
+{% endblock content%}

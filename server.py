@@ -1,7 +1,8 @@
 from typing import List
 
 from flask import render_template, url_for, request, redirect, flash
-from forms import RegistrationForm, LoginForm, EditProfileForm, NewGroupFrom, SearchGroupForm, NewEventForm
+from forms import RegistrationForm, LoginForm, EditProfileForm, \
+    NewGroupFrom, SearchGroupForm, NewEventForm, EditEventForm
 from flask_login import login_user, logout_user, current_user, login_required
 import src.crypto as crypto
 from libs.Invitation import Invitation, InvitationType
@@ -18,6 +19,7 @@ from globals import app, db, socketIO, timestamp, get_rand, sessions
 from flask_socketio import emit
 import logging
 import json
+import constants.app_config as app_config
 
 
 @app.route("/")
@@ -58,12 +60,17 @@ def register_route():
     form = RegistrationForm()
     if request.method == 'POST':
         if form.validate_on_submit():
+            username = form.username.data
+            password = crypto.hash_password(form.password.data)
+            email = form.email.data
+            register_time = timestamp(),
+            last_login = register_time
             user = User(
-                username=form.username.data,
-                password=crypto.hash_password(form.password.data),
-                email=form.email.data,
-                register_time=timestamp(),
-                last_login=timestamp()
+                username=username,
+                password=password,
+                email=email,
+                register_time=register_time,
+                last_login=last_login
             )
             db.session.add(user)
             db.session.commit()
@@ -112,7 +119,13 @@ def search_group_route():
 @app.route("/profile", methods=['GET', 'POST'])
 @login_required
 def profile_route():
-    form = EditProfileForm()
+    form = EditProfileForm(
+        name=current_user.name,
+        last_name=current_user.last_name,
+        age=current_user.age,
+        gender=current_user.gender,
+        sport=current_user.sport
+    )
     if request.method == 'GET':
         action = request.args.get('action')
         if not action:
@@ -209,19 +222,27 @@ def my_invitations_route():
 @app.route("/group", methods=['GET', 'POST'])
 @login_required
 def group_route():
-    form = NewGroupFrom()
+
+    def args_error():
+        flash("Invalid request", 'error')
+        return redirect(url_for(request.referrer))
+
     if request.method == 'GET':
         action = request.args.get('action')
         if not action:
             flash("Something went wrong!", "error")
             return redirect(url_for('group_route', action='my'))
-        elif action == 'new':
-            return render_template('new_group.html', form=form, groups=current_user.get_groups())
         elif action == 'my':
             return render_template('my_groups.html', groups=current_user.get_groups())
+        if action == 'new':
+            new_group_form = NewGroupFrom()
+            return render_template('new_group.html', form=new_group_form, groups=current_user.get_groups())
 
-        id = int(request.args.get('id'))
-        group = Group.get(id)
+        try:
+            group_id = int(request.args.get('id'))
+        except ValueError:
+            return args_error()
+        group = Group.get(group_id)
         members = group.get_members()
         is_member = current_user in members
         events = group.get_events()
@@ -229,12 +250,17 @@ def group_route():
         print(f"events = {events}")
         if not is_member:
             is_member = None
-        if action == 'delete':
+        elif action == 'delete':
             group.delete()
             return redirect(url_for('group_route', action='my'))
         elif action == 'edit':
             # TODO add edit form
-            return redirect(url_for('group_route', action='my'))
+            edit_group_form = NewGroupFrom(
+                closed=group.closed,
+                name=group.name,
+                sport=group.sport
+            )
+            return render_template('edit_group.html', form=edit_group_form, group=group)
         elif action == 'show':
             pass
         elif action == 'join':
@@ -264,15 +290,41 @@ def group_route():
             is_admin=is_admin
         )
     else:
-        if form.validate_on_submit():
-            group = Group(admin_id=current_user.id, name=form.name.data, sport=form.sport.data, closed=form.closed.data)
-            db.session.add(group)
-            db.session.commit()
-            new_row = GroupMember(user_id=current_user.id, group_id=group.id, time=timestamp())
-            db.session.add(new_row)
-            db.session.commit()
-            return redirect(url_for('group_route', action='show', id=group.id))
-        return render_template('new_group.html', form=form, groups=current_user.get_groups())
+        type = request.args.get('type')
+        if type is None:
+            return args_error()
+        elif type == 'edit':
+            try:
+                group_id = int(request.args.get('id'))
+            except ValueError:
+                return args_error()
+            group = Group.get(group_id)
+
+            edit_group_form = NewGroupFrom(current_group=group)
+            if edit_group_form.validate_on_submit():
+                group.closed = edit_group_form.closed.data
+                group.name = edit_group_form.name.data
+                group.sport = edit_group_form.sport.data
+                db.session.add(group)
+                db.session.commit()
+                return redirect(url_for('group_route', action='show', id=group_id))
+            return render_template('edit_group.html', form=edit_group_form, group=group)
+        elif type == 'new':
+            new_group_form = NewGroupFrom()
+            if new_group_form.validate_on_submit():
+                group = Group(
+                    admin_id=current_user.id,
+                    name=new_group_form.name.data,
+                    sport=new_group_form.sport.data,
+                    closed=new_group_form.closed.data
+                )
+                db.session.add(group)
+                db.session.commit()
+                new_row = GroupMember(user_id=current_user.id, group_id=group.id, time=timestamp())
+                db.session.add(new_row)
+                db.session.commit()
+                return redirect(url_for('group_route', action='show', id=group.id))
+            return render_template('new_group.html', form=new_group_form, groups=current_user.get_groups())
 
 
 # --------------------------------------------------------------------------------------------------------
@@ -281,7 +333,6 @@ def group_route():
 @app.route("/event", methods=['GET', 'POST'])
 @login_required
 def event_route():
-    new_event_form = NewEventForm(groups=current_user.get_groups())
 
     def args_error():
         flash("Invalid request", 'error')
@@ -307,7 +358,19 @@ def event_route():
             return redirect(url_for("event_route", action='my'))
         if action == 'edit':
             # TODO add edit form
-            return redirect(url_for("event_route", action="my"))
+            try:
+                event_id = int(request.args.get('id'))
+            except ValueError:
+                return args_error()
+            event = Event.get(event_id)
+            edit_event_form = EditEventForm(
+                closed=event.closed,
+                name=event.name,
+                description=event.description,
+                sport=event.sport,
+                time=event.time
+            )
+            return render_template("edit_event.html", form=edit_event_form, event=event)
         elif action == 'show':
             try:
                 event_id = int(request.args.get('id'))
@@ -350,11 +413,12 @@ def event_route():
                 event.remove_member(current_user)
             return redirect(url_for('event_route', action='show', id=event_id))
         elif action == 'new':
+            new_event_form = NewEventForm(groups=current_user.get_groups())
             return render_template("new_event.html", form=new_event_form)
         elif action == 'find_people':
             try:
                 event_id = int(request.args.get('id'))
-            except Exception:
+            except ValueError:
                 return args_error()
             event = Event.get(event_id)
             # FIXME сделать нормальный фильтр
@@ -376,31 +440,55 @@ def event_route():
         else:
             return args_error()
     else:
-        if new_event_form.validate_on_submit():
-            name = new_event_form.name.data
-            description = new_event_form.description.data
-            sport = new_event_form.sport.data
-            group_id = new_event_form.assigned_group.data
-            group_id = None if group_id == "None" or group_id is None else int(group_id)
-            time = new_event_form.time.data
-            new_event = Event(
-                name=name,
-                description=description,
-                sport=sport,
-                group_id=group_id,
-                creation_time=timestamp(),
-                creator_id=current_user.id,
-                time=time,
-                closed=new_event_form.closed.data
-            )
-            db.session.add(new_event)
-            db.session.commit()
-            new_event_member = EventMember(event_id=new_event.id, user_id=current_user.id, time=timestamp())
-            db.session.add(new_event_member)
-            db.session.commit()
-            return redirect(url_for('event_route', action='show', id=new_event.id))
-        else:
-            return redirect(request.url)
+        type = request.args.get('type')
+        if not type:
+            return args_error()
+        elif type == 'edit':
+            try:
+                event_id = int(request.args.get('id'))
+            except ValueError:
+                return args_error()
+            event = Event.get(event_id)
+            edit_event_form = EditEventForm(current_event=event)
+            if edit_event_form.validate_on_submit():
+                event.closed = edit_event_form.closed.data
+                event.name = edit_event_form.name.data
+                event.description = edit_event_form.description.data
+                event.sport = edit_event_form.sport.data
+                event.time = edit_event_form.time.data
+                db.session.add(event)
+                db.session.commit()
+                return redirect(url_for('event_route', action='show', id=event.id))
+            else:
+                return render_template("edit_event.html", form=edit_event_form, event=event)
+        elif type == 'new':
+            new_event_form = NewEventForm(groups=current_user.get_groups())
+            if new_event_form.validate_on_submit():
+                closed = new_event_form.closed.data
+                name = new_event_form.name.data
+                description = new_event_form.description.data
+                sport = new_event_form.sport.data
+                group_id = new_event_form.assigned_group.data
+                group_id = None if group_id == "None" or group_id is None else int(group_id)
+                time = new_event_form.time.data
+                new_event = Event(
+                    name=name,
+                    description=description,
+                    sport=sport,
+                    group_id=group_id,
+                    creation_time=timestamp(),
+                    creator_id=current_user.id,
+                    time=time,
+                    closed=closed
+                )
+                db.session.add(new_event)
+                db.session.commit()
+                new_event_member = EventMember(event_id=new_event.id, user_id=current_user.id, time=timestamp())
+                db.session.add(new_event_member)
+                db.session.commit()
+                return redirect(url_for('event_route', action='show', id=new_event.id))
+            else:
+                return render_template("new_event.html", form=new_event_form)
 
 
 @app.route("/friends", methods=['GET'])
@@ -479,7 +567,7 @@ def chats_route():
     action = request.args.get('action')
     if action == 'show':
         chat_id = request.args.get('chat_id')
-        user_id = request.args.get('user_id') # С кем чат
+        user_id = request.args.get('user_id')    # С кем чат
         if user_id is None:
             if chat_id is None:
                 return redirect(url_for('chat', action='all'))
@@ -630,4 +718,4 @@ if __name__ == "__main__":
     logging.getLogger('engineio').setLevel(logging.ERROR)
     logging.getLogger('werkzeug').setLevel(logging.ERROR)
 
-    socketIO.run(app, debug=True, port=5000, host='0.0.0.0')
+    socketIO.run(app, debug=app_config.DEBUG, port=5000, host='0.0.0.0')
