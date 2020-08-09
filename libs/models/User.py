@@ -1,5 +1,6 @@
-from globals import db, timestamp, login_manager, app
-from libs.GroupMember import GroupMember
+from globals import db, login_manager, app
+from src.misc import timestamp
+from libs.models.GroupMember import GroupMember
 from flask_login import UserMixin, current_user
 from src.crop import center_crop
 from PIL import Image
@@ -31,9 +32,9 @@ class User(db.Model, UserMixin):
 
     # from libs.Group import Group
     # from libs.GroupMember import GroupMember
-    from libs.Friend import Friend
-    # from libs.Chat import Chat
-    from libs.ChatRole import ChatRole
+    from libs.models.Friend import Friend
+    from libs.models.Chat import Chat
+    from libs.models.EventMember import EventMember
     # from libs.ChatMember import ChatMember
     # from libs.ChatNotification import ChatNotification
     # from libs.Message import Message
@@ -58,7 +59,6 @@ class User(db.Model, UserMixin):
     friends_rel_1 = db.relationship('Friend', backref='first', lazy=True, primaryjoin="User.id==Friend.first_id")
     friends_rel_2 = db.relationship('Friend', backref='second', lazy=True, primaryjoin="User.id==Friend.second_id")
     chat_admin_rel = db.relationship('Chat', backref='admin', lazy=True)
-    chat_role_rel = db.relationship('ChatRole', backref='user', lazy=True)
     chat_member_rel = db.relationship('ChatMember', backref='user', lazy=True)
     message_rel = db.relationship('Message', backref='user', lazy=True)
     notification_rel = db.relationship('ChatNotification', backref='user', lazy=True)
@@ -82,15 +82,15 @@ class User(db.Model, UserMixin):
         return User.query.get(int(id))
 
     def friend_add(self, friend_id: int):
-        from libs.Friend import Friend
+        from libs.models.Friend import Friend
         Friend.add(self.id, int(friend_id))
 
     def friend_remove(self, friend_id: int):
-        from libs.Friend import Friend
+        from libs.models.Friend import Friend
         Friend.remove(self.id, int(friend_id))
 
     def friends_get(self) -> list:
-        from libs.Friend import Friend
+        from libs.models.Friend import Friend
         first = Friend.query.filter_by(first_id=self.id).all()
         first_set = set(map(lambda y: User.get_or_none(y.second_id), first))
         second = Friend.query.filter_by(second_id=self.id).all()
@@ -101,25 +101,25 @@ class User(db.Model, UserMixin):
         return [i.group for i in GroupMember.query.filter_by(user_id=self.id).all()]
 
     def get_chats(self):
-        from libs.ChatMember import ChatMember
+        from libs.models.ChatMember import ChatMember
         return list(filter(lambda x: x.deleted is None,
                            [i.chat for i in ChatMember.query.filter(ChatMember.user_id == self.id
                                                                     and ChatMember.deleted is None).all()]
                            ))
 
     def get_notifications(self):
-        from libs.ChatNotification import ChatNotification
+        from libs.models.ChatNotification import ChatNotification
         return [i.chat for i in ChatNotification.get_notifications(self.id)]
 
     def is_notified(self):
         return len(self.get_notifications()) != 0
 
     def get_events(self):
-        from libs.EventMember import EventMember
+        from libs.models.EventMember import EventMember
         return [i.event for i in EventMember.query.filter_by(user_id=self.id).all()]
 
     def get_invitations(self):
-        from libs.Invitation import Invitation
+        from libs.models.Invitation import Invitation
         return Invitation.query.filter_by(recipient_id=self.id).all()
 
     def has_invitations(self):

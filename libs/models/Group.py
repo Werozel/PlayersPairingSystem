@@ -1,4 +1,5 @@
-from globals import db, timestamp
+from globals import db
+from src.misc import timestamp
 from flask import abort
 
 
@@ -35,23 +36,23 @@ class Group(db.Model):
         return Group.query.get(id)
 
     def get_members(self):
-        from libs.GroupMember import GroupMember
+        from libs.models.GroupMember import GroupMember
         members = GroupMember.query.filter_by(group_id=self.id).all()
         return [i.user for i in members]
 
     def add_member(self, user):
-        from libs.GroupMember import GroupMember
+        from libs.models.GroupMember import GroupMember
         if user.id not in self.get_members():
             new_row = GroupMember(user_id=user.id, group_id=self.id, time=timestamp())
             db.session.add(new_row)
             db.session.commit()
 
     def get_events(self):
-        from libs.Event import Event
+        from libs.models.Event import Event
         return Event.query.filter_by(group_id=self.id).all()
 
     def delete(self):
-        from libs.GroupMember import GroupMember
+        from libs.models.GroupMember import GroupMember
         if self is None:
             return
         for e in self.get_events():

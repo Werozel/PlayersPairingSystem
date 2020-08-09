@@ -1,4 +1,5 @@
-from globals import db, timestamp
+from globals import db
+from src.misc import timestamp
 from enum import IntEnum
 from flask import abort
 
@@ -44,9 +45,9 @@ class Invitation(db.Model):
         return self.expiration_time is not None and self.expiration_time > timestamp()
 
     def get_referrer(self):
-        from libs.User import User
-        from libs.Group import Group
-        from libs.Event import Event
+        from libs.models.User import User
+        from libs.models.Group import Group
+        from libs.models.Event import Event
         if self.type in EVENTS_FROM_USER:
             return User.get_or_404(self.referrer_id)
         elif self.type == InvitationType.FROM_GROUP:
@@ -57,9 +58,9 @@ class Invitation(db.Model):
             return None
 
     def get_recipient(self):
-        from libs.User import User
-        from libs.Group import Group
-        from libs.Event import Event
+        from libs.models.User import User
+        from libs.models.Group import Group
+        from libs.models.Event import Event
         if self.type in EVENTS_FROM_USER:
             return User.get_or_404(self.recipient_id)
         elif self.type == InvitationType.FROM_GROUP:
@@ -86,9 +87,9 @@ class Invitation(db.Model):
         return invitation.id
 
     def accept(self):
-        from libs.User import User
-        from libs.Group import Group
-        from libs.Event import Event
+        from libs.models.User import User
+        from libs.models.Group import Group
+        from libs.models.Event import Event
         if self.is_expired():
             pass
         elif self.type == InvitationType.FRIEND:

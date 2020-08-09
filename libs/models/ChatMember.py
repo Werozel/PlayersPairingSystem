@@ -1,4 +1,5 @@
-from globals import db, timestamp
+from globals import db
+from src.misc import timestamp
 
 
 class ChatMember(db.Model):

@@ -1,12 +1,13 @@
-from globals import db, timestamp, sessions, socketIO, get_rand
+from globals import db, sessions, socketIO
+from src.misc import timestamp, get_rand
 from flask_login import current_user
 from flask import request
 from flask_socketio import emit
-from libs.Message import Message
-from libs.Chat import Chat
-from libs.ChatNotification import ChatNotification
-from libs.User import User
-from libs.ChatMember import ChatMember
+from libs.models.Message import Message
+from libs.models.Chat import Chat
+from libs.models.ChatNotification import ChatNotification
+from libs.models.User import User
+from libs.models.ChatMember import ChatMember
 import json
 
 

@@ -1,4 +1,5 @@
-from globals import db, timestamp
+from globals import db
+from src.misc import timestamp
 from flask import abort
 
 
@@ -32,7 +33,7 @@ class Event(db.Model):
         return Event.query.get(id)
 
     def add_member(self, user):
-        from libs.EventMember import EventMember
+        from libs.models.EventMember import EventMember
         res = EventMember.query.filter_by(event_id=self.id, user_id=user.id).first()
         if res is not None:
             return
@@ -41,18 +42,18 @@ class Event(db.Model):
         db.session.commit()
 
     def get_members(self):
-        from libs.EventMember import EventMember
+        from libs.models.EventMember import EventMember
         return [i.user for i in EventMember.query.filter_by(event_id=self.id).all()]
 
     def remove_member(self, user):
-        from libs.EventMember import EventMember
+        from libs.models.EventMember import EventMember
         res = EventMember.query.filter_by(event_id=self.id, user_id=user.id).first()
         if res is not None:
             db.session.delete(res)
             db.session.commit()
 
     def delete(self):
-        from libs.EventMember import EventMember
+        from libs.models.EventMember import EventMember
         if self is None:
             return
         for i in EventMember.query.filter_by(event_id=self.id).all():

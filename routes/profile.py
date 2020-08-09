@@ -1,11 +1,12 @@
-from globals import app, db, sessions, get_arg_or_400
+from globals import app, db, sessions
+from src.misc import get_arg_or_400
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, flash, abort
 from forms import EditProfileForm
-from libs.User import User
-from libs.ChatMember import ChatMember
-from libs.Invitation import Invitation, InvitationType
-from libs.User import set_user_picture
+from libs.models.User import User
+from libs.models.ChatMember import ChatMember
+from libs.models.Invitation import Invitation, InvitationType
+from libs.models.User import set_user_picture
 from flask_socketio import emit
 import json
 

@@ -1,20 +1,21 @@
-from globals import app, db, timestamp, get_arg_or_400
+from globals import app, db
+from src.misc import timestamp, get_arg_or_400
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, flash, abort
 from forms import NewEventForm, EditEventForm
-from libs.Event import Event
-from libs.EventMember import EventMember
-from libs.Group import Group
-from libs.User import User
-from libs.Invitation import Invitation, InvitationType
+from libs.models.Event import Event
+from libs.models.EventMember import EventMember
+from libs.models.Group import Group
+from libs.models.User import User
+from libs.models.Invitation import Invitation, InvitationType
 
 
 @app.route("/event", methods=['GET', 'POST'])
 @login_required
 def event_route():
-    action = get_arg_or_400('action')
     if request.method == 'GET':
 
+        action = get_arg_or_400('action')
         if action == 'my':
             events = current_user.get_events()
             return render_template(
@@ -82,6 +83,8 @@ def event_route():
 
         else:
             abort(400)
+# ------------------------------------------------------------------------------------------
+# ------------------------------------- POST -----------------------------------------------
     elif request.method == 'POST':
         type = get_arg_or_400('type')
 

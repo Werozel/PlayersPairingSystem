@@ -4,9 +4,9 @@ from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField
 					FileField, IntegerField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from wtforms.fields.html5 import DateTimeLocalField
-from libs.User import User
-from libs.Group import Group
-from libs.Event import Event
+from libs.models.User import User
+from libs.models.Group import Group
+from libs.models.Event import Event
 from constants.constants import Sports
 
 

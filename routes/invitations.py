@@ -1,7 +1,8 @@
-from globals import app, db, get_arg_or_400
+from globals import app, db
+from src.misc import get_arg_or_400
 from flask_login import login_required, current_user
-from flask import render_template, request, redirect, url_for, abort
-from libs.Invitation import Invitation
+from flask import render_template, redirect, url_for, abort
+from libs.models.Invitation import Invitation
 from typing import List
 
 

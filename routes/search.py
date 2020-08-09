@@ -1,8 +1,9 @@
-from globals import app, get_arg_or_400
+from globals import app
+from src.misc import get_arg_or_400
 from flask_login import login_required
 from flask import render_template, request, abort
 from forms import SearchGroupForm
-from libs.Group import Group
+from libs.models.Group import Group
 
 
 @app.route("/search_group", methods=['GET', 'POST'])

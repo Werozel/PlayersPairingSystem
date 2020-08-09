@@ -1,10 +1,11 @@
-from globals import app, db, timestamp, get_arg_or_400
+from globals import app, db
+from src.misc import timestamp, get_arg_or_400
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, abort
-from libs.Chat import Chat
-from libs.ChatMember import ChatMember
-from libs.User import User
-from libs.ChatNotification import ChatNotification
+from libs.models.Chat import Chat
+from libs.models.ChatMember import ChatMember
+from libs.models.User import User
+from libs.models.ChatNotification import ChatNotification
 
 
 # TODO Rewrite this

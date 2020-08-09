@@ -1,10 +1,11 @@
-from globals import app, db, timestamp, get_arg_or_400
+from globals import app, db
+from src.misc import timestamp, get_arg_or_400
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, flash, abort
 from forms import NewGroupFrom
-from libs.Group import Group
-from libs.GroupMember import GroupMember
-from libs.Invitation import InvitationType, Invitation
+from libs.models.Group import Group
+from libs.models.GroupMember import GroupMember
+from libs.models.Invitation import InvitationType, Invitation
 
 
 @app.route("/group", methods=['GET', 'POST'])

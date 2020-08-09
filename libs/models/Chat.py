@@ -1,8 +1,13 @@
-from globals import db, timestamp
+from globals import db
 from flask import abort
+from src.misc import timestamp
 
 
 class Chat(db.Model):
+
+    from libs.models.ChatMember import ChatMember
+    from libs.models.ChatNotification import ChatNotification
+    from libs.models.Message import Message
 
     __tablename__ = 'chats'
 
@@ -14,7 +19,6 @@ class Chat(db.Model):
     group_id = db.Column(db.BigInteger, db.ForeignKey('groups.id'), nullable=True)    # is_group
     deleted = db.Column(db.TIMESTAMP, nullable=True, default=None)
 
-    chat_role_rel = db.relationship('ChatRole', backref='chat', lazy=True)
     chat_member_rel = db.relationship('ChatMember', backref='chat', lazy=True)
     message_rel = db.relationship('Message', backref='chat', lazy=True, primaryjoin="Chat.id==Message.chat_id")
     notification_rel = db.relationship('ChatNotification', backref='chat', lazy=True)
@@ -31,15 +35,15 @@ class Chat(db.Model):
         return Chat.query.get(id)
 
     def get_history(self):
-        from libs.Message import Message
+        from libs.models.Message import Message
         return Message.get_history(self.id)
 
     def get_members(self):
-        from libs.ChatMember import ChatMember
+        from libs.models.ChatMember import ChatMember
         return [i.user for i in ChatMember.query.filter_by(chat_id=self.id, deleted=None).all()]
 
     def add_member(self, id: int, is_group=True):
-        from libs.ChatMember import ChatMember
+        from libs.models.ChatMember import ChatMember
         if id not in [i.id for i in self.get_members()]:
             new = ChatMember(user_id=id, chat_id=self.id, is_group=is_group, time=timestamp())
             db.session.add(new)
@@ -50,7 +54,7 @@ class Chat(db.Model):
         db.session.commit()
 
     def get_new_messages(self, user_id=None):
-        from libs.Message import Message
+        from libs.models.Message import Message
         if user_id is None:
             return Message.query.filter_by(chat_id=self.id, is_read=False).all()
         else:

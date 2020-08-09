@@ -1,8 +1,9 @@
-from globals import app, timestamp, db, get_arg_or_400
+from globals import app, db
+from src.misc import timestamp, get_arg_or_none
 from forms import LoginForm, RegistrationForm
 from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, login_required, logout_user
-from libs.User import User
+from libs.models.User import User
 import src.crypto as crypto
 
 
@@ -16,15 +17,15 @@ def login_route():
         username = form.username.data
         password = crypto.hash_password(form.password.data)
         user = User.query.filter_by(username=username, password=password).first()
-        if not user:
-            user = User.query.filter_by(email=username, password=password).first()
         if user:
             user.last_login = timestamp()
             login_user(user, remember=form.remember.data, force=True)
-            next_page = get_arg_or_400('next')
+            next_page = get_arg_or_none('next')
             return redirect(next_page) if next_page else redirect(url_for('index_route'))
         else:
             flash('Incorrect login!', "danger")
+            return render_template("login.html", title="Login Page", form=form, successful=True)
+
     else:
         abort(403)
 

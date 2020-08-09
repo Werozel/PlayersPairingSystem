@@ -1,7 +1,8 @@
-from globals import app, get_arg_or_400
+from globals import app
+from src.misc import get_arg_or_400
 from flask_login import login_required, current_user
 from flask import render_template, abort
-from libs.User import User
+from libs.models.User import User
 
 
 @app.route("/friends", methods=['GET'])
