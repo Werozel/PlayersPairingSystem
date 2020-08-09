@@ -1,4 +1,5 @@
 from globals import db, timestamp
+from flask import abort
 
 
 class Group(db.Model):
@@ -23,8 +24,15 @@ class Group(db.Model):
         return Group.query.filter_by(sport=sport).all()
     
     @staticmethod
-    def get(id):
-        return Group.query.get(int(id))
+    def get_or_404(id: int):
+        group = Group.query.get(id)
+        if group is None:
+            abort(404)
+        return group
+
+    @staticmethod
+    def get_or_none(id: int):
+        return Group.query.get(id)
 
     def get_members(self):
         from libs.GroupMember import GroupMember

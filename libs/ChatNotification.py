@@ -1,4 +1,5 @@
 from globals import db, timestamp
+from flask import abort
 
 
 class ChatNotification(db.Model):
@@ -13,21 +14,28 @@ class ChatNotification(db.Model):
     )
 
     @staticmethod
-    def get(user_id, chat_id):
-        return ChatNotification.query.filter_by(user_id=int(user_id), chat_id=int(chat_id)).first()
+    def get_or_404(user_id: int, chat_id: int):
+        notification = ChatNotification.query.filter_by(user_id=user_id, chat_id=chat_id).first()
+        if notification is None:
+            abort(404)
+        return notification
 
     @staticmethod
-    def get_notifications(user_id):
+    def get_or_none(user_id: int, chat_id: int):
+        return ChatNotification.query.filter_by(user_id=user_id, chat_id=chat_id).first()
+
+    @staticmethod
+    def get_notifications(user_id: int):
         return ChatNotification.query.filter_by(user_id=user_id).all()
 
     @staticmethod
-    def remove(user_id, chat_id):
-        ChatNotification.query.filter_by(user_id=int(user_id), chat_id=int(chat_id)).delete()
+    def remove(user_id: int, chat_id: int):
+        ChatNotification.query.filter_by(user_id=user_id, chat_id=chat_id).delete()
         db.session.commit()
 
     @staticmethod
-    def add(user_id, chat_id):
-        if ChatNotification.get(user_id, chat_id) is None:
-            tmp = ChatNotification(user_id=int(user_id), chat_id=int(chat_id), time=timestamp())
+    def add(user_id: int, chat_id: int):
+        if ChatNotification.get_or_none(user_id, chat_id) is None:
+            tmp = ChatNotification(user_id=user_id, chat_id=chat_id, time=timestamp())
             db.session.add(tmp)
             db.session.commit()

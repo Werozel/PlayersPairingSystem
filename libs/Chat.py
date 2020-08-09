@@ -1,4 +1,5 @@
 from globals import db, timestamp
+from flask import abort
 
 
 class Chat(db.Model):
@@ -19,8 +20,15 @@ class Chat(db.Model):
     notification_rel = db.relationship('ChatNotification', backref='chat', lazy=True)
 
     @staticmethod
-    def get(id):
-        return Chat.query.get(int(id))
+    def get_or_404(id: int):
+        chat = Chat.query.get(id)
+        if chat is None:
+            abort(404)
+        return chat
+
+    @staticmethod
+    def get_or_none(id: int):
+        return Chat.query.get(id)
 
     def get_history(self):
         from libs.Message import Message

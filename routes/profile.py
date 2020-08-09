@@ -1,6 +1,6 @@
-from globals import app, db, sessions
+from globals import app, db, sessions, get_arg_or_400
 from flask_login import login_required, current_user
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, abort
 from forms import EditProfileForm
 from libs.User import User
 from libs.ChatMember import ChatMember
@@ -13,27 +13,23 @@ import json
 @app.route("/profile", methods=['GET', 'POST'])
 @login_required
 def profile_route():
-    form = EditProfileForm(
-        name=current_user.name,
-        last_name=current_user.last_name,
-        age=current_user.age,
-        gender=current_user.gender,
-        sport=current_user.sport
-    )
     if request.method == 'GET':
-        action = request.args.get('action')
-        if not action:
-            action = 'my'
+        action = get_arg_or_400('action')
         if action == 'my':
             groups = current_user.get_groups()
             friends = current_user.friends_get()
-            return render_template("profile.html", title="Profile", current_user=current_user,
-                                   user=current_user, groups=groups, friends=friends, my=True)
+            return render_template(
+                "profile.html",
+                title="Profile",
+                current_user=current_user,
+                user=current_user,
+                groups=groups,
+                friends=friends,
+                my=True
+            )
         elif action == 'show':
-            id = int(request.args.get('id'))
-            if not id or id == current_user.id:
-                return redirect(url_for("profile_route", action='my'))
-            user = User.get(id)
+            id = get_arg_or_400('id', to_int=True)
+            user = User.get_or_404(id)
             groups = user.get_groups()
             friends = user.friends_get()
             chat = ChatMember.get_private_chat(current_user.id, id)
@@ -49,12 +45,16 @@ def profile_route():
                 user=user
             )
         elif action == 'edit':
+            form = EditProfileForm(
+                name=current_user.name,
+                last_name=current_user.last_name,
+                age=current_user.age,
+                gender=current_user.gender,
+                sport=current_user.sport
+            )
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
         elif action == 'friend_add':
-            new_friend_id = request.args.get('id')
-            if not new_friend_id:
-                flash("Something went wrong! Please try again.", "error")
-                return redirect(request.referrer)
+            new_friend_id = get_arg_or_400('id', to_int=True)
             invitation_id = Invitation.add(
                 InvitationType.FRIEND,
                 referrer_id=current_user.id,
@@ -67,15 +67,15 @@ def profile_route():
                 flash("You already sent an invitation to this user!", "info")
             return redirect(url_for("profile_route", action='show', id=new_friend_id))
         elif action == 'friend_remove':
-            id = request.args.get('id')
-            if not id:
-                flash("Something went wrong! Please try again.", "error")
-                return redirect(request.referrer)
+            id = get_arg_or_400('id', to_int=True)
             current_user.friend_remove(id)
             flash("Friend removed!", "success")
             return redirect(url_for("profile_route", action='show', id=id))
+        else:
+            abort(400)
 
-    else:
+    elif request.method == 'POST':
+        form = EditProfileForm()
         if form.validate_on_submit():
             if form.picture.data:
                 set_user_picture(form.picture.data)
@@ -89,4 +89,7 @@ def profile_route():
             db.session.commit()
             flash('Profile updated!', 'success')
             return redirect(url_for('profile_route'))
-        return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
+        else:
+            return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
+    else:
+        abort(403)

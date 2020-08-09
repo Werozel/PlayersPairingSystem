@@ -1,4 +1,5 @@
 from globals import db, timestamp
+from flask import abort
 
 
 class Event(db.Model):
@@ -20,12 +21,15 @@ class Event(db.Model):
     event_members_rel = db.relationship('EventMember', backref='event', lazy=True)
 
     @staticmethod
-    def get(id):
-        try:
-            id = int(id)
-        except Exception:
-            raise TypeError("Not valid id")
-        return Event.query.filter_by(id=id).first()
+    def get_or_404(id: int):
+        event = Event.query.get(id)
+        if event is None:
+            abort(404)
+        return event
+
+    @staticmethod
+    def get_or_none(id: int):
+        return Event.query.get(id)
 
     def add_member(self, user):
         from libs.EventMember import EventMember

@@ -13,6 +13,7 @@ import routes.login
 import routes.profile
 import routes.search
 import routes.sockets
+import routes.errors
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 from globals import db, timestamp
+from flask import abort
 import json
 
 
@@ -21,12 +22,23 @@ class Message(db.Model):
     )
 
     @staticmethod
-    def get(id):
-        return Message.query.filter_by(id=int(id)).first()
+    def get_or_404(id: int):
+        message = Message.query.get(id)
+        if message is None:
+            abort(404)
+        return message
 
     @staticmethod
-    def get_history(chat_id):
-        return Message.query.filter_by(chat_id=int(chat_id)).order_by(Message.time).limit(50).all()
+    def get_or_none(id: int):
+        return Message.query.get(id)
+
+    @staticmethod
+    def has_id(id: int) -> bool:
+        return Message.query.get(id) is None
+
+    @staticmethod
+    def get_history(chat_id: int, limit: int = 50):
+        return Message.query.filter_by(chat_id=chat_id).order_by(Message.time).limit(limit).all()
 
     def __repr__(self):
         return f"{self.user.username}: {self.text} || {self.is_read}"

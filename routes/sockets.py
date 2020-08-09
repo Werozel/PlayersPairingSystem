@@ -25,13 +25,13 @@ def handle_msg(msg):
     # TODO добавить контент
     message = Message(id=get_rand(), chat_id=chat_id, user_id=user_id,
                       time=timestamp(), text=text)
-    members = Chat.get(chat_id).get_members()
+    members = Chat.get_or_404(chat_id).get_members()
     for i in members:
         if i.id != user_id:
             ChatNotification.add(chat_id=chat_id, user_id=i.id)
     db.session.add(message)
     db.session.commit()
-    chat = Chat.get(chat_id)
+    chat = Chat.get_or_404(chat_id)
     if chat is not None and chat.deleted is None:
         members = chat.get_members()
         chat.update_last_msg(message)
@@ -44,7 +44,7 @@ def handle_msg(msg):
                         json.dumps({
                             'text': text,
                             'message_id': message.id,
-                            'username': User.get(user_id).username,
+                            'username': User.get_or_404(user_id).username,
                             'chat_id': chat_id, 'user_id': user_id
                         }),
                         room=session

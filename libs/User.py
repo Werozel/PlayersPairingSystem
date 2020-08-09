@@ -1,11 +1,12 @@
 from globals import db, timestamp, login_manager, app
 from libs.GroupMember import GroupMember
 from flask_login import UserMixin, current_user
+from src.crop import center_crop
+from PIL import Image
+from flask import abort
 import secrets
 import os
 import numpy as np
-from src.crop import center_crop
-from PIL import Image
 
 
 @login_manager.user_loader
@@ -70,7 +71,14 @@ class User(db.Model, UserMixin):
         return f"User('{self.username}', '{self.name}', '{self.last_name}', '{self.email}')"
 
     @staticmethod
-    def get(id: int):
+    def get_or_404(id: int):
+        user = User.query.get(int(id))
+        if user is None:
+            abort(404)
+        return user
+
+    @staticmethod
+    def get_or_none(id: int):
         return User.query.get(int(id))
 
     def friend_add(self, friend_id: int):
@@ -84,9 +92,9 @@ class User(db.Model, UserMixin):
     def friends_get(self) -> list:
         from libs.Friend import Friend
         first = Friend.query.filter_by(first_id=self.id).all()
-        first_set = set(map(lambda y: User.get(y.second_id), first))
+        first_set = set(map(lambda y: User.get_or_none(y.second_id), first))
         second = Friend.query.filter_by(second_id=self.id).all()
-        second_set = set(map(lambda y: User.get(y.first_id), second))
+        second_set = set(map(lambda y: User.get_or_none(y.first_id), second))
         return list(first_set.union(second_set))
 
     def get_groups(self):
@@ -116,4 +124,3 @@ class User(db.Model, UserMixin):
 
     def has_invitations(self):
         return len(list(filter(lambda i: not i.read, self.get_invitations()))) > 0
-

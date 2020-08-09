@@ -1,5 +1,5 @@
 from constants.app_config import SECRET_KEY, DB_URL
-from flask import Flask
+from flask import Flask, abort, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
@@ -8,13 +8,22 @@ import datetime
 import random
 
 
+def get_arg_or_400(arg: str, to_int: bool = False):
+    try:
+        res = request.args.get(arg)
+        if res is None:
+            raise ValueError(f"No such argument {arg}")
+        return int(res) if to_int else res
+    except ValueError:
+        abort(400)
+
+
 def format_time(time) -> str:
     # TODO format time
     return str(time)
 
 
 def get_app(name: str) -> Flask:
-
     res = Flask(name)
     res.config['SECRET_KEY'] = SECRET_KEY
     res.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
@@ -27,7 +36,6 @@ def get_app(name: str) -> Flask:
     return res
 
 
-exiting = 0
 app = get_app(__name__)
 bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
@@ -48,7 +56,7 @@ def get_rand() -> int:
     from libs.Message import Message
     res = random.randint(1, 9223372036854775807 - 1)
     i = 0
-    while Message.get(res) is not None:
+    while Message.has_id(res):
         res = random.randint(1, 9223372036854775807 - 1)
         i += 1
         if i == 10:

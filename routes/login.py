@@ -1,6 +1,6 @@
-from globals import app, timestamp, db
+from globals import app, timestamp, db, get_arg_or_400
 from forms import LoginForm, RegistrationForm
-from flask import render_template, redirect, url_for, request, flash
+from flask import render_template, redirect, url_for, request, flash, abort
 from flask_login import login_user, login_required, logout_user
 from libs.User import User
 import src.crypto as crypto
@@ -8,8 +8,11 @@ import src.crypto as crypto
 
 @app.route("/login", methods=['GET', 'POST'])
 def login_route():
-    form = LoginForm()
-    if request.method == 'POST':
+    if request.method == 'GET':
+        form = LoginForm()
+        return render_template("login.html", title="Login Page", form=form, successful=True)
+    elif request.method == 'POST':
+        form = LoginForm()
         username = form.username.data
         password = crypto.hash_password(form.password.data)
         user = User.query.filter_by(username=username, password=password).first()
@@ -18,17 +21,21 @@ def login_route():
         if user:
             user.last_login = timestamp()
             login_user(user, remember=form.remember.data, force=True)
-            next_page = request.args.get('next')
+            next_page = get_arg_or_400('next')
             return redirect(next_page) if next_page else redirect(url_for('index_route'))
         else:
             flash('Incorrect login!', "danger")
-    return render_template("login.html", title="Login Page", form=form, successful=True)
+    else:
+        abort(403)
 
 
 @app.route("/register", methods=['GET', 'POST'])
 def register_route():
-    form = RegistrationForm()
-    if request.method == 'POST':
+    if request.method == 'GET':
+        form = RegistrationForm()
+        return render_template("register.html", title="Register Page", form=form)
+    elif request.method == 'POST':
+        form = RegistrationForm()
         if form.validate_on_submit():
             username = form.username.data
             password = crypto.hash_password(form.password.data)
@@ -47,7 +54,10 @@ def register_route():
             login_user(user, force=True)
             flash('Account created! Please fill additional information.', 'success')
             return redirect(url_for('profile_route', action='edit'))
-    return render_template("register.html", title="Register Page", form=form)
+        else:
+            return render_template("register.html", title="Register Page", form=form)
+    else:
+        abort(403)
 
 
 @app.route("/logout", methods=['GET'])

@@ -1,5 +1,6 @@
 from globals import db, timestamp
 from enum import IntEnum
+from flask import abort
 
 
 class InvitationType(IntEnum):
@@ -29,8 +30,15 @@ class Invitation(db.Model):
         return f"Invitation('{self.type}', '{self.referrer_id}', '{self.expiration_time}')"
 
     @staticmethod
-    def get(id: int):
-        return Invitation.query.get(int(id))
+    def get_or_404(id: int):
+        invitation = Invitation.query.get(id)
+        if invitation is None:
+            abort(404)
+        return invitation
+
+    @staticmethod
+    def get_or_none(id: int):
+        return Invitation.query.get(id)
 
     def is_expired(self):
         return self.expiration_time is not None and self.expiration_time > timestamp()
@@ -40,11 +48,11 @@ class Invitation(db.Model):
         from libs.Group import Group
         from libs.Event import Event
         if self.type in EVENTS_FROM_USER:
-            return User.get(self.referrer_id)
+            return User.get_or_404(self.referrer_id)
         elif self.type == InvitationType.FROM_GROUP:
-            return Group.get(self.referrer_id)
+            return Group.get_or_404(self.referrer_id)
         elif self.type == InvitationType.FROM_EVENT:
-            return Event.get(self.referrer_id)
+            return Event.get_or_404(self.referrer_id)
         else:
             return None
 
@@ -53,11 +61,11 @@ class Invitation(db.Model):
         from libs.Group import Group
         from libs.Event import Event
         if self.type in EVENTS_FROM_USER:
-            return User.get(self.recipient_id)
+            return User.get_or_404(self.recipient_id)
         elif self.type == InvitationType.FROM_GROUP:
-            return Group.get(self.recipient_id)
+            return Group.get_or_404(self.recipient_id)
         elif self.type == InvitationType.FROM_EVENT:
-            return Event.get(self.recipient_id)
+            return Event.get_or_404(self.recipient_id)
         else:
             return None
 
