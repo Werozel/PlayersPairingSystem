@@ -15,7 +15,7 @@
                 {% endif %}
             </div>
             <div class="media-right">
-                {%  if is_admin %}
+                {%  if is_group_admin %}
                     <a class="media-right image-button"
                         href="{{ url_for('group_route', id=group.id, action='edit') }}">
                         <img title="Edit" src="{{ url_for('static', filename='buttons/edit-24px.svg') }}"/>
@@ -36,7 +36,7 @@
                         <img title="Leave group" src="{{ url_for('static', filename='buttons/remove-24px.svg') }}"/>
                     </a>
                 {%  endif %}
-                {%  if is_admin %}
+                {%  if is_group_admin %}
                     <a class="media-right image-button"
                         href="{{ url_for('group_route', id=group.id, action='delete') }}">
                         <img title="Delete group" src="{{ url_for('static', filename='buttons/close-24px.svg') }}"/>

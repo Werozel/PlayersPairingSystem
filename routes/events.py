@@ -56,7 +56,7 @@ def event_route():
                 group=group,
                 members=members,
                 is_member=is_member,
-                is_admin=event.creator_id == current_user.id or group is not None and group.admin_id == current_user.id
+                is_event_admin=event.creator_id == current_user.id or group is not None and group.admin_id == current_user.id
             )
 
         elif action == 'join':

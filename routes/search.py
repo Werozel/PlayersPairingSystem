@@ -1,5 +1,5 @@
 from globals import app
-from src.misc import get_arg_or_400
+from src.misc import get_arg_or_400, get_arg_or_none
 from flask_login import login_required
 from flask import render_template, request, abort
 from forms import SearchGroupForm
@@ -11,7 +11,7 @@ from libs.models.Group import Group
 def search_group_route():
     if request.method == 'GET':
         search_group_form = SearchGroupForm()
-        sport = get_arg_or_400('sport')
+        sport = get_arg_or_none('sport')
         if sport is None:
             groups = Group.query.limit(30).all()
         else:

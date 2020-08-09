@@ -31,15 +31,15 @@ def group_route():
         members = group.get_members()
         is_member = current_user in members
         events = group.get_events()
-        is_admin = group.admin_id == current_user.id
+        is_group_admin = group.admin_id == current_user.id
         if not is_member:
             is_member = None
 
-        if action == 'delete' and is_admin:
+        if action == 'delete' and is_group_admin:
             group.delete()
             return redirect(url_for('group_route', action='my'))
 
-        elif action == 'edit' and is_admin:
+        elif action == 'edit' and is_group_admin:
             edit_group_form = NewGroupFrom(
                 closed=group.closed,
                 name=group.name,
@@ -54,7 +54,7 @@ def group_route():
                 members=members,
                 is_member=is_member,
                 events=events,
-                is_admin=is_admin
+                is_group_admin=is_group_admin
             )
 
         elif action == 'join':
@@ -74,7 +74,7 @@ def group_route():
                 members=members,
                 is_member=is_member,
                 events=events,
-                is_admin=is_admin
+                is_admin=is_group_admin
             )
 
         elif action == 'leave':
@@ -90,7 +90,7 @@ def group_route():
                 members=members,
                 is_member=is_member,
                 events=events,
-                is_admin=is_admin
+                is_admin=is_group_admin
             )
         else:
             abort(403)
