@@ -4,7 +4,7 @@ from libs.models.GroupMember import GroupMember
 from flask_login import UserMixin, current_user
 from src.crop import center_crop
 from PIL import Image
-from flask import abort
+from flask import abort, request
 import secrets
 import os
 import numpy as np
@@ -12,7 +12,11 @@ import numpy as np
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    user = User.query.get(int(user_id))
+    user.last_login_ip = request.remote_addr
+    db.session.add(user)
+    db.session.commit()
+    return user
 
 
 def set_user_picture(picture):
