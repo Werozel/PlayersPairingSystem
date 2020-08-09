@@ -14,6 +14,7 @@ def format_time(time) -> str:
 
 
 def get_app(name: str) -> Flask:
+
     res = Flask(name)
     res.config['SECRET_KEY'] = SECRET_KEY
     res.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
