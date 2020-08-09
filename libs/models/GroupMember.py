@@ -15,4 +15,4 @@ class GroupMember(db.Model):
     )
 
     def __repr__(self):
-        return f"{self.id}: {self.user} -> {self.group}"
+        return f"GroupMember: {self.user} -> {self.group}"

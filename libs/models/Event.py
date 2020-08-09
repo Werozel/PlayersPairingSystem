@@ -21,6 +21,9 @@ class Event(db.Model):
 
     event_members_rel = db.relationship('EventMember', backref='event', lazy=True)
 
+    def __repr__(self):
+        return f"Event {self.id}: {self.name}, {self.sport}"
+
     @staticmethod
     def get_or_404(id: int):
         event = Event.query.get(id)

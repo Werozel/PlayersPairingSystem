@@ -18,7 +18,7 @@ class Group(db.Model):
     __tablename__ = "groups"
 
     def __repr__(self):
-        return f"{self.name}: {self.sport}, admin: {self.admin.username};"
+        return f"Group {self.id}: {self.name}, {self.sport}, admin: {self.admin.username};"
 
     @staticmethod
     def get_by_sport(sport):

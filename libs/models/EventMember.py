@@ -12,3 +12,6 @@ class EventMember(db.Model):
     __table_args__ = (
         db.PrimaryKeyConstraint('event_id', 'user_id'),
     )
+
+    def __repr__(self):
+        return f"Event {self.event_id}: {self.user}"

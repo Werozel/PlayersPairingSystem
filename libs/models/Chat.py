@@ -23,6 +23,10 @@ class Chat(db.Model):
     message_rel = db.relationship('Message', backref='chat', lazy=True, primaryjoin="Chat.id==Message.chat_id")
     notification_rel = db.relationship('ChatNotification', backref='chat', lazy=True)
 
+    def __repr__(self):
+        return f"{'GroupChat' if self.group_id else 'Chat'}: {self.name}, {self.admin}" + \
+               " deleted" if self.deleted else ""
+
     @staticmethod
     def get_or_404(id: int):
         chat = Chat.query.get(id)

@@ -53,6 +53,7 @@ class User(db.Model, UserMixin):
     register_time = db.Column(db.TIMESTAMP, default=timestamp())
     last_login = db.Column(db.TIMESTAMP, nullable=False, default=timestamp())
     image_file = db.Column(db.String, nullable=False, default='default.jpg')
+    last_login_ip = db.Column(db.String)
 
     groups_rel = db.relationship('Group', backref='admin', lazy=True)
     members_rel = db.relationship('GroupMember', backref='user', lazy=True)
@@ -68,7 +69,7 @@ class User(db.Model, UserMixin):
     __tablename__ = "users"
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.name}', '{self.last_name}', '{self.email}')"
+        return f"User {self.id}: {self.username}, {self.name}, {self.last_name}, {self.gender})"
 
     @staticmethod
     def get_or_404(id: int):

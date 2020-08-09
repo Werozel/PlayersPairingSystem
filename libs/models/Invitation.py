@@ -19,6 +19,7 @@ class Invitation(db.Model):
 
     __tablename__ = "invitation"
 
+    # TODO relationship with Users
     id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
     type = db.Column(db.Integer, nullable=False)
     recipient_id = db.Column(db.Integer, nullable=False)
@@ -28,7 +29,7 @@ class Invitation(db.Model):
     read = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
-        return f"Invitation('{self.type}', '{self.referrer_id}', '{self.expiration_time}')"
+        return f"Invitation: {self.type}, '{self.referrer_id}', '{self.expiration_time}')"
 
     @staticmethod
     def get_or_404(id: int):

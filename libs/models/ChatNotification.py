@@ -14,6 +14,9 @@ class ChatNotification(db.Model):
         db.PrimaryKeyConstraint('user_id', 'chat_id'),
     )
 
+    def __repr__(self):
+        return f"ChatNotification: {self.user}, {self.chat}, time = {self.time}"
+
     @staticmethod
     def get_or_404(user_id: int, chat_id: int):
         notification = ChatNotification.query.filter_by(user_id=user_id, chat_id=chat_id).first()

@@ -34,4 +34,4 @@ class Friend(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return f"{self.first_id} <-> {self.second_id}"
+        return f"Friend: {self.first} <-> {self.second}"

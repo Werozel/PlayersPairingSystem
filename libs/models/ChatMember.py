@@ -19,6 +19,9 @@ class ChatMember(db.Model):
     def __eq__(self, other):
         return self.user_id == other.user_id and self.chat_id == other.chat_id
 
+    def __repr__(self):
+        return f"ChatMember: {self.user}, {self.chat}"
+
     @staticmethod
     def get_private_chat(first_id, second_id):
         first_id = int(first_id)

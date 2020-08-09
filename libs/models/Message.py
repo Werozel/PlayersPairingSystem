@@ -42,4 +42,4 @@ class Message(db.Model):
         return Message.query.filter_by(chat_id=chat_id).order_by(Message.time).limit(limit).all()
 
     def __repr__(self):
-        return f"{self.user.username}: {self.text} || {self.is_read}"
+        return f"Message: from {self.user.username}: {self.text} || {'+' if self.is_read else '-'}"

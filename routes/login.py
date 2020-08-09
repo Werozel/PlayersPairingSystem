@@ -19,6 +19,9 @@ def login_route():
         user = User.query.filter_by(username=username, password=password).first()
         if user:
             user.last_login = timestamp()
+            user.last_login_ip = request.remote_addr
+            db.session.add(user)
+            db.session.commit()
             login_user(user, remember=form.remember.data, force=True)
             next_page = get_arg_or_none('next')
             return redirect(next_page) if next_page else redirect(url_for('index_route'))
@@ -48,7 +51,8 @@ def register_route():
                 password=password,
                 email=email,
                 register_time=register_time,
-                last_login=last_login
+                last_login=last_login,
+                last_login_ip=request.remote_addr
             )
             db.session.add(user)
             db.session.commit()
