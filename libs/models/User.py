@@ -13,9 +13,10 @@ import numpy as np
 @login_manager.user_loader
 def load_user(user_id):
     user = User.query.get(int(user_id))
-    user.last_login_ip = request.remote_addr
-    db.session.add(user)
-    db.session.commit()
+    if user:
+        user.last_login_ip = request.remote_addr
+        db.session.add(user)
+        db.session.commit()
     return user
 
 
