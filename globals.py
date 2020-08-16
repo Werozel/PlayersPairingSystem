@@ -37,4 +37,17 @@ sessions = {}
 
 
 def create_tables():
+    # these are necessary imports for db to register
+    from libs.models.Chat import Chat
+    from libs.models.ChatMember import ChatMember
+    from libs.models.ChatNotification import ChatNotification
+    from libs.models.Event import Event
+    from libs.models.EventMember import EventMember
+    from libs.models.Friend import Friend
+    from libs.models.Group import Group
+    from libs.models.GroupMember import GroupMember
+    from libs.models.Invitation import Invitation
+    from libs.models.Message import Message
+    from libs.models.PlayTimes import PlayTimes
+    from libs.models.User import User
     db.create_all()
