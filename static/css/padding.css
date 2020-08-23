@@ -18,6 +18,10 @@
     padding: 16px;
 }
 
+.p-24 {
+    padding: 24px;
+}
+
 .p-bottom-0 {
   padding-bottom: 0;
 }
@@ -36,6 +40,10 @@
 
 .p-bottom-16 {
   padding-bottom: 16px;
+}
+
+.p-bottom-24 {
+    padding-bottom: 24px;
 }
 
 .p-right-0 {
@@ -58,6 +66,10 @@
   padding-right: 16px;
 }
 
+.p-right-24 {
+    padding-right: 24px;
+}
+
 .p-left-0 {
   padding-left: 0;
 }
@@ -78,6 +90,10 @@
   padding-left: 16px;
 }
 
+.p-left-24 {
+  padding-left: 24px;
+}
+
 .p-top-0 {
   padding-top: 0;
 }
@@ -96,4 +112,8 @@
 
 .p-top-16 {
   padding-top: 16px;
+}
+
+.p-top-24 {
+    padding-top: 24px;
 }

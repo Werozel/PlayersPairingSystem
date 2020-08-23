@@ -18,6 +18,7 @@ def get_app(name: str) -> Flask:
     res.jinja_env.globals.update(format_time=format_time)
     res.jinja_env.globals.update(len=len)
     res.jinja_env.globals.update(is_admin=is_admin)
+    res.jinja_env.globals.update(set=set)
 
     return res
 

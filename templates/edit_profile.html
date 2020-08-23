@@ -74,6 +74,30 @@
                     {{ form.sport.label(class="form-control-label") }}
                     {{ form.sport(class="form-control", multiple="multiple") }}
                 </div>
+                <div class="form-group">
+                    {{ form.times.label(class="form-control-label") }}
+                    {% for entry in form.times.entries %}
+                        <div class="m-left-12 m-bottom-16">
+                            <div class="row m-left-0">
+                                {{ entry.day_of_week.label(class="m-right-16") }}
+                                {{ entry.day_of_week() }}
+                            </div>
+                            <div class="row m-left-0">
+                                {{ entry.start_time.label(class="m-right-16") }}
+                                {{ entry.start_time(type="time") }}
+                            </div>
+                            <div class="row m-left-0">
+                                {{ entry.end_time.label(class="m-right-16") }}
+                                {{ entry.end_time(type="time") }}
+                            </div>
+                            <div class="invalid-feedback>">
+                                {% for error in set(entry.end_time.errors + entry.start_time.errors) %}
+                                    <p class="m-bottom-0 text-danger">{{error}}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
 
             </fieldset>
             <legend class="border-bottom mb-4"></legend>

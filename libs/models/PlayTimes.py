@@ -5,7 +5,7 @@ class PlayTimes(db.Model):
     __tablename__ = "play_times"
 
     id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
-    day_of_week = db.Column(db.Date, nullable=False)
+    day_of_week = db.Column(db.Integer, nullable=False)
     start_time = db.Column(db.Time, nullable=False)
     end_time = db.Column(db.Time, nullable=False)
     user_id = db.Column(db.BigInteger, db.ForeignKey("users.id"), nullable=False)

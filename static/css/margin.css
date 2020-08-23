@@ -18,6 +18,10 @@
     margin: 16px;
 }
 
+.m-24 {
+    margin: 24px;
+}
+
 .m-bottom-0 {
   margin-bottom: 0;
 }
@@ -36,6 +40,9 @@
 
 .m-bottom-16 {
   margin-bottom: 16px;
+}
+.m-bottom-24 {
+    margin-bottom: 24px;
 }
 
 .m-right-0 {
@@ -58,6 +65,10 @@
   margin-right: 16px;
 }
 
+.m-right-24 {
+    margin-right: 24px;
+}
+
 .m-left-0 {
   margin-left: 0;
 }
@@ -78,6 +89,10 @@
   margin-left: 16px;
 }
 
+.m-left-24 {
+    margin-left: 24px;
+}
+
 .m-top-0 {
   margin-top: 0;
 }
@@ -96,4 +111,8 @@
 
 .m-top-16 {
   margin-top: 16px;
+}
+
+.m-top-24 {
+    margin-top: 24px;
 }

@@ -6,6 +6,7 @@ from forms import EditProfileForm
 from libs.models.User import User
 from libs.models.ChatMember import ChatMember
 from libs.models.Invitation import Invitation, InvitationType
+from libs.models.PlayTimes import PlayTimes
 from libs.models.User import set_user_picture
 from flask_socketio import emit
 import json
@@ -30,6 +31,8 @@ def profile_route():
             )
         elif action == 'show':
             id = get_arg_or_400('id', to_int=True)
+            if current_user.id == id:
+                return redirect(url_for('profile_route', action='my'))
             user = User.get_or_404(id)
             groups = user.get_groups()
             friends = user.friends_get()
@@ -51,7 +54,8 @@ def profile_route():
                 last_name=current_user.last_name,
                 age=current_user.age,
                 gender=current_user.gender,
-                sport=current_user.sport
+                sport=current_user.sport,
+                times_values=PlayTimes.get_all_for_user_id(current_user.id)
             )
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
         elif action == 'friend_add':
@@ -87,9 +91,17 @@ def profile_route():
             if len(form.sport.data):
                 current_user.sport = form.sport.data
             db.session.add(current_user)
+            for data in form.times.data:
+                play_time = PlayTimes(
+                    day_of_week=data['day_of_week'],
+                    start_time=data['start_time'],
+                    end_time=data['end_time'],
+                    user_id=current_user.id
+                )
+                db.session.add(play_time)
             db.session.commit()
             flash('Profile updated!', 'success')
-            return redirect(url_for('profile_route'))
+            return redirect(url_for('profile_route', action='my'))
         else:
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
     else:

@@ -1,3 +1,6 @@
+import calendar
+from typing import Optional
+
 
 class Sports:
     tennis = "Tennis"
@@ -55,3 +58,13 @@ class Responses:
 
     exiting = "Exiting..."
     unknown_cmd = "Unknown command, try 'help'"
+
+
+class DayOfWeek:
+    days_of_week = [(i, calendar.day_name[i]) for i in range(0, 7)]
+
+    @staticmethod
+    def get_name(i: int) -> Optional[str]:
+        if i < 0 or i >= 7:
+            return None
+        return DayOfWeek.days_of_week.__getitem__(i).second()
