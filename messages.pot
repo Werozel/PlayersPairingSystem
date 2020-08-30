@@ -333,10 +333,6 @@ msgstr ""
 msgid "Already have an account?"
 msgstr ""
 
-#: templates/search_group.html:4
-msgid "Search group"
-msgstr ""
-
 #: templates/search_group.html:38
 msgid "Closed"
 msgstr ""

@@ -21,7 +21,7 @@ msgstr ""
 
 #: globals.py:37
 msgid "Please log in to view this page."
-msgstr "Пожалуйста, авторизуйтесь, чтобы просмотреть эту страницу."
+msgstr "Пожалуйста, авторизуйтесь, чтобы использовать эту страницу."
 
 #: constants/constants.py:13
 msgid "Tennis"
@@ -45,7 +45,7 @@ msgstr "Хоккей"
 
 #: constants/constants.py:38
 msgid "Select sport"
-msgstr "Выберите вид спорта"
+msgstr "Выберите ваш вид спорта"
 
 #: routes/events.py:69 routes/groups.py:65 routes/profile.py:71
 msgid "Invitation sent!"
@@ -73,7 +73,7 @@ msgstr "Друг удален!"
 
 #: routes/profile.py:113
 msgid "Profile updated!"
-msgstr "Профиль обновлен!"
+msgstr "Ваш профиль обновлен!"
 
 #: templates/404.html:4
 msgid "Not found"
@@ -85,17 +85,17 @@ msgstr "404 Не Найдено!"
 
 #: templates/500.html:4
 msgid "Error"
-msgstr "ошибка"
+msgstr "Ошибка"
 
 #: templates/about.html:4 templates/main.html:33
 msgid "About"
-msgstr "Около"
+msgstr "О сайте"
 
 #: templates/about.html:9
 msgid ""
 "An app that helps to connect people with same sport interests to play "
 "together"
-msgstr ""
+msgstr "Система, которая позволяет находить людей с общими спортивными интересами, чтобы играть вместе"
 
 #: templates/chat.html:63 templates/group_chats.html:57 templates/main.html:98
 #: templates/main.html:102 templates/main.html:125 templates/my_chats.html:57
@@ -106,7 +106,7 @@ msgstr "Сообщения"
 
 #: templates/edit_event.html:4
 msgid "Edit event"
-msgstr "Изменить мероприятие"
+msgstr "Изменить событие"
 
 #: templates/edit_event.html:12 templates/new_event.html:12
 msgid "New Event"
@@ -114,11 +114,11 @@ msgstr "Новое событие"
 
 #: templates/edit_group.html:4 templates/edit_group.html:14
 msgid "Edit group"
-msgstr "Редактировать группу"
+msgstr "Изменить группу"
 
 #: templates/edit_profile.html:4 templates/edit_profile.html:18
 msgid "Edit profile"
-msgstr "Редактировать профиль"
+msgstr "Изменить профиль"
 
 #: templates/edit_profile.html:24
 msgid "File must be an image"
@@ -145,7 +145,7 @@ msgstr "Описание"
 
 #: templates/event.html:51 templates/group.html:54
 msgid "Members"
-msgstr "Члены"
+msgstr "Участники"
 
 #: templates/find_people.html:36 templates/my_invitations.html:39
 #: templates/profile.html:16 templates/show_users.html:35
@@ -162,7 +162,7 @@ msgstr "Спорт"
 #: templates/find_people.html:45 templates/my_invitations.html:48
 #: templates/profile.html:65 templates/show_users.html:44
 msgid "No sport added yet!"
-msgstr "Спорт еще не добавлен!"
+msgstr "Этот вид спорта еще не добавлен!"
 
 #: templates/find_people.html:52
 msgid "No people found"
@@ -203,7 +203,7 @@ msgstr "Авторизоваться"
 
 #: templates/login.html:12 templates/register.html:76
 msgid "Sign in"
-msgstr "войти в систему"
+msgstr "Войти в систему"
 
 #: templates/login.html:30
 msgid "Forgot Password?"
@@ -211,11 +211,11 @@ msgstr "Забыли пароль?"
 
 #: templates/login.html:36
 msgid "Don't have an account?"
-msgstr "Нет учетной записи?"
+msgstr "Нет аккаутна?"
 
 #: templates/login.html:36
 msgid "Sign up"
-msgstr "зарегистрироваться"
+msgstr "Зарегистрироваться"
 
 #: templates/main.html:42
 msgid "Log out"
@@ -223,7 +223,7 @@ msgstr "Выйти"
 
 #: templates/main.html:47 templates/register.html:4
 msgid "Register"
-msgstr "регистр"
+msgstr "Регистр"
 
 #: templates/main.html:76
 msgid "Sidebar"
@@ -260,7 +260,7 @@ msgstr "Организатор"
 
 #: templates/my_events.html:35
 msgid "You have no events yet"
-msgstr "У вас еще нет мероприятий"
+msgstr "У вас еще нет событий"
 
 #: templates/my_groups.html:4 templates/my_groups.html:9
 msgid "My groups"
@@ -273,7 +273,7 @@ msgstr "Создать новую группу"
 #: templates/my_groups.html:35 templates/my_groups.html:38
 #: templates/my_groups.html:39 templates/search_group.html:52
 msgid "here"
-msgstr "Вот"
+msgstr "Сюда"
 
 #: templates/my_groups.html:37
 msgid "No groups yet!"
@@ -335,17 +335,17 @@ msgstr "Присоединяйся сейчас"
 msgid "Already have an account?"
 msgstr "Уже есть аккаунт?"
 
-#: templates/search_group.html:4
-msgid "Search group"
-msgstr "Поисковая группа"
-
 #: templates/search_group.html:38
 msgid "Closed"
 msgstr "Закрыто"
 
 #: templates/search_group.html:51
 msgid "No search results"
-msgstr "Нет Результатов Поиска"
+msgstr "Нет результатов поиска"
+
+#: ------------------------------------------------------------------------------
+#: ------------------------------------------------------------------------------
+#: ------------------------------------------------------------------------------
 
 #: venv/Lib/site-packages/django/contrib/admin/actions.py:41
 #, python-format
@@ -1030,7 +1030,7 @@ msgstr "имя пользователя"
 #: venv/Lib/site-packages/django/contrib/auth/models.py:329
 msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
-"Необходимые. 150 символов или меньше. Только буквы, цифры и @ /. / + / - "
+"Необходимое поле. 150 символов или меньше. Только буквы, цифры и @ /. / + / - "
 "/ _."
 
 #: venv/Lib/site-packages/django/contrib/auth/models.py:332
