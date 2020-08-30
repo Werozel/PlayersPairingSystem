@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-30 14:55+0300\n"
+"POT-Creation-Date: 2020-08-30 18:15+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,34 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
+
+#: globals.py:37
+msgid "Please log in to view this page."
+msgstr ""
+
+#: constants/constants.py:13
+msgid "Tennis"
+msgstr ""
+
+#: constants/constants.py:14
+msgid "Football"
+msgstr ""
+
+#: constants/constants.py:15
+msgid "Basketball"
+msgstr ""
+
+#: constants/constants.py:16
+msgid "Volleyball"
+msgstr ""
+
+#: constants/constants.py:17
+msgid "Hockey"
+msgstr ""
+
+#: constants/constants.py:38
+msgid "Select sport"
+msgstr ""
 
 #: routes/events.py:69 routes/groups.py:65 routes/profile.py:71
 msgid "Invitation sent!"

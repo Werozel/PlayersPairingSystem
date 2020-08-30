@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-30 14:55+0300\n"
-"PO-Revision-Date: 2020-08-30 15:17+0300\n"
+"POT-Creation-Date: 2020-08-30 18:15+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
 "Language-Team: ru <LL@li.org>\n"
@@ -18,6 +18,34 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
+
+#: globals.py:37
+msgid "Please log in to view this page."
+msgstr "Пожалуйста, авторизуйтесь, чтобы просмотреть эту страницу."
+
+#: constants/constants.py:13
+msgid "Tennis"
+msgstr "Большой теннис"
+
+#: constants/constants.py:14
+msgid "Football"
+msgstr "Футбол"
+
+#: constants/constants.py:15
+msgid "Basketball"
+msgstr "Баскетбол"
+
+#: constants/constants.py:16
+msgid "Volleyball"
+msgstr "Волейбол"
+
+#: constants/constants.py:17
+msgid "Hockey"
+msgstr "Хоккей"
+
+#: constants/constants.py:38
+msgid "Select sport"
+msgstr "Выберите вид спорта"
 
 #: routes/events.py:69 routes/groups.py:65 routes/profile.py:71
 msgid "Invitation sent!"
@@ -747,13 +775,13 @@ msgstr "модель:"
 #: venv/Lib/site-packages/django/contrib/admindocs/views.py:212
 #, python-format
 msgid "the related `%(app_label)s.%(data_type)s` object"
-msgstr "связанный объект ` %(app_label)s.%(data_type)s`"
+msgstr "связанный объект ` %(app_label)s. %(data_type)s`"
 
 #: venv/Lib/site-packages/django/contrib/admindocs/views.py:232
 #: venv/Lib/site-packages/django/contrib/admindocs/views.py:292
 #, python-format
 msgid "related `%(app_label)s.%(object_name)s` objects"
-msgstr "связанные объекты ` %(app_label)s.%(object_name)s`"
+msgstr "связанные объекты ` %(app_label)s. %(object_name)s`"
 
 #: venv/Lib/site-packages/django/contrib/admindocs/views.py:239
 #: venv/Lib/site-packages/django/contrib/admindocs/views.py:300
@@ -2358,7 +2386,7 @@ msgstr "AM"
 
 #: venv/Lib/site-packages/django/utils/dateformat.py:150
 msgid "midnight"
-msgstr "midnight"
+msgstr "полночь"
 
 #: venv/Lib/site-packages/django/utils/dateformat.py:152
 msgid "noon"
@@ -2370,7 +2398,7 @@ msgstr "понедельник"
 
 #: venv/Lib/site-packages/django/utils/dates.py:6
 msgid "Tuesday"
-msgstr "Tuesday"
+msgstr "вторник"
 
 #: venv/Lib/site-packages/django/utils/dates.py:6
 msgid "Wednesday"
@@ -2386,19 +2414,19 @@ msgstr "Пятница"
 
 #: venv/Lib/site-packages/django/utils/dates.py:7
 msgid "Saturday"
-msgstr "Saturday"
+msgstr "суббота"
 
 #: venv/Lib/site-packages/django/utils/dates.py:7
 msgid "Sunday"
-msgstr "Sunday"
+msgstr "Воскресенье"
 
 #: venv/Lib/site-packages/django/utils/dates.py:10
 msgid "Mon"
-msgstr "Mon"
+msgstr "Пн"
 
 #: venv/Lib/site-packages/django/utils/dates.py:10
 msgid "Tue"
-msgstr "Tue"
+msgstr "Вт"
 
 #: venv/Lib/site-packages/django/utils/dates.py:10
 msgid "Wed"
@@ -2450,7 +2478,7 @@ msgstr "Июль"
 
 #: venv/Lib/site-packages/django/utils/dates.py:15
 msgid "August"
-msgstr "August"
+msgstr "Август"
 
 #: venv/Lib/site-packages/django/utils/dates.py:15
 msgid "September"
@@ -2470,7 +2498,7 @@ msgstr "Декабрь"
 
 #: venv/Lib/site-packages/django/utils/dates.py:19
 msgid "jan"
-msgstr "jan"
+msgstr "Ян"
 
 #: venv/Lib/site-packages/django/utils/dates.py:19
 msgid "feb"
@@ -2478,7 +2506,7 @@ msgstr "фев"
 
 #: venv/Lib/site-packages/django/utils/dates.py:19
 msgid "mar"
-msgstr "mar"
+msgstr "мар"
 
 #: venv/Lib/site-packages/django/utils/dates.py:19
 msgid "apr"
@@ -2494,11 +2522,11 @@ msgstr "июн"
 
 #: venv/Lib/site-packages/django/utils/dates.py:20
 msgid "jul"
-msgstr "jul"
+msgstr "июл"
 
 #: venv/Lib/site-packages/django/utils/dates.py:20
 msgid "aug"
-msgstr "aug"
+msgstr "август"
 
 #: venv/Lib/site-packages/django/utils/dates.py:20
 msgid "sep"
@@ -2506,11 +2534,11 @@ msgstr "сен"
 
 #: venv/Lib/site-packages/django/utils/dates.py:20
 msgid "oct"
-msgstr "oct"
+msgstr "окт"
 
 #: venv/Lib/site-packages/django/utils/dates.py:20
 msgid "nov"
-msgstr "nov"
+msgstr "ноя"
 
 #: venv/Lib/site-packages/django/utils/dates.py:20
 msgid "dec"
@@ -2518,7 +2546,7 @@ msgstr "декабрь"
 
 #: venv/Lib/site-packages/django/utils/ipv6.py:8
 msgid "This is not a valid IPv6 address."
-msgstr "This is not a valid IPv6 address."
+msgstr "Это недействительный адрес IPv6."
 
 #: venv/Lib/site-packages/django/utils/text.py:67
 #, python-format
@@ -2537,7 +2565,7 @@ msgstr "0 минут"
 
 #: venv/Lib/site-packages/django/views/csrf.py:110
 msgid "Forbidden"
-msgstr "Forbidden"
+msgstr "Запрещено"
 
 #: venv/Lib/site-packages/django/views/csrf.py:111
 msgid "CSRF verification failed. Request aborted."
@@ -2671,7 +2699,7 @@ msgstr "Неправильное имя"
 #: venv/Lib/site-packages/flask_admin/contrib/fileadmin/__init__.py:774
 #, python-format
 msgid "File \"%(name)s\" already exists."
-msgstr "Файл \"%(name)s\" уже существует."
+msgstr "Файл \" %(name)s \" уже существует."
 
 #: venv/Lib/site-packages/flask_admin/contrib/fileadmin/__init__.py:819
 #: venv/Lib/site-packages/flask_admin/contrib/fileadmin/__init__.py:916
@@ -2730,7 +2758,7 @@ msgstr "Удаление каталога отключено."
 #: venv/Lib/site-packages/flask_admin/contrib/fileadmin/__init__.py:1042
 #, python-format
 msgid "Directory \"%(path)s\" was successfully deleted."
-msgstr "Каталог \"%(path)s\" был успешно удален."
+msgstr "Каталог \" %(path)s \" был успешно удален."
 
 #: venv/Lib/site-packages/flask_admin/contrib/fileadmin/__init__.py:1044
 #, python-format
@@ -2741,7 +2769,7 @@ msgstr "Не удалось удалить каталог: %(error)s"
 #: venv/Lib/site-packages/flask_admin/contrib/fileadmin/__init__.py:1205
 #, python-format
 msgid "File \"%(name)s\" was successfully deleted."
-msgstr "Файл \"%(name)s\" успешно удален."
+msgstr "Файл \" %(name)s \" успешно удален."
 
 #: venv/Lib/site-packages/flask_admin/contrib/fileadmin/__init__.py:1052
 #: venv/Lib/site-packages/flask_admin/contrib/fileadmin/__init__.py:1207
@@ -2822,7 +2850,7 @@ msgstr "Не удалось получить модель. %(error)s"
 #: venv/Lib/site-packages/flask_admin/contrib/sqla/view.py:1135
 #, python-format
 msgid "Failed to create record. %(error)s"
-msgstr "Не удалось создать запись.  %(error)s"
+msgstr "Не удалось создать запись. %(error)s"
 
 #: venv/Lib/site-packages/flask_admin/contrib/mongoengine/view.py:604
 #: venv/Lib/site-packages/flask_admin/contrib/peewee/view.py:481
@@ -2833,7 +2861,7 @@ msgstr "Не удалось создать запись.  %(error)s"
 #: venv/Lib/site-packages/flask_admin/model/base.py:2426
 #, python-format
 msgid "Failed to update record. %(error)s"
-msgstr "Не удалось обновить запись.  %(error)s"
+msgstr "Не удалось обновить запись. %(error)"
 
 #: venv/Lib/site-packages/flask_admin/contrib/mongoengine/view.py:627
 #: venv/Lib/site-packages/flask_admin/contrib/peewee/view.py:496
@@ -2841,7 +2869,7 @@ msgstr "Не удалось обновить запись.  %(error)s"
 #: venv/Lib/site-packages/flask_admin/contrib/sqla/view.py:1186
 #, python-format
 msgid "Failed to delete record. %(error)s"
-msgstr "Не удалось удалить запись.  %(error)s"
+msgstr "Не удалось удалить запись. %(error)s"
 
 #: venv/Lib/site-packages/flask_admin/contrib/mongoengine/view.py:676
 #: venv/Lib/site-packages/flask_admin/contrib/peewee/view.py:532
@@ -2861,7 +2889,7 @@ msgstr[2] ""
 #: venv/Lib/site-packages/flask_admin/contrib/sqla/view.py:1231
 #, python-format
 msgid "Failed to delete records. %(error)s"
-msgstr "Не удалось удалить записи.  %(error)s"
+msgstr "Не удалось удалить записи. %(error)s"
 
 #: venv/Lib/site-packages/flask_admin/contrib/sqla/fields.py:127
 #: venv/Lib/site-packages/flask_admin/contrib/sqla/fields.py:177
@@ -2898,12 +2926,12 @@ msgstr "Недействительный код валюты ISO (наприме
 
 #: venv/Lib/site-packages/flask_admin/contrib/sqla/validators.py:84
 msgid "Not a valid color (e.g. \"red\", \"#f00\", \"#ff0000\")."
-msgstr "Недопустимый цвет (например, \"красный\", \"#f00\", \"#ff0000\")."
+msgstr "Недопустимый цвет (например, \"красный \", \"# f00 \", \"# ff0000 \")."
 
 #: venv/Lib/site-packages/flask_admin/contrib/sqla/view.py:1109
 #, python-format
 msgid "Integrity error. %(message)s"
-msgstr "Ошибка целостности. %(message)s"
+msgstr "Ошибка целостности. %(Сообщения"
 
 #: venv/Lib/site-packages/flask_admin/form/fields.py:98
 msgid "Invalid time format"
@@ -2912,7 +2940,7 @@ msgstr "Неверный формат времени"
 #: venv/Lib/site-packages/flask_admin/form/fields.py:144
 #: venv/Lib/site-packages/wtforms/fields/core.py:505
 msgid "Invalid Choice: could not coerce"
-msgstr "Invalid Choice: could not coerce"
+msgstr "Неверный выбор: не удалось заставить"
 
 #: venv/Lib/site-packages/flask_admin/form/fields.py:208
 msgid "Invalid JSON"
@@ -2926,7 +2954,7 @@ msgstr "Неверное расширение файла"
 #: venv/Lib/site-packages/flask_admin/form/upload.py:282
 #, python-format
 msgid "File \"%s\" already exists."
-msgstr "Файл \"%s\" уже существует."
+msgstr "Файл \" %s \" уже существует."
 
 #: venv/Lib/site-packages/flask_admin/form/validators.py:16
 msgid "This field requires at least one item."
@@ -2964,7 +2992,7 @@ msgstr "Зависимость Tablib не установлена."
 #: venv/Lib/site-packages/flask_admin/model/base.py:2360
 #, python-format
 msgid "Export type \"%(type)s not supported."
-msgstr "Тип экспорта \"%(type)s не поддерживается."
+msgstr "Тип экспорта \" %(type)s не поддерживается."
 
 #: venv/Lib/site-packages/flask_admin/model/template.py:81
 #: venv/Lib/site-packages/flask_admin/model/template.py:88
@@ -2995,7 +3023,7 @@ msgstr "У файла нет утвержденного расширения."
 #: venv/Lib/site-packages/wtforms/validators.py:68
 #, python-format
 msgid "Invalid field name '%s'."
-msgstr "Недействительное имя поля '%s'."
+msgstr "Недействительное имя поля ' %s'."
 
 #: venv/Lib/site-packages/wtforms/validators.py:76
 #, python-format
@@ -3152,4 +3180,70 @@ msgstr "Недействительное значение даты"
 #: venv/Lib/site-packages/wtforms/fields/core.py:827
 msgid "Not a valid time value"
 msgstr "Недействительное значение времени"
+
+#~ msgid "Username"
+#~ msgstr "Имя пользователя"
+
+#~ msgid "Confirm password"
+#~ msgstr "Подтвердите Пароль"
+
+#~ msgid "Sign Up"
+#~ msgstr "Зарегистрироваться"
+
+#~ msgid "This username is already taken"
+#~ msgstr "Это имя пользователя уже занято"
+
+#~ msgid "Account with this email already exists"
+#~ msgstr "Аккаунт с этим адресом электронной почты уже существует"
+
+#~ msgid "Remember me"
+#~ msgstr "Запомни меня"
+
+#~ msgid "Play time id"
+#~ msgstr "Идентификатор времени воспроизведения"
+
+#~ msgid "Day of week"
+#~ msgstr "День недели"
+
+#~ msgid "Start time"
+#~ msgstr "Начальное время"
+
+#~ msgid "End time"
+#~ msgstr "Время окончания"
+
+#~ msgid "Start time can't be after end time"
+#~ msgstr "Время начала не может быть позже времени окончания"
+
+#~ msgid "Profile image"
+#~ msgstr "Изображение профиля"
+
+#~ msgid "Name"
+#~ msgstr "название"
+
+#~ msgid "Last Name"
+#~ msgstr "Фамилия"
+
+#~ msgid "Male"
+#~ msgstr "мужчина"
+
+#~ msgid "Female"
+#~ msgstr "женский"
+
+#~ msgid "Update"
+#~ msgstr "Обновить"
+
+#~ msgid "Invalid age!"
+#~ msgstr "Недействительный возраст!"
+
+#~ msgid "Submit"
+#~ msgstr "Отправить"
+
+#~ msgid "Name already taken!"
+#~ msgstr "Имя уже занято!"
+
+#~ msgid "Search"
+#~ msgstr "Поиск"
+
+#~ msgid "Create"
+#~ msgstr "Создайте"
 

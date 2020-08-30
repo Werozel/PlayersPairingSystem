@@ -1,5 +1,6 @@
 import calendar
 from typing import Optional
+from flask_babel import gettext as _
 
 
 LANGUAGES = [
@@ -9,11 +10,11 @@ LANGUAGES = [
 
 
 class Sports:
-    tennis = "Tennis"
-    football = "Football"
-    basketball = "Basketball"
-    volleyball = "Volleyball"
-    hockey = "Hockey"
+    tennis = _("Tennis")
+    football = _("Football")
+    basketball = _("Basketball")
+    volleyball = _("Volleyball")
+    hockey = _("Hockey")
 
     @staticmethod
     def get(n):
@@ -27,14 +28,14 @@ class Sports:
 
     @staticmethod
     def get_list():
-        return [Sports.tennis, Sports.football, Sports.basketball, 
+        return [Sports.tennis, Sports.football, Sports.basketball,
                 Sports.volleyball, Sports.hockey]
 
     @staticmethod
     def get_choices():
         return [(i, i) for i in Sports.get_list()]
 
-    selection = "Select sport:" + "\n"\
+    selection = _("Select sport") + ":" + "\n"\
                 "1 - " + tennis + "\n"\
                 "2 - " + football + "\n"\
                 "3 - " + basketball + "\n"\

@@ -12,7 +12,7 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">{{ _("Join now") }}</legend>
                 <div class="form-group">
-                    {{ form.username.label(class="form-control-label") }}
+                    <label for="{{ form.username.label.field_id }}" class="form-control-label">{{ _(form.username.label.text) }}</label>
                     {% if form.username.errors %}
                         {{ form.username(class="form-control form-control-lg is-invalid") }}
                     <div class="invalid-feedback>">
@@ -25,8 +25,7 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.email.label(class="form-control-label") }}
-
+                    <label for="{{ form.email.label.field_id }}" class="form-control-label">{{ _(form.email.label.text) }}</label>
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
                     <div class="invalid-feedback>">
@@ -40,7 +39,7 @@
 
                 </div>
                 <div class="form-group">
-                    {{ form.password.label(class="form-control-label") }}
+                    <label for="{{ form.password.label.field_id }}" class="form-control-label">{{ _(form.password.label.text) }}</label>
                     {% if form.password.errors %}
                         {{ form.password(class="form-control form-control-lg is-invalid") }}
                     <div class="invalid-feedback>">
@@ -53,7 +52,7 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.confirm_password.label(class="form-control-label") }}
+                    <label for="{{ form.confirm_password.label.field_id }}" class="form-control-label">{{ _(form.confirm_password.label.text) }}</label>
                     {% if form.confirm_password.errors %}
                         {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
                     <div class="invalid-feedback>">

@@ -6,7 +6,7 @@ from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_socketio import SocketIO
 from libs.SecureAdmin import get_admin
-from flask_babel import Babel
+from flask_babel import Babel, gettext
 from src.misc import format_time, is_admin
 
 
@@ -34,6 +34,8 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login_route'
 login_manager.login_message_category = 'warning'
+login_manager.login_message = gettext("Please log in to view this page.")
+login_manager.localize_callback = gettext
 
 babel = Babel(app)
 

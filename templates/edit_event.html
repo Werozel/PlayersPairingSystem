@@ -12,10 +12,11 @@
             <legend class="border-bottom mb-4">{{ _("New Event") }}</legend>
             <div class="form-check m-bottom-16 m-left-4">
                 {{ form.closed(class="form-check-input") }}
-                {{ form.closed.label(class="form-check-label m-left-8") }}
+                <label for="{{ form.closed.label.field_id }}" class="form-control-label m-left-8">{{ _(form.closed.label.text) }}</label>
+
             </div>
             <div class="form-group">
-                {{ form.name.label(class="form-control-label") }}
+            <label for="{{ form.name.label.field_id }}" class="form-control-label">{{ _(form.name.label.text) }}</label>
                 {% if form.name.errors %}
                     {{ form.name(class="form-control is-invalid") }}
                     <div class="invalid-feedback>">
@@ -28,7 +29,7 @@
                 {% endif %}
             </div>
             <div class="form-group">
-                {{ form.description.label(class="form-control-label") }}
+                <label for="{{ form.description.label.field_id }}" class="form-control-label">{{ _(form.description.label.text) }}</label>
                 {% if form.description.errors %}
                     {{ form.description(class="form-control is-invalid") }}
                     <div class="invalid-feedback>">
@@ -41,7 +42,7 @@
                 {% endif %}
             </div>
             <div>
-                {{ form.sport.label(class="form-control-label") }}
+                <label for="{{ form.sport.label.field_id }}" class="form-control-label">{{ _(form.sport.label.text) }}</label>
                 {{ form.sport(class="form-control form-control") }}
             </div>
             <div class="mt-3">

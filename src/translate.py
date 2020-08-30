@@ -40,6 +40,7 @@ for line in old_file:
         write_new(f"msgstr \"{translated_line}\"\n")
         line_to_translate = None
     else:
+        line_to_translate = None
         write_new(line)
 
 

@@ -2,7 +2,7 @@ from typing import List
 
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
-from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField, BooleanField, HiddenField, \
+from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField, BooleanField, \
 					FileField, IntegerField, SelectField, TextAreaField, FieldList, TimeField, FormField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from wtforms.fields.html5 import DateTimeLocalField
@@ -52,7 +52,7 @@ class SelectMultipleFields(SelectMultipleField):
 
 
 class PlayTimeForm(FlaskForm):
-	play_time_id = IntegerField("Play time id")
+	play_time_id = IntegerField('Play time id')
 	day_of_week = SelectField('Day of week', choices=DayOfWeek.days_of_week)
 	start_time = TimeField('Start time')
 	end_time = TimeField('End time')
@@ -63,8 +63,8 @@ class PlayTimeForm(FlaskForm):
 			form.start_time.data >= end_time.data:
 			raise ValidationError("Start time can't be after end time")
 
-	# def __init__(self, *args, **kwargs):
-	# 	super().__init__(*args, **kwargs)
+	# def __init_self, *args, **kwargs):
+	# 	super().__init_*args, **kwargs)
 	# 	self.id.data = kwargs.get('id')
 
 

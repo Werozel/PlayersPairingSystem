@@ -17,7 +17,7 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">{{ _("Edit profile") }}</legend>
                 <div class="form-group">
-                    {{ form.picture.label(class="form-control-label") }}
+                    <label for="{{ form.picture.label.field_id }}" class="form-control-label">{{ _(form.picture.label.text) }}</label>
                     {% if form.picture.errors %}
                         {{ form.picture(class="form-control-file is-invalid") }}
                         <div class="invalid-feedback>">
@@ -28,7 +28,7 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.name.label(class="form-control-label") }}
+                    <label for="{{ form.name.label.field_id }}" class="form-control-label">{{ _(form.name.label.text) }}</label>
                     {% if form.name.errors %}
                         {{ form.name(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback>">
@@ -41,7 +41,7 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.last_name.label(class="form-control-label") }}
+                    <label for="{{ form.last_name.label.field_id }}" class="form-control-label">{{ _(form.last_name.label.text) }}</label>
                     {% if form.last_name.errors %}
                         {{ form.last_name(class="form-control form-control-lg is-in") }}
                         <div class="invalid-feedback>">
@@ -54,7 +54,7 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.age.label(class="form-control-label") }}
+                    <label for="{{ form.age.label.field_id }}" class="form-control-label">{{ _(form.age.label.text) }}</label>
                     {% if form.age.errors %}
                         {{ form.age(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback>">
@@ -67,28 +67,28 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.gender.label(class="form-control-label") }}
+                    <label for="{{ form.gender.label.field_id }}" class="form-control-label">{{ _(form.gender.label.text) }}</label>
                     {{ form.gender(class="form-control form-control-lg") }}
                 </div>
                 <div class="form-group">
-                    {{ form.sport.label(class="form-control-label") }}
+                    <label for="{{ form.sport.label.field_id }}" class="form-control-label">{{ _(form.sport.label.text) }}</label>
                     {{ form.sport(class="form-control", multiple="multiple") }}
                 </div>
                 <div class="form-group">
-                    {{ form.times.label(class="form-control-label") }}
+                    <label for="{{ form.times.label.field_id }}" class="form-control-label">{{ _(form.times.label.text) }}</label>
                     {% for entry in form.times.entries %}
                         <div class="m-left-12 m-bottom-16 form-group">
                             <input type="hidden" id="{{ entry.id + '-play_time_id' }}" value="{{ entry.play_time_id.data }}">
                             <div class="row m-left-0">
-                                {{ entry.day_of_week.label(class="m-right-16") }}
+                                <label for="{{ entry.day_of_week.label.field_id }}" class="form-control-label">{{ _(entry.day_of_week.label.text) }}</label>
                                 {{ entry.day_of_week() }}
                             </div>
                             <div class="row m-left-0">
-                                {{ entry.start_time.label(class="m-right-16") }}
+                                <label for="{{ entry.start_time.field_id }}" class="form-control-label">{{ _(entry.start_time.label.text) }}</label>
                                 {{ entry.start_time(type="time") }}
                             </div>
                             <div class="row m-left-0">
-                                {{ entry.end_time.label(class="m-right-16") }}
+                                <label for="{{ entry.end_time.field_id }}" class="form-control-label">{{ _(entry.end_time.label.text) }}</label>
                                 {{ entry.end_time(type="time") }}
                             </div>
                             <div class="invalid-feedback>">
