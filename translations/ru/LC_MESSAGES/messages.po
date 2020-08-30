@@ -57,7 +57,7 @@ msgstr "Что-то пошло не так!"
 
 #: routes/login.py:30
 msgid "Incorrect login!"
-msgstr "Неверный логин!"
+msgstr "Неверные данные!"
 
 #: routes/login.py:61
 msgid "Account created! Please fill additional information."
@@ -95,7 +95,9 @@ msgstr "О сайте"
 msgid ""
 "An app that helps to connect people with same sport interests to play "
 "together"
-msgstr "Система, которая позволяет находить людей с общими спортивными интересами, чтобы играть вместе"
+msgstr ""
+"Система, которая позволяет находить людей с общими спортивными "
+"интересами, чтобы играть вместе"
 
 #: templates/chat.html:63 templates/group_chats.html:57 templates/main.html:98
 #: templates/main.html:102 templates/main.html:125 templates/my_chats.html:57
@@ -199,7 +201,7 @@ msgstr "Вы находитесь на главной странице"
 
 #: templates/login.html:4 templates/main.html:46
 msgid "Login"
-msgstr "Авторизоваться"
+msgstr "Войти"
 
 #: templates/login.html:12 templates/register.html:76
 msgid "Sign in"
@@ -223,7 +225,7 @@ msgstr "Выйти"
 
 #: templates/main.html:47 templates/register.html:4
 msgid "Register"
-msgstr "зарегистрироваться"
+msgstr "Создать аккаунт"
 
 #: templates/main.html:79 templates/profile.html:71
 #: templates/search_group.html:9
@@ -333,15 +335,80 @@ msgstr "Уже зарегистрированы?"
 
 #: templates/search_group.html:38
 msgid "Closed"
-msgstr "Закрыто"
+msgstr "Закрытое"
 
 #: templates/search_group.html:51
 msgid "No search results"
 msgstr "Нет результатов"
 
-#: ------------------------------------------------------------------------------
-#: ------------------------------------------------------------------------------
-#: ------------------------------------------------------------------------------
+msgid "Username"
+msgstr "Имя пользователя"
+
+msgid "Confirm password"
+msgstr "Подтвердите Пароль"
+
+msgid "Sign Up"
+msgstr "Зарегистрироваться"
+
+msgid "This username is already taken"
+msgstr "Это имя пользователя уже занято"
+
+msgid "Account with this email already exists"
+msgstr "Аккаунт с этим адресом электронной почты уже существует"
+
+msgid "Remember me"
+msgstr "Запомни меня"
+
+msgid "Play time id"
+msgstr ""
+
+msgid "Day of week"
+msgstr "День недели"
+
+msgid "Start time"
+msgstr "Время начала"
+
+msgid "End time"
+msgstr "Время окончания"
+
+msgid "Start time can't be after end time"
+msgstr "Время начала не может быть позже времени окончания"
+
+msgid "Profile image"
+msgstr "Изображение профиля"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Last Name"
+msgstr "Фамилия"
+
+msgid "Male"
+msgstr "Мужской"
+
+msgid "New chat name"
+msgstr "Имя нового чата"
+
+msgid "Female"
+msgstr "Женский"
+
+msgid "Update"
+msgstr "Обновить"
+
+msgid "Invalid age!"
+msgstr "Недействительный возраст!"
+
+msgid "Submit"
+msgstr "Отправить"
+
+msgid "Name already taken!"
+msgstr "Имя уже занято!"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Create"
+msgstr "Создайте"
 
 #: venv/Lib/site-packages/django/contrib/admin/actions.py:41
 #, python-format
@@ -679,7 +746,7 @@ msgstr ""
 #: venv/Lib/site-packages/django/contrib/admin/sites.py:392
 #: venv/Lib/site-packages/django/contrib/admin/tests.py:123
 msgid "Log in"
-msgstr "Авторизоваться"
+msgstr "Войти"
 
 #: venv/Lib/site-packages/django/contrib/admin/sites.py:521
 #, python-format
@@ -828,11 +895,11 @@ msgstr "Аутентификация и авторизация"
 
 #: venv/Lib/site-packages/django/contrib/auth/base_user.py:48
 msgid "password"
-msgstr "пароль"
+msgstr "Пароль"
 
 #: venv/Lib/site-packages/django/contrib/auth/base_user.py:49
 msgid "last login"
-msgstr "последний Войти"
+msgstr "последний вход"
 
 #: venv/Lib/site-packages/django/contrib/auth/forms.py:40
 msgid "No password set."
@@ -1026,8 +1093,8 @@ msgstr "имя пользователя"
 #: venv/Lib/site-packages/django/contrib/auth/models.py:329
 msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
-"Необходимое поле. 150 символов или меньше. Только буквы, цифры и @ /. / + / - "
-"/ _."
+"Необходимое поле. 150 символов или меньше. Только буквы, цифры и @ /. / +"
+" / - / _."
 
 #: venv/Lib/site-packages/django/contrib/auth/models.py:332
 msgid "A user with that username already exists."
@@ -3176,70 +3243,4 @@ msgstr "Недействительное значение даты"
 #: venv/Lib/site-packages/wtforms/fields/core.py:827
 msgid "Not a valid time value"
 msgstr "Недействительное значение времени"
-
-#~ msgid "Username"
-#~ msgstr "Имя пользователя"
-
-#~ msgid "Confirm password"
-#~ msgstr "Подтвердите Пароль"
-
-#~ msgid "Sign Up"
-#~ msgstr "Зарегистрироваться"
-
-#~ msgid "This username is already taken"
-#~ msgstr "Это имя пользователя уже занято"
-
-#~ msgid "Account with this email already exists"
-#~ msgstr "Аккаунт с этим адресом электронной почты уже существует"
-
-#~ msgid "Remember me"
-#~ msgstr "Запомни меня"
-
-#~ msgid "Play time id"
-#~ msgstr "Идентификатор времени воспроизведения"
-
-#~ msgid "Day of week"
-#~ msgstr "День недели"
-
-#~ msgid "Start time"
-#~ msgstr "Начальное время"
-
-#~ msgid "End time"
-#~ msgstr "Время окончания"
-
-#~ msgid "Start time can't be after end time"
-#~ msgstr "Время начала не может быть позже времени окончания"
-
-#~ msgid "Profile image"
-#~ msgstr "Изображение профиля"
-
-#~ msgid "Name"
-#~ msgstr "название"
-
-#~ msgid "Last Name"
-#~ msgstr "Фамилия"
-
-#~ msgid "Male"
-#~ msgstr "мужчина"
-
-#~ msgid "Female"
-#~ msgstr "женский"
-
-#~ msgid "Update"
-#~ msgstr "Обновить"
-
-#~ msgid "Invalid age!"
-#~ msgstr "Недействительный возраст!"
-
-#~ msgid "Submit"
-#~ msgstr "Отправить"
-
-#~ msgid "Name already taken!"
-#~ msgstr "Имя уже занято!"
-
-#~ msgid "Search"
-#~ msgstr "Поиск"
-
-#~ msgid "Create"
-#~ msgstr "Создайте"
 

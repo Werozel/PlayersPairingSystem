@@ -16,24 +16,30 @@ class Sports:
     volleyball = _("Volleyball")
     hockey = _("Hockey")
 
+    tennis_raw = "Tennis"
+    football_raw = "Football"
+    basketball_raw = "Basketball"
+    volleyball_raw = "Volleyball"
+    hockey_raw = "Hockey"
+
     @staticmethod
     def get(n):
         return {
-            1: Sports.tennis,
-            2: Sports.football,
-            3: Sports.basketball,
-            4: Sports.volleyball,
-            5: Sports.hockey
+            1: Sports.tennis_raw,
+            2: Sports.football_raw,
+            3: Sports.basketball_raw,
+            4: Sports.volleyball_raw,
+            5: Sports.hockey_raw
         }.get(n, None)
 
     @staticmethod
     def get_list():
-        return [Sports.tennis, Sports.football, Sports.basketball,
-                Sports.volleyball, Sports.hockey]
+        return [Sports.tennis_raw, Sports.football_raw, Sports.basketball_raw,
+                Sports.volleyball_raw, Sports.hockey_raw]
 
     @staticmethod
     def get_choices():
-        return [(i, i) for i in Sports.get_list()]
+        return [(i, _(i)) for i in Sports.get_list()]
 
     selection = _("Select sport") + ":" + "\n"\
                 "1 - " + tennis + "\n"\

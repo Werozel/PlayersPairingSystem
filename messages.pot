@@ -337,6 +337,75 @@ msgstr ""
 msgid "No search results"
 msgstr ""
 
+msgid "Username"
+msgstr ""
+
+msgid "Confirm password"
+msgstr ""
+
+msgid "Sign Up"
+msgstr ""
+
+msgid "This username is already taken"
+msgstr ""
+
+msgid "Account with this email already exists"
+msgstr ""
+
+msgid "Remember me"
+msgstr ""
+
+msgid "Play time id"
+msgstr ""
+
+msgid "Day of week"
+msgstr ""
+
+msgid "Start time"
+msgstr ""
+
+msgid "End time"
+msgstr ""
+
+msgid "Start time can't be after end time"
+msgstr ""
+
+msgid "Profile image"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Last Name"
+msgstr ""
+
+msgid "Male"
+msgstr ""
+
+msgid "New chat name"
+msgstr ""
+
+msgid "Female"
+msgstr ""
+
+msgid "Update"
+msgstr ""
+
+msgid "Invalid age!"
+msgstr ""
+
+msgid "Submit"
+msgstr ""
+
+msgid "Name already taken!"
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
 #: venv/Lib/site-packages/django/contrib/admin/actions.py:41
 #, python-format
 msgid "Successfully deleted %(count)d %(items)s."

@@ -41,7 +41,6 @@ def profile_route():
             is_friend = True if current_user in friends else None
             return render_template(
                 "profile.html",
-                title="Profile",
                 chat_id=chat.id if chat else None,
                 current_user=current_user,
                 groups=groups,

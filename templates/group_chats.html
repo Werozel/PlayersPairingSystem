@@ -8,7 +8,7 @@
     <div class="media">
         <h4 class="media-body">{{ group.name }}</h4>
         <a id="new-chat" class="media-right" href="javascript:;"><img src="{{ url_for('static', filename='buttons/add-24px.svg') }}"/></a>
-        <input id="new-chat-name" hidden=True name="New chat name" placeholder="New chat name" class="my-input"/>
+        <input id="new-chat-name" hidden=True name="{{ _('New chat name') }}" placeholder="New chat name" class="my-input"/>
     </div>
     <legend class="border-bottom mb-2" style="width: 100%"></legend>
     <div id="chats">

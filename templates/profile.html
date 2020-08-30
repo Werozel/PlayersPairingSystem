@@ -14,7 +14,7 @@
           <h2 class="account-heading">{{ user.name }} {{ user.last_name }}</h2>
           <p class="text-secondary m-bottom-4">{{  user.username }}</p>
           <p class="text-secondary m-bottom-4">{{ _("Age") }}: {{ user.age }}</p>
-          <p class="text-secondary m-bottom-4">{{ _("Gender") }}: {{ user.gender }}</p>
+          <p class="text-secondary m-bottom-4">{{ _("Gender") }}: {{ _(user.gender) }}</p>
 
         </div>
 
@@ -57,7 +57,7 @@
                 <div class="align-left col-sm-12">
                     {% for sport in user.sport %}
                     <p class="m-bottom-4">
-                        <a href="{{ url_for('search_group_route', sport=sport)}}" class="text-secondary"> {{ sport }}</a>
+                        <a href="{{ url_for('search_group_route', sport=sport)}}" class="text-secondary"> {{ _(sport) }}</a>
                     </p>
                     {% endfor %}
                 </div>
