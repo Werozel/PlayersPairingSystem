@@ -2,6 +2,7 @@ from globals import app, db
 from src.misc import timestamp, get_arg_or_none
 from forms import LoginForm, RegistrationForm
 from flask import render_template, redirect, url_for, request, flash, abort
+from flask_babel import gettext
 from flask_login import login_user, login_required, logout_user
 from libs.models.User import User
 import src.crypto as crypto
@@ -26,7 +27,7 @@ def login_route():
             next_page = get_arg_or_none('next')
             return redirect(next_page) if next_page else redirect(url_for('index_route'))
         else:
-            flash('Incorrect login!', "danger")
+            flash(gettext("Incorrect login!"), "danger")
             return render_template("login.html", title="Login Page", form=form, successful=True)
 
     else:
@@ -57,7 +58,7 @@ def register_route():
             db.session.add(user)
             db.session.commit()
             login_user(user, force=True)
-            flash('Account created! Please fill additional information.', 'success')
+            flash(gettext('Account created! Please fill additional information.'), 'success')
             return redirect(url_for('profile_route', action='edit'))
         else:
             return render_template("register.html", title="Register Page", form=form)

@@ -2,6 +2,12 @@ import calendar
 from typing import Optional
 
 
+LANGUAGES = [
+    'en',
+    'ru'
+]
+
+
 class Sports:
     tennis = "Tennis"
     football = "Football"

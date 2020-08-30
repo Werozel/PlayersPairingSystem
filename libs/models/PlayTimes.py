@@ -11,5 +11,9 @@ class PlayTimes(db.Model):
     user_id = db.Column(db.BigInteger, db.ForeignKey("users.id"), nullable=False)
 
     @staticmethod
+    def get(id: int):
+        return PlayTimes.query.filter_by(id=id).first()
+
+    @staticmethod
     def get_all_for_user_id(id: int):
         return PlayTimes.query.filter_by(user_id=id).all()

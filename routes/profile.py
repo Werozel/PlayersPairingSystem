@@ -2,6 +2,7 @@ from globals import app, db, sessions
 from src.misc import get_arg_or_400
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, flash, abort
+from flask_babel import gettext
 from forms import EditProfileForm
 from libs.models.User import User
 from libs.models.ChatMember import ChatMember
@@ -67,14 +68,14 @@ def profile_route():
             )
             if invitation_id != -1:
                 emit('invitation', json.dumps({'invitation_id': invitation_id}), room=sessions.get(new_friend_id))
-                flash("Invitation sent!", "success")
+                flash(gettext("Invitation sent!"), "success")
             else:
-                flash("You already sent an invitation to this user!", "info")
+                flash(gettext("You already sent an invitation to this user!"), "info")
             return redirect(url_for("profile_route", action='show', id=new_friend_id))
         elif action == 'friend_remove':
             id = get_arg_or_400('id', to_int=True)
             current_user.friend_remove(id)
-            flash("Friend removed!", "success")
+            flash(gettext("Friend removed!"), "success")
             return redirect(url_for("profile_route", action='show', id=id))
         else:
             abort(400)
@@ -92,15 +93,24 @@ def profile_route():
                 current_user.sport = form.sport.data
             db.session.add(current_user)
             for data in form.times.data:
-                play_time = PlayTimes(
-                    day_of_week=data['day_of_week'],
-                    start_time=data['start_time'],
-                    end_time=data['end_time'],
-                    user_id=current_user.id
-                )
+                id = data.get('play_time_id')
+                play_time = None
+                if id:
+                    play_time = PlayTimes.get(id)
+                if play_time:
+                    play_time.day_of_week = data.get('day_of_week')
+                    play_time.start_time = data.get('start_time')
+                    play_time.end_time = data.get('end_time')
+                else:
+                    play_time = PlayTimes(
+                        day_of_week=data.get('day_of_week'),
+                        start_time=data.get('start_time'),
+                        end_time=data.get('end_time'),
+                        user_id=current_user.id
+                    )
                 db.session.add(play_time)
             db.session.commit()
-            flash('Profile updated!', 'success')
+            flash(gettext("Profile updated!"), 'success')
             return redirect(url_for('profile_route', action='my'))
         else:
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)

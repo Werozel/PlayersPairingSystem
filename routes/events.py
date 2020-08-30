@@ -1,6 +1,7 @@
 from globals import app, db
 from src.misc import timestamp, get_arg_or_400
 from flask_login import login_required, current_user
+from flask_babel import gettext
 from flask import render_template, request, redirect, url_for, flash, abort
 from forms import NewEventForm, EditEventForm
 from libs.models.Event import Event
@@ -65,7 +66,7 @@ def event_route():
                                recipient_id=event.id,
                                referrer_id=current_user.id,
                                expiration_time=event.time)
-                flash("Invitation sent!", "success")
+                flash(gettext("Invitation sent!"), "success")
             else:
                 event.add_member(current_user)
             return redirect(url_for('event_route', action='show', id=event_id))

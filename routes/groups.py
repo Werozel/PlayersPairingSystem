@@ -2,6 +2,7 @@ from globals import app, db
 from src.misc import timestamp, get_arg_or_400
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, flash, abort
+from flask_babel import gettext
 from forms import NewGroupFrom
 from libs.models.Group import Group
 from libs.models.GroupMember import GroupMember
@@ -16,7 +17,7 @@ def group_route():
         action = get_arg_or_400('action')
 
         if not action:
-            flash("Something went wrong!", "error")
+            flash(gettext("Something went wrong!"), "error")
             return redirect(url_for('group_route', action='my'))
 
         elif action == 'my':
@@ -61,7 +62,7 @@ def group_route():
             if current_user not in members:
                 if group.closed:
                     Invitation.add(type=InvitationType.TO_GROUP, recipient_id=group.id, referrer_id=current_user.id)
-                    flash("Invitation sent!", "success")
+                    flash(gettext("Invitation sent!"), "success")
                 else:
                     new_row = GroupMember(user_id=current_user.id, group_id=group.id, time=timestamp())
                     db.session.add(new_row)

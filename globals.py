@@ -1,10 +1,12 @@
 from constants.app_config import SECRET_KEY, DB_URL
-from flask import Flask
+from constants.constants import LANGUAGES
+from flask import Flask, request, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_socketio import SocketIO
 from libs.SecureAdmin import get_admin
+from flask_babel import Babel
 from src.misc import format_time, is_admin
 
 
@@ -14,7 +16,7 @@ def get_app(name: str) -> Flask:
     res.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
     res.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    # add jinja env variables
+    # jinja env variables
     res.jinja_env.globals.update(format_time=format_time)
     res.jinja_env.globals.update(len=len)
     res.jinja_env.globals.update(is_admin=is_admin)
@@ -24,17 +26,37 @@ def get_app(name: str) -> Flask:
 
 
 app = get_app(__name__)
+
 bootstrap = Bootstrap(app)
+
 db = SQLAlchemy(app)
+
 login_manager = LoginManager(app)
 login_manager.login_view = 'login_route'
 login_manager.login_message_category = 'warning'
+
+babel = Babel(app)
 
 socketIO = SocketIO(app)
 
 admin = get_admin(app, db)
 
 sessions = {}
+
+
+@babel.localeselector
+def get_locale():
+    user = getattr(g, 'user', None)
+    if user is not None:
+        return user.locale
+    return request.accept_languages.best_match(LANGUAGES)
+
+
+@babel.timezoneselector
+def get_timezone():
+    user = getattr(g, 'user', None)
+    if user is not None:
+        return user.timezone
 
 
 def create_tables():

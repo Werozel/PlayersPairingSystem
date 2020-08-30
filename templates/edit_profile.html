@@ -77,7 +77,8 @@
                 <div class="form-group">
                     {{ form.times.label(class="form-control-label") }}
                     {% for entry in form.times.entries %}
-                        <div class="m-left-12 m-bottom-16">
+                        <div class="m-left-12 m-bottom-16 form-group">
+                            <input type="hidden" id="{{ entry.id + '-play_time_id' }}" value="{{ entry.play_time_id.data }}">
                             <div class="row m-left-0">
                                 {{ entry.day_of_week.label(class="m-right-16") }}
                                 {{ entry.day_of_week() }}
