@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 
 {%  block title %}
-        <title>Login</title>
+        <title>{{ _("Login") }}</title>
 {%  endblock title %}
 
 {% block content %}
@@ -9,7 +9,7 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Sign in</legend>
+                <legend class="border-bottom mb-4">{{ _("Sign in") }}</legend>
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
                     {{ form.username(class="form-control form-control-lg") }}
@@ -27,13 +27,13 @@
                 {{ form.submit(class="btn btn-outline-info") }}
             </div>
             <small class="text-muted ml-2">
-                <a href="#">Forgot Password?</a>
+                <a href="#">{{ _("Forgot Password?") }}</a>
             </small>
         </form>
     </div>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Don't have an account? <a class="ml-2" href="{{ url_for('register_route') }}">Sign up</a>
+            {{ _("Don't have an account?") }} <a class="ml-2" href="{{ url_for('register_route') }}">{{ _("Sign up") }}</a>
         </small>
     </div>
 {% endblock content %}

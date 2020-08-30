@@ -1,7 +1,7 @@
 {%  extends "main.html" %}
 
 {% block title %}
-    <title>Edit event</title>
+    <title>{{ _("Edit event") }}</title>
 {% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
     <form method="POST" action="{{ url_for('event_route', type='edit', id=event.id) }}">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">New Event</legend>
+            <legend class="border-bottom mb-4">{{ _("New Event") }}</legend>
             <div class="form-check m-bottom-16 m-left-4">
                 {{ form.closed(class="form-check-input") }}
                 {{ form.closed.label(class="form-check-label m-left-8") }}

@@ -1,12 +1,12 @@
 {% extends 'main.html' %}
 
 {%  block title %}
-        <title>Search group</title>
+        <title>{{ _("Search group") }}</title>
 {%  endblock title %}
 
 {% block content %}
     <div class="media">
-        <h4 class="media-body">Groups</h4>
+        <h4 class="media-body">{{ _("Groups") }}</h4>
         <a class="media-right" href="{{url_for('group_route', action='new')}}">
             <img class="" title="New group"
                  src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
@@ -35,21 +35,21 @@
                 <div class="media">
                     <a class="media-body" href="{{ url_for('group_route', id=group.id, action='show') }}">{{group.name}}</a>
                     {% if group.closed %}
-                        <p class="text-muted media-right">Closed</p>
+                        <p class="text-muted media-right">{{ _("Closed") }}</p>
                     {% endif %}
                 </div>
                 <table>
                     <tr class="table">
-                        <td><span class="text-muted">admin: </span>{{group.admin.name}} {{group.admin.last_name}}</td>
-                        <td><span class="text-muted">sport: </span>{{group.sport}}</td>
+                        <td><span class="text-muted">{{ _("Admin") }}: </span>{{group.admin.name}} {{group.admin.last_name}}</td>
+                        <td><span class="text-muted">{{ _("Sport") }}: </span>{{group.sport}}</td>
                     </tr>
                 </table>
             </div>
         </a>
         {% endfor %}
     {% else %}
-        <h4>No search results</h4>
-        <p class="text-muted small">Create a new group <a href="{{url_for('group_route', action='new')}}">here</a></p>
+        <h4>{{ _("No search results") }}</h4>
+        <p class="text-muted small">{{ _("Create a new group") }} <a href="{{url_for('group_route', action='new')}}">{{ _("here") }}</a></p>
     {% endif %}
     
 

@@ -1,12 +1,12 @@
 {% extends 'main.html' %}
 
 {%  block title %}
-        <title>My groups</title>
+        <title>{{ _("My groups") }}</title>
 {%  endblock title %}
 
 {% block content %}
     <div class="media">
-        <h4 class="h4 media-body">My groups</h4>
+        <h4 class="h4 media-body">{{ _("My groups") }}</h4>
         <a class="media-right m-right-8" href="{{ url_for('search_group_route') }}">
             <img title="Search event" src="{{ url_for('static', filename='buttons/search-black-24dp.svg') }}">
         </a>
@@ -26,16 +26,16 @@
                     </div>
                     <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
                     <div class="column ml-3">
-                        <p class="row m-bottom-4" style="white-space: pre-wrap">Admin: <span class="text-muted">{{group.admin.name}} {{group.admin.last_name}}</span></p>
-                        <p class="row m-bottom-4" style="white-space: pre-wrap">Sport: <span class="text-muted">{{group.sport}}</span></p>
+                        <p class="row m-bottom-4" style="white-space: pre-wrap">{{ _("Admin") }}: <span class="text-muted">{{group.admin.name}} {{group.admin.last_name}}</span></p>
+                        <p class="row m-bottom-4" style="white-space: pre-wrap">{{ _("Sport") }}: <span class="text-muted">{{group.sport}}</span></p>
                     </div>
                 </div>
         {% endfor %}
         <legend class="border-bottom mb-4 mt-2"></legend>
-        <p class="text-muted small">Create a new group <a href="{{url_for('group_route', action='new')}}">here</a></p>
+        <p class="text-muted small">{{ _("Create a new group") }} <a href="{{url_for('group_route', action='new')}}">{{ _("here") }}</a></p>
     {% else %}
-        <h4>No groups yet!</h4>
-        <p class="text-muted small" style="margin-bottom: 0px;">Search for a group <a href="{{url_for('search_group_route')}}">here</a></p>
-        <p class="text-muted small">Or create a new one <a href="{{url_for('group_route', action='new')}}">here</a></p>
+        <h4>{{ _("No groups yet!") }}</h4>
+        <p class="text-muted small" style="margin-bottom: 0px;">{{ _("Search for a group") }} <a href="{{url_for('search_group_route')}}">{{ _("here") }}</a></p>
+        <p class="text-muted small">{{ _("Or create a new one") }} <a href="{{url_for('group_route', action='new')}}">{{ _("here") }}</a></p>
     {% endif %}
 {% endblock %} 

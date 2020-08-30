@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 
 {%  block title %}
-        <title>Register</title>
+        <title>{{ _("Register") }}</title>
 {%  endblock title %}
 
 {% block content %}
@@ -10,7 +10,7 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join now</legend>
+                <legend class="border-bottom mb-4">{{ _("Join now") }}</legend>
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
                     {% if form.username.errors %}
@@ -73,7 +73,7 @@
     </div>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Already have an account? <a class="ml-2" href="{{ url_for('login_route') }}">Sign in</a>
+            {{ _("Already have an account?") }} <a class="ml-2" href="{{ url_for('login_route') }}">{{ _("Sign in") }}</a>
         </small>
     </div>
 

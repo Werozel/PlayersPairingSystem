@@ -1,12 +1,12 @@
 {% extends 'main.html' %}
 
 {%  block title %}
-        <title>My invitations</title>
+        <title>{{ _("My invitations") }}</title>
 {%  endblock title %}
 
 {% block content %}
     <div class="media">
-        <h4 class="h4 media-body">My invitations</h4>
+        <h4 class="h4 media-body">{{ _("My invitations") }}</h4>
     </div>
     <legend class="border-bottom mb-3" style="width: 100%"></legend>
     {% if invitations %}
@@ -16,7 +16,7 @@
                 <div class="content-section w-75" id="{{ invitation.id }}">
                     <div class="media">
                         <div class="media-body">
-                            <b class="m-bottom-0 m-right-16">User</b>
+                            <b class="m-bottom-0 m-right-16">{{ _("User") }}</b>
                             {%  if user.name and user.last_name %}
                                 <a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.name }} {{ user.last_name }}</a>
                             {%  else %}
@@ -36,16 +36,16 @@
                     <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
                     <div id="bottom" class="column ml-3">
                         {% if user.age %}
-                        <p class="row m-bottom-4" style="white-space: pre-wrap">Age:<span class="text-secondary"> {{ user.age }}</span></p>
+                        <p class="row m-bottom-4" style="white-space: pre-wrap">{{ _("Age") }}: <span class="text-secondary"> {{ user.age }}</span></p>
                         {%  endif %}
                         <div class="row m-bottom-4">
-                            <p class="mb-0 mr-1">Sport:</p>
+                            <p class="mb-0 mr-1">{{ _("Sport") }}: </p>
                             {% if user.sport %}
                                 {%  for sport in user.sport %}
                                     <span style="list-style-type: none; padding-left: 3px;" class="text-secondary m-right-8">{{ sport }}</span>
                                 {%  endfor  %}
                             {% else %}
-                                <p class="text-secondary">No sport added yet!</p>
+                                <p class="text-secondary">{{ _("No sport added yet!") }}</p>
                             {% endif %}
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                 <div class="content-section w-75" id="{{ invitation.id }}">
                     <div class="media">
                         <div class="media-body">
-                            <b class="m-bottom-0 m-right-8">Group</b>
+                            <b class="m-bottom-0 m-right-8">{{ _("Group") }}</b>
                             <a class="media-body" href="{{ url_for('group_route', id=group.id, action='show')}}">{{group.name}}</a>
                         </div>
                          <div class="media-right">
@@ -69,8 +69,8 @@
                     </div>
                     <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
                     <div class="column ml-3">
-                        <p class="row m-bottom-4" style="white-space: pre-wrap">Admin: <span class="text-muted">{{group.admin.name}} {{group.admin.last_name}}</span></p>
-                        <p class="row m-bottom-4" style="white-space: pre-wrap">Sport: <span class="text-muted">{{group.sport}}</span></p>
+                        <p class="row m-bottom-4" style="white-space: pre-wrap">{{ _("Admin") }}: <span class="text-muted">{{group.admin.name}} {{group.admin.last_name}}</span></p>
+                        <p class="row m-bottom-4" style="white-space: pre-wrap">{{ _("Sport") }}: <span class="text-muted">{{group.sport}}</span></p>
                     </div>
                 </div>
             {% elif invitation.type == 3 %} {# EVENt #}
@@ -78,7 +78,7 @@
                 <div class="content-section w-75" id="{{ invitation.id }}">
                     <div class="media">
                         <div class="media-body">
-                            <b class="m-bottom-0 m-right-8">Event</b>
+                            <b class="m-bottom-0 m-right-8">{{ _("Event") }}</b>
                             <a href="{{ url_for('event_route', action='show', id=event.id) }}">{{ event.name }}</a>
                         </div>
                          <div class="media-right">
@@ -92,9 +92,9 @@
                     </div>
                     <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
                     <div class="column ml-3">
-                        <p class="row m-bottom-4" style="white-space: pre-wrap">Organiser: <span class="text-muted">{{ event.creator.name }} {{ event.creator.last_name }}</span></p>
+                        <p class="row m-bottom-4" style="white-space: pre-wrap">{{ _("Organiser") }}: <span class="text-muted">{{ event.creator.name }} {{ event.creator.last_name }}</span></p>
                         <div class="row m-bottom-4">
-                            <p class="mb-1">Description: </p>
+                            <p class="mb-1">{{ _("Description") }}: </p>
                             <p class="text-secondary" style="white-space: pre-wrap">  {{ event.description }}</p>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
             {% endif %}
         {% endfor %}
     {% else %}
-        <p class="">No invitations sent!</p>
+        <p class="">{{ _("No invitations sent!") }}</p>
     {% endif %}
 {% endblock %}
 
@@ -119,7 +119,7 @@
         const msg = JSON.parse(json_msg);
         const invitation = document.getElementById(msg.invitation_id);
         if (invitation === null) {
-            document.getElementById('messages').innerHTML = "<span style='color: red;'>Messages (!)</span>";
+            document.getElementById('messages').innerHTML = "<span style='color: red;'>{{ _('Messages') }} (!)</span>";
         } else {
             invitation.style = "border-color: red;";
         }

@@ -2,7 +2,7 @@
 
 
 {%  block title %}
-        <title>Profile</title>
+        <title>{{ _("Profile") }}</title>
 {%  endblock title %}
 
 {% block content %}
@@ -13,8 +13,8 @@
         <div class="media-body">
           <h2 class="account-heading">{{ user.name }} {{ user.last_name }}</h2>
           <p class="text-secondary m-bottom-4">{{  user.username }}</p>
-          <p class="text-secondary m-bottom-4">Age: {{ user.age }}</p>
-          <p class="text-secondary m-bottom-4">Gender: {{ user.gender }}</p>
+          <p class="text-secondary m-bottom-4">{{ _("Age") }}: {{ user.age }}</p>
+          <p class="text-secondary m-bottom-4">{{ _("Gender") }}: {{ user.gender }}</p>
 
         </div>
 
@@ -53,7 +53,7 @@
         <legend class="border-bottom mb-4"></legend>
         <div class="container padding-left-0">
             {% if user.sport %}
-                <h5 class="align-left">Sports:</h5>
+                <h5 class="align-left">{{ _("Sports") }}: </h5>
                 <div class="align-left col-sm-12">
                     {% for sport in user.sport %}
                     <p class="m-bottom-4">
@@ -62,13 +62,13 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <p>No sport added yet!</p>
+                <p>{{ _("No sport added yet!") }}</p>
             {% endif %}
         </div>
             {% if groups %}
             <legend class="border-bottom mb-4 mt-2"></legend>
             <div class="container padding-left-0">
-                <h5 class="align-left">Groups:</h5>
+                <h5 class="align-left">{{ _("Groups") }}: </h5>
                 <div class="align-left col-sm-12">
                     {% for group in groups %}
                         <p class="m-bottom-4">
@@ -82,7 +82,7 @@
         {% if friends %}
             <legend class="border-bottom mb-4 mt-2"></legend>
             <div class="container padding-left-0">
-                <h5 class="align-left">Friends:</h5>
+                <h5 class="align-left">{{ _("Friends") }}: </h5>
                 <div class="align-left col-sm-12">
                     {% for friend in friends %}
                         <p class="m-bottom-4">

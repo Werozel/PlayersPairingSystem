@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 
 {%  block title %}
-        <title>Edit profile</title>
+        <title>{{ _("Edit profile") }}</title>
 {%  endblock title %}
 
 {% block content %}
@@ -15,13 +15,13 @@
         <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Edit profile</legend>
+                <legend class="border-bottom mb-4">{{ _("Edit profile") }}</legend>
                 <div class="form-group">
                     {{ form.picture.label(class="form-control-label") }}
                     {% if form.picture.errors %}
                         {{ form.picture(class="form-control-file is-invalid") }}
                         <div class="invalid-feedback>">
-                            <span style="color: red; ">File must be an image</span>
+                            <span style="color: red; ">{{ _("File must be an image") }}</span>
                         </div>
                     {% else %}
                         {{ form.picture(class="form-control-file") }}

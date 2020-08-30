@@ -30,7 +30,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('about_route') }}">About</a>
+              <a class="nav-item nav-link" href="{{ url_for('about_route') }}">{{ _("About") }}</a>
             </div>
             <!-- Navbar Right Side -->
               {% if current_user.is_authenticated %}
@@ -39,12 +39,12 @@
                         <a class="nav-item nav-link" href=" {{ url_for('admin.index') }}">Admin</a>
                     {% endif %}
                     <a id="profile" class="nav-item nav-link" href=" {{ url_for('profile_route', action='my') }}">{{current_user.username}}</a>
-                    <a class="nav-item nav-link" href=" {{ url_for('logout_route') }}">Log out</a>
+                    <a class="nav-item nav-link" href=" {{ url_for('logout_route') }}">{{ _("Log out") }}</a>
                 </div>
               {% else %}
                 <div class="navbar-nav">
-                 <a class="nav-item nav-link" href=" {{ url_for('login_route') }}">Login</a>
-                 <a class="nav-item nav-link" href=" {{ url_for('register_route') }}">Register</a>
+                 <a class="nav-item nav-link" href=" {{ url_for('login_route') }}">{{ _("Login") }}</a>
+                 <a class="nav-item nav-link" href=" {{ url_for('register_route') }}">{{ _("Register") }}</a>
                 </div>
               {% endif %}
           </div>
@@ -73,33 +73,33 @@
             {%  else %}
                 <div class="col-md-3">
                     <div class="content-section">
-                        <h5>Sidebar</h5>
+                        <h5>{{ _("Sidebar") }}</h5>
                         <ul class="list-group">
                             <li class="my-list-group-item list-group-item-light">
-                                <a href="{{url_for('group_route', action='my')}}" class="text-secondary">Groups</a>
+                                <a href="{{url_for('group_route', action='my')}}" class="text-secondary">{{ _("Groups") }}</a>
                             </li>
                             <li class="my-list-group-item list-group-item-light">
-                                <a href="{{url_for('event_route', action='my')}}" class="text-secondary">Events</a>
+                                <a href="{{url_for('event_route', action='my')}}" class="text-secondary">{{ _("Events") }}</a>
                             </li>
                             <li class="my-list-group-item list-group-item-light">
-                                <a href="{{url_for('friends_route', action='search')}}" class="text-secondary">Users</a>
+                                <a href="{{url_for('friends_route', action='search')}}" class="text-secondary">{{ _("Users") }}</a>
                             </li>
                             {% if current_user.has_invitations and current_user.has_invitations() == true %}
                                 <li class="my-list-group-item list-group-item-light">
-                                    <a id="invitations" href="{{url_for('my_invitations_route', action='show')}}" class="text-secondary"><span style="color: red">Invitations (!)</span></a>
+                                    <a id="invitations" href="{{url_for('my_invitations_route', action='show')}}" class="text-secondary"><span style="color: red">{{ _("Invitations") }} (!)</span></a>
                                 </li>
                             {% else %}
                                 <li class="my-list-group-item list-group-item-light">
-                                    <a id="invitations" href="{{url_for('my_invitations_route', action='show')}}" class="text-secondary">Invitations</a>
+                                    <a id="invitations" href="{{url_for('my_invitations_route', action='show')}}" class="text-secondary">{{ _("Invitations") }}</a>
                                 </li>
                             {% endif %}
                             {%  if current_user.is_notified and current_user.is_notified() == true %}
                                 <li class="my-list-group-item list-group-item-light">
-                                    <a id="messages" href="{{url_for('chats_route', action='all')}}" class="text-secondary"><span style="color: red">Messages (!)</span></a>
+                                    <a id="messages" href="{{url_for('chats_route', action='all')}}" class="text-secondary"><span style="color: red">{{ _("Messages") }} (!)</span></a>
                                 </li>
                             {% else %}
                                 <li class="my-list-group-item list-group-item-light">
-                                    <a id="messages" href="{{url_for('chats_route', action='all')}}" class="text-secondary">Messages</a>
+                                    <a id="messages" href="{{url_for('chats_route', action='all')}}" class="text-secondary">{{ _("Messages") }}</a>
                                 </li>
                             {%  endif %}
                     </ul>
@@ -122,11 +122,11 @@
             });
 
             socket.on('message', function (_) {
-                document.getElementById('messages').innerHTML = "<span style='color: red;'>Messages (!)</span>";
+                document.getElementById('messages').innerHTML = "<span style='color: red;'>{{ _('Messages') }} (!)</span>";
             })
 
             socket.on('invitation', function (_) {
-                document.getElementById('invitations').innerHTML = "<span style='color: red;'>Invitations (!)</span>";
+                document.getElementById('invitations').innerHTML = "<span style='color: red;'>{{ _('Invitations') }} (!)</span>";
             })
         </script>
     {% endblock socket_script %}

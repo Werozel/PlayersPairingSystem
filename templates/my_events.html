@@ -2,7 +2,7 @@
 
 {%  block content %}
     <div class="media">
-        <h4 class="media-body">My events</h4>
+        <h4 class="media-body">{{ _("My events") }}</h4>
         {# TODO add link #}
         <a class="media-right m-right-8" href="">
             <img title="Search event" src="{{ url_for('static', filename='buttons/search-black-24dp.svg') }}">
@@ -23,15 +23,15 @@
                 </div>
                 <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
                 <div class="column ml-3">
-                    <p class="row m-bottom-4" style="white-space: pre-wrap">Organiser: <span class="text-muted">{{ event.creator.name }} {{ event.creator.last_name }}</span></p>
+                    <p class="row m-bottom-4" style="white-space: pre-wrap">{{ _("Organiser") }}: <span class="text-muted">{{ event.creator.name }} {{ event.creator.last_name }}</span></p>
                     <div class="row m-bottom-4">
-                        <p class="mb-1">Description: </p>
+                        <p class="mb-1">{{ _("Description") }}: </p>
                         <p class="text-secondary" style="white-space: pre-wrap">  {{ event.description }}</p>
                     </div>
                 </div>
             </div>
         {%  endfor %}
     {%  else %}
-        <p>You have no events yet</p>
+        <p>{{ _("You have no events yet") }}</p>
     {%  endif %}
 {%  endblock %}

@@ -1,7 +1,7 @@
 {%  extends "main.html" %}
 
 {%  block title %}
-        <title>Users</title>
+        <title>{{ _("Users") }}</title>
 {%  endblock title %}
 
 {%  block content %}
@@ -32,16 +32,16 @@
                 <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
                 <div id="bottom" class="column ml-3">
                     {% if user.age %}
-                    <p class="row m-bottom-4" style="white-space: pre-wrap">Age:<span class="text-secondary"> {{ user.age }}</span></p>
+                    <p class="row m-bottom-4" style="white-space: pre-wrap">{{ _("Age") }}: <span class="text-secondary"> {{ user.age }}</span></p>
                     {%  endif %}
                     <div class="row m-bottom-4">
-                        <p class="mb-0 mr-1">Sport:</p>
+                        <p class="mb-0 mr-1">{{ _("Sport") }}: </p>
                         {% if user.sport %}
                             {%  for sport in user.sport %}
                                 <span style="list-style-type: none; padding-left: 3px;" class="text-secondary m-right-8">{{ sport }}</span>
                             {%  endfor  %}
                         {% else %}
-                            <p class="text-secondary">No sport added yet!</p>
+                            <p class="text-secondary">{{ _("No sport added yet!") }}</p>
                         {% endif %}
                     </div>
                 </div>

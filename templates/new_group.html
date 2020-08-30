@@ -2,7 +2,7 @@
 
 
 {%  block title %}
-        <title>New group</title>
+        <title>{{ _("New group") }}</title>
 {%  endblock title %}
 
 {% block content %}
@@ -10,7 +10,7 @@
         <form method="POST" action="{{ url_for('group_route', type='new') }}">
             {{form.hidden_tag()}}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">New group</legend>
+                <legend class="border-bottom mb-4">{{ _("New group") }}</legend>
                 <div class="form-check m-bottom-16 m-left-4">
                     {{ form.closed(class="form-check-input") }}
                     {{ form.closed.label(class="form-check-label m-left-8") }}
