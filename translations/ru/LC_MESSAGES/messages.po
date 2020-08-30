@@ -45,7 +45,7 @@ msgstr "Хоккей"
 
 #: constants/constants.py:38
 msgid "Select sport"
-msgstr "Выберите ваш вид спорта"
+msgstr "Выберите вид спорта"
 
 #: routes/events.py:69 routes/groups.py:65 routes/profile.py:71
 msgid "Invitation sent!"
@@ -77,11 +77,11 @@ msgstr "Ваш профиль обновлен!"
 
 #: templates/404.html:4
 msgid "Not found"
-msgstr "Не найден"
+msgstr "Не найдено"
 
 #: templates/404.html:8
 msgid "404 Not found!"
-msgstr "404 Не Найдено!"
+msgstr "404 Не найдено!"
 
 #: templates/500.html:4
 msgid "Error"
@@ -162,16 +162,16 @@ msgstr "Спорт"
 #: templates/find_people.html:45 templates/my_invitations.html:48
 #: templates/profile.html:65 templates/show_users.html:44
 msgid "No sport added yet!"
-msgstr "Этот вид спорта еще не добавлен!"
+msgstr "Спорт еще не выбран!"
 
 #: templates/find_people.html:52
 msgid "No people found"
-msgstr "Людей не найдено"
+msgstr "Пользователи не найдены"
 
 #: templates/group.html:49 templates/my_groups.html:29
 #: templates/my_invitations.html:72 templates/search_group.html:43
 msgid "Admin"
-msgstr "Админ"
+msgstr "Администратор"
 
 #: templates/group.html:61 templates/main.html:82
 msgid "Events"
@@ -179,7 +179,7 @@ msgstr "События"
 
 #: templates/group.html:69
 msgid "No events yet!"
-msgstr "Пока событий нет!"
+msgstr "Событий пока нет!"
 
 #: templates/group_chats.html:4
 msgid "Group chats"
@@ -211,7 +211,7 @@ msgstr "Забыли пароль?"
 
 #: templates/login.html:36
 msgid "Don't have an account?"
-msgstr "Нет аккаутна?"
+msgstr "Нет профиля?"
 
 #: templates/login.html:36
 msgid "Sign up"
@@ -223,11 +223,7 @@ msgstr "Выйти"
 
 #: templates/main.html:47 templates/register.html:4
 msgid "Register"
-msgstr "Регистр"
-
-#: templates/main.html:76
-msgid "Sidebar"
-msgstr "Боковая панель"
+msgstr "зарегистрироваться"
 
 #: templates/main.html:79 templates/profile.html:71
 #: templates/search_group.html:9
@@ -273,7 +269,7 @@ msgstr "Создать новую группу"
 #: templates/my_groups.html:35 templates/my_groups.html:38
 #: templates/my_groups.html:39 templates/search_group.html:52
 msgid "here"
-msgstr "Сюда"
+msgstr "здесь"
 
 #: templates/my_groups.html:37
 msgid "No groups yet!"
@@ -285,11 +281,11 @@ msgstr "Искать группу"
 
 #: templates/my_groups.html:39
 msgid "Or create a new one"
-msgstr "Или создайте новый"
+msgstr "Или создайте новую"
 
 #: templates/my_invitations.html:4 templates/my_invitations.html:9
 msgid "My invitations"
-msgstr "Мои приглашения"
+msgstr "Приглашения"
 
 #: templates/my_invitations.html:19
 msgid "User"
@@ -297,11 +293,11 @@ msgstr "Пользователь"
 
 #: templates/my_invitations.html:81
 msgid "Event"
-msgstr "Мероприятие"
+msgstr "Событие"
 
 #: templates/my_invitations.html:105
 msgid "No invitations sent!"
-msgstr "Приглашения не отправлены!"
+msgstr "Нет отправленных приглашений!"
 
 #: templates/new_event.html:4
 msgid "New event"
@@ -333,7 +329,7 @@ msgstr "Присоединяйся сейчас"
 
 #: templates/register.html:76
 msgid "Already have an account?"
-msgstr "Уже есть аккаунт?"
+msgstr "Уже зарегистрированы?"
 
 #: templates/search_group.html:38
 msgid "Closed"
@@ -341,7 +337,7 @@ msgstr "Закрыто"
 
 #: templates/search_group.html:51
 msgid "No search results"
-msgstr "Нет результатов поиска"
+msgstr "Нет результатов"
 
 #: ------------------------------------------------------------------------------
 #: ------------------------------------------------------------------------------

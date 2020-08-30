@@ -223,10 +223,6 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
-#: templates/main.html:76
-msgid "Sidebar"
-msgstr ""
-
 #: templates/main.html:79 templates/profile.html:71
 #: templates/search_group.html:9
 msgid "Groups"
