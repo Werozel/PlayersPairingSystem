@@ -1,5 +1,5 @@
 from globals import app, db
-from src.misc import timestamp, get_arg_or_none
+from src.misc import timestamp, get_arg_or_none, get_cookie
 from forms import LoginForm, RegistrationForm
 from flask import render_template, redirect, url_for, request, flash, abort
 from flask_babel import gettext
@@ -21,6 +21,7 @@ def login_route():
         if user:
             user.last_login = timestamp()
             user.last_login_ip = request.remote_addr
+            user.language = get_cookie('language', user.language)
             db.session.add(user)
             db.session.commit()
             login_user(user, remember=form.remember.data, force=True)
@@ -70,4 +71,4 @@ def register_route():
 @login_required
 def logout_route():
     logout_user()
-    return render_template("index.html", title="Main Page")
+    return redirect(url_for('index_route'))

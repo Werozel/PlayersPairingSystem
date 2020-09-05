@@ -5,6 +5,11 @@ import datetime
 import random
 
 
+def get_cookie(key: str, default):
+    res = request.cookies.get(key)
+    return res if res is not None else default
+
+
 def get_arg_or_400(arg: str, to_int: bool = False):
     try:
         res = request.args.get(arg)

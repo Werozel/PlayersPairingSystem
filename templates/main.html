@@ -49,6 +49,17 @@
               {% endif %}
           </div>
         </div>
+        <div class="m-right-0">
+            {% if get_cookie('language', 'en') == "en" %}
+                <a id='change_language' href="{{ url_for('change_language_route', language='ru') }}">
+                    <img class='icon' src="{{ url_for('static', filename='icons/Russia-icon.png') }}">
+                </a>
+            {% else %}
+                <a id='change_language' href="{{ url_for('change_language_route', language='en') }}">
+                    <img id='language' class='icon' src="{{ url_for('static', filename='icons/United-Kingdom-icon.png') }}">
+                </a>
+            {% endif %}
+        </div>
       </nav>
     </header>
 

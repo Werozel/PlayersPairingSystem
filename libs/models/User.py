@@ -60,6 +60,7 @@ class User(db.Model, UserMixin):
     last_login = db.Column(db.TIMESTAMP, nullable=False, default=timestamp())
     image_file = db.Column(db.String, nullable=False, default='default.jpg')
     last_login_ip = db.Column(db.String)
+    language = db.Column(db.String, nullable=False, default="en")
 
     groups_rel = db.relationship('Group', backref='admin', lazy=True)
     members_rel = db.relationship('GroupMember', backref='user', lazy=True)

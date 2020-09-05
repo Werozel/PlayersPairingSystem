@@ -2,6 +2,7 @@ from globals import app, db, socketIO
 import logging
 import constants.app_config as app_config
 # necessary imports to register routes
+import routes.service
 import routes.chats
 import routes.events
 import routes.friends

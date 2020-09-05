@@ -1,5 +1,4 @@
 from constants.app_config import SECRET_KEY, DB_URL
-from constants.constants import LANGUAGES
 from flask import Flask, request, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
@@ -7,7 +6,7 @@ from flask_login import LoginManager
 from flask_socketio import SocketIO
 from libs.SecureAdmin import get_admin
 from flask_babel import Babel, gettext
-from src.misc import format_time, is_admin
+from src.misc import format_time, is_admin, get_cookie
 
 
 def get_app(name: str) -> Flask:
@@ -21,6 +20,7 @@ def get_app(name: str) -> Flask:
     res.jinja_env.globals.update(len=len)
     res.jinja_env.globals.update(is_admin=is_admin)
     res.jinja_env.globals.update(set=set)
+    res.jinja_env.globals.update(get_cookie=get_cookie)
 
     return res
 
@@ -48,10 +48,8 @@ sessions = {}
 
 @babel.localeselector
 def get_locale():
-    user = getattr(g, 'user', None)
-    if user is not None:
-        return user.locale
-    return request.accept_languages.best_match(LANGUAGES)
+    return get_cookie('language', 'en')
+    # return request.accept_languages.best_match(LANGUAGES)
 
 
 @babel.timezoneselector
