@@ -1,5 +1,5 @@
 from constants.app_config import SECRET_KEY, DB_URL
-from flask import Flask, request, g
+from flask import Flask, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
