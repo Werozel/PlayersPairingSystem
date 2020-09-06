@@ -14,10 +14,10 @@ def change_language_route():
             new_language = 'ru'
         else:
             new_language = 'en'
-    resp = make_response(redirect(request.referrer))
-    resp.set_cookie('language', new_language)
     if current_user.is_authenticated:
         current_user.language = new_language
         db.session.add(current_user)
         db.session.commit()
+    resp = make_response(redirect(request.referrer))
+    resp.set_cookie('language', new_language)
     return resp

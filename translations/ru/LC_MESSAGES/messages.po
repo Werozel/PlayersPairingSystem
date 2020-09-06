@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-08-30 18:15+0300\n"
+"POT-Creation-Date: 2020-09-06 17:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -18,6 +18,34 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
+
+#: forms.py:25
+msgid "Passwords doesn't match!"
+msgstr "Пароли не совпадают!"
+
+#: forms.py:33
+msgid "Username can only contain letters, numbers, underscores and dashes"
+msgstr "Имя пользователя может содержать только буквы, цифры, подчеркивания и тире"
+
+#: forms.py:36
+msgid "This username is already taken"
+msgstr "Такое имя пользователя уже зарегистрировано"
+
+#: forms.py:42
+msgid "Account with this email already exists"
+msgstr "Аккаунт с этим адресом уже существует"
+
+#: forms.py:71
+msgid "Start time can't be after end time"
+msgstr "Временной промежуток не может начинаться после своего конца"
+
+#: forms.py:94
+msgid "Invalid age!"
+msgstr "Неверный возраст"
+
+#: forms.py:120 forms.py:152 forms.py:175
+msgid "Name already taken!"
+msgstr "Имя уже занято"
 
 #: globals.py:37
 msgid "Please log in to view this page."
@@ -43,11 +71,11 @@ msgstr "Волейбол"
 msgid "Hockey"
 msgstr "Хоккей"
 
-#: constants/constants.py:38
+#: constants/constants.py:44
 msgid "Select sport"
 msgstr "Выберите вид спорта"
 
-#: routes/events.py:69 routes/groups.py:65 routes/profile.py:71
+#: routes/events.py:69 routes/groups.py:65 routes/profile.py:70
 msgid "Invitation sent!"
 msgstr "Приглашение отправлено!"
 
@@ -55,23 +83,23 @@ msgstr "Приглашение отправлено!"
 msgid "Something went wrong!"
 msgstr "Что-то пошло не так!"
 
-#: routes/login.py:30
+#: routes/login.py:31
 msgid "Incorrect login!"
 msgstr "Неверные данные!"
 
-#: routes/login.py:61
+#: routes/login.py:62
 msgid "Account created! Please fill additional information."
 msgstr "Аккаунт создан! Пожалуйста, заполните дополнительную информацию."
 
-#: routes/profile.py:73
+#: routes/profile.py:72
 msgid "You already sent an invitation to this user!"
 msgstr "Вы уже отправили этому пользователю приглашение!"
 
-#: routes/profile.py:78
+#: routes/profile.py:77
 msgid "Friend removed!"
 msgstr "Друг удален!"
 
-#: routes/profile.py:113
+#: routes/profile.py:112
 msgid "Profile updated!"
 msgstr "Ваш профиль обновлен!"
 
@@ -99,10 +127,9 @@ msgstr ""
 "Система, которая позволяет находить людей с общими спортивными "
 "интересами, чтобы играть вместе"
 
-#: templates/chat.html:63 templates/group_chats.html:57 templates/main.html:98
-#: templates/main.html:102 templates/main.html:125 templates/my_chats.html:57
+#: templates/chat.html:63 templates/group_chats.html:57 templates/main.html:108
+#: templates/main.html:112 templates/main.html:135 templates/my_chats.html:57
 #: templates/my_invitations.html:122
-#: venv/Lib/site-packages/django/contrib/messages/apps.py:7
 msgid "Messages"
 msgstr "Сообщения"
 
@@ -132,7 +159,6 @@ msgid "Find people"
 msgstr "Найти людей"
 
 #: templates/event.html:43
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:2065
 msgid "Time"
 msgstr "Время"
 
@@ -150,7 +176,7 @@ msgid "Members"
 msgstr "Участники"
 
 #: templates/find_people.html:36 templates/my_invitations.html:39
-#: templates/profile.html:16 templates/show_users.html:35
+#: templates/profile.html:21 templates/show_users.html:35
 msgid "Age"
 msgstr "Возраст"
 
@@ -162,7 +188,7 @@ msgid "Sport"
 msgstr "Спорт"
 
 #: templates/find_people.html:45 templates/my_invitations.html:48
-#: templates/profile.html:65 templates/show_users.html:44
+#: templates/profile.html:73 templates/show_users.html:44
 msgid "No sport added yet!"
 msgstr "Спорт еще не выбран!"
 
@@ -175,7 +201,7 @@ msgstr "Пользователи не найдены"
 msgid "Admin"
 msgstr "Администратор"
 
-#: templates/group.html:61 templates/main.html:82
+#: templates/group.html:61 templates/main.html:92
 msgid "Events"
 msgstr "События"
 
@@ -186,6 +212,10 @@ msgstr "Событий пока нет!"
 #: templates/group_chats.html:4
 msgid "Group chats"
 msgstr "Групповые чаты"
+
+#: templates/group_chats.html:11
+msgid "New chat name"
+msgstr "Имя нового чата"
 
 #: templates/group_chats.html:32 templates/my_chats.html:32
 msgid "Chat created!"
@@ -203,7 +233,7 @@ msgstr "Вы находитесь на главной странице"
 msgid "Login"
 msgstr "Войти"
 
-#: templates/login.html:12 templates/register.html:76
+#: templates/login.html:12 templates/register.html:75
 msgid "Sign in"
 msgstr "Войти в систему"
 
@@ -227,16 +257,16 @@ msgstr "Выйти"
 msgid "Register"
 msgstr "Создать аккаунт"
 
-#: templates/main.html:79 templates/profile.html:71
+#: templates/main.html:89 templates/profile.html:79
 #: templates/search_group.html:9
 msgid "Groups"
 msgstr "Группы"
 
-#: templates/main.html:85 templates/show_users.html:4
+#: templates/main.html:95 templates/show_users.html:4
 msgid "Users"
 msgstr "Пользователи"
 
-#: templates/main.html:89 templates/main.html:93 templates/main.html:129
+#: templates/main.html:99 templates/main.html:103 templates/main.html:139
 msgid "Invitations"
 msgstr "Приглашения"
 
@@ -277,7 +307,7 @@ msgstr "здесь"
 msgid "No groups yet!"
 msgstr "Групп пока нет!"
 
-#: templates/my_groups.html:38
+#: templates/my_groups.html:38 templates/search_group.html:4
 msgid "Search for a group"
 msgstr "Искать группу"
 
@@ -313,15 +343,15 @@ msgstr "Новая группа"
 msgid "Profile"
 msgstr "Профиль"
 
-#: templates/profile.html:17
+#: templates/profile.html:24
 msgid "Gender"
 msgstr "Пол"
 
-#: templates/profile.html:56
+#: templates/profile.html:64
 msgid "Sports"
 msgstr "Виды спорта"
 
-#: templates/profile.html:85
+#: templates/profile.html:93
 msgid "Friends"
 msgstr "Друзья"
 
@@ -329,7 +359,7 @@ msgstr "Друзья"
 msgid "Join now"
 msgstr "Присоединяйся сейчас"
 
-#: templates/register.html:76
+#: templates/register.html:75
 msgid "Already have an account?"
 msgstr "Уже зарегистрированы?"
 
@@ -340,2408 +370,6 @@ msgstr "Закрытое"
 #: templates/search_group.html:51
 msgid "No search results"
 msgstr "Нет результатов"
-
-msgid "Username"
-msgstr "Имя пользователя"
-
-msgid "Confirm password"
-msgstr "Подтвердите Пароль"
-
-msgid "Sign Up"
-msgstr "Зарегистрироваться"
-
-msgid "This username is already taken"
-msgstr "Это имя пользователя уже занято"
-
-msgid "Account with this email already exists"
-msgstr "Аккаунт с этим адресом электронной почты уже существует"
-
-msgid "Remember me"
-msgstr "Запомни меня"
-
-msgid "Play time id"
-msgstr ""
-
-msgid "Day of week"
-msgstr "День недели"
-
-msgid "Start time"
-msgstr "Время начала"
-
-msgid "End time"
-msgstr "Время окончания"
-
-msgid "Start time can't be after end time"
-msgstr "Время начала не может быть позже времени окончания"
-
-msgid "Profile image"
-msgstr "Изображение профиля"
-
-msgid "Name"
-msgstr "Имя"
-
-msgid "Last Name"
-msgstr "Фамилия"
-
-msgid "Male"
-msgstr "Мужской"
-
-msgid "New chat name"
-msgstr "Имя нового чата"
-
-msgid "Female"
-msgstr "Женский"
-
-msgid "Update"
-msgstr "Обновить"
-
-msgid "Invalid age!"
-msgstr "Недействительный возраст!"
-
-msgid "Submit"
-msgstr "Отправить"
-
-msgid "Name already taken!"
-msgstr "Имя уже занято!"
-
-msgid "Search"
-msgstr "Поиск"
-
-msgid "Create"
-msgstr "Создайте"
-
-#: venv/Lib/site-packages/django/contrib/admin/actions.py:41
-#, python-format
-msgid "Successfully deleted %(count)d %(items)s."
-msgstr "Успешно удалено %(count)d %(items)s."
-
-#: venv/Lib/site-packages/django/contrib/admin/actions.py:50
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1868
-#, python-format
-msgid "Cannot delete %(name)s"
-msgstr "Невозможно удалить %(name)s"
-
-#: venv/Lib/site-packages/django/contrib/admin/actions.py:52
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1870
-msgid "Are you sure?"
-msgstr "Ты уверен?"
-
-#: venv/Lib/site-packages/django/contrib/admin/apps.py:12
-msgid "Administration"
-msgstr "Администрация"
-
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:108
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:213
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:248
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:282
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:401
-msgid "All"
-msgstr "Все"
-
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:249
-#: venv/Lib/site-packages/django/forms/widgets.py:710
-#: venv/Lib/site-packages/flask_admin/model/widgets.py:117
-msgid "Yes"
-msgstr "да"
-
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:250
-#: venv/Lib/site-packages/django/forms/widgets.py:711
-#: venv/Lib/site-packages/flask_admin/model/widgets.py:116
-msgid "No"
-msgstr "Нет"
-
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:260
-#: venv/Lib/site-packages/django/forms/widgets.py:709
-msgid "Unknown"
-msgstr "Неизвестно"
-
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:330
-msgid "Any date"
-msgstr "Любая дата"
-
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:331
-msgid "Today"
-msgstr "Cегодня"
-
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:335
-msgid "Past 7 days"
-msgstr "Прошлые 7 дней"
-
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:339
-msgid "This month"
-msgstr "Этот месяц"
-
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:343
-msgid "This year"
-msgstr "Этот год"
-
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:351
-msgid "No date"
-msgstr "Без даты"
-
-#: venv/Lib/site-packages/django/contrib/admin/filters.py:352
-msgid "Has date"
-msgstr "Имеет дату"
-
-#: venv/Lib/site-packages/django/contrib/admin/forms.py:12
-#, python-format
-msgid ""
-"Please enter the correct %(username)s and password for a staff account. "
-"Note that both fields may be case-sensitive."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/admin/helpers.py:21
-msgid "Action:"
-msgstr "Действие:"
-
-#: venv/Lib/site-packages/django/contrib/admin/helpers.py:312
-#, python-format
-msgid "Add another %(verbose_name)s"
-msgstr "Добавить еще %(verbose_name)s"
-
-#: venv/Lib/site-packages/django/contrib/admin/helpers.py:315
-msgid "Remove"
-msgstr "удалять"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:17
-msgid "Addition"
-msgstr "Дополнение"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:18
-#: venv/Lib/site-packages/django/forms/widgets.py:397
-msgid "Change"
-msgstr "+ Изменить"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:19
-msgid "Deletion"
-msgstr "Удаление"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:41
-msgid "action time"
-msgstr "время действия"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:48
-#: venv/Lib/site-packages/django/contrib/auth/models.py:360
-msgid "user"
-msgstr "пользователь"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:53
-#: venv/Lib/site-packages/django/contrib/auth/models.py:60
-#: venv/Lib/site-packages/django/contrib/contenttypes/models.py:139
-msgid "content type"
-msgstr "Тип содержимого"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:56
-msgid "object id"
-msgstr "идентификатор объекта"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:58
-msgid "object repr"
-msgstr "объект repr"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:59
-msgid "action flag"
-msgstr "флаг действия"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:61
-msgid "change message"
-msgstr "изменить сообщение"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:66
-msgid "log entry"
-msgstr "запись в журнале"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:67
-msgid "log entries"
-msgstr "записи журнала"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:76
-#, python-format
-msgid "Added “%(object)s”."
-msgstr "Добавлен « %(object)s»."
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:78
-#, python-format
-msgid "Changed “%(object)s” — %(changes)s"
-msgstr "Изменен « %(object)s» - %(changes)s"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:83
-#, python-format
-msgid "Deleted “%(object)s.”"
-msgstr "Удалено « %(object)s»."
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:85
-msgid "LogEntry Object"
-msgstr "Объект LogEntry"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:110
-msgid "addedname"
-msgstr "добавленное имя"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:111
-msgid "Added {name} “{object}”."
-msgstr "Добавлено {имя} «{объект}»."
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:113
-msgid "Added."
-msgstr "Добавлен."
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:117
-#: venv/Lib/site-packages/django/contrib/admin/options.py:2094
-#: venv/Lib/site-packages/django/db/models/base.py:1181
-#: venv/Lib/site-packages/django/forms/models.py:759
-msgid "and"
-msgstr "и"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:120
-msgid "changedname"
-msgstr "измененное имя"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:121
-msgid "Changed {fields} for {name} “{object}”."
-msgstr "Изменены {поля} на {имя} «{объект}»."
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:125
-msgid "Changed {fields}."
-msgstr "Поменял {поля}."
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:128
-msgid "deletedname"
-msgstr "удаленное имя"
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:129
-msgid "Deleted {name} “{object}”."
-msgstr "Удалено {имя} «{объект}»."
-
-#: venv/Lib/site-packages/django/contrib/admin/models.py:132
-msgid "No fields changed."
-msgstr "Поля не изменились."
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:202
-#: venv/Lib/site-packages/django/contrib/admin/options.py:234
-msgid "None"
-msgstr "Никто"
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:272
-msgid "Hold down “Control”, or “Command” on a Mac, to select more than one."
-msgstr "Удерживайте «Control» или «Command» на Mac, чтобы выбрать более одного."
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1205
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1229
-msgid "The {name} “{obj}” was added successfully."
-msgstr "{Name} «{obj}» был успешно добавлен."
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1207
-msgid "You may edit it again below."
-msgstr "Вы можете отредактировать его снова ниже."
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1219
-msgid ""
-"The {name} “{obj}” was added successfully. You may add another {name} "
-"below."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1269
-msgid "The {name} “{obj}” was changed successfully. You may edit it again below."
-msgstr ""
-"{Name} «{obj}» был успешно изменен. Вы можете отредактировать его снова "
-"ниже."
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1279
-msgid "The {name} “{obj}” was added successfully. You may edit it again below."
-msgstr ""
-"{Name} «{obj}» был успешно добавлен. Вы можете отредактировать его снова "
-"ниже."
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1292
-msgid ""
-"The {name} “{obj}” was changed successfully. You may add another {name} "
-"below."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1304
-msgid "The {name} “{obj}” was changed successfully."
-msgstr "{Name} «{obj}» был успешно изменен."
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1381
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1710
-msgid ""
-"Items must be selected in order to perform actions on them. No items have"
-" been changed."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1400
-msgid "No action selected."
-msgstr "Действие не выбрано."
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1425
-#, python-format
-msgid "The %(name)s “%(obj)s” was deleted successfully."
-msgstr " %(name)s « %(obj)s» был успешно удален."
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1511
-#, python-format
-msgid "%(name)s with ID “%(key)s” doesn’t exist. Perhaps it was deleted?"
-msgstr ""
-" %(name)s с идентификатором « %(key)s» не существует. Возможно, его "
-"удалили?"
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1603
-#, python-format
-msgid "Add %s"
-msgstr "Добавить %s"
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1605
-#, python-format
-msgid "Change %s"
-msgstr "Изменить %s"
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1607
-#, python-format
-msgid "View %s"
-msgstr "Просмотры %s"
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1688
-msgid "Database error"
-msgstr "ошибка базы данных"
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1756
-#, python-format
-msgid "%(count)s %(name)s was changed successfully."
-msgid_plural "%(count)s %(name)s were changed successfully."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1787
-#, python-format
-msgid "%(total_count)s selected"
-msgid_plural "All %(total_count)s selected"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1796
-#, python-format
-msgid "0 of %(cnt)s selected"
-msgstr "Выбрано 0 из %(cnt)s"
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:1913
-#, python-format
-msgid "Change history: %s"
-msgstr "История изменений: %s"
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:2087
-#, python-format
-msgid "%(class_name)s %(instance)s"
-msgstr " %(class_name)s %(instance)s"
-
-#: venv/Lib/site-packages/django/contrib/admin/options.py:2096
-#, python-format
-msgid ""
-"Deleting %(class_name)s %(instance)s would require deleting the following"
-" protected related objects: %(related_objects)s"
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/admin/sites.py:392
-#: venv/Lib/site-packages/django/contrib/admin/tests.py:123
-msgid "Log in"
-msgstr "Войти"
-
-#: venv/Lib/site-packages/django/contrib/admin/sites.py:521
-#, python-format
-msgid "%(app)s administration"
-msgstr " %(app)s администрирование"
-
-#: venv/Lib/site-packages/django/contrib/admin/widgets.py:92
-msgid "Date:"
-msgstr "Дата:"
-
-#: venv/Lib/site-packages/django/contrib/admin/widgets.py:93
-msgid "Time:"
-msgstr "Время:"
-
-#: venv/Lib/site-packages/django/contrib/admin/widgets.py:155
-msgid "Lookup"
-msgstr "Уважать"
-
-#: venv/Lib/site-packages/django/contrib/admin/widgets.py:345
-msgid "Currently:"
-msgstr "В настоящее время:"
-
-#: venv/Lib/site-packages/django/contrib/admin/widgets.py:346
-msgid "Change:"
-msgstr "Изменить:"
-
-#: venv/Lib/site-packages/django/contrib/admin/templatetags/admin_list.py:412
-msgid "All dates"
-msgstr "Все даты"
-
-#: venv/Lib/site-packages/django/contrib/admin/views/main.py:100
-#, python-format
-msgid "Select %s"
-msgstr "Выберите %s"
-
-#: venv/Lib/site-packages/django/contrib/admin/views/main.py:102
-#, python-format
-msgid "Select %s to change"
-msgstr "Выберите %s, чтобы изменить"
-
-#: venv/Lib/site-packages/django/contrib/admin/views/main.py:104
-#, python-format
-msgid "Select %s to view"
-msgstr "Выберите %s для просмотра"
-
-#: venv/Lib/site-packages/django/contrib/admindocs/apps.py:7
-msgid "Administrative Documentation"
-msgstr "Административная документация"
-
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:71
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:72
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:74
-msgid "tag:"
-msgstr "тег:"
-
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:102
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:103
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:105
-msgid "filter:"
-msgstr "фильтр:"
-
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:161
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:162
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:164
-msgid "view:"
-msgstr "Посмотреть:"
-
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:191
-#, python-format
-msgid "App %(app_label)r not found"
-msgstr "Приложение %(app_label)r не найдено"
-
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:195
-#, python-format
-msgid "Model %(model_name)r not found in app %(app_label)r"
-msgstr "Модель %(model_name)r не найдена в приложении %(app_label)r"
-
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:200
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:201
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:216
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:239
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:244
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:259
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:300
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:305
-msgid "model:"
-msgstr "модель:"
-
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:212
-#, python-format
-msgid "the related `%(app_label)s.%(data_type)s` object"
-msgstr "связанный объект ` %(app_label)s. %(data_type)s`"
-
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:232
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:292
-#, python-format
-msgid "related `%(app_label)s.%(object_name)s` objects"
-msgstr "связанные объекты ` %(app_label)s. %(object_name)s`"
-
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:239
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:300
-#, python-format
-msgid "all %s"
-msgstr "все %s"
-
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:244
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:305
-#, python-format
-msgid "number of %s"
-msgstr "количество %s"
-
-#: venv/Lib/site-packages/django/contrib/admindocs/views.py:398
-#, python-format
-msgid "%s does not appear to be a urlpattern object"
-msgstr " %s не является объектом urlpattern"
-
-#: venv/Lib/site-packages/django/contrib/auth/admin.py:46
-msgid "Personal info"
-msgstr "Личная информация"
-
-#: venv/Lib/site-packages/django/contrib/auth/admin.py:47
-msgid "Permissions"
-msgstr "Разрешения"
-
-#: venv/Lib/site-packages/django/contrib/auth/admin.py:50
-msgid "Important dates"
-msgstr "Важные даты"
-
-#: venv/Lib/site-packages/django/contrib/auth/admin.py:134
-#, python-format
-msgid "%(name)s object with primary key %(key)r does not exist."
-msgstr "Объект %(name)s с первичным ключом %(key)r не существует."
-
-#: venv/Lib/site-packages/django/contrib/auth/admin.py:144
-msgid "Password changed successfully."
-msgstr "Пароль успешно изменен."
-
-#: venv/Lib/site-packages/django/contrib/auth/admin.py:164
-#, python-format
-msgid "Change password: %s"
-msgstr "Изменить пароль: %s"
-
-#: venv/Lib/site-packages/django/contrib/auth/apps.py:15
-msgid "Authentication and Authorization"
-msgstr "Аутентификация и авторизация"
-
-#: venv/Lib/site-packages/django/contrib/auth/base_user.py:48
-msgid "password"
-msgstr "Пароль"
-
-#: venv/Lib/site-packages/django/contrib/auth/base_user.py:49
-msgid "last login"
-msgstr "последний вход"
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:40
-msgid "No password set."
-msgstr "Пароль не установлен."
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:45
-msgid "Invalid password format or unknown hashing algorithm."
-msgstr "Неверный формат пароля или неизвестный алгоритм хеширования."
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:87
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:334
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:407
-msgid "The two password fields didn’t match."
-msgstr "Два поля пароля не совпадают."
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:90
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:143
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:179
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:411
-msgid "Password"
-msgstr "пароль"
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:96
-msgid "Password confirmation"
-msgstr "Подтверждение пароля"
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:99
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:420
-msgid "Enter the same password as before, for verification."
-msgstr "Введите тот же пароль, что и раньше, для проверки."
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:144
-msgid ""
-"Raw passwords are not stored, so there is no way to see this user’s "
-"password, but you can change the password using <a href=\"{}\">this "
-"form</a>."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:185
-#, python-format
-msgid ""
-"Please enter a correct %(username)s and password. Note that both fields "
-"may be case-sensitive."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:189
-msgid "This account is inactive."
-msgstr "Этот аккаунт не активен."
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:252
-msgid "Email"
-msgstr "Эл. адрес"
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:337
-msgid "New password"
-msgstr "Новый пароль"
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:343
-msgid "New password confirmation"
-msgstr "Подтверждение нового пароля"
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:379
-msgid "Your old password was entered incorrectly. Please enter it again."
-msgstr "Ваш старый пароль был введен неверно. Пожалуйста, введите его еще раз."
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:382
-msgid "Old password"
-msgstr "Прежний пароль"
-
-#: venv/Lib/site-packages/django/contrib/auth/forms.py:417
-msgid "Password (again)"
-msgstr "Пароль еще раз)"
-
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:259
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:333
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:429
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:489
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:520
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:556
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:592
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:630
-msgid "algorithm"
-msgstr "алгоритм"
-
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:260
-msgid "iterations"
-msgstr "итерации"
-
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:261
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:339
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:431
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:490
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:521
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:631
-msgid "salt"
-msgstr "поваренная соль"
-
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:262
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:340
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:491
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:522
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:557
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:593
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:632
-msgid "hash"
-msgstr "хэш"
-
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:334
-msgid "variety"
-msgstr "разнообразие"
-
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:335
-msgid "version"
-msgstr "версия"
-
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:336
-msgid "memory cost"
-msgstr "стоимость памяти"
-
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:337
-msgid "time cost"
-msgstr "временные затраты"
-
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:338
-msgid "parallelism"
-msgstr "параллелизм"
-
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:430
-msgid "work factor"
-msgstr "рабочий фактор"
-
-#: venv/Lib/site-packages/django/contrib/auth/hashers.py:432
-msgid "checksum"
-msgstr "контрольная сумма"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:56
-#: venv/Lib/site-packages/django/contrib/auth/models.py:108
-msgid "name"
-msgstr "название"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:62
-msgid "codename"
-msgstr "кодовое имя"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:67
-msgid "permission"
-msgstr "разрешение"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:68
-#: venv/Lib/site-packages/django/contrib/auth/models.py:111
-msgid "permissions"
-msgstr "разрешения"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:118
-msgid "group"
-msgstr "группа"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:119
-#: venv/Lib/site-packages/django/contrib/auth/models.py:242
-msgid "groups"
-msgstr "группы"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:233
-msgid "superuser status"
-msgstr "статус суперпользователя"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:235
-msgid ""
-"Designates that this user has all permissions without explicitly "
-"assigning them."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:244
-msgid ""
-"The groups this user belongs to. A user will get all permissions granted "
-"to each of their groups."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:253
-msgid "user permissions"
-msgstr "права пользователя"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:255
-msgid "Specific permissions for this user."
-msgstr "Особые разрешения для этого пользователя."
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:326
-msgid "username"
-msgstr "имя пользователя"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:329
-msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Необходимое поле. 150 символов или меньше. Только буквы, цифры и @ /. / +"
-" / - / _."
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:332
-msgid "A user with that username already exists."
-msgstr "Пользователь с таким именем уже существует."
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:335
-msgid "first name"
-msgstr "Имя"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:336
-msgid "last name"
-msgstr "Фамилия"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:337
-msgid "email address"
-msgstr "адрес электронной почты"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:339
-msgid "staff status"
-msgstr "статус персонала"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:341
-msgid "Designates whether the user can log into this admin site."
-msgstr "Определяет, может ли пользователь войти на этот сайт администратора."
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:344
-msgid "active"
-msgstr "активный"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:346
-msgid ""
-"Designates whether this user should be treated as active. Unselect this "
-"instead of deleting accounts."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:351
-msgid "date joined"
-msgstr "дата присоединения"
-
-#: venv/Lib/site-packages/django/contrib/auth/models.py:361
-msgid "users"
-msgstr "пользователи"
-
-#: venv/Lib/site-packages/django/contrib/auth/password_validation.py:101
-#, python-format
-msgid ""
-"This password is too short. It must contain at least %(min_length)d "
-"character."
-msgid_plural ""
-"This password is too short. It must contain at least %(min_length)d "
-"characters."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/auth/password_validation.py:111
-#, python-format
-msgid "Your password must contain at least %(min_length)d character."
-msgid_plural "Your password must contain at least %(min_length)d characters."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/auth/password_validation.py:151
-#, python-format
-msgid "The password is too similar to the %(verbose_name)s."
-msgstr "Пароль слишком похож на %(verbose_name)s."
-
-#: venv/Lib/site-packages/django/contrib/auth/password_validation.py:157
-msgid "Your password can’t be too similar to your other personal information."
-msgstr "Ваш пароль не может быть слишком похож на вашу другую личную информацию."
-
-#: venv/Lib/site-packages/django/contrib/auth/password_validation.py:183
-msgid "This password is too common."
-msgstr "Этот пароль слишком распространен."
-
-#: venv/Lib/site-packages/django/contrib/auth/password_validation.py:188
-msgid "Your password can’t be a commonly used password."
-msgstr "Ваш пароль не может быть обычным паролем."
-
-#: venv/Lib/site-packages/django/contrib/auth/password_validation.py:198
-msgid "This password is entirely numeric."
-msgstr "Этот пароль полностью цифровой."
-
-#: venv/Lib/site-packages/django/contrib/auth/password_validation.py:203
-msgid "Your password can’t be entirely numeric."
-msgstr "Ваш пароль не может быть полностью числовым."
-
-#: venv/Lib/site-packages/django/contrib/auth/validators.py:11
-msgid ""
-"Enter a valid username. This value may contain only English letters, "
-"numbers, and @/./+/-/_ characters."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/auth/validators.py:21
-msgid ""
-"Enter a valid username. This value may contain only letters, numbers, and"
-" @/./+/-/_ characters."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/auth/views.py:160
-msgid "Logged out"
-msgstr "Вышли из"
-
-#: venv/Lib/site-packages/django/contrib/auth/views.py:217
-msgid "Password reset"
-msgstr "Восстановление пароля"
-
-#: venv/Lib/site-packages/django/contrib/auth/views.py:244
-msgid "Password reset sent"
-msgstr "Сброс пароля отправлен"
-
-#: venv/Lib/site-packages/django/contrib/auth/views.py:254
-msgid "Enter new password"
-msgstr "Введите новый пароль"
-
-#: venv/Lib/site-packages/django/contrib/auth/views.py:314
-msgid "Password reset unsuccessful"
-msgstr "Не удалось сбросить пароль"
-
-#: venv/Lib/site-packages/django/contrib/auth/views.py:322
-msgid "Password reset complete"
-msgstr "Сброс пароля завершен"
-
-#: venv/Lib/site-packages/django/contrib/auth/views.py:334
-msgid "Password change"
-msgstr "Смена пароля"
-
-#: venv/Lib/site-packages/django/contrib/auth/views.py:357
-msgid "Password change successful"
-msgstr "Пароль успешно изменен"
-
-#: venv/Lib/site-packages/django/contrib/contenttypes/apps.py:16
-msgid "Content Types"
-msgstr "Типы контента"
-
-#: venv/Lib/site-packages/django/contrib/contenttypes/models.py:135
-msgid "python model class name"
-msgstr "имя класса модели Python"
-
-#: venv/Lib/site-packages/django/contrib/contenttypes/models.py:140
-msgid "content types"
-msgstr "типы контента"
-
-#: venv/Lib/site-packages/django/contrib/contenttypes/views.py:18
-#, python-format
-msgid "Content type %(ct_id)s object has no associated model"
-msgstr "Объект типа содержимого %(ct_id)s не имеет связанной модели"
-
-#: venv/Lib/site-packages/django/contrib/contenttypes/views.py:24
-#, python-format
-msgid "Content type %(ct_id)s object %(obj_id)s doesn’t exist"
-msgstr "Тип содержимого %(ct_id)s объект %(obj_id)s не существует"
-
-#: venv/Lib/site-packages/django/contrib/contenttypes/views.py:32
-#, python-format
-msgid "%(ct_name)s objects don’t have a get_absolute_url() method"
-msgstr "У объектов %(ct_name)s нет метода get_absolute_url()"
-
-#: venv/Lib/site-packages/django/contrib/flatpages/admin.py:12
-msgid "Advanced options"
-msgstr "Расширенные опции"
-
-#: venv/Lib/site-packages/django/contrib/flatpages/apps.py:7
-msgid "Flat Pages"
-msgstr "Плоские страницы"
-
-#: venv/Lib/site-packages/django/contrib/flatpages/forms.py:9
-#: venv/Lib/site-packages/django/contrib/flatpages/models.py:9
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:2191
-msgid "URL"
-msgstr "URL"
-
-#: venv/Lib/site-packages/django/contrib/flatpages/forms.py:12
-msgid ""
-"Example: “/about/contact/”. Make sure to have leading and trailing "
-"slashes."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/flatpages/forms.py:14
-msgid ""
-"This value must contain only letters, numbers, dots, underscores, dashes,"
-" slashes or tildes."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/flatpages/forms.py:28
-msgid "Example: “/about/contact”. Make sure to have a leading slash."
-msgstr "Пример: «/ о / контакт». Убедитесь, что у вас есть начальная косая черта."
-
-#: venv/Lib/site-packages/django/contrib/flatpages/forms.py:42
-msgid "URL is missing a leading slash."
-msgstr "В URL отсутствует косая черта в начале."
-
-#: venv/Lib/site-packages/django/contrib/flatpages/forms.py:47
-msgid "URL is missing a trailing slash."
-msgstr "В URL отсутствует косая черта в конце."
-
-#: venv/Lib/site-packages/django/contrib/flatpages/forms.py:64
-#, python-format
-msgid "Flatpage with url %(url)s already exists for site %(site)s"
-msgstr "Плоская страница с URL %(url)s уже существует для сайта %(site)s"
-
-#: venv/Lib/site-packages/django/contrib/flatpages/models.py:10
-msgid "title"
-msgstr "заглавие"
-
-#: venv/Lib/site-packages/django/contrib/flatpages/models.py:11
-msgid "content"
-msgstr "содержание"
-
-#: venv/Lib/site-packages/django/contrib/flatpages/models.py:12
-msgid "enable comments"
-msgstr "включить комментарии"
-
-#: venv/Lib/site-packages/django/contrib/flatpages/models.py:14
-msgid "template name"
-msgstr "Имя Шаблона"
-
-#: venv/Lib/site-packages/django/contrib/flatpages/models.py:17
-msgid ""
-"Example: “flatpages/contact_page.html”. If this isn’t provided, the "
-"system will use “flatpages/default.html”."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/flatpages/models.py:23
-msgid "registration required"
-msgstr "требуется регистрация"
-
-#: venv/Lib/site-packages/django/contrib/flatpages/models.py:24
-msgid "If this is checked, only logged-in users will be able to view the page."
-msgstr ""
-"Если этот флажок установлен, только зарегистрированные пользователи "
-"смогут просматривать страницу."
-
-#: venv/Lib/site-packages/django/contrib/flatpages/models.py:27
-#: venv/Lib/site-packages/django/contrib/sites/models.py:93
-msgid "sites"
-msgstr "места"
-
-#: venv/Lib/site-packages/django/contrib/flatpages/models.py:31
-msgid "flat page"
-msgstr "плоская страница"
-
-#: venv/Lib/site-packages/django/contrib/flatpages/models.py:32
-msgid "flat pages"
-msgstr "плоские страницы"
-
-#: venv/Lib/site-packages/django/contrib/gis/apps.py:8
-msgid "GIS"
-msgstr "ГИС"
-
-#: venv/Lib/site-packages/django/contrib/gis/views.py:8
-msgid "No feeds are registered."
-msgstr "Каналы не зарегистрированы."
-
-#: venv/Lib/site-packages/django/contrib/gis/views.py:14
-#, python-format
-msgid "Slug %r isn’t registered."
-msgstr "Слаг %r не зарегистрирован."
-
-#: venv/Lib/site-packages/django/contrib/gis/db/models/fields.py:64
-msgid "The base GIS field."
-msgstr "Базовое поле ГИС."
-
-#: venv/Lib/site-packages/django/contrib/gis/db/models/fields.py:201
-msgid "The base Geometry field — maps to the OpenGIS Specification Geometry type."
-msgstr ""
-"Базовое поле геометрии - соответствует типу геометрии спецификации "
-"OpenGIS."
-
-#: venv/Lib/site-packages/django/contrib/gis/db/models/fields.py:285
-msgid "Point"
-msgstr "Точка"
-
-#: venv/Lib/site-packages/django/contrib/gis/db/models/fields.py:292
-msgid "Line string"
-msgstr "Строка строки"
-
-#: venv/Lib/site-packages/django/contrib/gis/db/models/fields.py:299
-msgid "Polygon"
-msgstr "Многоугольник"
-
-#: venv/Lib/site-packages/django/contrib/gis/db/models/fields.py:306
-msgid "Multi-point"
-msgstr "Многоточечный"
-
-#: venv/Lib/site-packages/django/contrib/gis/db/models/fields.py:313
-msgid "Multi-line string"
-msgstr "Многострочная строка"
-
-#: venv/Lib/site-packages/django/contrib/gis/db/models/fields.py:320
-msgid "Multi polygon"
-msgstr "Мульти многоугольник"
-
-#: venv/Lib/site-packages/django/contrib/gis/db/models/fields.py:327
-msgid "Geometry collection"
-msgstr "Коллекция геометрии"
-
-#: venv/Lib/site-packages/django/contrib/gis/db/models/fields.py:333
-msgid "Extent Aggregate Field"
-msgstr "Поле агрегирования экстента"
-
-#: venv/Lib/site-packages/django/contrib/gis/db/models/fields.py:348
-msgid "Raster Field"
-msgstr "Растровое поле"
-
-#: venv/Lib/site-packages/django/contrib/gis/forms/fields.py:19
-msgid "No geometry value provided."
-msgstr "Не указано геометрическое значение."
-
-#: venv/Lib/site-packages/django/contrib/gis/forms/fields.py:20
-msgid "Invalid geometry value."
-msgstr "Неверное значение геометрии."
-
-#: venv/Lib/site-packages/django/contrib/gis/forms/fields.py:21
-msgid "Invalid geometry type."
-msgstr "Неверный тип геометрии."
-
-#: venv/Lib/site-packages/django/contrib/gis/forms/fields.py:22
-msgid ""
-"An error occurred when transforming the geometry to the SRID of the "
-"geometry form field."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/apps.py:7
-msgid "Humanize"
-msgstr "Очеловечивать"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:31
-msgctxt "ordinal 11, 12, 13"
-msgid "{}th"
-msgstr "{} th"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:35
-msgctxt "ordinal 0"
-msgid "{}th"
-msgstr "{} th"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:37
-msgctxt "ordinal 1"
-msgid "{}st"
-msgstr "{} ул."
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:39
-msgctxt "ordinal 2"
-msgid "{}nd"
-msgstr "{} nd"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:41
-msgctxt "ordinal 3"
-msgid "{}rd"
-msgstr "{} рд"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:43
-msgctxt "ordinal 4"
-msgid "{}th"
-msgstr "{} th"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:45
-msgctxt "ordinal 5"
-msgid "{}th"
-msgstr "{} th"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:47
-msgctxt "ordinal 6"
-msgid "{}th"
-msgstr "{} th"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:49
-msgctxt "ordinal 7"
-msgid "{}th"
-msgstr "{} th"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:51
-msgctxt "ordinal 8"
-msgid "{}th"
-msgstr "{} th"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:53
-msgctxt "ordinal 9"
-msgid "{}th"
-msgstr "{} th"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:85
-#, python-format
-msgid "%(value).1f million"
-msgid_plural "%(value).1f million"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:86
-#, python-format
-msgid "%(value)s million"
-msgid_plural "%(value)s million"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:89
-#, python-format
-msgid "%(value).1f billion"
-msgid_plural "%(value).1f billion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:90
-#, python-format
-msgid "%(value)s billion"
-msgid_plural "%(value)s billion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:93
-#, python-format
-msgid "%(value).1f trillion"
-msgid_plural "%(value).1f trillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:94
-#, python-format
-msgid "%(value)s trillion"
-msgid_plural "%(value)s trillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:97
-#, python-format
-msgid "%(value).1f quadrillion"
-msgid_plural "%(value).1f quadrillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:98
-#, python-format
-msgid "%(value)s quadrillion"
-msgid_plural "%(value)s quadrillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:101
-#, python-format
-msgid "%(value).1f quintillion"
-msgid_plural "%(value).1f quintillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:102
-#, python-format
-msgid "%(value)s quintillion"
-msgid_plural "%(value)s quintillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:105
-#, python-format
-msgid "%(value).1f sextillion"
-msgid_plural "%(value).1f sextillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:106
-#, python-format
-msgid "%(value)s sextillion"
-msgid_plural "%(value)s sextillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:109
-#, python-format
-msgid "%(value).1f septillion"
-msgid_plural "%(value).1f septillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:110
-#, python-format
-msgid "%(value)s septillion"
-msgid_plural "%(value)s septillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:113
-#, python-format
-msgid "%(value).1f octillion"
-msgid_plural "%(value).1f octillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:114
-#, python-format
-msgid "%(value)s octillion"
-msgid_plural "%(value)s octillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:117
-#, python-format
-msgid "%(value).1f nonillion"
-msgid_plural "%(value).1f nonillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:118
-#, python-format
-msgid "%(value)s nonillion"
-msgid_plural "%(value)s nonillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:121
-#, python-format
-msgid "%(value).1f decillion"
-msgid_plural "%(value).1f decillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:122
-#, python-format
-msgid "%(value)s decillion"
-msgid_plural "%(value)s decillion"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:125
-#, python-format
-msgid "%(value).1f googol"
-msgid_plural "%(value).1f googol"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:126
-#, python-format
-msgid "%(value)s googol"
-msgid_plural "%(value)s googol"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:178
-msgid "one"
-msgstr "один"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:178
-msgid "two"
-msgstr "два"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:178
-msgid "three"
-msgstr "три"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:178
-msgid "four"
-msgstr "четыре"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:178
-msgid "five"
-msgstr "пять"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:179
-msgid "six"
-msgstr "шесть"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:179
-msgid "seven"
-msgstr "Семь"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:179
-msgid "eight"
-msgstr "восемь"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:179
-msgid "nine"
-msgstr "девять"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:200
-msgid "today"
-msgstr "Cегодня"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:202
-msgid "tomorrow"
-msgstr "завтра"
-
-#: venv/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:204
-msgid "yesterday"
-msgstr "вчерашний день"
-
-#: venv/Lib/site-packages/django/contrib/postgres/apps.py:42
-msgid "PostgreSQL extensions"
-msgstr "Расширения PostgreSQL"
-
-#: venv/Lib/site-packages/django/contrib/postgres/validators.py:29
-#, python-format
-msgid "Some keys were missing: %(keys)s"
-msgstr "Некоторые ключи отсутствовали: %(keys)s"
-
-#: venv/Lib/site-packages/django/contrib/postgres/validators.py:30
-#, python-format
-msgid "Some unknown keys were provided: %(keys)s"
-msgstr "Были предоставлены некоторые неизвестные ключи: %(keys)s"
-
-#: venv/Lib/site-packages/django/contrib/postgres/validators.py:70
-#, python-format
-msgid ""
-"Ensure that this range is completely less than or equal to "
-"%(limit_value)s."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/postgres/validators.py:76
-#, python-format
-msgid ""
-"Ensure that this range is completely greater than or equal to "
-"%(limit_value)s."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/postgres/fields/array.py:21
-#: venv/Lib/site-packages/django/contrib/postgres/forms/array.py:16
-#: venv/Lib/site-packages/django/contrib/postgres/forms/array.py:170
-#, python-format
-msgid "Item %(nth)s in the array did not validate:"
-msgstr "Элемент %(nth)s в массиве не прошел проверку:"
-
-#: venv/Lib/site-packages/django/contrib/postgres/fields/array.py:22
-msgid "Nested arrays must have the same length."
-msgstr "Вложенные массивы должны иметь одинаковую длину."
-
-#: venv/Lib/site-packages/django/contrib/postgres/fields/hstore.py:16
-msgid "Map of strings to strings/nulls"
-msgstr "Отображение строк в строки / нули"
-
-#: venv/Lib/site-packages/django/contrib/postgres/fields/hstore.py:18
-#, python-format
-msgid "The value of “%(key)s” is not a string or null."
-msgstr "Значение « %(key)s» не является строкой или нулем."
-
-#: venv/Lib/site-packages/django/contrib/postgres/fields/jsonb.py:32
-msgid "A JSON object"
-msgstr "Объект JSON"
-
-#: venv/Lib/site-packages/django/contrib/postgres/fields/jsonb.py:34
-msgid "Value must be valid JSON."
-msgstr "Значение должно быть действительным JSON."
-
-#: venv/Lib/site-packages/django/contrib/postgres/forms/hstore.py:16
-msgid "Could not load JSON data."
-msgstr "Не удалось загрузить данные JSON."
-
-#: venv/Lib/site-packages/django/contrib/postgres/forms/hstore.py:17
-msgid "Input must be a JSON dictionary."
-msgstr "Входные данные должны быть словарем JSON."
-
-#: venv/Lib/site-packages/django/contrib/postgres/forms/jsonb.py:19
-#, python-format
-msgid "“%(value)s” value must be valid JSON."
-msgstr "Значение « %(value)s» должно быть допустимым JSON."
-
-#: venv/Lib/site-packages/django/contrib/postgres/forms/ranges.py:37
-msgid "Enter two valid values."
-msgstr "Введите два действительных значения."
-
-#: venv/Lib/site-packages/django/contrib/postgres/forms/ranges.py:38
-msgid "The start of the range must not exceed the end of the range."
-msgstr "Начало диапазона не должно превышать конец диапазона."
-
-#: venv/Lib/site-packages/django/contrib/postgres/forms/ranges.py:86
-msgid "Enter two whole numbers."
-msgstr "Введите два целых числа."
-
-#: venv/Lib/site-packages/django/contrib/postgres/forms/ranges.py:92
-msgid "Enter two numbers."
-msgstr "Введите два числа."
-
-#: venv/Lib/site-packages/django/contrib/postgres/forms/ranges.py:109
-msgid "Enter two valid date/times."
-msgstr "Введите две действительные дату / время."
-
-#: venv/Lib/site-packages/django/contrib/postgres/forms/ranges.py:115
-msgid "Enter two valid dates."
-msgstr "Введите две действительные даты."
-
-#: venv/Lib/site-packages/django/contrib/redirects/apps.py:7
-msgid "Redirects"
-msgstr "Перенаправления"
-
-#: venv/Lib/site-packages/django/contrib/redirects/models.py:7
-#: venv/Lib/site-packages/django/contrib/sites/models.py:92
-msgid "site"
-msgstr "сайт"
-
-#: venv/Lib/site-packages/django/contrib/redirects/models.py:9
-msgid "redirect from"
-msgstr "перенаправить с"
-
-#: venv/Lib/site-packages/django/contrib/redirects/models.py:12
-msgid ""
-"This should be an absolute path, excluding the domain name. Example: "
-"“/events/search/”."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/redirects/models.py:15
-msgid "redirect to"
-msgstr "перенаправить на"
-
-#: venv/Lib/site-packages/django/contrib/redirects/models.py:18
-msgid ""
-"This can be either an absolute path (as above) or a full URL starting "
-"with “http://”."
-msgstr ""
-
-#: venv/Lib/site-packages/django/contrib/redirects/models.py:22
-msgid "redirect"
-msgstr "перенаправить"
-
-#: venv/Lib/site-packages/django/contrib/redirects/models.py:23
-msgid "redirects"
-msgstr "перенаправляет"
-
-#: venv/Lib/site-packages/django/contrib/sessions/apps.py:7
-msgid "Sessions"
-msgstr "Сессии"
-
-#: venv/Lib/site-packages/django/contrib/sessions/base_session.py:27
-msgid "session key"
-msgstr "ключ сеанса"
-
-#: venv/Lib/site-packages/django/contrib/sessions/base_session.py:28
-msgid "session data"
-msgstr "данные сеанса"
-
-#: venv/Lib/site-packages/django/contrib/sessions/base_session.py:29
-msgid "expire date"
-msgstr "годен до"
-
-#: venv/Lib/site-packages/django/contrib/sessions/base_session.py:35
-msgid "session"
-msgstr "сессия"
-
-#: venv/Lib/site-packages/django/contrib/sessions/base_session.py:36
-msgid "sessions"
-msgstr "сессии"
-
-#: venv/Lib/site-packages/django/contrib/sitemaps/apps.py:7
-msgid "Site Maps"
-msgstr "Карты сайта"
-
-#: venv/Lib/site-packages/django/contrib/sites/apps.py:10
-msgid "Sites"
-msgstr "Места"
-
-#: venv/Lib/site-packages/django/contrib/sites/models.py:20
-msgid "The domain name cannot contain any spaces or tabs."
-msgstr "Имя домена не может содержать пробелов или табуляций."
-
-#: venv/Lib/site-packages/django/contrib/sites/models.py:81
-msgid "domain name"
-msgstr "доменное имя"
-
-#: venv/Lib/site-packages/django/contrib/sites/models.py:86
-msgid "display name"
-msgstr "отображаемое имя"
-
-#: venv/Lib/site-packages/django/contrib/staticfiles/apps.py:9
-msgid "Static Files"
-msgstr "Статические файлы"
-
-#: venv/Lib/site-packages/django/contrib/syndication/apps.py:7
-msgid "Syndication"
-msgstr "Синдикация"
-
-#: venv/Lib/site-packages/django/core/paginator.py:45
-msgid "That page number is not an integer"
-msgstr "Номер страницы не является целым числом"
-
-#: venv/Lib/site-packages/django/core/paginator.py:47
-msgid "That page number is less than 1"
-msgstr "Номер страницы меньше 1"
-
-#: venv/Lib/site-packages/django/core/paginator.py:52
-msgid "That page contains no results"
-msgstr "Эта страница не содержит результатов"
-
-#: venv/Lib/site-packages/django/core/validators.py:32
-msgid "Enter a valid value."
-msgstr "Введите допустимое значение."
-
-#: venv/Lib/site-packages/django/core/validators.py:103
-#: venv/Lib/site-packages/django/forms/fields.py:659
-msgid "Enter a valid URL."
-msgstr "Введите действующий URL."
-
-#: venv/Lib/site-packages/django/core/validators.py:155
-msgid "Enter a valid integer."
-msgstr "Введите действительное целое число."
-
-#: venv/Lib/site-packages/django/core/validators.py:166
-msgid "Enter a valid email address."
-msgstr "Введите корректный электронный адрес."
-
-#: venv/Lib/site-packages/django/core/validators.py:240
-msgid ""
-"Enter a valid “slug” consisting of letters, numbers, underscores or "
-"hyphens."
-msgstr ""
-
-#: venv/Lib/site-packages/django/core/validators.py:247
-msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores,"
-" or hyphens."
-msgstr ""
-
-#: venv/Lib/site-packages/django/core/validators.py:256
-#: venv/Lib/site-packages/django/core/validators.py:276
-msgid "Enter a valid IPv4 address."
-msgstr "Введите действительный адрес IPv4."
-
-#: venv/Lib/site-packages/django/core/validators.py:261
-#: venv/Lib/site-packages/django/core/validators.py:277
-msgid "Enter a valid IPv6 address."
-msgstr "Введите действующий IPv6-адрес."
-
-#: venv/Lib/site-packages/django/core/validators.py:271
-#: venv/Lib/site-packages/django/core/validators.py:275
-msgid "Enter a valid IPv4 or IPv6 address."
-msgstr "Введите действительный адрес IPv4 или IPv6."
-
-#: venv/Lib/site-packages/django/core/validators.py:305
-msgid "Enter only digits separated by commas."
-msgstr "Введите только цифры, разделенные запятыми."
-
-#: venv/Lib/site-packages/django/core/validators.py:311
-#, python-format
-msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
-msgstr "Убедитесь, что это значение %(limit_value)s (это %(show_value)s)."
-
-#: venv/Lib/site-packages/django/core/validators.py:343
-#, python-format
-msgid "Ensure this value is less than or equal to %(limit_value)s."
-msgstr "Убедитесь, что это значение меньше или равно %(limit_value)s."
-
-#: venv/Lib/site-packages/django/core/validators.py:352
-#, python-format
-msgid "Ensure this value is greater than or equal to %(limit_value)s."
-msgstr "Убедитесь, что это значение больше или равно %(limit_value)s."
-
-#: venv/Lib/site-packages/django/core/validators.py:396
-#: venv/Lib/site-packages/django/forms/fields.py:291
-#: venv/Lib/site-packages/django/forms/fields.py:326
-msgid "Enter a number."
-msgstr "Введите номер."
-
-#: venv/Lib/site-packages/django/core/validators.py:469
-#, python-format
-msgid ""
-"File extension “%(extension)s” is not allowed. Allowed extensions are: "
-"%(allowed_extensions)s."
-msgstr ""
-
-#: venv/Lib/site-packages/django/core/validators.py:522
-msgid "Null characters are not allowed."
-msgstr "Нулевые символы не допускаются."
-
-#: venv/Lib/site-packages/django/db/models/base.py:1183
-#, python-format
-msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr " %(model_name)s с этим %(field_labels)s уже существует."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:104
-#, python-format
-msgid "Value %(value)r is not a valid choice."
-msgstr "Значение %(value)r не является допустимым выбором."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:105
-msgid "This field cannot be null."
-msgstr "Это поле не может быть пустым."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:106
-msgid "This field cannot be blank."
-msgstr "Это поле не может быть пустым."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:107
-#, python-format
-msgid "%(model_name)s with this %(field_label)s already exists."
-msgstr " %(model_name)s с этим %(field_label)s уже существует."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:111
-#, python-format
-msgid "%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
-msgstr ""
-" %(field_label)s должен быть уникальным для %(date_field_label)s "
-"%(lookup_type)s."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:130
-#, python-format
-msgid "Field of type: %(field_type)s"
-msgstr "Поле типа: %(field_type)s"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:937
-#, python-format
-msgid "“%(value)s” value must be either True or False."
-msgstr "Значение « %(value)s» должно быть либо True, либо False."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:938
-#, python-format
-msgid "“%(value)s” value must be either True, False, or None."
-msgstr "Значение « %(value)s» должно быть True, False или None."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:940
-msgid "Boolean (Either True or False)"
-msgstr "Логическое значение (Истина или Ложь)"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:981
-#, python-format
-msgid "String (up to %(max_length)s)"
-msgstr "Строка (до %(max_length)s)"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1045
-msgid "Comma-separated integers"
-msgstr "Целые числа, разделенные запятыми"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1094
-#, python-format
-msgid ""
-"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
-"format."
-msgstr ""
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1096
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1239
-#, python-format
-msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an "
-"invalid date."
-msgstr ""
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1099
-msgid "Date (without time)"
-msgstr "Дата (без времени)"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1237
-#, python-format
-msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
-msgstr ""
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1241
-#, python-format
-msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
-msgstr ""
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1245
-msgid "Date (with time)"
-msgstr "Дата (со временем)"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1393
-#, python-format
-msgid "“%(value)s” value must be a decimal number."
-msgstr "Значение « %(value)s» должно быть десятичным числом."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1395
-msgid "Decimal number"
-msgstr "Десятичное число"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1534
-#, python-format
-msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
-msgstr ""
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1537
-msgid "Duration"
-msgstr "Продолжительность"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1587
-msgid "Email address"
-msgstr "Адрес электронной почты"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1610
-msgid "File path"
-msgstr "Путь файла"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1676
-#, python-format
-msgid "“%(value)s” value must be a float."
-msgstr "Значение « %(value)s» должно быть плавающим."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1678
-msgid "Floating point number"
-msgstr "Число с плавающей запятой"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1716
-#, python-format
-msgid "“%(value)s” value must be an integer."
-msgstr "Значение « %(value)s» должно быть целым числом."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1718
-msgid "Integer"
-msgstr "Целое число"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1801
-msgid "Big (8 byte) integer"
-msgstr "Большое (8 байт) целое число"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1817
-msgid "IPv4 address"
-msgstr "IPv4-адрес"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1848
-msgid "IP address"
-msgstr "айпи адрес"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1928
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1929
-#, python-format
-msgid "“%(value)s” value must be either None, True or False."
-msgstr "Значение « %(value)s» должно быть None, True или False."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1931
-msgid "Boolean (Either True, False or None)"
-msgstr "Логическое значение (Истина, Ложь или Нет)"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1966
-msgid "Positive integer"
-msgstr "Положительное число"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1979
-msgid "Positive small integer"
-msgstr "Положительное маленькое целое число"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:1993
-#, python-format
-msgid "Slug (up to %(max_length)s)"
-msgstr "Слаг (до %(max_length)s)"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:2025
-msgid "Small integer"
-msgstr "Маленькое целое число"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:2032
-msgid "Text"
-msgstr "Текст"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:2060
-#, python-format
-msgid ""
-"“%(value)s” value has an invalid format. It must be in "
-"HH:MM[:ss[.uuuuuu]] format."
-msgstr ""
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:2062
-#, python-format
-msgid ""
-"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is "
-"an invalid time."
-msgstr ""
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:2213
-msgid "Raw binary data"
-msgstr "Необработанные двоичные данные"
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:2278
-#, python-format
-msgid "“%(value)s” is not a valid UUID."
-msgstr "« %(value)s» не является допустимым UUID."
-
-#: venv/Lib/site-packages/django/db/models/fields/__init__.py:2280
-msgid "Universally unique identifier"
-msgstr "Универсальный уникальный идентификатор"
-
-#: venv/Lib/site-packages/django/db/models/fields/files.py:221
-msgid "File"
-msgstr "файл"
-
-#: venv/Lib/site-packages/django/db/models/fields/files.py:360
-msgid "Image"
-msgstr "Образ"
-
-#: venv/Lib/site-packages/django/db/models/fields/related.py:778
-#, python-format
-msgid "%(model)s instance with %(field)s %(value)r does not exist."
-msgstr "Экземпляр %(model)s с %(field)s %(value)r не существует."
-
-#: venv/Lib/site-packages/django/db/models/fields/related.py:780
-msgid "Foreign Key (type determined by related field)"
-msgstr "Внешний ключ (тип определяется связанным полем)"
-
-#: venv/Lib/site-packages/django/db/models/fields/related.py:1012
-msgid "One-to-one relationship"
-msgstr "Отношения один на один"
-
-#: venv/Lib/site-packages/django/db/models/fields/related.py:1066
-#, python-format
-msgid "%(from)s-%(to)s relationship"
-msgstr " %(from)s - %(to)s отношения"
-
-#: venv/Lib/site-packages/django/db/models/fields/related.py:1067
-#, python-format
-msgid "%(from)s-%(to)s relationships"
-msgstr " %(from)s - %(to)s отношения"
-
-#: venv/Lib/site-packages/django/db/models/fields/related.py:1109
-msgid "Many-to-many relationship"
-msgstr "Отношения многие-ко-многим"
-
-#: venv/Lib/site-packages/django/forms/boundfield.py:149
-msgid ":?.!"
-msgstr ":?.!"
-
-#: venv/Lib/site-packages/django/forms/fields.py:53
-#: venv/Lib/site-packages/flask_wtf/file.py:50
-#: venv/Lib/site-packages/wtforms/validators.py:218
-#: venv/Lib/site-packages/wtforms/validators.py:258
-msgid "This field is required."
-msgstr "Это поле обязательно к заполнению."
-
-#: venv/Lib/site-packages/django/forms/fields.py:246
-msgid "Enter a whole number."
-msgstr "Введите целое число."
-
-#: venv/Lib/site-packages/django/forms/fields.py:397
-#: venv/Lib/site-packages/django/forms/fields.py:1127
-msgid "Enter a valid date."
-msgstr "Введите правильную дату."
-
-#: venv/Lib/site-packages/django/forms/fields.py:421
-#: venv/Lib/site-packages/django/forms/fields.py:1128
-msgid "Enter a valid time."
-msgstr "Введите действительное время."
-
-#: venv/Lib/site-packages/django/forms/fields.py:443
-msgid "Enter a valid date/time."
-msgstr "Введите действительную дату / время."
-
-#: venv/Lib/site-packages/django/forms/fields.py:472
-msgid "Enter a valid duration."
-msgstr "Введите действительную продолжительность."
-
-#: venv/Lib/site-packages/django/forms/fields.py:473
-msgid "The number of days must be between {min_days} and {max_days}."
-msgstr "Количество дней должно быть от {min_days} до {max_days}."
-
-#: venv/Lib/site-packages/django/forms/fields.py:533
-msgid "No file was submitted. Check the encoding type on the form."
-msgstr "Файл не был отправлен. Проверьте тип кодировки в форме."
-
-#: venv/Lib/site-packages/django/forms/fields.py:534
-msgid "No file was submitted."
-msgstr "Файл не был отправлен."
-
-#: venv/Lib/site-packages/django/forms/fields.py:535
-msgid "The submitted file is empty."
-msgstr "Представленный файл пуст."
-
-#: venv/Lib/site-packages/django/forms/fields.py:540
-msgid "Please either submit a file or check the clear checkbox, not both."
-msgstr "Отправьте файл или установите флажок «Очистить», но не оба сразу."
-
-#: venv/Lib/site-packages/django/forms/fields.py:600
-msgid ""
-"Upload a valid image. The file you uploaded was either not an image or a "
-"corrupted image."
-msgstr ""
-
-#: venv/Lib/site-packages/django/forms/fields.py:763
-#: venv/Lib/site-packages/django/forms/fields.py:853
-#: venv/Lib/site-packages/django/forms/models.py:1275
-#, python-format
-msgid "Select a valid choice. %(value)s is not one of the available choices."
-msgstr ""
-"Выберите правильный выбор.  %(value)s не является одним из доступных "
-"вариантов."
-
-#: venv/Lib/site-packages/django/forms/fields.py:854
-#: venv/Lib/site-packages/django/forms/fields.py:969
-#: venv/Lib/site-packages/django/forms/models.py:1274
-msgid "Enter a list of values."
-msgstr "Введите список значений."
-
-#: venv/Lib/site-packages/django/forms/fields.py:970
-msgid "Enter a complete value."
-msgstr "Введите полное значение."
-
-#: venv/Lib/site-packages/django/forms/fields.py:1186
-msgid "Enter a valid UUID."
-msgstr "Введите действительный UUID."
-
-#: venv/Lib/site-packages/django/forms/forms.py:81
-msgid ":"
-msgstr ":"
-
-#: venv/Lib/site-packages/django/forms/forms.py:207
-#, python-format
-msgid "(Hidden field %(name)s) %(error)s"
-msgstr "(Скрытое поле %(name)s) %(error)s"
-
-#: venv/Lib/site-packages/django/forms/formsets.py:93
-msgid "ManagementForm data is missing or has been tampered with"
-msgstr "Данные ManagementForm отсутствуют или были подделаны"
-
-#: venv/Lib/site-packages/django/forms/formsets.py:344
-#, python-format
-msgid "Please submit %d or fewer forms."
-msgid_plural "Please submit %d or fewer forms."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/forms/formsets.py:351
-#, python-format
-msgid "Please submit %d or more forms."
-msgid_plural "Please submit %d or more forms."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/forms/formsets.py:379
-#: venv/Lib/site-packages/django/forms/formsets.py:386
-msgid "Order"
-msgstr "порядок"
-
-#: venv/Lib/site-packages/django/forms/formsets.py:391
-msgid "Delete"
-msgstr "Удалить"
-
-#: venv/Lib/site-packages/django/forms/models.py:754
-#, python-format
-msgid "Please correct the duplicate data for %(field)s."
-msgstr "Исправьте повторяющиеся данные для %(field)s."
-
-#: venv/Lib/site-packages/django/forms/models.py:758
-#, python-format
-msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
-"Исправьте повторяющиеся данные для %(field)s, которые должны быть "
-"уникальными."
-
-#: venv/Lib/site-packages/django/forms/models.py:763
-#, python-format
-msgid ""
-"Please correct the duplicate data for %(field_name)s which must be unique"
-" for the %(lookup)s in %(date_field)s."
-msgstr ""
-
-#: venv/Lib/site-packages/django/forms/models.py:773
-msgid "Please correct the duplicate values below."
-msgstr "Исправьте повторяющиеся значения ниже."
-
-#: venv/Lib/site-packages/django/forms/models.py:1094
-msgid "The inline value did not match the parent instance."
-msgstr "Встроенное значение не соответствует родительскому экземпляру."
-
-#: venv/Lib/site-packages/django/forms/models.py:1161
-msgid "Select a valid choice. That choice is not one of the available choices."
-msgstr "Выберите правильный выбор. Этот вариант не является одним из доступных."
-
-#: venv/Lib/site-packages/django/forms/models.py:1277
-#, python-format
-msgid "“%(pk)s” is not a valid value."
-msgstr "« %(pk)s» не является допустимым значением."
-
-#: venv/Lib/site-packages/django/forms/utils.py:162
-#, python-format
-msgid ""
-"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; "
-"it may be ambiguous or it may not exist."
-msgstr ""
-
-#: venv/Lib/site-packages/django/forms/widgets.py:395
-msgid "Clear"
-msgstr "Очистить"
-
-#: venv/Lib/site-packages/django/forms/widgets.py:396
-msgid "Currently"
-msgstr "В настоящее время"
-
-#: venv/Lib/site-packages/django/template/defaultfilters.py:788
-msgid "yes,no,maybe"
-msgstr "да нет Может быть"
-
-#: venv/Lib/site-packages/django/template/defaultfilters.py:817
-#: venv/Lib/site-packages/django/template/defaultfilters.py:834
-#, python-format
-msgid "%(size)d byte"
-msgid_plural "%(size)d bytes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-
-#: venv/Lib/site-packages/django/template/defaultfilters.py:836
-#, python-format
-msgid "%s KB"
-msgstr " %s КБ"
-
-#: venv/Lib/site-packages/django/template/defaultfilters.py:838
-#, python-format
-msgid "%s MB"
-msgstr " %s МБ"
-
-#: venv/Lib/site-packages/django/template/defaultfilters.py:840
-#, python-format
-msgid "%s GB"
-msgstr " %s ГБ"
-
-#: venv/Lib/site-packages/django/template/defaultfilters.py:842
-#, python-format
-msgid "%s TB"
-msgstr " %s ТБ"
-
-#: venv/Lib/site-packages/django/template/defaultfilters.py:844
-#, python-format
-msgid "%s PB"
-msgstr " %s PB"
-
-#: venv/Lib/site-packages/django/utils/dateformat.py:62
-msgid "p.m."
-msgstr "вечера."
-
-#: venv/Lib/site-packages/django/utils/dateformat.py:63
-msgid "a.m."
-msgstr "утра"
-
-#: venv/Lib/site-packages/django/utils/dateformat.py:68
-msgid "PM"
-msgstr "ВЕЧЕРА"
-
-#: venv/Lib/site-packages/django/utils/dateformat.py:69
-msgid "AM"
-msgstr "AM"
-
-#: venv/Lib/site-packages/django/utils/dateformat.py:150
-msgid "midnight"
-msgstr "полночь"
-
-#: venv/Lib/site-packages/django/utils/dateformat.py:152
-msgid "noon"
-msgstr "полдень"
-
-#: venv/Lib/site-packages/django/utils/dates.py:6
-msgid "Monday"
-msgstr "понедельник"
-
-#: venv/Lib/site-packages/django/utils/dates.py:6
-msgid "Tuesday"
-msgstr "вторник"
-
-#: venv/Lib/site-packages/django/utils/dates.py:6
-msgid "Wednesday"
-msgstr "Среда"
-
-#: venv/Lib/site-packages/django/utils/dates.py:6
-msgid "Thursday"
-msgstr "Четверг"
-
-#: venv/Lib/site-packages/django/utils/dates.py:6
-msgid "Friday"
-msgstr "Пятница"
-
-#: venv/Lib/site-packages/django/utils/dates.py:7
-msgid "Saturday"
-msgstr "суббота"
-
-#: venv/Lib/site-packages/django/utils/dates.py:7
-msgid "Sunday"
-msgstr "Воскресенье"
-
-#: venv/Lib/site-packages/django/utils/dates.py:10
-msgid "Mon"
-msgstr "Пн"
-
-#: venv/Lib/site-packages/django/utils/dates.py:10
-msgid "Tue"
-msgstr "Вт"
-
-#: venv/Lib/site-packages/django/utils/dates.py:10
-msgid "Wed"
-msgstr "Мы бы"
-
-#: venv/Lib/site-packages/django/utils/dates.py:10
-msgid "Thu"
-msgstr "Чт"
-
-#: venv/Lib/site-packages/django/utils/dates.py:10
-msgid "Fri"
-msgstr "Пт"
-
-#: venv/Lib/site-packages/django/utils/dates.py:11
-msgid "Sat"
-msgstr "Суббота"
-
-#: venv/Lib/site-packages/django/utils/dates.py:11
-msgid "Sun"
-msgstr "солнце"
-
-#: venv/Lib/site-packages/django/utils/dates.py:14
-msgid "January"
-msgstr "Январь"
-
-#: venv/Lib/site-packages/django/utils/dates.py:14
-msgid "February"
-msgstr "Февраль"
-
-#: venv/Lib/site-packages/django/utils/dates.py:14
-msgid "March"
-msgstr "марш"
-
-#: venv/Lib/site-packages/django/utils/dates.py:14
-msgid "April"
-msgstr "апрель"
-
-#: venv/Lib/site-packages/django/utils/dates.py:14
-msgid "May"
-msgstr "май"
-
-#: venv/Lib/site-packages/django/utils/dates.py:14
-msgid "June"
-msgstr "Июнь"
-
-#: venv/Lib/site-packages/django/utils/dates.py:15
-msgid "July"
-msgstr "Июль"
-
-#: venv/Lib/site-packages/django/utils/dates.py:15
-msgid "August"
-msgstr "Август"
-
-#: venv/Lib/site-packages/django/utils/dates.py:15
-msgid "September"
-msgstr "сентябрь"
-
-#: venv/Lib/site-packages/django/utils/dates.py:15
-msgid "October"
-msgstr "Октябрь"
-
-#: venv/Lib/site-packages/django/utils/dates.py:15
-msgid "November"
-msgstr "Ноябрь"
-
-#: venv/Lib/site-packages/django/utils/dates.py:16
-msgid "December"
-msgstr "Декабрь"
-
-#: venv/Lib/site-packages/django/utils/dates.py:19
-msgid "jan"
-msgstr "Ян"
-
-#: venv/Lib/site-packages/django/utils/dates.py:19
-msgid "feb"
-msgstr "фев"
-
-#: venv/Lib/site-packages/django/utils/dates.py:19
-msgid "mar"
-msgstr "мар"
-
-#: venv/Lib/site-packages/django/utils/dates.py:19
-msgid "apr"
-msgstr "апр"
-
-#: venv/Lib/site-packages/django/utils/dates.py:19
-msgid "may"
-msgstr "может"
-
-#: venv/Lib/site-packages/django/utils/dates.py:19
-msgid "jun"
-msgstr "июн"
-
-#: venv/Lib/site-packages/django/utils/dates.py:20
-msgid "jul"
-msgstr "июл"
-
-#: venv/Lib/site-packages/django/utils/dates.py:20
-msgid "aug"
-msgstr "август"
-
-#: venv/Lib/site-packages/django/utils/dates.py:20
-msgid "sep"
-msgstr "сен"
-
-#: venv/Lib/site-packages/django/utils/dates.py:20
-msgid "oct"
-msgstr "окт"
-
-#: venv/Lib/site-packages/django/utils/dates.py:20
-msgid "nov"
-msgstr "ноя"
-
-#: venv/Lib/site-packages/django/utils/dates.py:20
-msgid "dec"
-msgstr "декабрь"
-
-#: venv/Lib/site-packages/django/utils/ipv6.py:8
-msgid "This is not a valid IPv6 address."
-msgstr "Это недействительный адрес IPv6."
-
-#: venv/Lib/site-packages/django/utils/text.py:67
-#, python-format
-msgctxt "String to return when truncating text"
-msgid "%(truncated_text)s…"
-msgstr " %(truncated_text)s…"
-
-#: venv/Lib/site-packages/django/utils/text.py:254
-#: venv/Lib/site-packages/django/utils/timesince.py:83
-msgid ", "
-msgstr ","
-
-#: venv/Lib/site-packages/django/utils/timesince.py:72
-msgid "0 minutes"
-msgstr "0 минут"
-
-#: venv/Lib/site-packages/django/views/csrf.py:110
-msgid "Forbidden"
-msgstr "Запрещено"
-
-#: venv/Lib/site-packages/django/views/csrf.py:111
-msgid "CSRF verification failed. Request aborted."
-msgstr "Ошибка проверки CSRF. Запрос прерван."
-
-#: venv/Lib/site-packages/django/views/csrf.py:114
-msgid ""
-"You are seeing this message because this HTTPS site requires a “Referer "
-"header” to be sent by your Web browser, but none was sent. This header is"
-" required for security reasons, to ensure that your browser is not being "
-"hijacked by third parties."
-msgstr ""
-
-#: venv/Lib/site-packages/django/views/csrf.py:119
-msgid ""
-"If you have configured your browser to disable “Referer” headers, please "
-"re-enable them, at least for this site, or for HTTPS connections, or for "
-"“same-origin” requests."
-msgstr ""
-
-#: venv/Lib/site-packages/django/views/csrf.py:123
-msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag"
-" or including the “Referrer-Policy: no-referrer” header, please remove "
-"them. The CSRF protection requires the “Referer” header to do strict "
-"referer checking. If you’re concerned about privacy, use alternatives "
-"like <a rel=\"noreferrer\" …> for links to third-party sites."
-msgstr ""
-
-#: venv/Lib/site-packages/django/views/csrf.py:131
-msgid ""
-"You are seeing this message because this site requires a CSRF cookie when"
-" submitting forms. This cookie is required for security reasons, to "
-"ensure that your browser is not being hijacked by third parties."
-msgstr ""
-
-#: venv/Lib/site-packages/django/views/csrf.py:136
-msgid ""
-"If you have configured your browser to disable cookies, please re-enable "
-"them, at least for this site, or for “same-origin” requests."
-msgstr ""
-
-#: venv/Lib/site-packages/django/views/csrf.py:142
-msgid "More information is available with DEBUG=True."
-msgstr "Дополнительная информация доступна с DEBUG = True."
-
-#: venv/Lib/site-packages/django/views/static.py:40
-msgid "Directory indexes are not allowed here."
-msgstr "Индексы каталогов здесь не разрешены."
-
-#: venv/Lib/site-packages/django/views/static.py:42
-#, python-format
-msgid "“%(path)s” does not exist"
-msgstr "« %(path)s» не существует"
-
-#: venv/Lib/site-packages/django/views/generic/dates.py:41
-msgid "No year specified"
-msgstr "Год не указан"
-
-#: venv/Lib/site-packages/django/views/generic/dates.py:61
-#: venv/Lib/site-packages/django/views/generic/dates.py:111
-#: venv/Lib/site-packages/django/views/generic/dates.py:208
-msgid "Date out of range"
-msgstr "Дата вне допустимого диапазона"
-
-#: venv/Lib/site-packages/django/views/generic/dates.py:90
-msgid "No month specified"
-msgstr "Месяц не указан"
-
-#: venv/Lib/site-packages/django/views/generic/dates.py:142
-msgid "No day specified"
-msgstr "День не указан"
-
-#: venv/Lib/site-packages/django/views/generic/dates.py:188
-msgid "No week specified"
-msgstr "Неделя не указана"
-
-#: venv/Lib/site-packages/django/views/generic/dates.py:338
-#: venv/Lib/site-packages/django/views/generic/dates.py:367
-#, python-format
-msgid "No %(verbose_name_plural)s available"
-msgstr "Нет доступных %(verbose_name_plural)s"
-
-#: venv/Lib/site-packages/django/views/generic/dates.py:588
-#, python-format
-msgid ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
-msgstr ""
-
-#: venv/Lib/site-packages/django/views/generic/dates.py:623
-#, python-format
-msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
-msgstr "Недопустимая строка даты « %(datestr)s» в формате « %(format)s»"
-
-#: venv/Lib/site-packages/django/views/generic/detail.py:54
-#, python-format
-msgid "No %(verbose_name)s found matching the query"
-msgstr " %(verbose_name)s не соответствует запросу"
-
-#: venv/Lib/site-packages/django/views/generic/list.py:67
-msgid "Page is not “last”, nor can it be converted to an int."
-msgstr "Страница не является «последней» и не может быть преобразована в int."
-
-#: venv/Lib/site-packages/django/views/generic/list.py:72
-#, python-format
-msgid "Invalid page (%(page_number)s): %(message)s"
-msgstr "Недействительная страница ( %(page_number)s): %(message)s"
-
-#: venv/Lib/site-packages/django/views/generic/list.py:154
-#, python-format
-msgid "Empty list and “%(class_name)s.allow_empty” is False."
-msgstr "Пустой список и « %(class_name)s.allow_empty» имеет значение False."
 
 #: venv/Lib/site-packages/flask_admin/contrib/rediscli.py:127
 msgid "Cli: Invalid command."
@@ -3075,6 +703,20 @@ msgstr "Удалить запись"
 msgid "Please select model"
 msgstr "Пожалуйста выберите модель"
 
+#: venv/Lib/site-packages/flask_admin/model/widgets.py:116
+msgid "No"
+msgstr "Нет"
+
+#: venv/Lib/site-packages/flask_admin/model/widgets.py:117
+msgid "Yes"
+msgstr "да"
+
+#: venv/Lib/site-packages/flask_wtf/file.py:50
+#: venv/Lib/site-packages/wtforms/validators.py:218
+#: venv/Lib/site-packages/wtforms/validators.py:258
+msgid "This field is required."
+msgstr "Это поле обязательно к заполнению."
+
 #: venv/Lib/site-packages/flask_wtf/file.py:83
 msgid "File does not have an approved extension: {extensions}"
 msgstr "У файла нет утвержденного расширения: {extensions}"
@@ -3243,4 +885,1752 @@ msgstr "Недействительное значение даты"
 #: venv/Lib/site-packages/wtforms/fields/core.py:827
 msgid "Not a valid time value"
 msgstr "Недействительное значение времени"
+
+msgid "Username"
+msgstr "Имя пользователя"
+
+msgid "Confirm password"
+msgstr "Подтвердите Пароль"
+
+msgid "Sign Up"
+msgstr "Зарегистрироваться"
+
+msgid "Remember me"
+msgstr "Запомни меня"
+
+msgid "Play time id"
+msgstr ""
+
+msgid "Day of week"
+msgstr "День недели"
+
+msgid "Start time"
+msgstr "Время начала"
+
+msgid "End time"
+msgstr "Время окончания"
+
+msgid "Profile image"
+msgstr "Изображение профиля"
+
+msgid "Name"
+msgstr "Имя"
+
+msgid "Last Name"
+msgstr "Фамилия"
+
+msgid "Male"
+msgstr "Мужской"
+
+msgid "Female"
+msgstr "Женский"
+
+msgid "Update"
+msgstr "Обновить"
+
+msgid "Submit"
+msgstr "Отправить"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Create"
+msgstr "Создать"
+
+#, python-format
+msgid "Successfully deleted %(count)d %(items)s."
+msgstr "Успешно удалено %(count)d %(items)s."
+
+#, python-format
+msgid "Cannot delete %(name)s"
+msgstr "Невозможно удалить %(name)s"
+
+msgid "Are you sure?"
+msgstr "Вы уверены?"
+
+msgid "Administration"
+msgstr "Администрация"
+
+msgid "All"
+msgstr "Все"
+
+msgid "Unknown"
+msgstr "Неизвестно"
+
+msgid "Any date"
+msgstr "Любая дата"
+
+msgid "Today"
+msgstr "Cегодня"
+
+msgid "Past 7 days"
+msgstr "Прошлые 7 дней"
+
+msgid "This month"
+msgstr "Этот месяц"
+
+msgid "This year"
+msgstr "Этот год"
+
+msgid "No date"
+msgstr "Без даты"
+
+msgid "Has date"
+msgstr "Имеет дату"
+
+#, python-format
+msgid ""
+"Please enter the correct %(username)s and password for a staff account. "
+"Note that both fields may be case-sensitive."
+msgstr ""
+
+msgid "Action:"
+msgstr "Действие:"
+
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr "Добавить еще %(verbose_name)s"
+
+msgid "Remove"
+msgstr "удалять"
+
+msgid "Addition"
+msgstr "Дополнение"
+
+msgid "Change"
+msgstr "+ Изменить"
+
+msgid "Deletion"
+msgstr "Удаление"
+
+msgid "action time"
+msgstr "время действия"
+
+msgid "user"
+msgstr "пользователь"
+
+msgid "content type"
+msgstr "Тип содержимого"
+
+msgid "object id"
+msgstr "идентификатор объекта"
+
+msgid "object repr"
+msgstr "объект repr"
+
+msgid "action flag"
+msgstr "флаг действия"
+
+msgid "change message"
+msgstr "изменить сообщение"
+
+msgid "log entry"
+msgstr "запись в журнале"
+
+msgid "log entries"
+msgstr "записи журнала"
+
+#, python-format
+msgid "Added “%(object)s”."
+msgstr "Добавлен « %(object)s»."
+
+#, python-format
+msgid "Changed “%(object)s” — %(changes)s"
+msgstr "Изменен « %(object)s» - %(changes)s"
+
+#, python-format
+msgid "Deleted “%(object)s.”"
+msgstr "Удалено « %(object)s»."
+
+msgid "LogEntry Object"
+msgstr "Объект LogEntry"
+
+msgid "addedname"
+msgstr "добавленное имя"
+
+msgid "Added {name} “{object}”."
+msgstr "Добавлено {имя} «{объект}»."
+
+msgid "Added."
+msgstr "Добавлен."
+
+msgid "and"
+msgstr "и"
+
+msgid "changedname"
+msgstr "измененное имя"
+
+msgid "Changed {fields} for {name} “{object}”."
+msgstr "Изменены {поля} на {имя} «{объект}»."
+
+msgid "Changed {fields}."
+msgstr "Поменял {поля}."
+
+msgid "deletedname"
+msgstr "удаленное имя"
+
+msgid "Deleted {name} “{object}”."
+msgstr "Удалено {имя} «{объект}»."
+
+msgid "No fields changed."
+msgstr "Поля не изменились."
+
+msgid "None"
+msgstr "Никто"
+
+msgid "Hold down “Control”, or “Command” on a Mac, to select more than one."
+msgstr "Удерживайте «Control» или «Command» на Mac, чтобы выбрать более одного."
+
+msgid "The {name} “{obj}” was added successfully."
+msgstr "{Name} «{obj}» был успешно добавлен."
+
+msgid "You may edit it again below."
+msgstr "Вы можете отредактировать его снова ниже."
+
+msgid ""
+"The {name} “{obj}” was added successfully. You may add another {name} "
+"below."
+msgstr ""
+
+msgid "The {name} “{obj}” was changed successfully. You may edit it again below."
+msgstr ""
+"{Name} «{obj}» был успешно изменен. Вы можете отредактировать его снова "
+"ниже."
+
+msgid "The {name} “{obj}” was added successfully. You may edit it again below."
+msgstr ""
+"{Name} «{obj}» был успешно добавлен. Вы можете отредактировать его снова "
+"ниже."
+
+msgid ""
+"The {name} “{obj}” was changed successfully. You may add another {name} "
+"below."
+msgstr ""
+
+msgid "The {name} “{obj}” was changed successfully."
+msgstr "{Name} «{obj}» был успешно изменен."
+
+msgid ""
+"Items must be selected in order to perform actions on them. No items have"
+" been changed."
+msgstr ""
+
+msgid "No action selected."
+msgstr "Действие не выбрано."
+
+#, python-format
+msgid "The %(name)s “%(obj)s” was deleted successfully."
+msgstr " %(name)s « %(obj)s» был успешно удален."
+
+#, python-format
+msgid "%(name)s with ID “%(key)s” doesn’t exist. Perhaps it was deleted?"
+msgstr ""
+" %(name)s с идентификатором « %(key)s» не существует. Возможно, его "
+"удалили?"
+
+#, python-format
+msgid "Add %s"
+msgstr "Добавить %s"
+
+#, python-format
+msgid "Change %s"
+msgstr "Изменить %s"
+
+#, python-format
+msgid "View %s"
+msgstr "Просмотры %s"
+
+msgid "Database error"
+msgstr "ошибка базы данных"
+
+#, python-format
+msgid "0 of %(cnt)s selected"
+msgstr "Выбрано 0 из %(cnt)s"
+
+#, python-format
+msgid "Change history: %s"
+msgstr "История изменений: %s"
+
+#, python-format
+msgid "%(class_name)s %(instance)s"
+msgstr " %(class_name)s %(instance)s"
+
+#, python-format
+msgid ""
+"Deleting %(class_name)s %(instance)s would require deleting the following"
+" protected related objects: %(related_objects)s"
+msgstr ""
+
+msgid "Log in"
+msgstr "Войти"
+
+#, python-format
+msgid "%(app)s administration"
+msgstr " %(app)s администрирование"
+
+msgid "Date:"
+msgstr "Дата:"
+
+msgid "Time:"
+msgstr "Время:"
+
+msgid "Lookup"
+msgstr "Уважать"
+
+msgid "Currently:"
+msgstr "В настоящее время:"
+
+msgid "Change:"
+msgstr "Изменить:"
+
+msgid "All dates"
+msgstr "Все даты"
+
+#, python-format
+msgid "Select %s"
+msgstr "Выберите %s"
+
+#, python-format
+msgid "Select %s to change"
+msgstr "Выберите %s, чтобы изменить"
+
+#, python-format
+msgid "Select %s to view"
+msgstr "Выберите %s для просмотра"
+
+msgid "Administrative Documentation"
+msgstr "Административная документация"
+
+msgid "tag:"
+msgstr "тег:"
+
+msgid "filter:"
+msgstr "фильтр:"
+
+msgid "view:"
+msgstr "Посмотреть:"
+
+#, python-format
+msgid "App %(app_label)r not found"
+msgstr "Приложение %(app_label)r не найдено"
+
+#, python-format
+msgid "Model %(model_name)r not found in app %(app_label)r"
+msgstr "Модель %(model_name)r не найдена в приложении %(app_label)r"
+
+msgid "model:"
+msgstr "модель:"
+
+#, python-format
+msgid "the related `%(app_label)s.%(data_type)s` object"
+msgstr "связанный объект ` %(app_label)s. %(data_type)s`"
+
+#, python-format
+msgid "related `%(app_label)s.%(object_name)s` objects"
+msgstr "связанные объекты ` %(app_label)s. %(object_name)s`"
+
+#, python-format
+msgid "all %s"
+msgstr "все %s"
+
+#, python-format
+msgid "number of %s"
+msgstr "количество %s"
+
+#, python-format
+msgid "%s does not appear to be a urlpattern object"
+msgstr " %s не является объектом urlpattern"
+
+msgid "Personal info"
+msgstr "Личная информация"
+
+msgid "Permissions"
+msgstr "Разрешения"
+
+msgid "Important dates"
+msgstr "Важные даты"
+
+#, python-format
+msgid "%(name)s object with primary key %(key)r does not exist."
+msgstr "Объект %(name)s с первичным ключом %(key)r не существует."
+
+msgid "Password changed successfully."
+msgstr "Пароль успешно изменен."
+
+#, python-format
+msgid "Change password: %s"
+msgstr "Изменить пароль: %s"
+
+msgid "Authentication and Authorization"
+msgstr "Аутентификация и авторизация"
+
+msgid "password"
+msgstr "пароль"
+
+msgid "last login"
+msgstr "последний вход"
+
+msgid "No password set."
+msgstr "Пароль не установлен."
+
+msgid "Invalid password format or unknown hashing algorithm."
+msgstr "Неверный формат пароля или неизвестный алгоритм хеширования."
+
+msgid "The two password fields didn’t match."
+msgstr "Два поля пароля не совпадают."
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Password confirmation"
+msgstr "Подтверждение пароля"
+
+msgid "Enter the same password as before, for verification."
+msgstr "Введите тот же пароль, что и раньше, для проверки."
+
+msgid ""
+"Raw passwords are not stored, so there is no way to see this user’s "
+"password, but you can change the password using <a href=\"{}\">this "
+"form</a>."
+msgstr ""
+
+#, python-format
+msgid ""
+"Please enter a correct %(username)s and password. Note that both fields "
+"may be case-sensitive."
+msgstr ""
+
+msgid "This account is inactive."
+msgstr "Этот аккаунт не активен."
+
+msgid "Email"
+msgstr "Эл. адрес"
+
+msgid "New password"
+msgstr "Новый пароль"
+
+msgid "New password confirmation"
+msgstr "Подтверждение нового пароля"
+
+msgid "Your old password was entered incorrectly. Please enter it again."
+msgstr "Ваш старый пароль был введен неверно. Пожалуйста, введите его еще раз."
+
+msgid "Old password"
+msgstr "Прежний пароль"
+
+msgid "Password (again)"
+msgstr "Пароль еще раз)"
+
+msgid "algorithm"
+msgstr "алгоритм"
+
+msgid "iterations"
+msgstr "итерации"
+
+msgid "salt"
+msgstr "поваренная соль"
+
+msgid "hash"
+msgstr "хэш"
+
+msgid "variety"
+msgstr "разнообразие"
+
+msgid "version"
+msgstr "версия"
+
+msgid "memory cost"
+msgstr "стоимость памяти"
+
+msgid "time cost"
+msgstr "временные затраты"
+
+msgid "parallelism"
+msgstr "параллелизм"
+
+msgid "work factor"
+msgstr "рабочий фактор"
+
+msgid "checksum"
+msgstr "контрольная сумма"
+
+msgid "name"
+msgstr "название"
+
+msgid "codename"
+msgstr "кодовое имя"
+
+msgid "permission"
+msgstr "разрешение"
+
+msgid "permissions"
+msgstr "разрешения"
+
+msgid "group"
+msgstr "группа"
+
+msgid "groups"
+msgstr "группы"
+
+msgid "superuser status"
+msgstr "статус суперпользователя"
+
+msgid ""
+"Designates that this user has all permissions without explicitly "
+"assigning them."
+msgstr ""
+
+msgid ""
+"The groups this user belongs to. A user will get all permissions granted "
+"to each of their groups."
+msgstr ""
+
+msgid "user permissions"
+msgstr "права пользователя"
+
+msgid "Specific permissions for this user."
+msgstr "Особые разрешения для этого пользователя."
+
+msgid "username"
+msgstr "имя пользователя"
+
+msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Необходимое поле. 150 символов или меньше. Только буквы, цифры и @ /. / +"
+" / - / _."
+
+msgid "A user with that username already exists."
+msgstr "Пользователь с таким именем уже существует."
+
+msgid "first name"
+msgstr "Имя"
+
+msgid "last name"
+msgstr "Фамилия"
+
+msgid "email address"
+msgstr "адрес электронной почты"
+
+msgid "staff status"
+msgstr "статус персонала"
+
+msgid "Designates whether the user can log into this admin site."
+msgstr "Определяет, может ли пользователь войти на этот сайт администратора."
+
+msgid "active"
+msgstr "активный"
+
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+
+msgid "date joined"
+msgstr "дата присоединения"
+
+msgid "users"
+msgstr "пользователи"
+
+#, python-format
+msgid "The password is too similar to the %(verbose_name)s."
+msgstr "Пароль слишком похож на %(verbose_name)s."
+
+msgid "Your password can’t be too similar to your other personal information."
+msgstr "Ваш пароль не может быть слишком похож на вашу другую личную информацию."
+
+msgid "This password is too common."
+msgstr "Этот пароль слишком распространен."
+
+msgid "Your password can’t be a commonly used password."
+msgstr "Ваш пароль не может быть обычным паролем."
+
+msgid "This password is entirely numeric."
+msgstr "Этот пароль полностью цифровой."
+
+msgid "Your password can’t be entirely numeric."
+msgstr "Ваш пароль не может быть полностью числовым."
+
+msgid ""
+"Enter a valid username. This value may contain only English letters, "
+"numbers, and @/./+/-/_ characters."
+msgstr ""
+
+msgid ""
+"Enter a valid username. This value may contain only letters, numbers, and"
+" @/./+/-/_ characters."
+msgstr ""
+
+msgid "Logged out"
+msgstr "Вышли из"
+
+msgid "Password reset"
+msgstr "Восстановление пароля"
+
+msgid "Password reset sent"
+msgstr "Сброс пароля отправлен"
+
+msgid "Enter new password"
+msgstr "Введите новый пароль"
+
+msgid "Password reset unsuccessful"
+msgstr "Не удалось сбросить пароль"
+
+msgid "Password reset complete"
+msgstr "Сброс пароля завершен"
+
+msgid "Password change"
+msgstr "Смена пароля"
+
+msgid "Password change successful"
+msgstr "Пароль успешно изменен"
+
+msgid "Content Types"
+msgstr "Типы контента"
+
+msgid "python model class name"
+msgstr "имя класса модели Python"
+
+msgid "content types"
+msgstr "типы контента"
+
+#, python-format
+msgid "Content type %(ct_id)s object has no associated model"
+msgstr "Объект типа содержимого %(ct_id)s не имеет связанной модели"
+
+#, python-format
+msgid "Content type %(ct_id)s object %(obj_id)s doesn’t exist"
+msgstr "Тип содержимого %(ct_id)s объект %(obj_id)s не существует"
+
+#, python-format
+msgid "%(ct_name)s objects don’t have a get_absolute_url() method"
+msgstr "У объектов %(ct_name)s нет метода get_absolute_url()"
+
+msgid "Advanced options"
+msgstr "Расширенные опции"
+
+msgid "Flat Pages"
+msgstr "Плоские страницы"
+
+msgid "URL"
+msgstr "URL"
+
+msgid ""
+"Example: “/about/contact/”. Make sure to have leading and trailing "
+"slashes."
+msgstr ""
+
+msgid ""
+"This value must contain only letters, numbers, dots, underscores, dashes,"
+" slashes or tildes."
+msgstr ""
+
+msgid "Example: “/about/contact”. Make sure to have a leading slash."
+msgstr "Пример: «/ о / контакт». Убедитесь, что у вас есть начальная косая черта."
+
+msgid "URL is missing a leading slash."
+msgstr "В URL отсутствует косая черта в начале."
+
+msgid "URL is missing a trailing slash."
+msgstr "В URL отсутствует косая черта в конце."
+
+#, python-format
+msgid "Flatpage with url %(url)s already exists for site %(site)s"
+msgstr "Плоская страница с URL %(url)s уже существует для сайта %(site)s"
+
+msgid "title"
+msgstr "заглавие"
+
+msgid "content"
+msgstr "содержание"
+
+msgid "enable comments"
+msgstr "включить комментарии"
+
+msgid "template name"
+msgstr "Имя Шаблона"
+
+msgid ""
+"Example: “flatpages/contact_page.html”. If this isn’t provided, the "
+"system will use “flatpages/default.html”."
+msgstr ""
+
+msgid "registration required"
+msgstr "требуется регистрация"
+
+msgid "If this is checked, only logged-in users will be able to view the page."
+msgstr ""
+"Если этот флажок установлен, только зарегистрированные пользователи "
+"смогут просматривать страницу."
+
+msgid "sites"
+msgstr "места"
+
+msgid "flat page"
+msgstr "плоская страница"
+
+msgid "flat pages"
+msgstr "плоские страницы"
+
+msgid "GIS"
+msgstr "ГИС"
+
+msgid "No feeds are registered."
+msgstr "Каналы не зарегистрированы."
+
+#, python-format
+msgid "Slug %r isn’t registered."
+msgstr "Слаг %r не зарегистрирован."
+
+msgid "The base GIS field."
+msgstr "Базовое поле ГИС."
+
+msgid "The base Geometry field — maps to the OpenGIS Specification Geometry type."
+msgstr ""
+"Базовое поле геометрии - соответствует типу геометрии спецификации "
+"OpenGIS."
+
+msgid "Point"
+msgstr "Точка"
+
+msgid "Line string"
+msgstr "Строка строки"
+
+msgid "Polygon"
+msgstr "Многоугольник"
+
+msgid "Multi-point"
+msgstr "Многоточечный"
+
+msgid "Multi-line string"
+msgstr "Многострочная строка"
+
+msgid "Multi polygon"
+msgstr "Мульти многоугольник"
+
+msgid "Geometry collection"
+msgstr "Коллекция геометрии"
+
+msgid "Extent Aggregate Field"
+msgstr "Поле агрегирования экстента"
+
+msgid "Raster Field"
+msgstr "Растровое поле"
+
+msgid "No geometry value provided."
+msgstr "Не указано геометрическое значение."
+
+msgid "Invalid geometry value."
+msgstr "Неверное значение геометрии."
+
+msgid "Invalid geometry type."
+msgstr "Неверный тип геометрии."
+
+msgid ""
+"An error occurred when transforming the geometry to the SRID of the "
+"geometry form field."
+msgstr ""
+
+msgid "Humanize"
+msgstr "Очеловечивать"
+
+msgctxt "ordinal 9"
+msgid "{}th"
+msgstr "{} th"
+
+msgctxt "ordinal 1"
+msgid "{}st"
+msgstr "{} ул."
+
+msgctxt "ordinal 2"
+msgid "{}nd"
+msgstr "{} nd"
+
+msgctxt "ordinal 3"
+msgid "{}rd"
+msgstr "{} рд"
+
+msgid "one"
+msgstr "один"
+
+msgid "two"
+msgstr "два"
+
+msgid "three"
+msgstr "три"
+
+msgid "four"
+msgstr "четыре"
+
+msgid "five"
+msgstr "пять"
+
+msgid "six"
+msgstr "шесть"
+
+msgid "seven"
+msgstr "Семь"
+
+msgid "eight"
+msgstr "восемь"
+
+msgid "nine"
+msgstr "девять"
+
+msgid "today"
+msgstr "Cегодня"
+
+msgid "tomorrow"
+msgstr "завтра"
+
+msgid "yesterday"
+msgstr "вчерашний день"
+
+msgid "PostgreSQL extensions"
+msgstr "Расширения PostgreSQL"
+
+#, python-format
+msgid "Some keys were missing: %(keys)s"
+msgstr "Некоторые ключи отсутствовали: %(keys)s"
+
+#, python-format
+msgid "Some unknown keys were provided: %(keys)s"
+msgstr "Были предоставлены некоторые неизвестные ключи: %(keys)s"
+
+#, python-format
+msgid ""
+"Ensure that this range is completely less than or equal to "
+"%(limit_value)s."
+msgstr ""
+
+#, python-format
+msgid ""
+"Ensure that this range is completely greater than or equal to "
+"%(limit_value)s."
+msgstr ""
+
+#, python-format
+msgid "Item %(nth)s in the array did not validate:"
+msgstr "Элемент %(nth)s в массиве не прошел проверку:"
+
+msgid "Nested arrays must have the same length."
+msgstr "Вложенные массивы должны иметь одинаковую длину."
+
+msgid "Map of strings to strings/nulls"
+msgstr "Отображение строк в строки / нули"
+
+#, python-format
+msgid "The value of “%(key)s” is not a string or null."
+msgstr "Значение « %(key)s» не является строкой или нулем."
+
+msgid "A JSON object"
+msgstr "Объект JSON"
+
+msgid "Value must be valid JSON."
+msgstr "Значение должно быть действительным JSON."
+
+msgid "Could not load JSON data."
+msgstr "Не удалось загрузить данные JSON."
+
+msgid "Input must be a JSON dictionary."
+msgstr "Входные данные должны быть словарем JSON."
+
+#, python-format
+msgid "“%(value)s” value must be valid JSON."
+msgstr "Значение « %(value)s» должно быть допустимым JSON."
+
+msgid "Enter two valid values."
+msgstr "Введите два действительных значения."
+
+msgid "The start of the range must not exceed the end of the range."
+msgstr "Начало диапазона не должно превышать конец диапазона."
+
+msgid "Enter two whole numbers."
+msgstr "Введите два целых числа."
+
+msgid "Enter two numbers."
+msgstr "Введите два числа."
+
+msgid "Enter two valid date/times."
+msgstr "Введите две действительные дату / время."
+
+msgid "Enter two valid dates."
+msgstr "Введите две действительные даты."
+
+msgid "Redirects"
+msgstr "Перенаправления"
+
+msgid "site"
+msgstr "сайт"
+
+msgid "redirect from"
+msgstr "перенаправить с"
+
+msgid ""
+"This should be an absolute path, excluding the domain name. Example: "
+"“/events/search/”."
+msgstr ""
+
+msgid "redirect to"
+msgstr "перенаправить на"
+
+msgid ""
+"This can be either an absolute path (as above) or a full URL starting "
+"with “http://”."
+msgstr ""
+
+msgid "redirect"
+msgstr "перенаправить"
+
+msgid "redirects"
+msgstr "перенаправляет"
+
+msgid "Sessions"
+msgstr "Сессии"
+
+msgid "session key"
+msgstr "ключ сеанса"
+
+msgid "session data"
+msgstr "данные сеанса"
+
+msgid "expire date"
+msgstr "годен до"
+
+msgid "session"
+msgstr "сессия"
+
+msgid "sessions"
+msgstr "сессии"
+
+msgid "Site Maps"
+msgstr "Карты сайта"
+
+msgid "Sites"
+msgstr "Места"
+
+msgid "The domain name cannot contain any spaces or tabs."
+msgstr "Имя домена не может содержать пробелов или табуляций."
+
+msgid "domain name"
+msgstr "доменное имя"
+
+msgid "display name"
+msgstr "отображаемое имя"
+
+msgid "Static Files"
+msgstr "Статические файлы"
+
+msgid "Syndication"
+msgstr "Синдикация"
+
+msgid "That page number is not an integer"
+msgstr "Номер страницы не является целым числом"
+
+msgid "That page number is less than 1"
+msgstr "Номер страницы меньше 1"
+
+msgid "That page contains no results"
+msgstr "Эта страница не содержит результатов"
+
+msgid "Enter a valid value."
+msgstr "Введите допустимое значение."
+
+msgid "Enter a valid URL."
+msgstr "Введите действующий URL."
+
+msgid "Enter a valid integer."
+msgstr "Введите действительное целое число."
+
+msgid "Enter a valid email address."
+msgstr "Введите корректный электронный адрес."
+
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or "
+"hyphens."
+msgstr ""
+
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores,"
+" or hyphens."
+msgstr ""
+
+msgid "Enter a valid IPv4 address."
+msgstr "Введите действительный адрес IPv4."
+
+msgid "Enter a valid IPv6 address."
+msgstr "Введите действующий IPv6-адрес."
+
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr "Введите действительный адрес IPv4 или IPv6."
+
+msgid "Enter only digits separated by commas."
+msgstr "Введите только цифры, разделенные запятыми."
+
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr "Убедитесь, что это значение %(limit_value)s (это %(show_value)s)."
+
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr "Убедитесь, что это значение меньше или равно %(limit_value)s."
+
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr "Убедитесь, что это значение больше или равно %(limit_value)s."
+
+msgid "Enter a number."
+msgstr "Введите номер."
+
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+msgid "Null characters are not allowed."
+msgstr "Нулевые символы не допускаются."
+
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr " %(model_name)s с этим %(field_labels)s уже существует."
+
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr "Значение %(value)r не является допустимым выбором."
+
+msgid "This field cannot be null."
+msgstr "Это поле не может быть пустым."
+
+msgid "This field cannot be blank."
+msgstr "Это поле не может быть пустым."
+
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr " %(model_name)s с этим %(field_label)s уже существует."
+
+#, python-format
+msgid "%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+" %(field_label)s должен быть уникальным для %(date_field_label)s "
+"%(lookup_type)s."
+
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr "Поле типа: %(field_type)s"
+
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr "Значение « %(value)s» должно быть либо True, либо False."
+
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr "Значение « %(value)s» должно быть True, False или None."
+
+msgid "Boolean (Either True or False)"
+msgstr "Логическое значение (Истина или Ложь)"
+
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr "Строка (до %(max_length)s)"
+
+msgid "Comma-separated integers"
+msgstr "Целые числа, разделенные запятыми"
+
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an "
+"invalid date."
+msgstr ""
+
+msgid "Date (without time)"
+msgstr "Дата (без времени)"
+
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
+msgstr ""
+
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+msgstr ""
+
+msgid "Date (with time)"
+msgstr "Дата (со временем)"
+
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr "Значение « %(value)s» должно быть десятичным числом."
+
+msgid "Decimal number"
+msgstr "Десятичное число"
+
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
+msgstr ""
+
+msgid "Duration"
+msgstr "Продолжительность"
+
+msgid "Email address"
+msgstr "Адрес электронной почты"
+
+msgid "File path"
+msgstr "Путь файла"
+
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr "Значение « %(value)s» должно быть плавающим."
+
+msgid "Floating point number"
+msgstr "Число с плавающей запятой"
+
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr "Значение « %(value)s» должно быть целым числом."
+
+msgid "Integer"
+msgstr "Целое число"
+
+msgid "Big (8 byte) integer"
+msgstr "Большое (8 байт) целое число"
+
+msgid "IPv4 address"
+msgstr "IPv4-адрес"
+
+msgid "IP address"
+msgstr "айпи адрес"
+
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr "Значение « %(value)s» должно быть None, True или False."
+
+msgid "Boolean (Either True, False or None)"
+msgstr "Логическое значение (Истина, Ложь или Нет)"
+
+msgid "Positive integer"
+msgstr "Положительное число"
+
+msgid "Positive small integer"
+msgstr "Положительное маленькое целое число"
+
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr "Слаг (до %(max_length)s)"
+
+msgid "Small integer"
+msgstr "Маленькое целое число"
+
+msgid "Text"
+msgstr "Текст"
+
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in "
+"HH:MM[:ss[.uuuuuu]] format."
+msgstr ""
+
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is "
+"an invalid time."
+msgstr ""
+
+msgid "Raw binary data"
+msgstr "Необработанные двоичные данные"
+
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr "« %(value)s» не является допустимым UUID."
+
+msgid "Universally unique identifier"
+msgstr "Универсальный уникальный идентификатор"
+
+msgid "File"
+msgstr "файл"
+
+msgid "Image"
+msgstr "Образ"
+
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr "Экземпляр %(model)s с %(field)s %(value)r не существует."
+
+msgid "Foreign Key (type determined by related field)"
+msgstr "Внешний ключ (тип определяется связанным полем)"
+
+msgid "One-to-one relationship"
+msgstr "Отношения один на один"
+
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr " %(from)s - %(to)s отношения"
+
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr " %(from)s - %(to)s отношения"
+
+msgid "Many-to-many relationship"
+msgstr "Отношения многие-ко-многим"
+
+msgid ":?.!"
+msgstr ":?.!"
+
+msgid "Enter a whole number."
+msgstr "Введите целое число."
+
+msgid "Enter a valid date."
+msgstr "Введите правильную дату."
+
+msgid "Enter a valid time."
+msgstr "Введите действительное время."
+
+msgid "Enter a valid date/time."
+msgstr "Введите действительную дату / время."
+
+msgid "Enter a valid duration."
+msgstr "Введите действительную продолжительность."
+
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr "Количество дней должно быть от {min_days} до {max_days}."
+
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr "Файл не был отправлен. Проверьте тип кодировки в форме."
+
+msgid "No file was submitted."
+msgstr "Файл не был отправлен."
+
+msgid "The submitted file is empty."
+msgstr "Представленный файл пуст."
+
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr "Отправьте файл или установите флажок «Очистить», но не оба сразу."
+
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+"Выберите правильный выбор.  %(value)s не является одним из доступных "
+"вариантов."
+
+msgid "Enter a list of values."
+msgstr "Введите список значений."
+
+msgid "Enter a complete value."
+msgstr "Введите полное значение."
+
+msgid "Enter a valid UUID."
+msgstr "Введите действительный UUID."
+
+msgid ":"
+msgstr ":"
+
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr "(Скрытое поле %(name)s) %(error)s"
+
+msgid "ManagementForm data is missing or has been tampered with"
+msgstr "Данные ManagementForm отсутствуют или были подделаны"
+
+msgid "Order"
+msgstr "порядок"
+
+msgid "Delete"
+msgstr "Удалить"
+
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr "Исправьте повторяющиеся данные для %(field)s."
+
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+"Исправьте повторяющиеся данные для %(field)s, которые должны быть "
+"уникальными."
+
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique"
+" for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+msgid "Please correct the duplicate values below."
+msgstr "Исправьте повторяющиеся значения ниже."
+
+msgid "The inline value did not match the parent instance."
+msgstr "Встроенное значение не соответствует родительскому экземпляру."
+
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr "Выберите правильный выбор. Этот вариант не является одним из доступных."
+
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr "« %(pk)s» не является допустимым значением."
+
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; "
+"it may be ambiguous or it may not exist."
+msgstr ""
+
+msgid "Clear"
+msgstr "Очистить"
+
+msgid "Currently"
+msgstr "В настоящее время"
+
+msgid "yes,no,maybe"
+msgstr "да нет Может быть"
+
+#, python-format
+msgid "%s KB"
+msgstr " %s КБ"
+
+#, python-format
+msgid "%s MB"
+msgstr " %s МБ"
+
+#, python-format
+msgid "%s GB"
+msgstr " %s ГБ"
+
+#, python-format
+msgid "%s TB"
+msgstr " %s ТБ"
+
+#, python-format
+msgid "%s PB"
+msgstr " %s PB"
+
+msgid "p.m."
+msgstr "вечера."
+
+msgid "a.m."
+msgstr "утра"
+
+msgid "PM"
+msgstr "ВЕЧЕРА"
+
+msgid "AM"
+msgstr "AM"
+
+msgid "midnight"
+msgstr "полночь"
+
+msgid "noon"
+msgstr "полдень"
+
+msgid "Monday"
+msgstr "понедельник"
+
+msgid "Tuesday"
+msgstr "вторник"
+
+msgid "Wednesday"
+msgstr "Среда"
+
+msgid "Thursday"
+msgstr "Четверг"
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "Saturday"
+msgstr "суббота"
+
+msgid "Sunday"
+msgstr "Воскресенье"
+
+msgid "Mon"
+msgstr "Пн"
+
+msgid "Tue"
+msgstr "Вт"
+
+msgid "Wed"
+msgstr "Мы бы"
+
+msgid "Thu"
+msgstr "Чт"
+
+msgid "Fri"
+msgstr "Пт"
+
+msgid "Sat"
+msgstr "Суббота"
+
+msgid "Sun"
+msgstr "солнце"
+
+msgid "January"
+msgstr "Январь"
+
+msgid "February"
+msgstr "Февраль"
+
+msgid "March"
+msgstr "марш"
+
+msgid "April"
+msgstr "апрель"
+
+msgid "May"
+msgstr "май"
+
+msgid "June"
+msgstr "Июнь"
+
+msgid "July"
+msgstr "Июль"
+
+msgid "August"
+msgstr "Август"
+
+msgid "September"
+msgstr "сентябрь"
+
+msgid "October"
+msgstr "Октябрь"
+
+msgid "November"
+msgstr "Ноябрь"
+
+msgid "December"
+msgstr "Декабрь"
+
+msgid "jan"
+msgstr "Ян"
+
+msgid "feb"
+msgstr "фев"
+
+msgid "mar"
+msgstr "мар"
+
+msgid "apr"
+msgstr "апр"
+
+msgid "may"
+msgstr "может"
+
+msgid "jun"
+msgstr "июн"
+
+msgid "jul"
+msgstr "июл"
+
+msgid "aug"
+msgstr "август"
+
+msgid "sep"
+msgstr "сен"
+
+msgid "oct"
+msgstr "окт"
+
+msgid "nov"
+msgstr "ноя"
+
+msgid "dec"
+msgstr "декабрь"
+
+msgid "This is not a valid IPv6 address."
+msgstr "Это недействительный адрес IPv6."
+
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr " %(truncated_text)s…"
+
+msgid ", "
+msgstr ","
+
+msgid "0 minutes"
+msgstr "0 минут"
+
+msgid "Forbidden"
+msgstr "Запрещено"
+
+msgid "CSRF verification failed. Request aborted."
+msgstr "Ошибка проверки CSRF. Запрос прерван."
+
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your Web browser, but none was sent. This header is"
+" required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please "
+"re-enable them, at least for this site, or for HTTPS connections, or for "
+"“same-origin” requests."
+msgstr ""
+
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag"
+" or including the “Referrer-Policy: no-referrer” header, please remove "
+"them. The CSRF protection requires the “Referer” header to do strict "
+"referer checking. If you’re concerned about privacy, use alternatives "
+"like <a rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when"
+" submitting forms. This cookie is required for security reasons, to "
+"ensure that your browser is not being hijacked by third parties."
+msgstr ""
+
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+msgid "More information is available with DEBUG=True."
+msgstr "Дополнительная информация доступна с DEBUG = True."
+
+msgid "Directory indexes are not allowed here."
+msgstr "Индексы каталогов здесь не разрешены."
+
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr "« %(path)s» не существует"
+
+msgid "No year specified"
+msgstr "Год не указан"
+
+msgid "Date out of range"
+msgstr "Дата вне допустимого диапазона"
+
+msgid "No month specified"
+msgstr "Месяц не указан"
+
+msgid "No day specified"
+msgstr "День не указан"
+
+msgid "No week specified"
+msgstr "Неделя не указана"
+
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr "Нет доступных %(verbose_name_plural)s"
+
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
+msgstr ""
+
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr "Недопустимая строка даты « %(datestr)s» в формате « %(format)s»"
+
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr " %(verbose_name)s не соответствует запросу"
+
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr "Страница не является «последней» и не может быть преобразована в int."
+
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr "Недействительная страница ( %(page_number)s): %(message)s"
+
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr "Пустой список и « %(class_name)s.allow_empty» имеет значение False."
+
+#~ msgid "%(count)s %(name)s was changed successfully."
+#~ msgid_plural "%(count)s %(name)s were changed successfully."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(total_count)s selected"
+#~ msgid_plural "All %(total_count)s selected"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid ""
+#~ "This password is too short. It "
+#~ "must contain at least %(min_length)d "
+#~ "character."
+#~ msgid_plural ""
+#~ "This password is too short. It "
+#~ "must contain at least %(min_length)d "
+#~ "characters."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "Your password must contain at least %(min_length)d character."
+#~ msgid_plural "Your password must contain at least %(min_length)d characters."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value).1f million"
+#~ msgid_plural "%(value).1f million"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value)s million"
+#~ msgid_plural "%(value)s million"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value).1f billion"
+#~ msgid_plural "%(value).1f billion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value)s billion"
+#~ msgid_plural "%(value)s billion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value).1f trillion"
+#~ msgid_plural "%(value).1f trillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value)s trillion"
+#~ msgid_plural "%(value)s trillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value).1f quadrillion"
+#~ msgid_plural "%(value).1f quadrillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value)s quadrillion"
+#~ msgid_plural "%(value)s quadrillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value).1f quintillion"
+#~ msgid_plural "%(value).1f quintillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value)s quintillion"
+#~ msgid_plural "%(value)s quintillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value).1f sextillion"
+#~ msgid_plural "%(value).1f sextillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value)s sextillion"
+#~ msgid_plural "%(value)s sextillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value).1f septillion"
+#~ msgid_plural "%(value).1f septillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value)s septillion"
+#~ msgid_plural "%(value)s septillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value).1f octillion"
+#~ msgid_plural "%(value).1f octillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value)s octillion"
+#~ msgid_plural "%(value)s octillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value).1f nonillion"
+#~ msgid_plural "%(value).1f nonillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value)s nonillion"
+#~ msgid_plural "%(value)s nonillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value).1f decillion"
+#~ msgid_plural "%(value).1f decillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value)s decillion"
+#~ msgid_plural "%(value)s decillion"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value).1f googol"
+#~ msgid_plural "%(value).1f googol"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(value)s googol"
+#~ msgid_plural "%(value)s googol"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "Please submit %d or fewer forms."
+#~ msgid_plural "Please submit %d or fewer forms."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "Please submit %d or more forms."
+#~ msgid_plural "Please submit %d or more forms."
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
+
+#~ msgid "%(size)d byte"
+#~ msgid_plural "%(size)d bytes"
+#~ msgstr[0] ""
+#~ msgstr[1] ""
+#~ msgstr[2] ""
 

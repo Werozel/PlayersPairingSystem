@@ -6,33 +6,42 @@ from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField
 					FileField, IntegerField, SelectField, TextAreaField, FieldList, TimeField, FormField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from wtforms.fields.html5 import DateTimeLocalField
-
+from flask_babel import gettext
 from libs.models.PlayTimes import PlayTimes
 from libs.models.User import User
 from libs.models.Group import Group
 from libs.models.Event import Event
 from constants.constants import Sports, DayOfWeek
 
+import re
+
 
 class RegistrationForm(FlaskForm):
 	username = StringField('Username', validators=[DataRequired(), Length(min=3, max=30)])
 	email = StringField('Email', validators=[DataRequired(), Email()])
 	password = PasswordField('Password', validators=[DataRequired()])
-	confirm_password = PasswordField('Confirm password', validators=[DataRequired(), EqualTo('password')])
+	confirm_password = PasswordField('Confirm password', validators=[DataRequired()])
 
 	submit = SubmitField('Sign Up')
 
 	@staticmethod
 	def validate_username(_, username):
+		if not re.match("^[A-Za-z0-9_-]*$", username.data):
+			raise ValidationError(gettext('Username can only contain letters, numbers, underscores and dashes'))
 		user = User.query.filter_by(username=username.data).first()
 		if user:
-			raise ValidationError('This username is already taken')
+			raise ValidationError(gettext('This username is already taken'))
 
 	@staticmethod
 	def validate_email(_, email):
 		user = User.query.filter_by(email=email.data).first()
 		if user:
-			raise ValidationError('Account with this email already exists')
+			raise ValidationError(gettext('Account with this email already exists'))
+
+	@staticmethod
+	def validate_confirm_password(form, confirm_password):
+		if not form.password.data == confirm_password.data:
+			raise ValidationError(gettext("Passwords doesn't match!"))
 
 
 class LoginForm(FlaskForm):
@@ -61,7 +70,7 @@ class PlayTimeForm(FlaskForm):
 	def validate_end_time(form, end_time):
 		if form.start_time.data is not None and \
 			form.start_time.data >= end_time.data:
-			raise ValidationError("Start time can't be after end time")
+			raise ValidationError(gettext("Start time can't be after end time"))
 
 	# def __init_self, *args, **kwargs):
 	# 	super().__init_*args, **kwargs)
@@ -84,7 +93,7 @@ class EditProfileForm(FlaskForm):
 	@staticmethod
 	def validate_age(_, age):
 		if age.data < 10 or age.data > 100:
-			raise ValidationError('Invalid age!')
+			raise ValidationError(gettext('Invalid age!'))
 
 	def __init__(self, times_values: List[PlayTimes] = None, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -110,7 +119,7 @@ class NewGroupFrom(FlaskForm):
 		group = Group.query.filter_by(name=name.data).first()
 		current_group_id = -1 if form.current_group is None else form.current_group.id
 		if group and group.id != current_group_id:
-			raise ValidationError('Name already taken!')
+			raise ValidationError(gettext('Name already taken!'))
 
 	def __init__(self, current_group=None, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -142,7 +151,7 @@ class NewEventForm(FlaskForm):
 	def validate_name(_, name):
 		events = Event.query.filter_by(name=name.data).first()
 		if events:
-			raise ValidationError("Name already taken!")
+			raise ValidationError(gettext("Name already taken!"))
 
 	def __init__(self, groups, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -165,7 +174,7 @@ class EditEventForm(FlaskForm):
 		current_event_id = -1 if form.current_event is None else form.current_event.id
 		event = Event.query.filter_by(name=name.data).first()
 		if event and event.id != current_event_id:
-			raise ValidationError("Name already taken!")
+			raise ValidationError(gettext("Name already taken!"))
 
 	def __init__(self, current_event=None, *args, **kwargs):
 		super().__init__(*args, **kwargs)
