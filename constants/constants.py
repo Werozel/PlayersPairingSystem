@@ -9,6 +9,12 @@ LANGUAGES = [
 ]
 
 
+DATETIME_FORMATS = {
+    'en': ["EEEE, MMM dd, HH:mm", "EEEE, MMM dd YY, HH:mm"],
+    'ru': ["EEEE, dd MMM, HH:mm", "EEEE, dd MMM YY, HH:mm"]
+}
+
+
 class Sports:
     tennis = _("Tennis")
     football = _("Football")

@@ -1,6 +1,8 @@
 from flask import request, abort
 from flask_login import current_user
+from flask_babel import format_datetime
 from constants.app_config import ADMIN_IDS
+from constants.constants import DATETIME_FORMATS
 import datetime
 import random
 
@@ -28,9 +30,15 @@ def get_arg_or_none(arg: str, to_int: bool = False):
         return None
 
 
-def format_time(time) -> str:
-    # TODO format time
-    return str(time)
+def format_time(dt) -> str:
+    dt_format = DATETIME_FORMATS.get(current_user.language)
+    if not dt_format:
+        return format_datetime(dt, "EEEE, MMM dd, HH:mm").title()
+    now = datetime.datetime.now()
+    if dt.year == now.year:
+        return format_datetime(dt, dt_format[0]).title()
+    else:
+        return format_datetime(dt, dt_format[1]).title()
 
 
 def timestamp():

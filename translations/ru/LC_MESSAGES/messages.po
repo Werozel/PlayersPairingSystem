@@ -2250,7 +2250,7 @@ msgid "Friday"
 msgstr "Пятница"
 
 msgid "Saturday"
-msgstr "суббота"
+msgstr "Суббота"
 
 msgid "Sunday"
 msgstr "Воскресенье"
