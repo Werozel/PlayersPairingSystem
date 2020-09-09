@@ -1,8 +1,10 @@
 from typing import List
 
+from src.youtube_links import is_youtube_link
+from wtforms import Form
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
-from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField, BooleanField, \
+from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField, BooleanField, HiddenField, \
 					FileField, IntegerField, SelectField, TextAreaField, FieldList, TimeField, FormField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from wtforms.fields.html5 import DateTimeLocalField
@@ -60,17 +62,17 @@ class SelectMultipleFields(SelectMultipleField):
 		self.data = value_list
 
 
-class PlayTimeForm(FlaskForm):
-	play_time_id = IntegerField('Play time id')
-	day_of_week = SelectField('Day of week', choices=DayOfWeek.days_of_week)
-	start_time = TimeField('Start time')
-	end_time = TimeField('End time')
-
-	@staticmethod
-	def validate_end_time(form, end_time):
-		if form.start_time.data is not None and \
-			form.start_time.data >= end_time.data:
-			raise ValidationError(gettext("Start time can't be after end time"))
+# class PlayTimeForm(FlaskForm):
+# 	play_time_id = IntegerField('Play time id')
+# 	day_of_week = SelectField('Day of week', choices=DayOfWeek.days_of_week)
+# 	start_time = TimeField('Start time')
+# 	end_time = TimeField('End time')
+#
+# 	@staticmethod
+# 	def validate_end_time(form, end_time):
+# 		if form.start_time.data is not None and \
+# 			form.start_time.data >= end_time.data:
+# 			raise ValidationError(gettext("Start time can't be after end time"))
 
 	# def __init_self, *args, **kwargs):
 	# 	super().__init_*args, **kwargs)
@@ -87,7 +89,7 @@ class EditProfileForm(FlaskForm):
 	sport_choices = Sports.get_choices()
 	# TODO add defaults for sport
 	sport = SelectMultipleFields('Sport', choices=sport_choices)
-	times = FieldList(FormField(PlayTimeForm), max_entries=7)
+	# times = FieldList(FormField(PlayTimeForm), max_entries=7)
 	submit = SubmitField('Update')
 
 	@staticmethod
@@ -97,14 +99,14 @@ class EditProfileForm(FlaskForm):
 
 	def __init__(self, times_values: List[PlayTimes] = None, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		if times_values is not None and len(times_values) > 0:
-			for time in times_values:
-				self.times.append_entry({
-					'play_time_id': time.id,
-					'day_of_week': time.day_of_week,
-					'start_time': time.start_time,
-					'end_time': time.end_time
-				})
+		# if times_values is not None and len(times_values) > 0:
+		# 	for time in times_values:
+		# 		self.times.append_entry({
+		# 			'play_time_id': time.id,
+		# 			'day_of_week': time.day_of_week,
+		# 			'start_time': time.start_time,
+		# 			'end_time': time.end_time
+		# 		})
 		# self.times.append_entry()
 
 
@@ -179,3 +181,21 @@ class EditEventForm(FlaskForm):
 	def __init__(self, current_event=None, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.current_event = current_event
+
+
+def validate_youtube_link(_, link):
+	if len(link.data) == 0:
+		return
+	if not is_youtube_link(link.data):
+		raise ValidationError(gettext('Must be a youtube link'))
+
+
+class VideoForm(Form):
+	sport = HiddenField('Sport')
+	video = StringField('video', validators=[validate_youtube_link])
+
+
+class EditVideosForm(FlaskForm):
+	videos = FieldList(FormField(VideoForm))
+	submit = SubmitField('Update')
+

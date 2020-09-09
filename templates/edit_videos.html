@@ -1,0 +1,48 @@
+{% extends "main.html" %}
+
+{%  block title %}
+        <title>{{ _('Edit videos') }}</title>
+{%  endblock title %}
+
+
+{% block content %}
+
+    <div class="content-section p-top-16">
+        <form method="POST" action="{{ url_for('profile_route', action='edit_videos') }}" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            {% set form_video_erorrs = form.errors.get('videos') %}
+
+            <fieldset class="form-group">
+                <legend class="border-bottom m-bottom-16">{{ _("Edit videos") }}</legend>
+
+                {% for video in form.videos.data %}
+                    <div class="m-left-8 m-bottom-16">
+                        <input type="hidden" id="videos-{{ loop.index }}-sport" name="videos-{{ loop.index }}-sport"  value="{{ video.sport }}">
+                        <p class="m-bottom-0">{{ _(video.sport) }}</p>
+                        {% if form_video_erorrs %}
+                            {% set video_errors = form_video_erorrs[loop.index - 1].get('video') %}
+                        {% endif %}
+                        {% if video_errors %}
+                            <input class="form-control form-control-sm is-invalid" id="videos-{{ loop.index }}-video" name="videos-{{ loop.index }}-video" type="text" value="{{ video.video }}">
+                            <div class="invalid-feedback>">
+                                {% for error in video_errors %}
+                                    <span>{{error}}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <input class="form-control form-control-sm" id="videos-{{ loop.index }}-video" name="videos-{{ loop.index }}-video" type="text" value="{{ video.video }}">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+{#                {{ wtf.form_field(form.videos) }}#}
+
+            </fieldset>
+            <legend class="border-bottom m-bottom-16"></legend>
+            <div class="form-group">
+                <input class="btn btn-outline-info" id="submit" name="submit" type="submit" value="{{ _('Submit') }}">
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

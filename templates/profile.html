@@ -61,7 +61,15 @@
         <legend class="border-bottom mb-4"></legend>
         <div class="container padding-left-0">
             {% if user.sport and len(user.sport) > 0 %}
-                <h5 class="align-left">{{ _("Sports") }}: </h5>
+                <div class="row m-left-8">
+                    <h5 class="align-left">{{ _("Sports") }}: </h5>
+                    {% if my %}
+                        <a href="{{ url_for('profile_route', action='edit_videos') }}" style="margin-left:auto; margin-right:16px;">
+                            <img title="Edit videos" width="75%" height="75%"
+                             src="{{ url_for('static', filename='buttons/edit-24px.svg')}}" alt="none"/>
+                        </a>
+                    {% endif %}
+                </div>
                 <div class="align-left col-sm-12" id="accordion">
                     {% for sport in user.sport %}
                         <div class="col">
@@ -72,7 +80,7 @@
                                 {% set video = videos.get(sport) %}
                                 {% if video %}
                                     <button class="btn btn-link p-0 m-left-16" data-toggle="collapse" data-target="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}">
-                                        Video
+                                        {{ _('Video') }}
                                     </button>
                                 {% endif %}
                             </div>

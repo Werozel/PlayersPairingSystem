@@ -2,7 +2,17 @@ import re
 from typing import Optional
 
 
-def parse_id(link: str) -> Optional[str]:
+def is_youtube_link(link: str) -> bool:
+    return re.match("^https://www.youtube.com/watch.*$", link.strip()) \
+           or re.match("^https://youtu.be/.*$", link.strip()) is not None
+
+
+def make_link(video_id: str) -> str:
+    return f"https://youtu.be/{video_id}"
+
+
+def parse_id(raw_link: str) -> Optional[str]:
+    link = raw_link.strip()
     try:
         if re.match("^https://www.youtube.com/watch.*$", link):
             return __parse_id_from_raw_url(link)
