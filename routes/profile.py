@@ -9,6 +9,7 @@ from libs.models.ChatMember import ChatMember
 from libs.models.Invitation import Invitation, InvitationType
 from libs.models.PlayTimes import PlayTimes
 from libs.models.User import set_user_picture
+from libs.models.UserToSportToVideo import UserToSportToVideo
 from flask_socketio import emit
 import json
 
@@ -21,14 +22,15 @@ def profile_route():
         if action == 'my':
             groups = current_user.get_groups()
             friends = current_user.friends_get()
+            videos: dict = UserToSportToVideo.get_all_for_user_id(current_user.id)
             return render_template(
                 "profile.html",
-                title="Profile",
                 current_user=current_user,
                 user=current_user,
                 groups=groups,
                 friends=friends,
-                my=True
+                my=True,
+                videos=videos
             )
         elif action == 'show':
             id = get_arg_or_400('id', to_int=True)
@@ -39,6 +41,7 @@ def profile_route():
             friends = user.friends_get()
             chat = ChatMember.get_private_chat(current_user.id, id)
             is_friend = True if current_user in friends else None
+            videos: dict = UserToSportToVideo.get_all_for_user_id(user.id)
             return render_template(
                 "profile.html",
                 chat_id=chat.id if chat else None,
@@ -46,7 +49,8 @@ def profile_route():
                 groups=groups,
                 friends=friends,
                 is_friend=is_friend,
-                user=user
+                user=user,
+                videos=videos
             )
         elif action == 'edit':
             form = EditProfileForm(

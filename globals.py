@@ -73,4 +73,5 @@ def create_tables():
     from libs.models.Message import Message
     from libs.models.PlayTimes import PlayTimes
     from libs.models.User import User
+    from libs.models.UserToSportToVideo import UserToSportToVideo
     db.create_all()
