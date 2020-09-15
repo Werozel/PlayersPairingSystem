@@ -5,6 +5,7 @@ from constants.app_config import ADMIN_IDS
 from constants.constants import DATETIME_FORMATS
 import datetime
 import random
+import logging
 
 
 def get_cookie(key: str, default):
@@ -18,7 +19,8 @@ def get_arg_or_400(arg: str, to_int: bool = False):
         if res is None:
             raise ValueError(f"No such argument {arg}")
         return int(res) if to_int else res
-    except ValueError:
+    except ValueError as e:
+        logging.error(e)
         abort(400)
 
 
@@ -57,5 +59,5 @@ def get_rand() -> int:
     return res
 
 
-def is_admin(user=current_user) -> bool:
+def is_admin(user) -> bool:
     return user.is_authenticated and user.id in ADMIN_IDS

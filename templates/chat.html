@@ -64,10 +64,13 @@
             }
         });
 
+        const input = document.getElementById('input');
         document.getElementById('send').onclick = function () {
-            const input = document.getElementById('input');
-            input.value = "";
             const msg = input.value;
+            if (msg.length === 0) {
+                return
+            }
+            input.value = "";
             const li = document.createElement("P");
             li.innerHTML = `<span class='text-muted'>${msg}</span>`;
             li.className = "message";
@@ -78,7 +81,6 @@
             objDiv.scrollTop = objDiv.scrollHeight;
         };
 
-        const input = document.getElementById("input");
         input.addEventListener("keyup", function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();

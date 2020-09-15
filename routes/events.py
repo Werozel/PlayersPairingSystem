@@ -79,7 +79,12 @@ def event_route():
             # FIXME сделать нормальный фильтр
             event_users = set(event.get_members())
             all_users = set(User.query.order_by(User.register_time).all())
-            users: list = list(filter(lambda user_tmp: event.sport in user_tmp.sport, list(all_users - event_users)))
+            users: list = list(
+                filter(
+                    lambda user_tmp: event.sport in (user_tmp.sport if user_tmp.sport else []),
+                    list(all_users - event_users)
+                )
+            )
             return render_template("find_people.html", event_id=event.id, people=users if len(users) > 0 else None)
 
         else:

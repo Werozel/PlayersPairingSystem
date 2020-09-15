@@ -1,5 +1,5 @@
 from globals import app, db
-from src.misc import timestamp, get_arg_or_400
+from src.misc import timestamp, get_arg_or_400, get_arg_or_none
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, abort
 from libs.models.Chat import Chat
@@ -15,8 +15,8 @@ def chats_route():
     action = get_arg_or_400('action')
 
     if action == 'show':
-        chat_id = get_arg_or_400('chat_id', to_int=True)
-        user_id = get_arg_or_400('user_id', to_int=True)    # С кем чат
+        chat_id = get_arg_or_none('chat_id', to_int=True)
+        user_id = get_arg_or_none('user_id', to_int=True)    # С кем чат
         if user_id is None:
             if chat_id is None:
                 return redirect(url_for('chat', action='all'))

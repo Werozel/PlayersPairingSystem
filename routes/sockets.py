@@ -1,3 +1,5 @@
+import logging
+
 from globals import db, sessions, socketIO
 from src.misc import timestamp, get_rand
 from flask_login import current_user
@@ -21,8 +23,12 @@ def handle_new(_):
 def handle_msg(msg):
     text = msg.get('text')
     # current_user - от кого пришло сообщение
-    user_id = int(msg.get('user_id'))
-    chat_id = int(msg.get('chat_id'))
+    try:
+        user_id = int(msg.get('user_id'))
+        chat_id = int(msg.get('chat_id'))
+    except TypeError as e:
+        logging.error(e)
+        return
     # TODO добавить контент
     message = Message(id=get_rand(), chat_id=chat_id, user_id=user_id,
                       time=timestamp(), text=text)

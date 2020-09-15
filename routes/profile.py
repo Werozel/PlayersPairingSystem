@@ -1,4 +1,4 @@
-from globals import app, db, sessions
+from globals import app, db, sessions, socketIO
 from src.misc import get_arg_or_400
 from src.youtube_links import make_link, parse_id
 from flask_login import login_required, current_user
@@ -11,7 +11,6 @@ from libs.models.Invitation import Invitation, InvitationType
 from libs.models.PlayTimes import PlayTimes
 from libs.models.User import set_user_picture
 from libs.models.UserToSportToVideo import UserToSportToVideo
-from flask_socketio import emit
 from collections import namedtuple
 import json
 
@@ -78,7 +77,9 @@ def profile_route():
                 recipient_id=new_friend_id
             )
             if invitation_id != -1:
-                emit('invitation', json.dumps({'invitation_id': invitation_id}), room=sessions.get(new_friend_id))
+                room = sessions.get(new_friend_id)
+                if room:
+                    socketIO.emit('invitation', json.dumps({'invitation_id': invitation_id}), room=room)
                 flash(gettext("Invitation sent!"), "success")
             else:
                 flash(gettext("You already sent an invitation to this user!"), "info")

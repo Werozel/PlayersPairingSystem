@@ -1,5 +1,6 @@
 from flask_admin import AdminIndexView, Admin
 from flask_admin.contrib.sqla import ModelView
+from flask_login import current_user
 from flask import abort
 from src.misc import is_admin
 
@@ -18,7 +19,7 @@ def get_admin(cur_app, cur_db) -> Admin:
 class SecureAdminIndexView(AdminIndexView):
 
     def is_accessible(self):
-        return is_admin()
+        return is_admin(current_user)
 
     def inaccessible_callback(self, name, **kwargs):
         abort(404)
@@ -27,7 +28,7 @@ class SecureAdminIndexView(AdminIndexView):
 class SecureModelView(ModelView):
 
     def is_accessible(self):
-        return is_admin()
+        return is_admin(current_user)
 
     def inaccessible_callback(self, name, **kwargs):
         abort(404)
