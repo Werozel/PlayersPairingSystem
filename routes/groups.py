@@ -75,7 +75,7 @@ def group_route():
                 members=members,
                 is_member=is_member,
                 events=events,
-                is_admin=is_group_admin
+                is_group_admin=is_group_admin
             )
 
         elif action == 'leave':
