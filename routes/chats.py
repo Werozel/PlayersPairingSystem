@@ -51,6 +51,8 @@ def chats_route():
             ChatNotification.remove(user_id=current_user.id, chat_id=chat_id)
 
         members = Chat.get_or_404(chat_id).get_members()
+        if user_id not in list(map(lambda x: x.id, members)):
+            abort(404)
         user_id = members[0].id if members[0].id != current_user.id else members[1].id
         return render_template(
             "chat.html",
