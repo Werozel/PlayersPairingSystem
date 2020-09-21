@@ -357,7 +357,7 @@ msgstr "Друзья"
 
 #: templates/register.html:13
 msgid "Join now"
-msgstr "Присоединяйся сейчас"
+msgstr "Присоединяйся!"
 
 #: templates/register.html:75
 msgid "Already have an account?"
@@ -365,7 +365,7 @@ msgstr "Уже зарегистрированы?"
 
 #: templates/search_group.html:38
 msgid "Closed"
-msgstr "Закрытое"
+msgstr "Закрыто"
 
 #: templates/search_group.html:51
 msgid "No search results"

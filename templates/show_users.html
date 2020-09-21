@@ -38,7 +38,7 @@
                         <p class="mb-0 mr-1">{{ _("Sport") }}: </p>
                         {% if user.sport %}
                             {%  for sport in user.sport %}
-                                <span style="list-style-type: none; padding-left: 3px;" class="text-secondary m-right-8">{{ sport }}</span>
+                                <span style="list-style-type: none; padding-left: 3px;" class="text-secondary m-right-8">{{ _(sport) }}</span>
                             {%  endfor  %}
                         {% else %}
                             <p class="text-secondary">{{ _("No sport added yet!") }}</p>

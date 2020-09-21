@@ -62,11 +62,11 @@ class Invitation(db.Model):
         from libs.models.User import User
         from libs.models.Group import Group
         from libs.models.Event import Event
-        if self.type in EVENTS_FROM_USER:
+        if self.type in InvitationType.FRIEND:
             return User.get_or_404(self.recipient_id)
-        elif self.type == InvitationType.FROM_GROUP:
+        elif self.type == InvitationType.TO_GROUP:
             return Group.get_or_404(self.recipient_id)
-        elif self.type == InvitationType.FROM_EVENT:
+        elif self.type == InvitationType.TO_EVENT:
             return Event.get_or_404(self.recipient_id)
         else:
             return None

@@ -41,7 +41,7 @@ class User(db.Model, UserMixin):
     from libs.models.Chat import Chat
     from libs.models.EventMember import EventMember
     from libs.models.PlayTimes import PlayTimes
-    from libs.models.UserToSportToVideo import UserToSportToVideo
+    from libs.models.UserVideos import UserVideos
     # from libs.ChatMember import ChatMember
     # from libs.ChatNotification import ChatNotification
     # from libs.Message import Message
@@ -74,7 +74,7 @@ class User(db.Model, UserMixin):
     event_member_rel = db.relationship('EventMember', backref='user', lazy=True)
     event_rel = db.relationship('Event', backref='creator', lazy=True)
     play_time_rel = db.relationship('PlayTimes', backref='user', lazy=True)
-    user_sport_videos_rel = db.relationship('UserToSportToVideo', backref='user', lazy=True)
+    user_sport_videos_rel = db.relationship('UserVideos', backref='user', lazy=True)
 
     __tablename__ = "users"
 

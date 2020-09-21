@@ -49,7 +49,6 @@ sessions = {}
 @babel.localeselector
 def get_locale():
     return get_cookie('language', 'en')
-    # return request.accept_languages.best_match(LANGUAGES)
 
 
 @babel.timezoneselector
@@ -73,5 +72,5 @@ def create_tables():
     from libs.models.Message import Message
     from libs.models.PlayTimes import PlayTimes
     from libs.models.User import User
-    from libs.models.UserToSportToVideo import UserToSportToVideo
+    from libs.models.UserVideos import UserVideos
     db.create_all()

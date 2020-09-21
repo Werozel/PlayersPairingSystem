@@ -10,7 +10,7 @@ from libs.models.ChatMember import ChatMember
 from libs.models.Invitation import Invitation, InvitationType
 from libs.models.PlayTimes import PlayTimes
 from libs.models.User import set_user_picture
-from libs.models.UserToSportToVideo import UserToSportToVideo
+from libs.models.UserVideos import UserVideos
 from collections import namedtuple
 import json
 
@@ -23,7 +23,7 @@ def profile_route():
         if action == 'my':
             groups = current_user.get_groups()
             friends = current_user.friends_get()
-            videos: dict = UserToSportToVideo.get_all_for_user_id(current_user.id)
+            videos: dict = UserVideos.get_all_for_user_id(current_user.id)
             return render_template(
                 "profile.html",
                 current_user=current_user,
@@ -42,7 +42,7 @@ def profile_route():
             friends = user.friends_get()
             chat = ChatMember.get_private_chat(current_user.id, id)
             is_friend = True if current_user in friends else None
-            videos: dict = UserToSportToVideo.get_all_for_user_id(user.id)
+            videos: dict = UserVideos.get_all_for_user_id(user.id)
             return render_template(
                 "profile.html",
                 chat_id=chat.id if chat else None,
@@ -65,7 +65,7 @@ def profile_route():
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
         elif action == 'edit_videos':
             group = namedtuple('Group', ['sport', 'video'])
-            videos = UserToSportToVideo.get_all_for_user_id(current_user.id)
+            videos = UserVideos.get_all_for_user_id(current_user.id)
             arr = [group(sport, (make_link(vid) if (vid := videos.get(sport)) is not None else "")) for sport in current_user.sport]
             form = EditVideosForm(data={'videos': arr})
             return render_template("edit_videos.html", form=form, current_user=current_user)
@@ -132,11 +132,11 @@ def profile_route():
             form = EditVideosForm()
             if form.validate_on_submit():
                 for video_entry in form.videos.entries:
-                    user_to_sport_to_video = UserToSportToVideo.get_video(current_user.id, video_entry.sport.data)
+                    user_to_sport_to_video = UserVideos.get_video(current_user.id, video_entry.sport.data)
                     if user_to_sport_to_video is None:
                         if video_entry.video.data is None or len(video_entry.video.data) == 0:
                             continue
-                        user_to_sport_to_video = UserToSportToVideo(
+                        user_to_sport_to_video = UserVideos(
                             user_id=current_user.id,
                             sport=video_entry.sport.data,
                             video_id=parse_id(video_entry.video.data)

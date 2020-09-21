@@ -65,7 +65,7 @@ def chats_route():
             if i.name is None:
                 members = i.get_members()
                 for u in members:
-                    if u.id != current_user.id:
+                    if u is not None and u.id != current_user.id:
                         i.name = u.username
         return render_template(
             "my_chats.html",

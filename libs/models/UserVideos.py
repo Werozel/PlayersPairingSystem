@@ -1,7 +1,7 @@
 from globals import db
 
 
-class UserToSportToVideo(db.Model):
+class UserVideos(db.Model):
     __tablename__ = "user_sport_videos"
 
     user_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)
@@ -14,11 +14,11 @@ class UserToSportToVideo(db.Model):
 
     @staticmethod
     def get_all_for_user_id(user_id: int) -> dict:
-        return {i.sport: i.video_id for i in UserToSportToVideo.query.filter_by(user_id=user_id).all()}
+        return {i.sport: i.video_id for i in UserVideos.query.filter_by(user_id=user_id).all()}
 
     @staticmethod
     def get_video(user_id: int, sport: str) -> str:
-        return UserToSportToVideo.query.filter_by(user_id=user_id, sport=sport).first()
+        return UserVideos.query.filter_by(user_id=user_id, sport=sport).first()
 
     def __repr__(self) -> str:
-        return f"UserToSportToVideo: user = {self.user}, sport = {self.sport}, video_id = {self.video_id}"
+        return f"UserVideos: user = {self.user}, sport = {self.sport}, video_id = {self.video_id}"
