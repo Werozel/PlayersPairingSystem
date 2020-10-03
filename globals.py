@@ -1,5 +1,6 @@
 from constants.app_config import SECRET_KEY, DB_URL
 from constants.config import GOOGLE_API
+from constants.constants import DayOfWeek
 from flask import Flask, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
@@ -7,7 +8,7 @@ from flask_login import LoginManager
 from flask_socketio import SocketIO
 from libs.SecureAdmin import get_admin
 from flask_babel import Babel, gettext
-from src.misc import format_time, is_admin, get_cookie
+from src.misc import format_date_time, is_admin, get_cookie, format_time
 from geopy.geocoders import GoogleV3
 
 
@@ -18,7 +19,9 @@ def get_app(name: str) -> Flask:
     res.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # jinja env variables
+    res.jinja_env.globals.update(format_date_time=format_date_time)
     res.jinja_env.globals.update(format_time=format_time)
+    res.jinja_env.globals.update(get_day_of_week=DayOfWeek.get_name)
     res.jinja_env.globals.update(len=len)
     res.jinja_env.globals.update(is_admin=is_admin)
     res.jinja_env.globals.update(set=set)

@@ -6,4 +6,47 @@
 
 {% block content %}
 
+    <h4 class="h4 media-body">{{ _("Your play times") }}</h4>
+    <legend class="border-bottom mb-4"></legend>
+    {% for play_time in all_play_times %}
+        <div id="play_time_{{ play_time.id }}" class="content-section row media m-bottom-12">
+            <p class="media-body text-secondary m-bottom-0">
+                {% if play_time.day_of_week is not none and play_time.start_time is not none and play_time.end_time is not none %}
+                    {{ get_day_of_week(play_time.day_of_week) }}, {{ format_time(play_time.start_time) }}-{{ format_time(play_time.end_time) }}
+                {% else %}
+                    {{ _("No time selected!") }}
+                {% endif %}
+            </p>
+            <div class="media-right row">
+                <p class="text-secondary m-bottom-0 m-right-16">
+                    {% if play_time.address is not none %}
+                        {{ play_time.address }}
+                    {% else %}
+                        {{ _("No address selected") }}
+                    {% endif %}
+                </p>
+                <a href="{{ url_for('profile_route', action='add_play_time', id=play_time.id) }}">
+                    <img class="m-right-8" width="75%" height="75%" src="{{ url_for('static', filename='buttons/edit-24px.svg') }}"/>
+                </a>
+                <a onclick="sendDeleteRequest({{ play_time.id }})" onmouseover="" style="cursor: pointer;">
+                    <img class="m-right-8" width="75%" height="75%" src="{{ url_for('static', filename='buttons/delete-24px.svg') }}"/>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript" charset="utf-8">
+        const xhttp = new XMLHttpRequest();
+
+        function sendDeleteRequest(id) {
+            let url = "{{ url_for('play_time_route', id=0) }}".slice(0, -1) + id
+            xhttp.open("DELETE", url, true)
+            xhttp.send()
+            $(`#play_time_${id}`).remove()
+        }
+
+    </script>
 {% endblock %}

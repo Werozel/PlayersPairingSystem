@@ -56,7 +56,7 @@ class Group(db.Model):
         if self is None:
             return
         for e in self.get_events():
-            db.sessin.delete(e)
+            db.session.delete(e)
         db.session.commit()
         for i in GroupMember.query.filter_by(group_id=self.id).all():
             db.session.delete(i)

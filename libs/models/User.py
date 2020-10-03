@@ -74,7 +74,7 @@ class User(db.Model, UserMixin):
     notification_rel = db.relationship('ChatNotification', backref='user', lazy=True)
     event_member_rel = db.relationship('EventMember', backref='user', lazy=True)
     event_rel = db.relationship('Event', backref='creator', lazy=True)
-    play_time_rel = db.relationship('PlayTimes', backref='user', lazy=True)
+    play_time_rel = db.relationship('PlayTime', backref='user', lazy=True)
     user_sport_videos_rel = db.relationship('UserVideos', backref='user', lazy=True)
 
     __tablename__ = "users"

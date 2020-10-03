@@ -86,4 +86,4 @@ class DayOfWeek:
     def get_name(i: int) -> Optional[str]:
         if i < 0 or i >= 7:
             return None
-        return DayOfWeek.days_of_week.__getitem__(i).second()
+        return DayOfWeek.days_of_week.__getitem__(i)[1]

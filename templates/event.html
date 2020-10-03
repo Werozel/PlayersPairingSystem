@@ -40,7 +40,7 @@
                 {%  endif %}
             </div>
             <legend class="border-bottom mb-3" style="width: 100%"></legend>
-            <p>{{ _("Time") }}: <span class="text-secondary">{{ format_time(event.time) }}</span></p>
+            <p>{{ _("Time") }}: <span class="text-secondary">{{ format_date_time(event.time) }}</span></p>
             {%  if group %}
                 <p>{{ _("Group") }}: <a href="{{ url_for('group_route', action='show', id=group.id) }}">{{ group.name }}</a></p>
             {%  endif %}

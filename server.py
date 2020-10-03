@@ -15,6 +15,7 @@ import routes.profile
 import routes.search
 import routes.sockets
 import routes.errors
+import api.map
 
 
 if __name__ == "__main__":

@@ -62,10 +62,12 @@ def event_route():
 
         elif action == 'join':
             if event.closed:
-                Invitation.add(InvitationType.TO_EVENT,
-                               recipient_id=event.id,
-                               referrer_id=current_user.id,
-                               expiration_time=event.time)
+                Invitation.add(
+                    InvitationType.TO_EVENT,
+                    recipient_id=event.id,
+                    referrer_id=current_user.id,
+                    expiration_time=event.time
+                )
                 flash(gettext("Invitation sent!"), "success")
             else:
                 event.add_member(current_user)

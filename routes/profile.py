@@ -1,5 +1,5 @@
 from globals import app, db, sessions, socketIO
-from src.misc import get_arg_or_400
+from src.misc import get_arg_or_400, get_arg_or_none
 from src.youtube_links import make_link, parse_id
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, flash, abort
@@ -64,8 +64,15 @@ def profile_route():
             )
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
         elif action == 'add_play_time':
-
-            return render_template("add_play_time.html")
+            all_play_times = PlayTime.get_all_for_user_id(current_user.id)
+            current_play_time = PlayTime.get(get_arg_or_none("id"))
+            if current_play_time is not None:
+                all_play_times = [play_time for play_time in all_play_times if play_time.id != current_play_time.id]
+            return render_template(
+                "add_play_time.html",
+                all_play_times=all_play_times,
+                current_play_time=current_play_time
+            )
         elif action == 'edit_videos':
             group = namedtuple('Group', ['sport', 'video'])
             videos = UserVideos.get_all_for_user_id(current_user.id)
