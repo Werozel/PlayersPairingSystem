@@ -12,9 +12,9 @@
         <div id="play_time_{{ play_time.id }}" class="content-section row media m-bottom-12">
             <p class="media-body text-secondary m-bottom-0">
                 {% if play_time.day_of_week is not none and play_time.start_time is not none and play_time.end_time is not none %}
-                    {{ get_day_of_week(play_time.day_of_week) }}, {{ format_time(play_time.start_time) }}-{{ format_time(play_time.end_time) }}
+                    {{ _(get_day_of_week(play_time.day_of_week)) }}, {{ format_time(play_time.start_time) }}-{{ format_time(play_time.end_time) }}
                 {% else %}
-                    {{ _("No time selected!") }}
+                    {{ _("No time selected") }}
                 {% endif %}
             </p>
             <div class="media-right row">

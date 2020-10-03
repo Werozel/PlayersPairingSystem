@@ -77,12 +77,13 @@
                 {% endif %}
             {% endwith %}
 
-            {% block content %}{% endblock %}
+            {% block content %}{% endblock content %}
             </div>
 
             {% if hide_sidebar %}
             {%  else %}
-                <div class="col-md-3">
+                {% block sidebar %}
+                    <div class="col-md-3">
                     <div class="content-section">
                         <ul class="list-group">
                             <li class="my-list-group-item list-group-item-light">
@@ -115,6 +116,7 @@
                     </ul>
                     </div>
                 </div>
+                {% endblock sidebar %}
             {% endif %}
         </div>
     </main>
