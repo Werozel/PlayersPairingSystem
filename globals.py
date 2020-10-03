@@ -74,8 +74,7 @@ def create_tables():
     from libs.models.GroupMember import GroupMember
     from libs.models.Invitation import Invitation
     from libs.models.Message import Message
-    from libs.models.PlayTimes import PlayTimes
-    from libs.models.PlayLocation import PlayLocation
+    from libs.models.PlayTime import PlayTime
     from libs.models.User import User
     from libs.models.UserVideos import UserVideos
     db.create_all()

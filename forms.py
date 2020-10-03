@@ -9,7 +9,7 @@ from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from wtforms.fields.html5 import DateTimeLocalField
 from flask_babel import gettext
-from libs.models.PlayTimes import PlayTimes
+from libs.models.PlayTime import PlayTime
 from libs.models.User import User
 from libs.models.Group import Group
 from libs.models.Event import Event
@@ -81,7 +81,7 @@ class EditProfileForm(FlaskForm):
 		if age.data < 10 or age.data > 100:
 			raise ValidationError(gettext('Invalid age!'))
 
-	def __init__(self, times_values: List[PlayTimes] = None, *args, **kwargs):
+	def __init__(self, times_values: List[PlayTime] = None, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		# if times_values is not None and len(times_values) > 0:
 		# 	for time in times_values:

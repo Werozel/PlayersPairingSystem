@@ -35,6 +35,10 @@
                         <img title="Edit profile"
                              src="{{ url_for('static', filename='buttons/edit-24px.svg')}}" alt="none"/>
                     </a>
+                    <a href="{{ url_for('profile_route', action='add_play_time') }}">
+                        <img title="Edit profile"
+                             src="{{ url_for('static', filename='buttons/date_range-24px.svg')}}" alt="none"/>
+                    </a>
                 </div>
             {%  else %}
                 <div class="media-right">

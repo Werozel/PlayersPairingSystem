@@ -8,7 +8,7 @@ from forms import EditProfileForm, EditVideosForm
 from libs.models.User import User
 from libs.models.ChatMember import ChatMember
 from libs.models.Invitation import Invitation, InvitationType
-from libs.models.PlayTimes import PlayTimes
+from libs.models.PlayTime import PlayTime
 from libs.models.User import set_user_picture
 from libs.models.UserVideos import UserVideos
 from collections import namedtuple
@@ -60,9 +60,12 @@ def profile_route():
                 age=current_user.age,
                 gender=current_user.gender,
                 sport=current_user.sport,
-                times_values=PlayTimes.get_all_for_user_id(current_user.id)
+                times_values=PlayTime.get_all_for_user_id(current_user.id)
             )
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
+        elif action == 'add_play_time':
+
+            return render_template("add_play_time.html")
         elif action == 'edit_videos':
             group = namedtuple('Group', ['sport', 'video'])
             videos = UserVideos.get_all_for_user_id(current_user.id)
