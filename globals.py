@@ -1,4 +1,5 @@
 from constants.app_config import SECRET_KEY, DB_URL
+from constants.config import GOOGLE_API
 from flask import Flask, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
@@ -7,6 +8,7 @@ from flask_socketio import SocketIO
 from libs.SecureAdmin import get_admin
 from flask_babel import Babel, gettext
 from src.misc import format_time, is_admin, get_cookie
+from geopy.geocoders import GoogleV3
 
 
 def get_app(name: str) -> Flask:
@@ -30,6 +32,8 @@ app = get_app(__name__)
 bootstrap = Bootstrap(app)
 
 db = SQLAlchemy(app)
+
+google_api = GoogleV3(api_key=GOOGLE_API)
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login_route'
@@ -71,6 +75,7 @@ def create_tables():
     from libs.models.Invitation import Invitation
     from libs.models.Message import Message
     from libs.models.PlayTimes import PlayTimes
+    from libs.models.PlayLocation import PlayLocation
     from libs.models.User import User
     from libs.models.UserVideos import UserVideos
     db.create_all()

@@ -103,6 +103,7 @@ def profile_route():
                 current_user.last_name = form.last_name.data
                 current_user.age = form.age.data
                 current_user.gender = form.gender.data
+                current_user.city = form.city.data
                 if len(form.sport.data):
                     current_user.sport = form.sport.data
                 db.session.add(current_user)

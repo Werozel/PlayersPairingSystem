@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-06 17:24+0300\n"
+"POT-Creation-Date: 2020-10-03 19:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,63 +19,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: forms.py:25
-msgid "Passwords doesn't match!"
-msgstr "Пароли не совпадают!"
-
-#: forms.py:33
+#: forms.py:32
 msgid "Username can only contain letters, numbers, underscores and dashes"
 msgstr "Имя пользователя может содержать только буквы, цифры, подчеркивания и тире"
 
-#: forms.py:36
+#: forms.py:35
 msgid "This username is already taken"
 msgstr "Такое имя пользователя уже зарегистрировано"
 
-#: forms.py:42
+#: forms.py:41
 msgid "Account with this email already exists"
 msgstr "Аккаунт с этим адресом уже существует"
 
-#: forms.py:71
-msgid "Start time can't be after end time"
-msgstr "Временной промежуток не может начинаться после своего конца"
+#: forms.py:46
+msgid "Passwords doesn't match!"
+msgstr "Пароли не совпадают!"
 
-#: forms.py:94
+#: forms.py:82
 msgid "Invalid age!"
 msgstr "Неверный возраст"
 
-#: forms.py:120 forms.py:152 forms.py:175
+#: forms.py:108 forms.py:140 forms.py:163
 msgid "Name already taken!"
 msgstr "Имя уже занято"
 
-#: globals.py:37
+#: forms.py:174
+msgid "Must be a youtube link"
+msgstr ""
+
+#: globals.py:41
 msgid "Please log in to view this page."
 msgstr "Пожалуйста, авторизуйтесь, чтобы использовать эту страницу."
 
-#: constants/constants.py:13
+#: constants/constants.py:19
 msgid "Tennis"
 msgstr "Большой теннис"
 
-#: constants/constants.py:14
+#: constants/constants.py:20
 msgid "Football"
 msgstr "Футбол"
 
-#: constants/constants.py:15
+#: constants/constants.py:21
 msgid "Basketball"
 msgstr "Баскетбол"
 
-#: constants/constants.py:16
+#: constants/constants.py:22
 msgid "Volleyball"
 msgstr "Волейбол"
 
-#: constants/constants.py:17
+#: constants/constants.py:23
 msgid "Hockey"
 msgstr "Хоккей"
 
-#: constants/constants.py:44
+#: constants/constants.py:50
 msgid "Select sport"
 msgstr "Выберите вид спорта"
 
-#: routes/events.py:69 routes/groups.py:65 routes/profile.py:70
+#: routes/events.py:69 routes/groups.py:65 routes/profile.py:83
 msgid "Invitation sent!"
 msgstr "Приглашение отправлено!"
 
@@ -91,15 +91,15 @@ msgstr "Неверные данные!"
 msgid "Account created! Please fill additional information."
 msgstr "Аккаунт создан! Пожалуйста, заполните дополнительную информацию."
 
-#: routes/profile.py:72
+#: routes/profile.py:85
 msgid "You already sent an invitation to this user!"
 msgstr "Вы уже отправили этому пользователю приглашение!"
 
-#: routes/profile.py:77
+#: routes/profile.py:90
 msgid "Friend removed!"
 msgstr "Друг удален!"
 
-#: routes/profile.py:112
+#: routes/profile.py:128
 msgid "Profile updated!"
 msgstr "Ваш профиль обновлен!"
 
@@ -141,9 +141,18 @@ msgstr "Изменить событие"
 msgid "New Event"
 msgstr "Новое событие"
 
+#: templates/edit_event.html:54 templates/edit_profile.html:119
+msgid "Update"
+msgstr "Обновить"
+
 #: templates/edit_group.html:4 templates/edit_group.html:14
 msgid "Edit group"
 msgstr "Изменить группу"
+
+#: templates/edit_group.html:40 templates/edit_videos.html:43
+#: templates/new_group.html:39
+msgid "Submit"
+msgstr "Отправить"
 
 #: templates/edit_profile.html:4 templates/edit_profile.html:18
 msgid "Edit profile"
@@ -152,6 +161,10 @@ msgstr "Изменить профиль"
 #: templates/edit_profile.html:24
 msgid "File must be an image"
 msgstr "Файл должен быть изображением"
+
+#: templates/edit_videos.html:4 templates/edit_videos.html:16
+msgid "Edit videos"
+msgstr ""
 
 #: templates/event.html:18 templates/find_people.html:4
 #: templates/find_people.html:8
@@ -188,7 +201,7 @@ msgid "Sport"
 msgstr "Спорт"
 
 #: templates/find_people.html:45 templates/my_invitations.html:48
-#: templates/profile.html:73 templates/show_users.html:44
+#: templates/profile.html:100 templates/show_users.html:44
 msgid "No sport added yet!"
 msgstr "Спорт еще не выбран!"
 
@@ -229,7 +242,7 @@ msgstr "В этой группе еще нет чатов!"
 msgid "You are on index page"
 msgstr "Вы находитесь на главной странице"
 
-#: templates/login.html:4 templates/main.html:46
+#: templates/login.html:4 templates/login.html:27 templates/main.html:46
 msgid "Login"
 msgstr "Войти"
 
@@ -245,7 +258,7 @@ msgstr "Забыли пароль?"
 msgid "Don't have an account?"
 msgstr "Нет профиля?"
 
-#: templates/login.html:36
+#: templates/login.html:36 templates/register.html:69
 msgid "Sign up"
 msgstr "Зарегистрироваться"
 
@@ -257,7 +270,7 @@ msgstr "Выйти"
 msgid "Register"
 msgstr "Создать аккаунт"
 
-#: templates/main.html:89 templates/profile.html:79
+#: templates/main.html:89 templates/profile.html:106
 #: templates/search_group.html:9
 msgid "Groups"
 msgstr "Группы"
@@ -335,6 +348,10 @@ msgstr "Нет отправленных приглашений!"
 msgid "New event"
 msgstr "Новое событие"
 
+#: templates/new_event.html:58
+msgid "Create"
+msgstr "Создать"
+
 #: templates/new_group.html:5 templates/new_group.html:13
 msgid "New group"
 msgstr "Новая группа"
@@ -347,11 +364,19 @@ msgstr "Профиль"
 msgid "Gender"
 msgstr "Пол"
 
-#: templates/profile.html:64
+#: templates/profile.html:27
+msgid "City"
+msgstr "Город"
+
+#: templates/profile.html:68
 msgid "Sports"
 msgstr "Виды спорта"
 
-#: templates/profile.html:93
+#: templates/profile.html:86
+msgid "Video"
+msgstr ""
+
+#: templates/profile.html:120
 msgid "Friends"
 msgstr "Друзья"
 
@@ -362,6 +387,14 @@ msgstr "Присоединяйся!"
 #: templates/register.html:75
 msgid "Already have an account?"
 msgstr "Уже зарегистрированы?"
+
+#: templates/search_event.html:4
+msgid "Search for an event"
+msgstr ""
+
+#: templates/search_group.html:27
+msgid "Search"
+msgstr "Поиск"
 
 #: templates/search_group.html:38
 msgid "Closed"
@@ -711,6 +744,10 @@ msgstr "Нет"
 msgid "Yes"
 msgstr "да"
 
+#: venv/Lib/site-packages/flask_script/__init__.py:43
+msgid "show this help message and exit"
+msgstr ""
+
 #: venv/Lib/site-packages/flask_wtf/file.py:50
 #: venv/Lib/site-packages/wtforms/validators.py:218
 #: venv/Lib/site-packages/wtforms/validators.py:258
@@ -885,1574 +922,6 @@ msgstr "Недействительное значение даты"
 #: venv/Lib/site-packages/wtforms/fields/core.py:827
 msgid "Not a valid time value"
 msgstr "Недействительное значение времени"
-
-msgid "Username"
-msgstr "Имя пользователя"
-
-msgid "Confirm password"
-msgstr "Подтвердите Пароль"
-
-msgid "Sign Up"
-msgstr "Зарегистрироваться"
-
-msgid "Remember me"
-msgstr "Запомни меня"
-
-msgid "Play time id"
-msgstr ""
-
-msgid "Day of week"
-msgstr "День недели"
-
-msgid "Start time"
-msgstr "Время начала"
-
-msgid "End time"
-msgstr "Время окончания"
-
-msgid "Profile image"
-msgstr "Изображение профиля"
-
-msgid "Name"
-msgstr "Имя"
-
-msgid "Last Name"
-msgstr "Фамилия"
-
-msgid "Male"
-msgstr "Мужской"
-
-msgid "Female"
-msgstr "Женский"
-
-msgid "Update"
-msgstr "Обновить"
-
-msgid "Submit"
-msgstr "Отправить"
-
-msgid "Search"
-msgstr "Поиск"
-
-msgid "Create"
-msgstr "Создать"
-
-#, python-format
-msgid "Successfully deleted %(count)d %(items)s."
-msgstr "Успешно удалено %(count)d %(items)s."
-
-#, python-format
-msgid "Cannot delete %(name)s"
-msgstr "Невозможно удалить %(name)s"
-
-msgid "Are you sure?"
-msgstr "Вы уверены?"
-
-msgid "Administration"
-msgstr "Администрация"
-
-msgid "All"
-msgstr "Все"
-
-msgid "Unknown"
-msgstr "Неизвестно"
-
-msgid "Any date"
-msgstr "Любая дата"
-
-msgid "Today"
-msgstr "Cегодня"
-
-msgid "Past 7 days"
-msgstr "Прошлые 7 дней"
-
-msgid "This month"
-msgstr "Этот месяц"
-
-msgid "This year"
-msgstr "Этот год"
-
-msgid "No date"
-msgstr "Без даты"
-
-msgid "Has date"
-msgstr "Имеет дату"
-
-#, python-format
-msgid ""
-"Please enter the correct %(username)s and password for a staff account. "
-"Note that both fields may be case-sensitive."
-msgstr ""
-
-msgid "Action:"
-msgstr "Действие:"
-
-#, python-format
-msgid "Add another %(verbose_name)s"
-msgstr "Добавить еще %(verbose_name)s"
-
-msgid "Remove"
-msgstr "удалять"
-
-msgid "Addition"
-msgstr "Дополнение"
-
-msgid "Change"
-msgstr "+ Изменить"
-
-msgid "Deletion"
-msgstr "Удаление"
-
-msgid "action time"
-msgstr "время действия"
-
-msgid "user"
-msgstr "пользователь"
-
-msgid "content type"
-msgstr "Тип содержимого"
-
-msgid "object id"
-msgstr "идентификатор объекта"
-
-msgid "object repr"
-msgstr "объект repr"
-
-msgid "action flag"
-msgstr "флаг действия"
-
-msgid "change message"
-msgstr "изменить сообщение"
-
-msgid "log entry"
-msgstr "запись в журнале"
-
-msgid "log entries"
-msgstr "записи журнала"
-
-#, python-format
-msgid "Added “%(object)s”."
-msgstr "Добавлен « %(object)s»."
-
-#, python-format
-msgid "Changed “%(object)s” — %(changes)s"
-msgstr "Изменен « %(object)s» - %(changes)s"
-
-#, python-format
-msgid "Deleted “%(object)s.”"
-msgstr "Удалено « %(object)s»."
-
-msgid "LogEntry Object"
-msgstr "Объект LogEntry"
-
-msgid "addedname"
-msgstr "добавленное имя"
-
-msgid "Added {name} “{object}”."
-msgstr "Добавлено {имя} «{объект}»."
-
-msgid "Added."
-msgstr "Добавлен."
-
-msgid "and"
-msgstr "и"
-
-msgid "changedname"
-msgstr "измененное имя"
-
-msgid "Changed {fields} for {name} “{object}”."
-msgstr "Изменены {поля} на {имя} «{объект}»."
-
-msgid "Changed {fields}."
-msgstr "Поменял {поля}."
-
-msgid "deletedname"
-msgstr "удаленное имя"
-
-msgid "Deleted {name} “{object}”."
-msgstr "Удалено {имя} «{объект}»."
-
-msgid "No fields changed."
-msgstr "Поля не изменились."
-
-msgid "None"
-msgstr "Никто"
-
-msgid "Hold down “Control”, or “Command” on a Mac, to select more than one."
-msgstr "Удерживайте «Control» или «Command» на Mac, чтобы выбрать более одного."
-
-msgid "The {name} “{obj}” was added successfully."
-msgstr "{Name} «{obj}» был успешно добавлен."
-
-msgid "You may edit it again below."
-msgstr "Вы можете отредактировать его снова ниже."
-
-msgid ""
-"The {name} “{obj}” was added successfully. You may add another {name} "
-"below."
-msgstr ""
-
-msgid "The {name} “{obj}” was changed successfully. You may edit it again below."
-msgstr ""
-"{Name} «{obj}» был успешно изменен. Вы можете отредактировать его снова "
-"ниже."
-
-msgid "The {name} “{obj}” was added successfully. You may edit it again below."
-msgstr ""
-"{Name} «{obj}» был успешно добавлен. Вы можете отредактировать его снова "
-"ниже."
-
-msgid ""
-"The {name} “{obj}” was changed successfully. You may add another {name} "
-"below."
-msgstr ""
-
-msgid "The {name} “{obj}” was changed successfully."
-msgstr "{Name} «{obj}» был успешно изменен."
-
-msgid ""
-"Items must be selected in order to perform actions on them. No items have"
-" been changed."
-msgstr ""
-
-msgid "No action selected."
-msgstr "Действие не выбрано."
-
-#, python-format
-msgid "The %(name)s “%(obj)s” was deleted successfully."
-msgstr " %(name)s « %(obj)s» был успешно удален."
-
-#, python-format
-msgid "%(name)s with ID “%(key)s” doesn’t exist. Perhaps it was deleted?"
-msgstr ""
-" %(name)s с идентификатором « %(key)s» не существует. Возможно, его "
-"удалили?"
-
-#, python-format
-msgid "Add %s"
-msgstr "Добавить %s"
-
-#, python-format
-msgid "Change %s"
-msgstr "Изменить %s"
-
-#, python-format
-msgid "View %s"
-msgstr "Просмотры %s"
-
-msgid "Database error"
-msgstr "ошибка базы данных"
-
-#, python-format
-msgid "0 of %(cnt)s selected"
-msgstr "Выбрано 0 из %(cnt)s"
-
-#, python-format
-msgid "Change history: %s"
-msgstr "История изменений: %s"
-
-#, python-format
-msgid "%(class_name)s %(instance)s"
-msgstr " %(class_name)s %(instance)s"
-
-#, python-format
-msgid ""
-"Deleting %(class_name)s %(instance)s would require deleting the following"
-" protected related objects: %(related_objects)s"
-msgstr ""
-
-msgid "Log in"
-msgstr "Войти"
-
-#, python-format
-msgid "%(app)s administration"
-msgstr " %(app)s администрирование"
-
-msgid "Date:"
-msgstr "Дата:"
-
-msgid "Time:"
-msgstr "Время:"
-
-msgid "Lookup"
-msgstr "Уважать"
-
-msgid "Currently:"
-msgstr "В настоящее время:"
-
-msgid "Change:"
-msgstr "Изменить:"
-
-msgid "All dates"
-msgstr "Все даты"
-
-#, python-format
-msgid "Select %s"
-msgstr "Выберите %s"
-
-#, python-format
-msgid "Select %s to change"
-msgstr "Выберите %s, чтобы изменить"
-
-#, python-format
-msgid "Select %s to view"
-msgstr "Выберите %s для просмотра"
-
-msgid "Administrative Documentation"
-msgstr "Административная документация"
-
-msgid "tag:"
-msgstr "тег:"
-
-msgid "filter:"
-msgstr "фильтр:"
-
-msgid "view:"
-msgstr "Посмотреть:"
-
-#, python-format
-msgid "App %(app_label)r not found"
-msgstr "Приложение %(app_label)r не найдено"
-
-#, python-format
-msgid "Model %(model_name)r not found in app %(app_label)r"
-msgstr "Модель %(model_name)r не найдена в приложении %(app_label)r"
-
-msgid "model:"
-msgstr "модель:"
-
-#, python-format
-msgid "the related `%(app_label)s.%(data_type)s` object"
-msgstr "связанный объект ` %(app_label)s. %(data_type)s`"
-
-#, python-format
-msgid "related `%(app_label)s.%(object_name)s` objects"
-msgstr "связанные объекты ` %(app_label)s. %(object_name)s`"
-
-#, python-format
-msgid "all %s"
-msgstr "все %s"
-
-#, python-format
-msgid "number of %s"
-msgstr "количество %s"
-
-#, python-format
-msgid "%s does not appear to be a urlpattern object"
-msgstr " %s не является объектом urlpattern"
-
-msgid "Personal info"
-msgstr "Личная информация"
-
-msgid "Permissions"
-msgstr "Разрешения"
-
-msgid "Important dates"
-msgstr "Важные даты"
-
-#, python-format
-msgid "%(name)s object with primary key %(key)r does not exist."
-msgstr "Объект %(name)s с первичным ключом %(key)r не существует."
-
-msgid "Password changed successfully."
-msgstr "Пароль успешно изменен."
-
-#, python-format
-msgid "Change password: %s"
-msgstr "Изменить пароль: %s"
-
-msgid "Authentication and Authorization"
-msgstr "Аутентификация и авторизация"
-
-msgid "password"
-msgstr "пароль"
-
-msgid "last login"
-msgstr "последний вход"
-
-msgid "No password set."
-msgstr "Пароль не установлен."
-
-msgid "Invalid password format or unknown hashing algorithm."
-msgstr "Неверный формат пароля или неизвестный алгоритм хеширования."
-
-msgid "The two password fields didn’t match."
-msgstr "Два поля пароля не совпадают."
-
-msgid "Password"
-msgstr "Пароль"
-
-msgid "Password confirmation"
-msgstr "Подтверждение пароля"
-
-msgid "Enter the same password as before, for verification."
-msgstr "Введите тот же пароль, что и раньше, для проверки."
-
-msgid ""
-"Raw passwords are not stored, so there is no way to see this user’s "
-"password, but you can change the password using <a href=\"{}\">this "
-"form</a>."
-msgstr ""
-
-#, python-format
-msgid ""
-"Please enter a correct %(username)s and password. Note that both fields "
-"may be case-sensitive."
-msgstr ""
-
-msgid "This account is inactive."
-msgstr "Этот аккаунт не активен."
-
-msgid "Email"
-msgstr "Эл. адрес"
-
-msgid "New password"
-msgstr "Новый пароль"
-
-msgid "New password confirmation"
-msgstr "Подтверждение нового пароля"
-
-msgid "Your old password was entered incorrectly. Please enter it again."
-msgstr "Ваш старый пароль был введен неверно. Пожалуйста, введите его еще раз."
-
-msgid "Old password"
-msgstr "Прежний пароль"
-
-msgid "Password (again)"
-msgstr "Пароль еще раз)"
-
-msgid "algorithm"
-msgstr "алгоритм"
-
-msgid "iterations"
-msgstr "итерации"
-
-msgid "salt"
-msgstr "поваренная соль"
-
-msgid "hash"
-msgstr "хэш"
-
-msgid "variety"
-msgstr "разнообразие"
-
-msgid "version"
-msgstr "версия"
-
-msgid "memory cost"
-msgstr "стоимость памяти"
-
-msgid "time cost"
-msgstr "временные затраты"
-
-msgid "parallelism"
-msgstr "параллелизм"
-
-msgid "work factor"
-msgstr "рабочий фактор"
-
-msgid "checksum"
-msgstr "контрольная сумма"
-
-msgid "name"
-msgstr "название"
-
-msgid "codename"
-msgstr "кодовое имя"
-
-msgid "permission"
-msgstr "разрешение"
-
-msgid "permissions"
-msgstr "разрешения"
-
-msgid "group"
-msgstr "группа"
-
-msgid "groups"
-msgstr "группы"
-
-msgid "superuser status"
-msgstr "статус суперпользователя"
-
-msgid ""
-"Designates that this user has all permissions without explicitly "
-"assigning them."
-msgstr ""
-
-msgid ""
-"The groups this user belongs to. A user will get all permissions granted "
-"to each of their groups."
-msgstr ""
-
-msgid "user permissions"
-msgstr "права пользователя"
-
-msgid "Specific permissions for this user."
-msgstr "Особые разрешения для этого пользователя."
-
-msgid "username"
-msgstr "имя пользователя"
-
-msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Необходимое поле. 150 символов или меньше. Только буквы, цифры и @ /. / +"
-" / - / _."
-
-msgid "A user with that username already exists."
-msgstr "Пользователь с таким именем уже существует."
-
-msgid "first name"
-msgstr "Имя"
-
-msgid "last name"
-msgstr "Фамилия"
-
-msgid "email address"
-msgstr "адрес электронной почты"
-
-msgid "staff status"
-msgstr "статус персонала"
-
-msgid "Designates whether the user can log into this admin site."
-msgstr "Определяет, может ли пользователь войти на этот сайт администратора."
-
-msgid "active"
-msgstr "активный"
-
-msgid ""
-"Designates whether this user should be treated as active. Unselect this "
-"instead of deleting accounts."
-msgstr ""
-
-msgid "date joined"
-msgstr "дата присоединения"
-
-msgid "users"
-msgstr "пользователи"
-
-#, python-format
-msgid "The password is too similar to the %(verbose_name)s."
-msgstr "Пароль слишком похож на %(verbose_name)s."
-
-msgid "Your password can’t be too similar to your other personal information."
-msgstr "Ваш пароль не может быть слишком похож на вашу другую личную информацию."
-
-msgid "This password is too common."
-msgstr "Этот пароль слишком распространен."
-
-msgid "Your password can’t be a commonly used password."
-msgstr "Ваш пароль не может быть обычным паролем."
-
-msgid "This password is entirely numeric."
-msgstr "Этот пароль полностью цифровой."
-
-msgid "Your password can’t be entirely numeric."
-msgstr "Ваш пароль не может быть полностью числовым."
-
-msgid ""
-"Enter a valid username. This value may contain only English letters, "
-"numbers, and @/./+/-/_ characters."
-msgstr ""
-
-msgid ""
-"Enter a valid username. This value may contain only letters, numbers, and"
-" @/./+/-/_ characters."
-msgstr ""
-
-msgid "Logged out"
-msgstr "Вышли из"
-
-msgid "Password reset"
-msgstr "Восстановление пароля"
-
-msgid "Password reset sent"
-msgstr "Сброс пароля отправлен"
-
-msgid "Enter new password"
-msgstr "Введите новый пароль"
-
-msgid "Password reset unsuccessful"
-msgstr "Не удалось сбросить пароль"
-
-msgid "Password reset complete"
-msgstr "Сброс пароля завершен"
-
-msgid "Password change"
-msgstr "Смена пароля"
-
-msgid "Password change successful"
-msgstr "Пароль успешно изменен"
-
-msgid "Content Types"
-msgstr "Типы контента"
-
-msgid "python model class name"
-msgstr "имя класса модели Python"
-
-msgid "content types"
-msgstr "типы контента"
-
-#, python-format
-msgid "Content type %(ct_id)s object has no associated model"
-msgstr "Объект типа содержимого %(ct_id)s не имеет связанной модели"
-
-#, python-format
-msgid "Content type %(ct_id)s object %(obj_id)s doesn’t exist"
-msgstr "Тип содержимого %(ct_id)s объект %(obj_id)s не существует"
-
-#, python-format
-msgid "%(ct_name)s objects don’t have a get_absolute_url() method"
-msgstr "У объектов %(ct_name)s нет метода get_absolute_url()"
-
-msgid "Advanced options"
-msgstr "Расширенные опции"
-
-msgid "Flat Pages"
-msgstr "Плоские страницы"
-
-msgid "URL"
-msgstr "URL"
-
-msgid ""
-"Example: “/about/contact/”. Make sure to have leading and trailing "
-"slashes."
-msgstr ""
-
-msgid ""
-"This value must contain only letters, numbers, dots, underscores, dashes,"
-" slashes or tildes."
-msgstr ""
-
-msgid "Example: “/about/contact”. Make sure to have a leading slash."
-msgstr "Пример: «/ о / контакт». Убедитесь, что у вас есть начальная косая черта."
-
-msgid "URL is missing a leading slash."
-msgstr "В URL отсутствует косая черта в начале."
-
-msgid "URL is missing a trailing slash."
-msgstr "В URL отсутствует косая черта в конце."
-
-#, python-format
-msgid "Flatpage with url %(url)s already exists for site %(site)s"
-msgstr "Плоская страница с URL %(url)s уже существует для сайта %(site)s"
-
-msgid "title"
-msgstr "заглавие"
-
-msgid "content"
-msgstr "содержание"
-
-msgid "enable comments"
-msgstr "включить комментарии"
-
-msgid "template name"
-msgstr "Имя Шаблона"
-
-msgid ""
-"Example: “flatpages/contact_page.html”. If this isn’t provided, the "
-"system will use “flatpages/default.html”."
-msgstr ""
-
-msgid "registration required"
-msgstr "требуется регистрация"
-
-msgid "If this is checked, only logged-in users will be able to view the page."
-msgstr ""
-"Если этот флажок установлен, только зарегистрированные пользователи "
-"смогут просматривать страницу."
-
-msgid "sites"
-msgstr "места"
-
-msgid "flat page"
-msgstr "плоская страница"
-
-msgid "flat pages"
-msgstr "плоские страницы"
-
-msgid "GIS"
-msgstr "ГИС"
-
-msgid "No feeds are registered."
-msgstr "Каналы не зарегистрированы."
-
-#, python-format
-msgid "Slug %r isn’t registered."
-msgstr "Слаг %r не зарегистрирован."
-
-msgid "The base GIS field."
-msgstr "Базовое поле ГИС."
-
-msgid "The base Geometry field — maps to the OpenGIS Specification Geometry type."
-msgstr ""
-"Базовое поле геометрии - соответствует типу геометрии спецификации "
-"OpenGIS."
-
-msgid "Point"
-msgstr "Точка"
-
-msgid "Line string"
-msgstr "Строка строки"
-
-msgid "Polygon"
-msgstr "Многоугольник"
-
-msgid "Multi-point"
-msgstr "Многоточечный"
-
-msgid "Multi-line string"
-msgstr "Многострочная строка"
-
-msgid "Multi polygon"
-msgstr "Мульти многоугольник"
-
-msgid "Geometry collection"
-msgstr "Коллекция геометрии"
-
-msgid "Extent Aggregate Field"
-msgstr "Поле агрегирования экстента"
-
-msgid "Raster Field"
-msgstr "Растровое поле"
-
-msgid "No geometry value provided."
-msgstr "Не указано геометрическое значение."
-
-msgid "Invalid geometry value."
-msgstr "Неверное значение геометрии."
-
-msgid "Invalid geometry type."
-msgstr "Неверный тип геометрии."
-
-msgid ""
-"An error occurred when transforming the geometry to the SRID of the "
-"geometry form field."
-msgstr ""
-
-msgid "Humanize"
-msgstr "Очеловечивать"
-
-msgctxt "ordinal 9"
-msgid "{}th"
-msgstr "{} th"
-
-msgctxt "ordinal 1"
-msgid "{}st"
-msgstr "{} ул."
-
-msgctxt "ordinal 2"
-msgid "{}nd"
-msgstr "{} nd"
-
-msgctxt "ordinal 3"
-msgid "{}rd"
-msgstr "{} рд"
-
-msgid "one"
-msgstr "один"
-
-msgid "two"
-msgstr "два"
-
-msgid "three"
-msgstr "три"
-
-msgid "four"
-msgstr "четыре"
-
-msgid "five"
-msgstr "пять"
-
-msgid "six"
-msgstr "шесть"
-
-msgid "seven"
-msgstr "Семь"
-
-msgid "eight"
-msgstr "восемь"
-
-msgid "nine"
-msgstr "девять"
-
-msgid "today"
-msgstr "Cегодня"
-
-msgid "tomorrow"
-msgstr "завтра"
-
-msgid "yesterday"
-msgstr "вчерашний день"
-
-msgid "PostgreSQL extensions"
-msgstr "Расширения PostgreSQL"
-
-#, python-format
-msgid "Some keys were missing: %(keys)s"
-msgstr "Некоторые ключи отсутствовали: %(keys)s"
-
-#, python-format
-msgid "Some unknown keys were provided: %(keys)s"
-msgstr "Были предоставлены некоторые неизвестные ключи: %(keys)s"
-
-#, python-format
-msgid ""
-"Ensure that this range is completely less than or equal to "
-"%(limit_value)s."
-msgstr ""
-
-#, python-format
-msgid ""
-"Ensure that this range is completely greater than or equal to "
-"%(limit_value)s."
-msgstr ""
-
-#, python-format
-msgid "Item %(nth)s in the array did not validate:"
-msgstr "Элемент %(nth)s в массиве не прошел проверку:"
-
-msgid "Nested arrays must have the same length."
-msgstr "Вложенные массивы должны иметь одинаковую длину."
-
-msgid "Map of strings to strings/nulls"
-msgstr "Отображение строк в строки / нули"
-
-#, python-format
-msgid "The value of “%(key)s” is not a string or null."
-msgstr "Значение « %(key)s» не является строкой или нулем."
-
-msgid "A JSON object"
-msgstr "Объект JSON"
-
-msgid "Value must be valid JSON."
-msgstr "Значение должно быть действительным JSON."
-
-msgid "Could not load JSON data."
-msgstr "Не удалось загрузить данные JSON."
-
-msgid "Input must be a JSON dictionary."
-msgstr "Входные данные должны быть словарем JSON."
-
-#, python-format
-msgid "“%(value)s” value must be valid JSON."
-msgstr "Значение « %(value)s» должно быть допустимым JSON."
-
-msgid "Enter two valid values."
-msgstr "Введите два действительных значения."
-
-msgid "The start of the range must not exceed the end of the range."
-msgstr "Начало диапазона не должно превышать конец диапазона."
-
-msgid "Enter two whole numbers."
-msgstr "Введите два целых числа."
-
-msgid "Enter two numbers."
-msgstr "Введите два числа."
-
-msgid "Enter two valid date/times."
-msgstr "Введите две действительные дату / время."
-
-msgid "Enter two valid dates."
-msgstr "Введите две действительные даты."
-
-msgid "Redirects"
-msgstr "Перенаправления"
-
-msgid "site"
-msgstr "сайт"
-
-msgid "redirect from"
-msgstr "перенаправить с"
-
-msgid ""
-"This should be an absolute path, excluding the domain name. Example: "
-"“/events/search/”."
-msgstr ""
-
-msgid "redirect to"
-msgstr "перенаправить на"
-
-msgid ""
-"This can be either an absolute path (as above) or a full URL starting "
-"with “http://”."
-msgstr ""
-
-msgid "redirect"
-msgstr "перенаправить"
-
-msgid "redirects"
-msgstr "перенаправляет"
-
-msgid "Sessions"
-msgstr "Сессии"
-
-msgid "session key"
-msgstr "ключ сеанса"
-
-msgid "session data"
-msgstr "данные сеанса"
-
-msgid "expire date"
-msgstr "годен до"
-
-msgid "session"
-msgstr "сессия"
-
-msgid "sessions"
-msgstr "сессии"
-
-msgid "Site Maps"
-msgstr "Карты сайта"
-
-msgid "Sites"
-msgstr "Места"
-
-msgid "The domain name cannot contain any spaces or tabs."
-msgstr "Имя домена не может содержать пробелов или табуляций."
-
-msgid "domain name"
-msgstr "доменное имя"
-
-msgid "display name"
-msgstr "отображаемое имя"
-
-msgid "Static Files"
-msgstr "Статические файлы"
-
-msgid "Syndication"
-msgstr "Синдикация"
-
-msgid "That page number is not an integer"
-msgstr "Номер страницы не является целым числом"
-
-msgid "That page number is less than 1"
-msgstr "Номер страницы меньше 1"
-
-msgid "That page contains no results"
-msgstr "Эта страница не содержит результатов"
-
-msgid "Enter a valid value."
-msgstr "Введите допустимое значение."
-
-msgid "Enter a valid URL."
-msgstr "Введите действующий URL."
-
-msgid "Enter a valid integer."
-msgstr "Введите действительное целое число."
-
-msgid "Enter a valid email address."
-msgstr "Введите корректный электронный адрес."
-
-msgid ""
-"Enter a valid “slug” consisting of letters, numbers, underscores or "
-"hyphens."
-msgstr ""
-
-msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores,"
-" or hyphens."
-msgstr ""
-
-msgid "Enter a valid IPv4 address."
-msgstr "Введите действительный адрес IPv4."
-
-msgid "Enter a valid IPv6 address."
-msgstr "Введите действующий IPv6-адрес."
-
-msgid "Enter a valid IPv4 or IPv6 address."
-msgstr "Введите действительный адрес IPv4 или IPv6."
-
-msgid "Enter only digits separated by commas."
-msgstr "Введите только цифры, разделенные запятыми."
-
-#, python-format
-msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
-msgstr "Убедитесь, что это значение %(limit_value)s (это %(show_value)s)."
-
-#, python-format
-msgid "Ensure this value is less than or equal to %(limit_value)s."
-msgstr "Убедитесь, что это значение меньше или равно %(limit_value)s."
-
-#, python-format
-msgid "Ensure this value is greater than or equal to %(limit_value)s."
-msgstr "Убедитесь, что это значение больше или равно %(limit_value)s."
-
-msgid "Enter a number."
-msgstr "Введите номер."
-
-#, python-format
-msgid ""
-"File extension “%(extension)s” is not allowed. Allowed extensions are: "
-"%(allowed_extensions)s."
-msgstr ""
-
-msgid "Null characters are not allowed."
-msgstr "Нулевые символы не допускаются."
-
-#, python-format
-msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr " %(model_name)s с этим %(field_labels)s уже существует."
-
-#, python-format
-msgid "Value %(value)r is not a valid choice."
-msgstr "Значение %(value)r не является допустимым выбором."
-
-msgid "This field cannot be null."
-msgstr "Это поле не может быть пустым."
-
-msgid "This field cannot be blank."
-msgstr "Это поле не может быть пустым."
-
-#, python-format
-msgid "%(model_name)s with this %(field_label)s already exists."
-msgstr " %(model_name)s с этим %(field_label)s уже существует."
-
-#, python-format
-msgid "%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
-msgstr ""
-" %(field_label)s должен быть уникальным для %(date_field_label)s "
-"%(lookup_type)s."
-
-#, python-format
-msgid "Field of type: %(field_type)s"
-msgstr "Поле типа: %(field_type)s"
-
-#, python-format
-msgid "“%(value)s” value must be either True or False."
-msgstr "Значение « %(value)s» должно быть либо True, либо False."
-
-#, python-format
-msgid "“%(value)s” value must be either True, False, or None."
-msgstr "Значение « %(value)s» должно быть True, False или None."
-
-msgid "Boolean (Either True or False)"
-msgstr "Логическое значение (Истина или Ложь)"
-
-#, python-format
-msgid "String (up to %(max_length)s)"
-msgstr "Строка (до %(max_length)s)"
-
-msgid "Comma-separated integers"
-msgstr "Целые числа, разделенные запятыми"
-
-#, python-format
-msgid ""
-"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
-"format."
-msgstr ""
-
-#, python-format
-msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an "
-"invalid date."
-msgstr ""
-
-msgid "Date (without time)"
-msgstr "Дата (без времени)"
-
-#, python-format
-msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
-msgstr ""
-
-#, python-format
-msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
-msgstr ""
-
-msgid "Date (with time)"
-msgstr "Дата (со временем)"
-
-#, python-format
-msgid "“%(value)s” value must be a decimal number."
-msgstr "Значение « %(value)s» должно быть десятичным числом."
-
-msgid "Decimal number"
-msgstr "Десятичное число"
-
-#, python-format
-msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
-msgstr ""
-
-msgid "Duration"
-msgstr "Продолжительность"
-
-msgid "Email address"
-msgstr "Адрес электронной почты"
-
-msgid "File path"
-msgstr "Путь файла"
-
-#, python-format
-msgid "“%(value)s” value must be a float."
-msgstr "Значение « %(value)s» должно быть плавающим."
-
-msgid "Floating point number"
-msgstr "Число с плавающей запятой"
-
-#, python-format
-msgid "“%(value)s” value must be an integer."
-msgstr "Значение « %(value)s» должно быть целым числом."
-
-msgid "Integer"
-msgstr "Целое число"
-
-msgid "Big (8 byte) integer"
-msgstr "Большое (8 байт) целое число"
-
-msgid "IPv4 address"
-msgstr "IPv4-адрес"
-
-msgid "IP address"
-msgstr "айпи адрес"
-
-#, python-format
-msgid "“%(value)s” value must be either None, True or False."
-msgstr "Значение « %(value)s» должно быть None, True или False."
-
-msgid "Boolean (Either True, False or None)"
-msgstr "Логическое значение (Истина, Ложь или Нет)"
-
-msgid "Positive integer"
-msgstr "Положительное число"
-
-msgid "Positive small integer"
-msgstr "Положительное маленькое целое число"
-
-#, python-format
-msgid "Slug (up to %(max_length)s)"
-msgstr "Слаг (до %(max_length)s)"
-
-msgid "Small integer"
-msgstr "Маленькое целое число"
-
-msgid "Text"
-msgstr "Текст"
-
-#, python-format
-msgid ""
-"“%(value)s” value has an invalid format. It must be in "
-"HH:MM[:ss[.uuuuuu]] format."
-msgstr ""
-
-#, python-format
-msgid ""
-"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is "
-"an invalid time."
-msgstr ""
-
-msgid "Raw binary data"
-msgstr "Необработанные двоичные данные"
-
-#, python-format
-msgid "“%(value)s” is not a valid UUID."
-msgstr "« %(value)s» не является допустимым UUID."
-
-msgid "Universally unique identifier"
-msgstr "Универсальный уникальный идентификатор"
-
-msgid "File"
-msgstr "файл"
-
-msgid "Image"
-msgstr "Образ"
-
-#, python-format
-msgid "%(model)s instance with %(field)s %(value)r does not exist."
-msgstr "Экземпляр %(model)s с %(field)s %(value)r не существует."
-
-msgid "Foreign Key (type determined by related field)"
-msgstr "Внешний ключ (тип определяется связанным полем)"
-
-msgid "One-to-one relationship"
-msgstr "Отношения один на один"
-
-#, python-format
-msgid "%(from)s-%(to)s relationship"
-msgstr " %(from)s - %(to)s отношения"
-
-#, python-format
-msgid "%(from)s-%(to)s relationships"
-msgstr " %(from)s - %(to)s отношения"
-
-msgid "Many-to-many relationship"
-msgstr "Отношения многие-ко-многим"
-
-msgid ":?.!"
-msgstr ":?.!"
-
-msgid "Enter a whole number."
-msgstr "Введите целое число."
-
-msgid "Enter a valid date."
-msgstr "Введите правильную дату."
-
-msgid "Enter a valid time."
-msgstr "Введите действительное время."
-
-msgid "Enter a valid date/time."
-msgstr "Введите действительную дату / время."
-
-msgid "Enter a valid duration."
-msgstr "Введите действительную продолжительность."
-
-msgid "The number of days must be between {min_days} and {max_days}."
-msgstr "Количество дней должно быть от {min_days} до {max_days}."
-
-msgid "No file was submitted. Check the encoding type on the form."
-msgstr "Файл не был отправлен. Проверьте тип кодировки в форме."
-
-msgid "No file was submitted."
-msgstr "Файл не был отправлен."
-
-msgid "The submitted file is empty."
-msgstr "Представленный файл пуст."
-
-msgid "Please either submit a file or check the clear checkbox, not both."
-msgstr "Отправьте файл или установите флажок «Очистить», но не оба сразу."
-
-msgid ""
-"Upload a valid image. The file you uploaded was either not an image or a "
-"corrupted image."
-msgstr ""
-
-#, python-format
-msgid "Select a valid choice. %(value)s is not one of the available choices."
-msgstr ""
-"Выберите правильный выбор.  %(value)s не является одним из доступных "
-"вариантов."
-
-msgid "Enter a list of values."
-msgstr "Введите список значений."
-
-msgid "Enter a complete value."
-msgstr "Введите полное значение."
-
-msgid "Enter a valid UUID."
-msgstr "Введите действительный UUID."
-
-msgid ":"
-msgstr ":"
-
-#, python-format
-msgid "(Hidden field %(name)s) %(error)s"
-msgstr "(Скрытое поле %(name)s) %(error)s"
-
-msgid "ManagementForm data is missing or has been tampered with"
-msgstr "Данные ManagementForm отсутствуют или были подделаны"
-
-msgid "Order"
-msgstr "порядок"
-
-msgid "Delete"
-msgstr "Удалить"
-
-#, python-format
-msgid "Please correct the duplicate data for %(field)s."
-msgstr "Исправьте повторяющиеся данные для %(field)s."
-
-#, python-format
-msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
-"Исправьте повторяющиеся данные для %(field)s, которые должны быть "
-"уникальными."
-
-#, python-format
-msgid ""
-"Please correct the duplicate data for %(field_name)s which must be unique"
-" for the %(lookup)s in %(date_field)s."
-msgstr ""
-
-msgid "Please correct the duplicate values below."
-msgstr "Исправьте повторяющиеся значения ниже."
-
-msgid "The inline value did not match the parent instance."
-msgstr "Встроенное значение не соответствует родительскому экземпляру."
-
-msgid "Select a valid choice. That choice is not one of the available choices."
-msgstr "Выберите правильный выбор. Этот вариант не является одним из доступных."
-
-#, python-format
-msgid "“%(pk)s” is not a valid value."
-msgstr "« %(pk)s» не является допустимым значением."
-
-#, python-format
-msgid ""
-"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; "
-"it may be ambiguous or it may not exist."
-msgstr ""
-
-msgid "Clear"
-msgstr "Очистить"
-
-msgid "Currently"
-msgstr "В настоящее время"
-
-msgid "yes,no,maybe"
-msgstr "да нет Может быть"
-
-#, python-format
-msgid "%s KB"
-msgstr " %s КБ"
-
-#, python-format
-msgid "%s MB"
-msgstr " %s МБ"
-
-#, python-format
-msgid "%s GB"
-msgstr " %s ГБ"
-
-#, python-format
-msgid "%s TB"
-msgstr " %s ТБ"
-
-#, python-format
-msgid "%s PB"
-msgstr " %s PB"
-
-msgid "p.m."
-msgstr "вечера."
-
-msgid "a.m."
-msgstr "утра"
-
-msgid "PM"
-msgstr "ВЕЧЕРА"
-
-msgid "AM"
-msgstr "AM"
-
-msgid "midnight"
-msgstr "полночь"
-
-msgid "noon"
-msgstr "полдень"
-
-msgid "Monday"
-msgstr "понедельник"
-
-msgid "Tuesday"
-msgstr "вторник"
-
-msgid "Wednesday"
-msgstr "Среда"
-
-msgid "Thursday"
-msgstr "Четверг"
-
-msgid "Friday"
-msgstr "Пятница"
-
-msgid "Saturday"
-msgstr "Суббота"
-
-msgid "Sunday"
-msgstr "Воскресенье"
-
-msgid "Mon"
-msgstr "Пн"
-
-msgid "Tue"
-msgstr "Вт"
-
-msgid "Wed"
-msgstr "Мы бы"
-
-msgid "Thu"
-msgstr "Чт"
-
-msgid "Fri"
-msgstr "Пт"
-
-msgid "Sat"
-msgstr "Суббота"
-
-msgid "Sun"
-msgstr "солнце"
-
-msgid "January"
-msgstr "Январь"
-
-msgid "February"
-msgstr "Февраль"
-
-msgid "March"
-msgstr "марш"
-
-msgid "April"
-msgstr "апрель"
-
-msgid "May"
-msgstr "май"
-
-msgid "June"
-msgstr "Июнь"
-
-msgid "July"
-msgstr "Июль"
-
-msgid "August"
-msgstr "Август"
-
-msgid "September"
-msgstr "сентябрь"
-
-msgid "October"
-msgstr "Октябрь"
-
-msgid "November"
-msgstr "Ноябрь"
-
-msgid "December"
-msgstr "Декабрь"
-
-msgid "jan"
-msgstr "Ян"
-
-msgid "feb"
-msgstr "фев"
-
-msgid "mar"
-msgstr "мар"
-
-msgid "apr"
-msgstr "апр"
-
-msgid "may"
-msgstr "может"
-
-msgid "jun"
-msgstr "июн"
-
-msgid "jul"
-msgstr "июл"
-
-msgid "aug"
-msgstr "август"
-
-msgid "sep"
-msgstr "сен"
-
-msgid "oct"
-msgstr "окт"
-
-msgid "nov"
-msgstr "ноя"
-
-msgid "dec"
-msgstr "декабрь"
-
-msgid "This is not a valid IPv6 address."
-msgstr "Это недействительный адрес IPv6."
-
-#, python-format
-msgctxt "String to return when truncating text"
-msgid "%(truncated_text)s…"
-msgstr " %(truncated_text)s…"
-
-msgid ", "
-msgstr ","
-
-msgid "0 minutes"
-msgstr "0 минут"
-
-msgid "Forbidden"
-msgstr "Запрещено"
-
-msgid "CSRF verification failed. Request aborted."
-msgstr "Ошибка проверки CSRF. Запрос прерван."
-
-msgid ""
-"You are seeing this message because this HTTPS site requires a “Referer "
-"header” to be sent by your Web browser, but none was sent. This header is"
-" required for security reasons, to ensure that your browser is not being "
-"hijacked by third parties."
-msgstr ""
-
-msgid ""
-"If you have configured your browser to disable “Referer” headers, please "
-"re-enable them, at least for this site, or for HTTPS connections, or for "
-"“same-origin” requests."
-msgstr ""
-
-msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag"
-" or including the “Referrer-Policy: no-referrer” header, please remove "
-"them. The CSRF protection requires the “Referer” header to do strict "
-"referer checking. If you’re concerned about privacy, use alternatives "
-"like <a rel=\"noreferrer\" …> for links to third-party sites."
-msgstr ""
-
-msgid ""
-"You are seeing this message because this site requires a CSRF cookie when"
-" submitting forms. This cookie is required for security reasons, to "
-"ensure that your browser is not being hijacked by third parties."
-msgstr ""
-
-msgid ""
-"If you have configured your browser to disable cookies, please re-enable "
-"them, at least for this site, or for “same-origin” requests."
-msgstr ""
-
-msgid "More information is available with DEBUG=True."
-msgstr "Дополнительная информация доступна с DEBUG = True."
-
-msgid "Directory indexes are not allowed here."
-msgstr "Индексы каталогов здесь не разрешены."
-
-#, python-format
-msgid "“%(path)s” does not exist"
-msgstr "« %(path)s» не существует"
-
-msgid "No year specified"
-msgstr "Год не указан"
-
-msgid "Date out of range"
-msgstr "Дата вне допустимого диапазона"
-
-msgid "No month specified"
-msgstr "Месяц не указан"
-
-msgid "No day specified"
-msgstr "День не указан"
-
-msgid "No week specified"
-msgstr "Неделя не указана"
-
-#, python-format
-msgid "No %(verbose_name_plural)s available"
-msgstr "Нет доступных %(verbose_name_plural)s"
-
-#, python-format
-msgid ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
-msgstr ""
-
-#, python-format
-msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
-msgstr "Недопустимая строка даты « %(datestr)s» в формате « %(format)s»"
-
-#, python-format
-msgid "No %(verbose_name)s found matching the query"
-msgstr " %(verbose_name)s не соответствует запросу"
-
-msgid "Page is not “last”, nor can it be converted to an int."
-msgstr "Страница не является «последней» и не может быть преобразована в int."
-
-#, python-format
-msgid "Invalid page (%(page_number)s): %(message)s"
-msgstr "Недействительная страница ( %(page_number)s): %(message)s"
-
-#, python-format
-msgid "Empty list and “%(class_name)s.allow_empty” is False."
-msgstr "Пустой список и « %(class_name)s.allow_empty» имеет значение False."
 
 #~ msgid "%(count)s %(name)s was changed successfully."
 #~ msgid_plural "%(count)s %(name)s were changed successfully."
@@ -2633,4 +1102,1532 @@ msgstr "Пустой список и « %(class_name)s.allow_empty» имеет 
 #~ msgstr[0] ""
 #~ msgstr[1] ""
 #~ msgstr[2] ""
+
+#~ msgid "Start time can't be after end time"
+#~ msgstr "Временной промежуток не может начинаться после своего конца"
+
+#~ msgid "Username"
+#~ msgstr "Имя пользователя"
+
+#~ msgid "Confirm password"
+#~ msgstr "Подтвердите Пароль"
+
+#~ msgid "Sign Up"
+#~ msgstr "Зарегистрироваться"
+
+#~ msgid "Remember me"
+#~ msgstr "Запомни меня"
+
+#~ msgid "Play time id"
+#~ msgstr ""
+
+#~ msgid "Day of week"
+#~ msgstr "День недели"
+
+#~ msgid "Start time"
+#~ msgstr "Время начала"
+
+#~ msgid "End time"
+#~ msgstr "Время окончания"
+
+#~ msgid "Profile image"
+#~ msgstr "Изображение профиля"
+
+#~ msgid "Name"
+#~ msgstr "Имя"
+
+#~ msgid "Last Name"
+#~ msgstr "Фамилия"
+
+#~ msgid "Male"
+#~ msgstr "Мужской"
+
+#~ msgid "Female"
+#~ msgstr "Женский"
+
+#~ msgid "Successfully deleted %(count)d %(items)s."
+#~ msgstr "Успешно удалено %(count)d %(items)s."
+
+#~ msgid "Cannot delete %(name)s"
+#~ msgstr "Невозможно удалить %(name)s"
+
+#~ msgid "Are you sure?"
+#~ msgstr "Вы уверены?"
+
+#~ msgid "Administration"
+#~ msgstr "Администрация"
+
+#~ msgid "All"
+#~ msgstr "Все"
+
+#~ msgid "Unknown"
+#~ msgstr "Неизвестно"
+
+#~ msgid "Any date"
+#~ msgstr "Любая дата"
+
+#~ msgid "Today"
+#~ msgstr "Cегодня"
+
+#~ msgid "Past 7 days"
+#~ msgstr "Прошлые 7 дней"
+
+#~ msgid "This month"
+#~ msgstr "Этот месяц"
+
+#~ msgid "This year"
+#~ msgstr "Этот год"
+
+#~ msgid "No date"
+#~ msgstr "Без даты"
+
+#~ msgid "Has date"
+#~ msgstr "Имеет дату"
+
+#~ msgid ""
+#~ "Please enter the correct %(username)s "
+#~ "and password for a staff account. "
+#~ "Note that both fields may be "
+#~ "case-sensitive."
+#~ msgstr ""
+
+#~ msgid "Action:"
+#~ msgstr "Действие:"
+
+#~ msgid "Add another %(verbose_name)s"
+#~ msgstr "Добавить еще %(verbose_name)s"
+
+#~ msgid "Remove"
+#~ msgstr "удалять"
+
+#~ msgid "Addition"
+#~ msgstr "Дополнение"
+
+#~ msgid "Change"
+#~ msgstr "+ Изменить"
+
+#~ msgid "Deletion"
+#~ msgstr "Удаление"
+
+#~ msgid "action time"
+#~ msgstr "время действия"
+
+#~ msgid "user"
+#~ msgstr "пользователь"
+
+#~ msgid "content type"
+#~ msgstr "Тип содержимого"
+
+#~ msgid "object id"
+#~ msgstr "идентификатор объекта"
+
+#~ msgid "object repr"
+#~ msgstr "объект repr"
+
+#~ msgid "action flag"
+#~ msgstr "флаг действия"
+
+#~ msgid "change message"
+#~ msgstr "изменить сообщение"
+
+#~ msgid "log entry"
+#~ msgstr "запись в журнале"
+
+#~ msgid "log entries"
+#~ msgstr "записи журнала"
+
+#~ msgid "Added “%(object)s”."
+#~ msgstr "Добавлен « %(object)s»."
+
+#~ msgid "Changed “%(object)s” — %(changes)s"
+#~ msgstr "Изменен « %(object)s» - %(changes)s"
+
+#~ msgid "Deleted “%(object)s.”"
+#~ msgstr "Удалено « %(object)s»."
+
+#~ msgid "LogEntry Object"
+#~ msgstr "Объект LogEntry"
+
+#~ msgid "addedname"
+#~ msgstr "добавленное имя"
+
+#~ msgid "Added {name} “{object}”."
+#~ msgstr "Добавлено {имя} «{объект}»."
+
+#~ msgid "Added."
+#~ msgstr "Добавлен."
+
+#~ msgid "and"
+#~ msgstr "и"
+
+#~ msgid "changedname"
+#~ msgstr "измененное имя"
+
+#~ msgid "Changed {fields} for {name} “{object}”."
+#~ msgstr "Изменены {поля} на {имя} «{объект}»."
+
+#~ msgid "Changed {fields}."
+#~ msgstr "Поменял {поля}."
+
+#~ msgid "deletedname"
+#~ msgstr "удаленное имя"
+
+#~ msgid "Deleted {name} “{object}”."
+#~ msgstr "Удалено {имя} «{объект}»."
+
+#~ msgid "No fields changed."
+#~ msgstr "Поля не изменились."
+
+#~ msgid "None"
+#~ msgstr "Никто"
+
+#~ msgid "Hold down “Control”, or “Command” on a Mac, to select more than one."
+#~ msgstr "Удерживайте «Control» или «Command» на Mac, чтобы выбрать более одного."
+
+#~ msgid "The {name} “{obj}” was added successfully."
+#~ msgstr "{Name} «{obj}» был успешно добавлен."
+
+#~ msgid "You may edit it again below."
+#~ msgstr "Вы можете отредактировать его снова ниже."
+
+#~ msgid ""
+#~ "The {name} “{obj}” was added "
+#~ "successfully. You may add another {name}"
+#~ " below."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The {name} “{obj}” was changed "
+#~ "successfully. You may edit it again "
+#~ "below."
+#~ msgstr ""
+#~ "{Name} «{obj}» был успешно изменен. Вы"
+#~ " можете отредактировать его снова ниже."
+
+#~ msgid "The {name} “{obj}” was added successfully. You may edit it again below."
+#~ msgstr ""
+#~ "{Name} «{obj}» был успешно добавлен. Вы"
+#~ " можете отредактировать его снова ниже."
+
+#~ msgid ""
+#~ "The {name} “{obj}” was changed "
+#~ "successfully. You may add another {name}"
+#~ " below."
+#~ msgstr ""
+
+#~ msgid "The {name} “{obj}” was changed successfully."
+#~ msgstr "{Name} «{obj}» был успешно изменен."
+
+#~ msgid ""
+#~ "Items must be selected in order to"
+#~ " perform actions on them. No items"
+#~ " have been changed."
+#~ msgstr ""
+
+#~ msgid "No action selected."
+#~ msgstr "Действие не выбрано."
+
+#~ msgid "The %(name)s “%(obj)s” was deleted successfully."
+#~ msgstr " %(name)s « %(obj)s» был успешно удален."
+
+#~ msgid "%(name)s with ID “%(key)s” doesn’t exist. Perhaps it was deleted?"
+#~ msgstr ""
+#~ " %(name)s с идентификатором « %(key)s»"
+#~ " не существует. Возможно, его удалили?"
+
+#~ msgid "Add %s"
+#~ msgstr "Добавить %s"
+
+#~ msgid "Change %s"
+#~ msgstr "Изменить %s"
+
+#~ msgid "View %s"
+#~ msgstr "Просмотры %s"
+
+#~ msgid "Database error"
+#~ msgstr "ошибка базы данных"
+
+#~ msgid "0 of %(cnt)s selected"
+#~ msgstr "Выбрано 0 из %(cnt)s"
+
+#~ msgid "Change history: %s"
+#~ msgstr "История изменений: %s"
+
+#~ msgid "%(class_name)s %(instance)s"
+#~ msgstr " %(class_name)s %(instance)s"
+
+#~ msgid ""
+#~ "Deleting %(class_name)s %(instance)s would "
+#~ "require deleting the following protected "
+#~ "related objects: %(related_objects)s"
+#~ msgstr ""
+
+#~ msgid "Log in"
+#~ msgstr "Войти"
+
+#~ msgid "%(app)s administration"
+#~ msgstr " %(app)s администрирование"
+
+#~ msgid "Date:"
+#~ msgstr "Дата:"
+
+#~ msgid "Time:"
+#~ msgstr "Время:"
+
+#~ msgid "Lookup"
+#~ msgstr "Уважать"
+
+#~ msgid "Currently:"
+#~ msgstr "В настоящее время:"
+
+#~ msgid "Change:"
+#~ msgstr "Изменить:"
+
+#~ msgid "All dates"
+#~ msgstr "Все даты"
+
+#~ msgid "Select %s"
+#~ msgstr "Выберите %s"
+
+#~ msgid "Select %s to change"
+#~ msgstr "Выберите %s, чтобы изменить"
+
+#~ msgid "Select %s to view"
+#~ msgstr "Выберите %s для просмотра"
+
+#~ msgid "Administrative Documentation"
+#~ msgstr "Административная документация"
+
+#~ msgid "tag:"
+#~ msgstr "тег:"
+
+#~ msgid "filter:"
+#~ msgstr "фильтр:"
+
+#~ msgid "view:"
+#~ msgstr "Посмотреть:"
+
+#~ msgid "App %(app_label)r not found"
+#~ msgstr "Приложение %(app_label)r не найдено"
+
+#~ msgid "Model %(model_name)r not found in app %(app_label)r"
+#~ msgstr "Модель %(model_name)r не найдена в приложении %(app_label)r"
+
+#~ msgid "model:"
+#~ msgstr "модель:"
+
+#~ msgid "the related `%(app_label)s.%(data_type)s` object"
+#~ msgstr "связанный объект ` %(app_label)s. %(data_type)s`"
+
+#~ msgid "related `%(app_label)s.%(object_name)s` objects"
+#~ msgstr "связанные объекты ` %(app_label)s. %(object_name)s`"
+
+#~ msgid "all %s"
+#~ msgstr "все %s"
+
+#~ msgid "number of %s"
+#~ msgstr "количество %s"
+
+#~ msgid "%s does not appear to be a urlpattern object"
+#~ msgstr " %s не является объектом urlpattern"
+
+#~ msgid "Personal info"
+#~ msgstr "Личная информация"
+
+#~ msgid "Permissions"
+#~ msgstr "Разрешения"
+
+#~ msgid "Important dates"
+#~ msgstr "Важные даты"
+
+#~ msgid "%(name)s object with primary key %(key)r does not exist."
+#~ msgstr "Объект %(name)s с первичным ключом %(key)r не существует."
+
+#~ msgid "Password changed successfully."
+#~ msgstr "Пароль успешно изменен."
+
+#~ msgid "Change password: %s"
+#~ msgstr "Изменить пароль: %s"
+
+#~ msgid "Authentication and Authorization"
+#~ msgstr "Аутентификация и авторизация"
+
+#~ msgid "password"
+#~ msgstr "пароль"
+
+#~ msgid "last login"
+#~ msgstr "последний вход"
+
+#~ msgid "No password set."
+#~ msgstr "Пароль не установлен."
+
+#~ msgid "Invalid password format or unknown hashing algorithm."
+#~ msgstr "Неверный формат пароля или неизвестный алгоритм хеширования."
+
+#~ msgid "The two password fields didn’t match."
+#~ msgstr "Два поля пароля не совпадают."
+
+#~ msgid "Password"
+#~ msgstr "Пароль"
+
+#~ msgid "Password confirmation"
+#~ msgstr "Подтверждение пароля"
+
+#~ msgid "Enter the same password as before, for verification."
+#~ msgstr "Введите тот же пароль, что и раньше, для проверки."
+
+#~ msgid ""
+#~ "Raw passwords are not stored, so "
+#~ "there is no way to see this "
+#~ "user’s password, but you can change "
+#~ "the password using <a href=\"{}\">this "
+#~ "form</a>."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Please enter a correct %(username)s and"
+#~ " password. Note that both fields may"
+#~ " be case-sensitive."
+#~ msgstr ""
+
+#~ msgid "This account is inactive."
+#~ msgstr "Этот аккаунт не активен."
+
+#~ msgid "Email"
+#~ msgstr "Эл. адрес"
+
+#~ msgid "New password"
+#~ msgstr "Новый пароль"
+
+#~ msgid "New password confirmation"
+#~ msgstr "Подтверждение нового пароля"
+
+#~ msgid "Your old password was entered incorrectly. Please enter it again."
+#~ msgstr "Ваш старый пароль был введен неверно. Пожалуйста, введите его еще раз."
+
+#~ msgid "Old password"
+#~ msgstr "Прежний пароль"
+
+#~ msgid "Password (again)"
+#~ msgstr "Пароль еще раз)"
+
+#~ msgid "algorithm"
+#~ msgstr "алгоритм"
+
+#~ msgid "iterations"
+#~ msgstr "итерации"
+
+#~ msgid "salt"
+#~ msgstr "поваренная соль"
+
+#~ msgid "hash"
+#~ msgstr "хэш"
+
+#~ msgid "variety"
+#~ msgstr "разнообразие"
+
+#~ msgid "version"
+#~ msgstr "версия"
+
+#~ msgid "memory cost"
+#~ msgstr "стоимость памяти"
+
+#~ msgid "time cost"
+#~ msgstr "временные затраты"
+
+#~ msgid "parallelism"
+#~ msgstr "параллелизм"
+
+#~ msgid "work factor"
+#~ msgstr "рабочий фактор"
+
+#~ msgid "checksum"
+#~ msgstr "контрольная сумма"
+
+#~ msgid "name"
+#~ msgstr "название"
+
+#~ msgid "codename"
+#~ msgstr "кодовое имя"
+
+#~ msgid "permission"
+#~ msgstr "разрешение"
+
+#~ msgid "permissions"
+#~ msgstr "разрешения"
+
+#~ msgid "group"
+#~ msgstr "группа"
+
+#~ msgid "groups"
+#~ msgstr "группы"
+
+#~ msgid "superuser status"
+#~ msgstr "статус суперпользователя"
+
+#~ msgid ""
+#~ "Designates that this user has all "
+#~ "permissions without explicitly assigning them."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The groups this user belongs to. A"
+#~ " user will get all permissions "
+#~ "granted to each of their groups."
+#~ msgstr ""
+
+#~ msgid "user permissions"
+#~ msgstr "права пользователя"
+
+#~ msgid "Specific permissions for this user."
+#~ msgstr "Особые разрешения для этого пользователя."
+
+#~ msgid "username"
+#~ msgstr "имя пользователя"
+
+#~ msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+#~ msgstr ""
+#~ "Необходимое поле. 150 символов или "
+#~ "меньше. Только буквы, цифры и @ /."
+#~ " / + / - / _."
+
+#~ msgid "A user with that username already exists."
+#~ msgstr "Пользователь с таким именем уже существует."
+
+#~ msgid "first name"
+#~ msgstr "Имя"
+
+#~ msgid "last name"
+#~ msgstr "Фамилия"
+
+#~ msgid "email address"
+#~ msgstr "адрес электронной почты"
+
+#~ msgid "staff status"
+#~ msgstr "статус персонала"
+
+#~ msgid "Designates whether the user can log into this admin site."
+#~ msgstr "Определяет, может ли пользователь войти на этот сайт администратора."
+
+#~ msgid "active"
+#~ msgstr "активный"
+
+#~ msgid ""
+#~ "Designates whether this user should be"
+#~ " treated as active. Unselect this "
+#~ "instead of deleting accounts."
+#~ msgstr ""
+
+#~ msgid "date joined"
+#~ msgstr "дата присоединения"
+
+#~ msgid "users"
+#~ msgstr "пользователи"
+
+#~ msgid "The password is too similar to the %(verbose_name)s."
+#~ msgstr "Пароль слишком похож на %(verbose_name)s."
+
+#~ msgid "Your password can’t be too similar to your other personal information."
+#~ msgstr ""
+#~ "Ваш пароль не может быть слишком "
+#~ "похож на вашу другую личную информацию."
+
+#~ msgid "This password is too common."
+#~ msgstr "Этот пароль слишком распространен."
+
+#~ msgid "Your password can’t be a commonly used password."
+#~ msgstr "Ваш пароль не может быть обычным паролем."
+
+#~ msgid "This password is entirely numeric."
+#~ msgstr "Этот пароль полностью цифровой."
+
+#~ msgid "Your password can’t be entirely numeric."
+#~ msgstr "Ваш пароль не может быть полностью числовым."
+
+#~ msgid ""
+#~ "Enter a valid username. This value "
+#~ "may contain only English letters, "
+#~ "numbers, and @/./+/-/_ characters."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Enter a valid username. This value "
+#~ "may contain only letters, numbers, and"
+#~ " @/./+/-/_ characters."
+#~ msgstr ""
+
+#~ msgid "Logged out"
+#~ msgstr "Вышли из"
+
+#~ msgid "Password reset"
+#~ msgstr "Восстановление пароля"
+
+#~ msgid "Password reset sent"
+#~ msgstr "Сброс пароля отправлен"
+
+#~ msgid "Enter new password"
+#~ msgstr "Введите новый пароль"
+
+#~ msgid "Password reset unsuccessful"
+#~ msgstr "Не удалось сбросить пароль"
+
+#~ msgid "Password reset complete"
+#~ msgstr "Сброс пароля завершен"
+
+#~ msgid "Password change"
+#~ msgstr "Смена пароля"
+
+#~ msgid "Password change successful"
+#~ msgstr "Пароль успешно изменен"
+
+#~ msgid "Content Types"
+#~ msgstr "Типы контента"
+
+#~ msgid "python model class name"
+#~ msgstr "имя класса модели Python"
+
+#~ msgid "content types"
+#~ msgstr "типы контента"
+
+#~ msgid "Content type %(ct_id)s object has no associated model"
+#~ msgstr "Объект типа содержимого %(ct_id)s не имеет связанной модели"
+
+#~ msgid "Content type %(ct_id)s object %(obj_id)s doesn’t exist"
+#~ msgstr "Тип содержимого %(ct_id)s объект %(obj_id)s не существует"
+
+#~ msgid "%(ct_name)s objects don’t have a get_absolute_url() method"
+#~ msgstr "У объектов %(ct_name)s нет метода get_absolute_url()"
+
+#~ msgid "Advanced options"
+#~ msgstr "Расширенные опции"
+
+#~ msgid "Flat Pages"
+#~ msgstr "Плоские страницы"
+
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#~ msgid ""
+#~ "Example: “/about/contact/”. Make sure to "
+#~ "have leading and trailing slashes."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This value must contain only letters,"
+#~ " numbers, dots, underscores, dashes, "
+#~ "slashes or tildes."
+#~ msgstr ""
+
+#~ msgid "Example: “/about/contact”. Make sure to have a leading slash."
+#~ msgstr ""
+#~ "Пример: «/ о / контакт». Убедитесь, "
+#~ "что у вас есть начальная косая "
+#~ "черта."
+
+#~ msgid "URL is missing a leading slash."
+#~ msgstr "В URL отсутствует косая черта в начале."
+
+#~ msgid "URL is missing a trailing slash."
+#~ msgstr "В URL отсутствует косая черта в конце."
+
+#~ msgid "Flatpage with url %(url)s already exists for site %(site)s"
+#~ msgstr "Плоская страница с URL %(url)s уже существует для сайта %(site)s"
+
+#~ msgid "title"
+#~ msgstr "заглавие"
+
+#~ msgid "content"
+#~ msgstr "содержание"
+
+#~ msgid "enable comments"
+#~ msgstr "включить комментарии"
+
+#~ msgid "template name"
+#~ msgstr "Имя Шаблона"
+
+#~ msgid ""
+#~ "Example: “flatpages/contact_page.html”. If this "
+#~ "isn’t provided, the system will use "
+#~ "“flatpages/default.html”."
+#~ msgstr ""
+
+#~ msgid "registration required"
+#~ msgstr "требуется регистрация"
+
+#~ msgid "If this is checked, only logged-in users will be able to view the page."
+#~ msgstr ""
+#~ "Если этот флажок установлен, только "
+#~ "зарегистрированные пользователи смогут просматривать"
+#~ " страницу."
+
+#~ msgid "sites"
+#~ msgstr "места"
+
+#~ msgid "flat page"
+#~ msgstr "плоская страница"
+
+#~ msgid "flat pages"
+#~ msgstr "плоские страницы"
+
+#~ msgid "GIS"
+#~ msgstr "ГИС"
+
+#~ msgid "No feeds are registered."
+#~ msgstr "Каналы не зарегистрированы."
+
+#~ msgid "Slug %r isn’t registered."
+#~ msgstr "Слаг %r не зарегистрирован."
+
+#~ msgid "The base GIS field."
+#~ msgstr "Базовое поле ГИС."
+
+#~ msgid ""
+#~ "The base Geometry field — maps to"
+#~ " the OpenGIS Specification Geometry type."
+#~ msgstr ""
+#~ "Базовое поле геометрии - соответствует "
+#~ "типу геометрии спецификации OpenGIS."
+
+#~ msgid "Point"
+#~ msgstr "Точка"
+
+#~ msgid "Line string"
+#~ msgstr "Строка строки"
+
+#~ msgid "Polygon"
+#~ msgstr "Многоугольник"
+
+#~ msgid "Multi-point"
+#~ msgstr "Многоточечный"
+
+#~ msgid "Multi-line string"
+#~ msgstr "Многострочная строка"
+
+#~ msgid "Multi polygon"
+#~ msgstr "Мульти многоугольник"
+
+#~ msgid "Geometry collection"
+#~ msgstr "Коллекция геометрии"
+
+#~ msgid "Extent Aggregate Field"
+#~ msgstr "Поле агрегирования экстента"
+
+#~ msgid "Raster Field"
+#~ msgstr "Растровое поле"
+
+#~ msgid "No geometry value provided."
+#~ msgstr "Не указано геометрическое значение."
+
+#~ msgid "Invalid geometry value."
+#~ msgstr "Неверное значение геометрии."
+
+#~ msgid "Invalid geometry type."
+#~ msgstr "Неверный тип геометрии."
+
+#~ msgid ""
+#~ "An error occurred when transforming the"
+#~ " geometry to the SRID of the "
+#~ "geometry form field."
+#~ msgstr ""
+
+#~ msgid "Humanize"
+#~ msgstr "Очеловечивать"
+
+#~ msgctxt "ordinal 9"
+#~ msgid "{}th"
+#~ msgstr "{} th"
+
+#~ msgctxt "ordinal 1"
+#~ msgid "{}st"
+#~ msgstr "{} ул."
+
+#~ msgctxt "ordinal 2"
+#~ msgid "{}nd"
+#~ msgstr "{} nd"
+
+#~ msgctxt "ordinal 3"
+#~ msgid "{}rd"
+#~ msgstr "{} рд"
+
+#~ msgid "one"
+#~ msgstr "один"
+
+#~ msgid "two"
+#~ msgstr "два"
+
+#~ msgid "three"
+#~ msgstr "три"
+
+#~ msgid "four"
+#~ msgstr "четыре"
+
+#~ msgid "five"
+#~ msgstr "пять"
+
+#~ msgid "six"
+#~ msgstr "шесть"
+
+#~ msgid "seven"
+#~ msgstr "Семь"
+
+#~ msgid "eight"
+#~ msgstr "восемь"
+
+#~ msgid "nine"
+#~ msgstr "девять"
+
+#~ msgid "today"
+#~ msgstr "Cегодня"
+
+#~ msgid "tomorrow"
+#~ msgstr "завтра"
+
+#~ msgid "yesterday"
+#~ msgstr "вчерашний день"
+
+#~ msgid "PostgreSQL extensions"
+#~ msgstr "Расширения PostgreSQL"
+
+#~ msgid "Some keys were missing: %(keys)s"
+#~ msgstr "Некоторые ключи отсутствовали: %(keys)s"
+
+#~ msgid "Some unknown keys were provided: %(keys)s"
+#~ msgstr "Были предоставлены некоторые неизвестные ключи: %(keys)s"
+
+#~ msgid ""
+#~ "Ensure that this range is completely "
+#~ "less than or equal to %(limit_value)s."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Ensure that this range is completely "
+#~ "greater than or equal to "
+#~ "%(limit_value)s."
+#~ msgstr ""
+
+#~ msgid "Item %(nth)s in the array did not validate:"
+#~ msgstr "Элемент %(nth)s в массиве не прошел проверку:"
+
+#~ msgid "Nested arrays must have the same length."
+#~ msgstr "Вложенные массивы должны иметь одинаковую длину."
+
+#~ msgid "Map of strings to strings/nulls"
+#~ msgstr "Отображение строк в строки / нули"
+
+#~ msgid "The value of “%(key)s” is not a string or null."
+#~ msgstr "Значение « %(key)s» не является строкой или нулем."
+
+#~ msgid "A JSON object"
+#~ msgstr "Объект JSON"
+
+#~ msgid "Value must be valid JSON."
+#~ msgstr "Значение должно быть действительным JSON."
+
+#~ msgid "Could not load JSON data."
+#~ msgstr "Не удалось загрузить данные JSON."
+
+#~ msgid "Input must be a JSON dictionary."
+#~ msgstr "Входные данные должны быть словарем JSON."
+
+#~ msgid "“%(value)s” value must be valid JSON."
+#~ msgstr "Значение « %(value)s» должно быть допустимым JSON."
+
+#~ msgid "Enter two valid values."
+#~ msgstr "Введите два действительных значения."
+
+#~ msgid "The start of the range must not exceed the end of the range."
+#~ msgstr "Начало диапазона не должно превышать конец диапазона."
+
+#~ msgid "Enter two whole numbers."
+#~ msgstr "Введите два целых числа."
+
+#~ msgid "Enter two numbers."
+#~ msgstr "Введите два числа."
+
+#~ msgid "Enter two valid date/times."
+#~ msgstr "Введите две действительные дату / время."
+
+#~ msgid "Enter two valid dates."
+#~ msgstr "Введите две действительные даты."
+
+#~ msgid "Redirects"
+#~ msgstr "Перенаправления"
+
+#~ msgid "site"
+#~ msgstr "сайт"
+
+#~ msgid "redirect from"
+#~ msgstr "перенаправить с"
+
+#~ msgid ""
+#~ "This should be an absolute path, "
+#~ "excluding the domain name. Example: "
+#~ "“/events/search/”."
+#~ msgstr ""
+
+#~ msgid "redirect to"
+#~ msgstr "перенаправить на"
+
+#~ msgid ""
+#~ "This can be either an absolute "
+#~ "path (as above) or a full URL "
+#~ "starting with “http://”."
+#~ msgstr ""
+
+#~ msgid "redirect"
+#~ msgstr "перенаправить"
+
+#~ msgid "redirects"
+#~ msgstr "перенаправляет"
+
+#~ msgid "Sessions"
+#~ msgstr "Сессии"
+
+#~ msgid "session key"
+#~ msgstr "ключ сеанса"
+
+#~ msgid "session data"
+#~ msgstr "данные сеанса"
+
+#~ msgid "expire date"
+#~ msgstr "годен до"
+
+#~ msgid "session"
+#~ msgstr "сессия"
+
+#~ msgid "sessions"
+#~ msgstr "сессии"
+
+#~ msgid "Site Maps"
+#~ msgstr "Карты сайта"
+
+#~ msgid "Sites"
+#~ msgstr "Места"
+
+#~ msgid "The domain name cannot contain any spaces or tabs."
+#~ msgstr "Имя домена не может содержать пробелов или табуляций."
+
+#~ msgid "domain name"
+#~ msgstr "доменное имя"
+
+#~ msgid "display name"
+#~ msgstr "отображаемое имя"
+
+#~ msgid "Static Files"
+#~ msgstr "Статические файлы"
+
+#~ msgid "Syndication"
+#~ msgstr "Синдикация"
+
+#~ msgid "That page number is not an integer"
+#~ msgstr "Номер страницы не является целым числом"
+
+#~ msgid "That page number is less than 1"
+#~ msgstr "Номер страницы меньше 1"
+
+#~ msgid "That page contains no results"
+#~ msgstr "Эта страница не содержит результатов"
+
+#~ msgid "Enter a valid value."
+#~ msgstr "Введите допустимое значение."
+
+#~ msgid "Enter a valid URL."
+#~ msgstr "Введите действующий URL."
+
+#~ msgid "Enter a valid integer."
+#~ msgstr "Введите действительное целое число."
+
+#~ msgid "Enter a valid email address."
+#~ msgstr "Введите корректный электронный адрес."
+
+#~ msgid ""
+#~ "Enter a valid “slug” consisting of "
+#~ "letters, numbers, underscores or hyphens."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Enter a valid “slug” consisting of "
+#~ "Unicode letters, numbers, underscores, or "
+#~ "hyphens."
+#~ msgstr ""
+
+#~ msgid "Enter a valid IPv4 address."
+#~ msgstr "Введите действительный адрес IPv4."
+
+#~ msgid "Enter a valid IPv6 address."
+#~ msgstr "Введите действующий IPv6-адрес."
+
+#~ msgid "Enter a valid IPv4 or IPv6 address."
+#~ msgstr "Введите действительный адрес IPv4 или IPv6."
+
+#~ msgid "Enter only digits separated by commas."
+#~ msgstr "Введите только цифры, разделенные запятыми."
+
+#~ msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+#~ msgstr "Убедитесь, что это значение %(limit_value)s (это %(show_value)s)."
+
+#~ msgid "Ensure this value is less than or equal to %(limit_value)s."
+#~ msgstr "Убедитесь, что это значение меньше или равно %(limit_value)s."
+
+#~ msgid "Ensure this value is greater than or equal to %(limit_value)s."
+#~ msgstr "Убедитесь, что это значение больше или равно %(limit_value)s."
+
+#~ msgid "Enter a number."
+#~ msgstr "Введите номер."
+
+#~ msgid ""
+#~ "File extension “%(extension)s” is not "
+#~ "allowed. Allowed extensions are: "
+#~ "%(allowed_extensions)s."
+#~ msgstr ""
+
+#~ msgid "Null characters are not allowed."
+#~ msgstr "Нулевые символы не допускаются."
+
+#~ msgid "%(model_name)s with this %(field_labels)s already exists."
+#~ msgstr " %(model_name)s с этим %(field_labels)s уже существует."
+
+#~ msgid "Value %(value)r is not a valid choice."
+#~ msgstr "Значение %(value)r не является допустимым выбором."
+
+#~ msgid "This field cannot be null."
+#~ msgstr "Это поле не может быть пустым."
+
+#~ msgid "This field cannot be blank."
+#~ msgstr "Это поле не может быть пустым."
+
+#~ msgid "%(model_name)s with this %(field_label)s already exists."
+#~ msgstr " %(model_name)s с этим %(field_label)s уже существует."
+
+#~ msgid ""
+#~ "%(field_label)s must be unique for "
+#~ "%(date_field_label)s %(lookup_type)s."
+#~ msgstr ""
+#~ " %(field_label)s должен быть уникальным "
+#~ "для %(date_field_label)s %(lookup_type)s."
+
+#~ msgid "Field of type: %(field_type)s"
+#~ msgstr "Поле типа: %(field_type)s"
+
+#~ msgid "“%(value)s” value must be either True or False."
+#~ msgstr "Значение « %(value)s» должно быть либо True, либо False."
+
+#~ msgid "“%(value)s” value must be either True, False, or None."
+#~ msgstr "Значение « %(value)s» должно быть True, False или None."
+
+#~ msgid "Boolean (Either True or False)"
+#~ msgstr "Логическое значение (Истина или Ложь)"
+
+#~ msgid "String (up to %(max_length)s)"
+#~ msgstr "Строка (до %(max_length)s)"
+
+#~ msgid "Comma-separated integers"
+#~ msgstr "Целые числа, разделенные запятыми"
+
+#~ msgid ""
+#~ "“%(value)s” value has an invalid date"
+#~ " format. It must be in YYYY-"
+#~ "MM-DD format."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "“%(value)s” value has the correct format"
+#~ " (YYYY-MM-DD) but it is an "
+#~ "invalid date."
+#~ msgstr ""
+
+#~ msgid "Date (without time)"
+#~ msgstr "Дата (без времени)"
+
+#~ msgid ""
+#~ "“%(value)s” value has an invalid format."
+#~ " It must be in YYYY-MM-DD "
+#~ "HH:MM[:ss[.uuuuuu]][TZ] format."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "“%(value)s” value has the correct format"
+#~ " (YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ]) but"
+#~ " it is an invalid date/time."
+#~ msgstr ""
+
+#~ msgid "Date (with time)"
+#~ msgstr "Дата (со временем)"
+
+#~ msgid "“%(value)s” value must be a decimal number."
+#~ msgstr "Значение « %(value)s» должно быть десятичным числом."
+
+#~ msgid "Decimal number"
+#~ msgstr "Десятичное число"
+
+#~ msgid ""
+#~ "“%(value)s” value has an invalid format."
+#~ " It must be in [DD] "
+#~ "[[HH:]MM:]ss[.uuuuuu] format."
+#~ msgstr ""
+
+#~ msgid "Duration"
+#~ msgstr "Продолжительность"
+
+#~ msgid "Email address"
+#~ msgstr "Адрес электронной почты"
+
+#~ msgid "File path"
+#~ msgstr "Путь файла"
+
+#~ msgid "“%(value)s” value must be a float."
+#~ msgstr "Значение « %(value)s» должно быть плавающим."
+
+#~ msgid "Floating point number"
+#~ msgstr "Число с плавающей запятой"
+
+#~ msgid "“%(value)s” value must be an integer."
+#~ msgstr "Значение « %(value)s» должно быть целым числом."
+
+#~ msgid "Integer"
+#~ msgstr "Целое число"
+
+#~ msgid "Big (8 byte) integer"
+#~ msgstr "Большое (8 байт) целое число"
+
+#~ msgid "IPv4 address"
+#~ msgstr "IPv4-адрес"
+
+#~ msgid "IP address"
+#~ msgstr "айпи адрес"
+
+#~ msgid "“%(value)s” value must be either None, True or False."
+#~ msgstr "Значение « %(value)s» должно быть None, True или False."
+
+#~ msgid "Boolean (Either True, False or None)"
+#~ msgstr "Логическое значение (Истина, Ложь или Нет)"
+
+#~ msgid "Positive integer"
+#~ msgstr "Положительное число"
+
+#~ msgid "Positive small integer"
+#~ msgstr "Положительное маленькое целое число"
+
+#~ msgid "Slug (up to %(max_length)s)"
+#~ msgstr "Слаг (до %(max_length)s)"
+
+#~ msgid "Small integer"
+#~ msgstr "Маленькое целое число"
+
+#~ msgid "Text"
+#~ msgstr "Текст"
+
+#~ msgid ""
+#~ "“%(value)s” value has an invalid format."
+#~ " It must be in HH:MM[:ss[.uuuuuu]] "
+#~ "format."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "“%(value)s” value has the correct format"
+#~ " (HH:MM[:ss[.uuuuuu]]) but it is an "
+#~ "invalid time."
+#~ msgstr ""
+
+#~ msgid "Raw binary data"
+#~ msgstr "Необработанные двоичные данные"
+
+#~ msgid "“%(value)s” is not a valid UUID."
+#~ msgstr "« %(value)s» не является допустимым UUID."
+
+#~ msgid "Universally unique identifier"
+#~ msgstr "Универсальный уникальный идентификатор"
+
+#~ msgid "File"
+#~ msgstr "файл"
+
+#~ msgid "Image"
+#~ msgstr "Образ"
+
+#~ msgid "%(model)s instance with %(field)s %(value)r does not exist."
+#~ msgstr "Экземпляр %(model)s с %(field)s %(value)r не существует."
+
+#~ msgid "Foreign Key (type determined by related field)"
+#~ msgstr "Внешний ключ (тип определяется связанным полем)"
+
+#~ msgid "One-to-one relationship"
+#~ msgstr "Отношения один на один"
+
+#~ msgid "%(from)s-%(to)s relationship"
+#~ msgstr " %(from)s - %(to)s отношения"
+
+#~ msgid "%(from)s-%(to)s relationships"
+#~ msgstr " %(from)s - %(to)s отношения"
+
+#~ msgid "Many-to-many relationship"
+#~ msgstr "Отношения многие-ко-многим"
+
+#~ msgid ":?.!"
+#~ msgstr ":?.!"
+
+#~ msgid "Enter a whole number."
+#~ msgstr "Введите целое число."
+
+#~ msgid "Enter a valid date."
+#~ msgstr "Введите правильную дату."
+
+#~ msgid "Enter a valid time."
+#~ msgstr "Введите действительное время."
+
+#~ msgid "Enter a valid date/time."
+#~ msgstr "Введите действительную дату / время."
+
+#~ msgid "Enter a valid duration."
+#~ msgstr "Введите действительную продолжительность."
+
+#~ msgid "The number of days must be between {min_days} and {max_days}."
+#~ msgstr "Количество дней должно быть от {min_days} до {max_days}."
+
+#~ msgid "No file was submitted. Check the encoding type on the form."
+#~ msgstr "Файл не был отправлен. Проверьте тип кодировки в форме."
+
+#~ msgid "No file was submitted."
+#~ msgstr "Файл не был отправлен."
+
+#~ msgid "The submitted file is empty."
+#~ msgstr "Представленный файл пуст."
+
+#~ msgid "Please either submit a file or check the clear checkbox, not both."
+#~ msgstr "Отправьте файл или установите флажок «Очистить», но не оба сразу."
+
+#~ msgid ""
+#~ "Upload a valid image. The file you"
+#~ " uploaded was either not an image "
+#~ "or a corrupted image."
+#~ msgstr ""
+
+#~ msgid "Select a valid choice. %(value)s is not one of the available choices."
+#~ msgstr ""
+#~ "Выберите правильный выбор.  %(value)s не "
+#~ "является одним из доступных вариантов."
+
+#~ msgid "Enter a list of values."
+#~ msgstr "Введите список значений."
+
+#~ msgid "Enter a complete value."
+#~ msgstr "Введите полное значение."
+
+#~ msgid "Enter a valid UUID."
+#~ msgstr "Введите действительный UUID."
+
+#~ msgid ":"
+#~ msgstr ":"
+
+#~ msgid "(Hidden field %(name)s) %(error)s"
+#~ msgstr "(Скрытое поле %(name)s) %(error)s"
+
+#~ msgid "ManagementForm data is missing or has been tampered with"
+#~ msgstr "Данные ManagementForm отсутствуют или были подделаны"
+
+#~ msgid "Order"
+#~ msgstr "порядок"
+
+#~ msgid "Delete"
+#~ msgstr "Удалить"
+
+#~ msgid "Please correct the duplicate data for %(field)s."
+#~ msgstr "Исправьте повторяющиеся данные для %(field)s."
+
+#~ msgid "Please correct the duplicate data for %(field)s, which must be unique."
+#~ msgstr ""
+#~ "Исправьте повторяющиеся данные для %(field)s,"
+#~ " которые должны быть уникальными."
+
+#~ msgid ""
+#~ "Please correct the duplicate data for"
+#~ " %(field_name)s which must be unique "
+#~ "for the %(lookup)s in %(date_field)s."
+#~ msgstr ""
+
+#~ msgid "Please correct the duplicate values below."
+#~ msgstr "Исправьте повторяющиеся значения ниже."
+
+#~ msgid "The inline value did not match the parent instance."
+#~ msgstr "Встроенное значение не соответствует родительскому экземпляру."
+
+#~ msgid "Select a valid choice. That choice is not one of the available choices."
+#~ msgstr "Выберите правильный выбор. Этот вариант не является одним из доступных."
+
+#~ msgid "“%(pk)s” is not a valid value."
+#~ msgstr "« %(pk)s» не является допустимым значением."
+
+#~ msgid ""
+#~ "%(datetime)s couldn’t be interpreted in "
+#~ "time zone %(current_timezone)s; it may "
+#~ "be ambiguous or it may not exist."
+#~ msgstr ""
+
+#~ msgid "Clear"
+#~ msgstr "Очистить"
+
+#~ msgid "Currently"
+#~ msgstr "В настоящее время"
+
+#~ msgid "yes,no,maybe"
+#~ msgstr "да нет Может быть"
+
+#~ msgid "%s KB"
+#~ msgstr " %s КБ"
+
+#~ msgid "%s MB"
+#~ msgstr " %s МБ"
+
+#~ msgid "%s GB"
+#~ msgstr " %s ГБ"
+
+#~ msgid "%s TB"
+#~ msgstr " %s ТБ"
+
+#~ msgid "%s PB"
+#~ msgstr " %s PB"
+
+#~ msgid "p.m."
+#~ msgstr "вечера."
+
+#~ msgid "a.m."
+#~ msgstr "утра"
+
+#~ msgid "PM"
+#~ msgstr "ВЕЧЕРА"
+
+#~ msgid "AM"
+#~ msgstr "AM"
+
+#~ msgid "midnight"
+#~ msgstr "полночь"
+
+#~ msgid "noon"
+#~ msgstr "полдень"
+
+#~ msgid "Monday"
+#~ msgstr "понедельник"
+
+#~ msgid "Tuesday"
+#~ msgstr "вторник"
+
+#~ msgid "Wednesday"
+#~ msgstr "Среда"
+
+#~ msgid "Thursday"
+#~ msgstr "Четверг"
+
+#~ msgid "Friday"
+#~ msgstr "Пятница"
+
+#~ msgid "Saturday"
+#~ msgstr "Суббота"
+
+#~ msgid "Sunday"
+#~ msgstr "Воскресенье"
+
+#~ msgid "Mon"
+#~ msgstr "Пн"
+
+#~ msgid "Tue"
+#~ msgstr "Вт"
+
+#~ msgid "Wed"
+#~ msgstr "Мы бы"
+
+#~ msgid "Thu"
+#~ msgstr "Чт"
+
+#~ msgid "Fri"
+#~ msgstr "Пт"
+
+#~ msgid "Sat"
+#~ msgstr "Суббота"
+
+#~ msgid "Sun"
+#~ msgstr "солнце"
+
+#~ msgid "January"
+#~ msgstr "Январь"
+
+#~ msgid "February"
+#~ msgstr "Февраль"
+
+#~ msgid "March"
+#~ msgstr "марш"
+
+#~ msgid "April"
+#~ msgstr "апрель"
+
+#~ msgid "May"
+#~ msgstr "май"
+
+#~ msgid "June"
+#~ msgstr "Июнь"
+
+#~ msgid "July"
+#~ msgstr "Июль"
+
+#~ msgid "August"
+#~ msgstr "Август"
+
+#~ msgid "September"
+#~ msgstr "сентябрь"
+
+#~ msgid "October"
+#~ msgstr "Октябрь"
+
+#~ msgid "November"
+#~ msgstr "Ноябрь"
+
+#~ msgid "December"
+#~ msgstr "Декабрь"
+
+#~ msgid "jan"
+#~ msgstr "Ян"
+
+#~ msgid "feb"
+#~ msgstr "фев"
+
+#~ msgid "mar"
+#~ msgstr "мар"
+
+#~ msgid "apr"
+#~ msgstr "апр"
+
+#~ msgid "may"
+#~ msgstr "может"
+
+#~ msgid "jun"
+#~ msgstr "июн"
+
+#~ msgid "jul"
+#~ msgstr "июл"
+
+#~ msgid "aug"
+#~ msgstr "август"
+
+#~ msgid "sep"
+#~ msgstr "сен"
+
+#~ msgid "oct"
+#~ msgstr "окт"
+
+#~ msgid "nov"
+#~ msgstr "ноя"
+
+#~ msgid "dec"
+#~ msgstr "декабрь"
+
+#~ msgid "This is not a valid IPv6 address."
+#~ msgstr "Это недействительный адрес IPv6."
+
+#~ msgctxt "String to return when truncating text"
+#~ msgid "%(truncated_text)s…"
+#~ msgstr " %(truncated_text)s…"
+
+#~ msgid ", "
+#~ msgstr ","
+
+#~ msgid "0 minutes"
+#~ msgstr "0 минут"
+
+#~ msgid "Forbidden"
+#~ msgstr "Запрещено"
+
+#~ msgid "CSRF verification failed. Request aborted."
+#~ msgstr "Ошибка проверки CSRF. Запрос прерван."
+
+#~ msgid ""
+#~ "You are seeing this message because "
+#~ "this HTTPS site requires a “Referer "
+#~ "header” to be sent by your Web "
+#~ "browser, but none was sent. This "
+#~ "header is required for security reasons,"
+#~ " to ensure that your browser is "
+#~ "not being hijacked by third parties."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you have configured your browser "
+#~ "to disable “Referer” headers, please "
+#~ "re-enable them, at least for this "
+#~ "site, or for HTTPS connections, or "
+#~ "for “same-origin” requests."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you are using the <meta "
+#~ "name=\"referrer\" content=\"no-referrer\"> tag "
+#~ "or including the “Referrer-Policy: "
+#~ "no-referrer” header, please remove them."
+#~ " The CSRF protection requires the "
+#~ "“Referer” header to do strict referer"
+#~ " checking. If you’re concerned about "
+#~ "privacy, use alternatives like <a "
+#~ "rel=\"noreferrer\" …> for links to "
+#~ "third-party sites."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You are seeing this message because "
+#~ "this site requires a CSRF cookie "
+#~ "when submitting forms. This cookie is"
+#~ " required for security reasons, to "
+#~ "ensure that your browser is not "
+#~ "being hijacked by third parties."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "If you have configured your browser "
+#~ "to disable cookies, please re-enable "
+#~ "them, at least for this site, or"
+#~ " for “same-origin” requests."
+#~ msgstr ""
+
+#~ msgid "More information is available with DEBUG=True."
+#~ msgstr "Дополнительная информация доступна с DEBUG = True."
+
+#~ msgid "Directory indexes are not allowed here."
+#~ msgstr "Индексы каталогов здесь не разрешены."
+
+#~ msgid "“%(path)s” does not exist"
+#~ msgstr "« %(path)s» не существует"
+
+#~ msgid "No year specified"
+#~ msgstr "Год не указан"
+
+#~ msgid "Date out of range"
+#~ msgstr "Дата вне допустимого диапазона"
+
+#~ msgid "No month specified"
+#~ msgstr "Месяц не указан"
+
+#~ msgid "No day specified"
+#~ msgstr "День не указан"
+
+#~ msgid "No week specified"
+#~ msgstr "Неделя не указана"
+
+#~ msgid "No %(verbose_name_plural)s available"
+#~ msgstr "Нет доступных %(verbose_name_plural)s"
+
+#~ msgid ""
+#~ "Future %(verbose_name_plural)s not available "
+#~ "because %(class_name)s.allow_future is False."
+#~ msgstr ""
+
+#~ msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+#~ msgstr "Недопустимая строка даты « %(datestr)s» в формате « %(format)s»"
+
+#~ msgid "No %(verbose_name)s found matching the query"
+#~ msgstr " %(verbose_name)s не соответствует запросу"
+
+#~ msgid "Page is not “last”, nor can it be converted to an int."
+#~ msgstr "Страница не является «последней» и не может быть преобразована в int."
+
+#~ msgid "Invalid page (%(page_number)s): %(message)s"
+#~ msgstr "Недействительная страница ( %(page_number)s): %(message)s"
+
+#~ msgid "Empty list and “%(class_name)s.allow_empty” is False."
+#~ msgstr "Пустой список и « %(class_name)s.allow_empty» имеет значение False."
 

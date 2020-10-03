@@ -23,6 +23,9 @@
                 {% if user.gender %}
                     <p class="text-secondary m-bottom-4">{{ _("Gender") }}: {{ _(user.gender) }}</p>
                 {% endif %}
+                {% if user.city %}
+                    <p class="text-secondary m-bottom-4">{{ _("City") }}: {{ user.city }}</p>
+                {% endif %}
 
             </div>
 

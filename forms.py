@@ -62,23 +62,6 @@ class SelectMultipleFields(SelectMultipleField):
 		self.data = value_list
 
 
-# class PlayTimeForm(FlaskForm):
-# 	play_time_id = IntegerField('Play time id')
-# 	day_of_week = SelectField('Day of week', choices=DayOfWeek.days_of_week)
-# 	start_time = TimeField('Start time')
-# 	end_time = TimeField('End time')
-#
-# 	@staticmethod
-# 	def validate_end_time(form, end_time):
-# 		if form.start_time.data is not None and \
-# 			form.start_time.data >= end_time.data:
-# 			raise ValidationError(gettext("Start time can't be after end time"))
-
-	# def __init_self, *args, **kwargs):
-	# 	super().__init_*args, **kwargs)
-	# 	self.id.data = kwargs.get('id')
-
-
 class EditProfileForm(FlaskForm):
 	picture = FileField('Profile image', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 	name = StringField('Name', validators=[DataRequired(), Length(max=30)])
@@ -89,6 +72,7 @@ class EditProfileForm(FlaskForm):
 	sport_choices = Sports.get_choices()
 	# TODO add defaults for sport
 	sport = SelectMultipleFields('Sport', choices=sport_choices)
+	city = StringField('City', validators=[Length(max=50)])
 	# times = FieldList(FormField(PlayTimeForm), max_entries=7)
 	submit = SubmitField('Update')
 

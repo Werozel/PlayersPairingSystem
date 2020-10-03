@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-06 17:24+0300\n"
+"POT-Creation-Date: 2020-10-03 19:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,63 +17,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: forms.py:25
-msgid "Passwords doesn't match!"
-msgstr ""
-
-#: forms.py:33
+#: forms.py:32
 msgid "Username can only contain letters, numbers, underscores and dashes"
 msgstr ""
 
-#: forms.py:36
+#: forms.py:35
 msgid "This username is already taken"
 msgstr ""
 
-#: forms.py:42
+#: forms.py:41
 msgid "Account with this email already exists"
 msgstr ""
 
-#: forms.py:71
-msgid "Start time can't be after end time"
+#: forms.py:46
+msgid "Passwords doesn't match!"
 msgstr ""
 
-#: forms.py:94
+#: forms.py:82
 msgid "Invalid age!"
 msgstr ""
 
-#: forms.py:120 forms.py:152 forms.py:175
+#: forms.py:108 forms.py:140 forms.py:163
 msgid "Name already taken!"
 msgstr ""
 
-#: globals.py:37
+#: forms.py:174
+msgid "Must be a youtube link"
+msgstr ""
+
+#: globals.py:41
 msgid "Please log in to view this page."
 msgstr ""
 
-#: constants/constants.py:13
+#: constants/constants.py:19
 msgid "Tennis"
 msgstr ""
 
-#: constants/constants.py:14
+#: constants/constants.py:20
 msgid "Football"
 msgstr ""
 
-#: constants/constants.py:15
+#: constants/constants.py:21
 msgid "Basketball"
 msgstr ""
 
-#: constants/constants.py:16
+#: constants/constants.py:22
 msgid "Volleyball"
 msgstr ""
 
-#: constants/constants.py:17
+#: constants/constants.py:23
 msgid "Hockey"
 msgstr ""
 
-#: constants/constants.py:44
+#: constants/constants.py:50
 msgid "Select sport"
 msgstr ""
 
-#: routes/events.py:69 routes/groups.py:65 routes/profile.py:70
+#: routes/events.py:69 routes/groups.py:65 routes/profile.py:83
 msgid "Invitation sent!"
 msgstr ""
 
@@ -89,15 +89,15 @@ msgstr ""
 msgid "Account created! Please fill additional information."
 msgstr ""
 
-#: routes/profile.py:72
+#: routes/profile.py:85
 msgid "You already sent an invitation to this user!"
 msgstr ""
 
-#: routes/profile.py:77
+#: routes/profile.py:90
 msgid "Friend removed!"
 msgstr ""
 
-#: routes/profile.py:112
+#: routes/profile.py:128
 msgid "Profile updated!"
 msgstr ""
 
@@ -137,8 +137,17 @@ msgstr ""
 msgid "New Event"
 msgstr ""
 
+#: templates/edit_event.html:54 templates/edit_profile.html:119
+msgid "Update"
+msgstr ""
+
 #: templates/edit_group.html:4 templates/edit_group.html:14
 msgid "Edit group"
+msgstr ""
+
+#: templates/edit_group.html:40 templates/edit_videos.html:43
+#: templates/new_group.html:39
+msgid "Submit"
 msgstr ""
 
 #: templates/edit_profile.html:4 templates/edit_profile.html:18
@@ -147,6 +156,10 @@ msgstr ""
 
 #: templates/edit_profile.html:24
 msgid "File must be an image"
+msgstr ""
+
+#: templates/edit_videos.html:4 templates/edit_videos.html:16
+msgid "Edit videos"
 msgstr ""
 
 #: templates/event.html:18 templates/find_people.html:4
@@ -184,7 +197,7 @@ msgid "Sport"
 msgstr ""
 
 #: templates/find_people.html:45 templates/my_invitations.html:48
-#: templates/profile.html:73 templates/show_users.html:44
+#: templates/profile.html:100 templates/show_users.html:44
 msgid "No sport added yet!"
 msgstr ""
 
@@ -225,7 +238,7 @@ msgstr ""
 msgid "You are on index page"
 msgstr ""
 
-#: templates/login.html:4 templates/main.html:46
+#: templates/login.html:4 templates/login.html:27 templates/main.html:46
 msgid "Login"
 msgstr ""
 
@@ -241,7 +254,7 @@ msgstr ""
 msgid "Don't have an account?"
 msgstr ""
 
-#: templates/login.html:36
+#: templates/login.html:36 templates/register.html:69
 msgid "Sign up"
 msgstr ""
 
@@ -253,7 +266,7 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
-#: templates/main.html:89 templates/profile.html:79
+#: templates/main.html:89 templates/profile.html:106
 #: templates/search_group.html:9
 msgid "Groups"
 msgstr ""
@@ -331,6 +344,10 @@ msgstr ""
 msgid "New event"
 msgstr ""
 
+#: templates/new_event.html:58
+msgid "Create"
+msgstr ""
+
 #: templates/new_group.html:5 templates/new_group.html:13
 msgid "New group"
 msgstr ""
@@ -343,11 +360,19 @@ msgstr ""
 msgid "Gender"
 msgstr ""
 
-#: templates/profile.html:64
+#: templates/profile.html:27
+msgid "City"
+msgstr ""
+
+#: templates/profile.html:68
 msgid "Sports"
 msgstr ""
 
-#: templates/profile.html:93
+#: templates/profile.html:86
+msgid "Video"
+msgstr ""
+
+#: templates/profile.html:120
 msgid "Friends"
 msgstr ""
 
@@ -357,6 +382,14 @@ msgstr ""
 
 #: templates/register.html:75
 msgid "Already have an account?"
+msgstr ""
+
+#: templates/search_event.html:4
+msgid "Search for an event"
+msgstr ""
+
+#: templates/search_group.html:27
+msgid "Search"
 msgstr ""
 
 #: templates/search_group.html:38
@@ -705,6 +738,10 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
+#: venv/Lib/site-packages/flask_script/__init__.py:43
+msgid "show this help message and exit"
+msgstr ""
+
 #: venv/Lib/site-packages/flask_wtf/file.py:50
 #: venv/Lib/site-packages/wtforms/validators.py:218
 #: venv/Lib/site-packages/wtforms/validators.py:258
@@ -875,1539 +912,3 @@ msgstr ""
 msgid "Not a valid time value"
 msgstr ""
 
-msgid "Username"
-msgstr ""
-
-msgid "Confirm password"
-msgstr ""
-
-msgid "Sign Up"
-msgstr ""
-
-msgid "Remember me"
-msgstr ""
-
-msgid "Play time id"
-msgstr ""
-
-msgid "Day of week"
-msgstr ""
-
-msgid "Start time"
-msgstr ""
-
-msgid "End time"
-msgstr ""
-
-msgid "Profile image"
-msgstr ""
-
-msgid "Name"
-msgstr ""
-
-msgid "Last Name"
-msgstr ""
-
-msgid "Male"
-msgstr ""
-
-msgid "Female"
-msgstr ""
-
-msgid "Update"
-msgstr ""
-
-msgid "Submit"
-msgstr ""
-
-msgid "Search"
-msgstr ""
-
-msgid "Create"
-msgstr ""
-
-msgid "Successfully deleted %(count)d %(items)s."
-msgstr ""
-
-msgid "Cannot delete %(name)s"
-msgstr ""
-
-msgid "Are you sure?"
-msgstr ""
-
-msgid "Administration"
-msgstr ""
-
-msgid "All"
-msgstr ""
-
-msgid "Unknown"
-msgstr ""
-
-msgid "Any date"
-msgstr ""
-
-msgid "Today"
-msgstr ""
-
-msgid "Past 7 days"
-msgstr ""
-
-msgid "This month"
-msgstr ""
-
-msgid "This year"
-msgstr ""
-
-msgid "No date"
-msgstr ""
-
-msgid "Has date"
-msgstr ""
-
-msgid ""
-"Please enter the correct %(username)s "
-"and password for a staff account. "
-"Note that both fields may be "
-"case-sensitive."
-msgstr ""
-
-msgid "Action:"
-msgstr ""
-
-msgid "Add another %(verbose_name)s"
-msgstr ""
-
-msgid "Remove"
-msgstr ""
-
-msgid "Addition"
-msgstr ""
-
-msgid "Change"
-msgstr ""
-
-msgid "Deletion"
-msgstr ""
-
-msgid "action time"
-msgstr ""
-
-msgid "user"
-msgstr ""
-
-msgid "content type"
-msgstr ""
-
-msgid "object id"
-msgstr ""
-
-msgid "object repr"
-msgstr ""
-
-msgid "action flag"
-msgstr ""
-
-msgid "change message"
-msgstr ""
-
-msgid "log entry"
-msgstr ""
-
-msgid "log entries"
-msgstr ""
-
-msgid "Added “%(object)s”."
-msgstr ""
-
-msgid "Changed “%(object)s” — %(changes)s"
-msgstr ""
-
-msgid "Deleted “%(object)s.”"
-msgstr ""
-
-msgid "LogEntry Object"
-msgstr ""
-
-msgid "addedname"
-msgstr ""
-
-msgid "Added {name} “{object}”."
-msgstr ""
-
-msgid "Added."
-msgstr ""
-
-msgid "and"
-msgstr ""
-
-msgid "changedname"
-msgstr ""
-
-msgid "Changed {fields} for {name} “{object}”."
-msgstr ""
-
-msgid "Changed {fields}."
-msgstr ""
-
-msgid "deletedname"
-msgstr ""
-
-msgid "Deleted {name} “{object}”."
-msgstr ""
-
-msgid "No fields changed."
-msgstr ""
-
-msgid "None"
-msgstr ""
-
-msgid "Hold down “Control”, or “Command” on a Mac, to select more than one."
-msgstr ""
-
-msgid "The {name} “{obj}” was added successfully."
-msgstr ""
-
-msgid "You may edit it again below."
-msgstr ""
-
-msgid ""
-"The {name} “{obj}” was added "
-"successfully. You may add another {name}"
-" below."
-msgstr ""
-
-msgid ""
-"The {name} “{obj}” was changed "
-"successfully. You may edit it again "
-"below."
-msgstr ""
-"{Name} «{obj}» был успешно изменен. Вы"
-" можете отредактировать его снова ниже."
-
-msgid "The {name} “{obj}” was added successfully. You may edit it again below."
-msgstr ""
-"{Name} «{obj}» был успешно добавлен. Вы"
-" можете отредактировать его снова ниже."
-
-msgid ""
-"The {name} “{obj}” was changed "
-"successfully. You may add another {name}"
-" below."
-msgstr ""
-
-msgid "The {name} “{obj}” was changed successfully."
-msgstr ""
-
-msgid ""
-"Items must be selected in order to"
-" perform actions on them. No items"
-" have been changed."
-msgstr ""
-
-msgid "No action selected."
-msgstr ""
-
-msgid "The %(name)s “%(obj)s” was deleted successfully."
-msgstr ""
-
-msgid "%(name)s with ID “%(key)s” doesn’t exist. Perhaps it was deleted?"
-msgstr ""
-" %(name)s с идентификатором « %(key)s»"
-" не существует. Возможно, его удалили?"
-
-msgid "Add %s"
-msgstr ""
-
-msgid "Change %s"
-msgstr ""
-
-msgid "View %s"
-msgstr ""
-
-msgid "Database error"
-msgstr ""
-
-msgid "0 of %(cnt)s selected"
-msgstr ""
-
-msgid "Change history: %s"
-msgstr ""
-
-msgid "%(class_name)s %(instance)s"
-msgstr ""
-
-msgid ""
-"Deleting %(class_name)s %(instance)s would "
-"require deleting the following protected "
-"related objects: %(related_objects)s"
-msgstr ""
-
-msgid "Log in"
-msgstr ""
-
-msgid "%(app)s administration"
-msgstr ""
-
-msgid "Date:"
-msgstr ""
-
-msgid "Time:"
-msgstr ""
-
-msgid "Lookup"
-msgstr ""
-
-msgid "Currently:"
-msgstr ""
-
-msgid "Change:"
-msgstr ""
-
-msgid "All dates"
-msgstr ""
-
-msgid "Select %s"
-msgstr ""
-
-msgid "Select %s to change"
-msgstr ""
-
-msgid "Select %s to view"
-msgstr ""
-
-msgid "Administrative Documentation"
-msgstr ""
-
-msgid "tag:"
-msgstr ""
-
-msgid "filter:"
-msgstr ""
-
-msgid "view:"
-msgstr ""
-
-msgid "App %(app_label)r not found"
-msgstr ""
-
-msgid "Model %(model_name)r not found in app %(app_label)r"
-msgstr ""
-
-msgid "model:"
-msgstr ""
-
-msgid "the related `%(app_label)s.%(data_type)s` object"
-msgstr ""
-
-msgid "related `%(app_label)s.%(object_name)s` objects"
-msgstr ""
-
-msgid "all %s"
-msgstr ""
-
-msgid "number of %s"
-msgstr ""
-
-msgid "%s does not appear to be a urlpattern object"
-msgstr ""
-
-msgid "Personal info"
-msgstr ""
-
-msgid "Permissions"
-msgstr ""
-
-msgid "Important dates"
-msgstr ""
-
-msgid "%(name)s object with primary key %(key)r does not exist."
-msgstr ""
-
-msgid "Password changed successfully."
-msgstr ""
-
-msgid "Change password: %s"
-msgstr ""
-
-msgid "Authentication and Authorization"
-msgstr ""
-
-msgid "password"
-msgstr ""
-
-msgid "last login"
-msgstr ""
-
-msgid "No password set."
-msgstr ""
-
-msgid "Invalid password format or unknown hashing algorithm."
-msgstr ""
-
-msgid "The two password fields didn’t match."
-msgstr ""
-
-msgid "Password"
-msgstr ""
-
-msgid "Password confirmation"
-msgstr ""
-
-msgid "Enter the same password as before, for verification."
-msgstr ""
-
-msgid ""
-"Raw passwords are not stored, so "
-"there is no way to see this "
-"user’s password, but you can change "
-"the password using <a href=\"{}\">this "
-"form</a>."
-msgstr ""
-
-msgid ""
-"Please enter a correct %(username)s and"
-" password. Note that both fields may"
-" be case-sensitive."
-msgstr ""
-
-msgid "This account is inactive."
-msgstr ""
-
-msgid "Email"
-msgstr ""
-
-msgid "New password"
-msgstr ""
-
-msgid "New password confirmation"
-msgstr ""
-
-msgid "Your old password was entered incorrectly. Please enter it again."
-msgstr ""
-
-msgid "Old password"
-msgstr ""
-
-msgid "Password (again)"
-msgstr ""
-
-msgid "algorithm"
-msgstr ""
-
-msgid "iterations"
-msgstr ""
-
-msgid "salt"
-msgstr ""
-
-msgid "hash"
-msgstr ""
-
-msgid "variety"
-msgstr ""
-
-msgid "version"
-msgstr ""
-
-msgid "memory cost"
-msgstr ""
-
-msgid "time cost"
-msgstr ""
-
-msgid "parallelism"
-msgstr ""
-
-msgid "work factor"
-msgstr ""
-
-msgid "checksum"
-msgstr ""
-
-msgid "name"
-msgstr ""
-
-msgid "codename"
-msgstr ""
-
-msgid "permission"
-msgstr ""
-
-msgid "permissions"
-msgstr ""
-
-msgid "group"
-msgstr ""
-
-msgid "groups"
-msgstr ""
-
-msgid "superuser status"
-msgstr ""
-
-msgid ""
-"Designates that this user has all "
-"permissions without explicitly assigning them."
-msgstr ""
-
-msgid ""
-"The groups this user belongs to. A"
-" user will get all permissions "
-"granted to each of their groups."
-msgstr ""
-
-msgid "user permissions"
-msgstr ""
-
-msgid "Specific permissions for this user."
-msgstr ""
-
-msgid "username"
-msgstr ""
-
-msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
-msgstr ""
-"Необходимое поле. 150 символов или "
-"меньше. Только буквы, цифры и @ /."
-" / + / - / _."
-
-msgid "A user with that username already exists."
-msgstr ""
-
-msgid "first name"
-msgstr ""
-
-msgid "last name"
-msgstr ""
-
-msgid "email address"
-msgstr ""
-
-msgid "staff status"
-msgstr ""
-
-msgid "Designates whether the user can log into this admin site."
-msgstr ""
-
-msgid "active"
-msgstr ""
-
-msgid ""
-"Designates whether this user should be"
-" treated as active. Unselect this "
-"instead of deleting accounts."
-msgstr ""
-
-msgid "date joined"
-msgstr ""
-
-msgid "users"
-msgstr ""
-
-msgid "The password is too similar to the %(verbose_name)s."
-msgstr ""
-
-msgid "Your password can’t be too similar to your other personal information."
-msgstr ""
-"Ваш пароль не может быть слишком "
-"похож на вашу другую личную информацию."
-
-msgid "This password is too common."
-msgstr ""
-
-msgid "Your password can’t be a commonly used password."
-msgstr ""
-
-msgid "This password is entirely numeric."
-msgstr ""
-
-msgid "Your password can’t be entirely numeric."
-msgstr ""
-
-msgid ""
-"Enter a valid username. This value "
-"may contain only English letters, "
-"numbers, and @/./+/-/_ characters."
-msgstr ""
-
-msgid ""
-"Enter a valid username. This value "
-"may contain only letters, numbers, and"
-" @/./+/-/_ characters."
-msgstr ""
-
-msgid "Logged out"
-msgstr ""
-
-msgid "Password reset"
-msgstr ""
-
-msgid "Password reset sent"
-msgstr ""
-
-msgid "Enter new password"
-msgstr ""
-
-msgid "Password reset unsuccessful"
-msgstr ""
-
-msgid "Password reset complete"
-msgstr ""
-
-msgid "Password change"
-msgstr ""
-
-msgid "Password change successful"
-msgstr ""
-
-msgid "Content Types"
-msgstr ""
-
-msgid "python model class name"
-msgstr ""
-
-msgid "content types"
-msgstr ""
-
-msgid "Content type %(ct_id)s object has no associated model"
-msgstr ""
-
-msgid "Content type %(ct_id)s object %(obj_id)s doesn’t exist"
-msgstr ""
-
-msgid "%(ct_name)s objects don’t have a get_absolute_url() method"
-msgstr ""
-
-msgid "Advanced options"
-msgstr ""
-
-msgid "Flat Pages"
-msgstr ""
-
-msgid "URL"
-msgstr ""
-
-msgid ""
-"Example: “/about/contact/”. Make sure to "
-"have leading and trailing slashes."
-msgstr ""
-
-msgid ""
-"This value must contain only letters,"
-" numbers, dots, underscores, dashes, "
-"slashes or tildes."
-msgstr ""
-
-msgid "Example: “/about/contact”. Make sure to have a leading slash."
-msgstr ""
-"Пример: «/ о / контакт». Убедитесь, "
-"что у вас есть начальная косая "
-"черта."
-
-msgid "URL is missing a leading slash."
-msgstr ""
-
-msgid "URL is missing a trailing slash."
-msgstr ""
-
-msgid "Flatpage with url %(url)s already exists for site %(site)s"
-msgstr ""
-
-msgid "title"
-msgstr ""
-
-msgid "content"
-msgstr ""
-
-msgid "enable comments"
-msgstr ""
-
-msgid "template name"
-msgstr ""
-
-msgid ""
-"Example: “flatpages/contact_page.html”. If this "
-"isn’t provided, the system will use "
-"“flatpages/default.html”."
-msgstr ""
-
-msgid "registration required"
-msgstr ""
-
-msgid "If this is checked, only logged-in users will be able to view the page."
-msgstr ""
-"Если этот флажок установлен, только "
-"зарегистрированные пользователи смогут просматривать"
-" страницу."
-
-msgid "sites"
-msgstr ""
-
-msgid "flat page"
-msgstr ""
-
-msgid "flat pages"
-msgstr ""
-
-msgid "GIS"
-msgstr ""
-
-msgid "No feeds are registered."
-msgstr ""
-
-msgid "Slug %r isn’t registered."
-msgstr ""
-
-msgid "The base GIS field."
-msgstr ""
-
-msgid ""
-"The base Geometry field — maps to"
-" the OpenGIS Specification Geometry type."
-msgstr ""
-"Базовое поле геометрии - соответствует "
-"типу геометрии спецификации OpenGIS."
-
-msgid "Point"
-msgstr ""
-
-msgid "Line string"
-msgstr ""
-
-msgid "Polygon"
-msgstr ""
-
-msgid "Multi-point"
-msgstr ""
-
-msgid "Multi-line string"
-msgstr ""
-
-msgid "Multi polygon"
-msgstr ""
-
-msgid "Geometry collection"
-msgstr ""
-
-msgid "Extent Aggregate Field"
-msgstr ""
-
-msgid "Raster Field"
-msgstr ""
-
-msgid "No geometry value provided."
-msgstr ""
-
-msgid "Invalid geometry value."
-msgstr ""
-
-msgid "Invalid geometry type."
-msgstr ""
-
-msgid ""
-"An error occurred when transforming the"
-" geometry to the SRID of the "
-"geometry form field."
-msgstr ""
-
-msgid "Humanize"
-msgstr ""
-
-msgctxt "ordinal 9"
-msgid "{}th"
-msgstr ""
-
-msgctxt "ordinal 1"
-msgid "{}st"
-msgstr ""
-
-msgctxt "ordinal 2"
-msgid "{}nd"
-msgstr ""
-
-msgctxt "ordinal 3"
-msgid "{}rd"
-msgstr ""
-
-msgid "one"
-msgstr ""
-
-msgid "two"
-msgstr ""
-
-msgid "three"
-msgstr ""
-
-msgid "four"
-msgstr ""
-
-msgid "five"
-msgstr ""
-
-msgid "six"
-msgstr ""
-
-msgid "seven"
-msgstr ""
-
-msgid "eight"
-msgstr ""
-
-msgid "nine"
-msgstr ""
-
-msgid "today"
-msgstr ""
-
-msgid "tomorrow"
-msgstr ""
-
-msgid "yesterday"
-msgstr ""
-
-msgid "PostgreSQL extensions"
-msgstr ""
-
-msgid "Some keys were missing: %(keys)s"
-msgstr ""
-
-msgid "Some unknown keys were provided: %(keys)s"
-msgstr ""
-
-msgid ""
-"Ensure that this range is completely "
-"less than or equal to %(limit_value)s."
-msgstr ""
-
-msgid ""
-"Ensure that this range is completely "
-"greater than or equal to "
-"%(limit_value)s."
-msgstr ""
-
-msgid "Item %(nth)s in the array did not validate:"
-msgstr ""
-
-msgid "Nested arrays must have the same length."
-msgstr ""
-
-msgid "Map of strings to strings/nulls"
-msgstr ""
-
-msgid "The value of “%(key)s” is not a string or null."
-msgstr ""
-
-msgid "A JSON object"
-msgstr ""
-
-msgid "Value must be valid JSON."
-msgstr ""
-
-msgid "Could not load JSON data."
-msgstr ""
-
-msgid "Input must be a JSON dictionary."
-msgstr ""
-
-msgid "“%(value)s” value must be valid JSON."
-msgstr ""
-
-msgid "Enter two valid values."
-msgstr ""
-
-msgid "The start of the range must not exceed the end of the range."
-msgstr ""
-
-msgid "Enter two whole numbers."
-msgstr ""
-
-msgid "Enter two numbers."
-msgstr ""
-
-msgid "Enter two valid date/times."
-msgstr ""
-
-msgid "Enter two valid dates."
-msgstr ""
-
-msgid "Redirects"
-msgstr ""
-
-msgid "site"
-msgstr ""
-
-msgid "redirect from"
-msgstr ""
-
-msgid ""
-"This should be an absolute path, "
-"excluding the domain name. Example: "
-"“/events/search/”."
-msgstr ""
-
-msgid "redirect to"
-msgstr ""
-
-msgid ""
-"This can be either an absolute "
-"path (as above) or a full URL "
-"starting with “http://”."
-msgstr ""
-
-msgid "redirect"
-msgstr ""
-
-msgid "redirects"
-msgstr ""
-
-msgid "Sessions"
-msgstr ""
-
-msgid "session key"
-msgstr ""
-
-msgid "session data"
-msgstr ""
-
-msgid "expire date"
-msgstr ""
-
-msgid "session"
-msgstr ""
-
-msgid "sessions"
-msgstr ""
-
-msgid "Site Maps"
-msgstr ""
-
-msgid "Sites"
-msgstr ""
-
-msgid "The domain name cannot contain any spaces or tabs."
-msgstr ""
-
-msgid "domain name"
-msgstr ""
-
-msgid "display name"
-msgstr ""
-
-msgid "Static Files"
-msgstr ""
-
-msgid "Syndication"
-msgstr ""
-
-msgid "That page number is not an integer"
-msgstr ""
-
-msgid "That page number is less than 1"
-msgstr ""
-
-msgid "That page contains no results"
-msgstr ""
-
-msgid "Enter a valid value."
-msgstr ""
-
-msgid "Enter a valid URL."
-msgstr ""
-
-msgid "Enter a valid integer."
-msgstr ""
-
-msgid "Enter a valid email address."
-msgstr ""
-
-msgid ""
-"Enter a valid “slug” consisting of "
-"letters, numbers, underscores or hyphens."
-msgstr ""
-
-msgid ""
-"Enter a valid “slug” consisting of "
-"Unicode letters, numbers, underscores, or "
-"hyphens."
-msgstr ""
-
-msgid "Enter a valid IPv4 address."
-msgstr ""
-
-msgid "Enter a valid IPv6 address."
-msgstr ""
-
-msgid "Enter a valid IPv4 or IPv6 address."
-msgstr ""
-
-msgid "Enter only digits separated by commas."
-msgstr ""
-
-msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
-msgstr ""
-
-msgid "Ensure this value is less than or equal to %(limit_value)s."
-msgstr ""
-
-msgid "Ensure this value is greater than or equal to %(limit_value)s."
-msgstr ""
-
-msgid "Enter a number."
-msgstr ""
-
-msgid ""
-"File extension “%(extension)s” is not "
-"allowed. Allowed extensions are: "
-"%(allowed_extensions)s."
-msgstr ""
-
-msgid "Null characters are not allowed."
-msgstr ""
-
-msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr ""
-
-msgid "Value %(value)r is not a valid choice."
-msgstr ""
-
-msgid "This field cannot be null."
-msgstr ""
-
-msgid "This field cannot be blank."
-msgstr ""
-
-msgid "%(model_name)s with this %(field_label)s already exists."
-msgstr ""
-
-msgid ""
-"%(field_label)s must be unique for "
-"%(date_field_label)s %(lookup_type)s."
-msgstr ""
-" %(field_label)s должен быть уникальным "
-"для %(date_field_label)s %(lookup_type)s."
-
-msgid "Field of type: %(field_type)s"
-msgstr ""
-
-msgid "“%(value)s” value must be either True or False."
-msgstr ""
-
-msgid "“%(value)s” value must be either True, False, or None."
-msgstr ""
-
-msgid "Boolean (Either True or False)"
-msgstr ""
-
-msgid "String (up to %(max_length)s)"
-msgstr ""
-
-msgid "Comma-separated integers"
-msgstr ""
-
-msgid ""
-"“%(value)s” value has an invalid date"
-" format. It must be in YYYY-"
-"MM-DD format."
-msgstr ""
-
-msgid ""
-"“%(value)s” value has the correct format"
-" (YYYY-MM-DD) but it is an "
-"invalid date."
-msgstr ""
-
-msgid "Date (without time)"
-msgstr ""
-
-msgid ""
-"“%(value)s” value has an invalid format."
-" It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
-msgstr ""
-
-msgid ""
-"“%(value)s” value has the correct format"
-" (YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ]) but"
-" it is an invalid date/time."
-msgstr ""
-
-msgid "Date (with time)"
-msgstr ""
-
-msgid "“%(value)s” value must be a decimal number."
-msgstr ""
-
-msgid "Decimal number"
-msgstr ""
-
-msgid ""
-"“%(value)s” value has an invalid format."
-" It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
-msgstr ""
-
-msgid "Duration"
-msgstr ""
-
-msgid "Email address"
-msgstr ""
-
-msgid "File path"
-msgstr ""
-
-msgid "“%(value)s” value must be a float."
-msgstr ""
-
-msgid "Floating point number"
-msgstr ""
-
-msgid "“%(value)s” value must be an integer."
-msgstr ""
-
-msgid "Integer"
-msgstr ""
-
-msgid "Big (8 byte) integer"
-msgstr ""
-
-msgid "IPv4 address"
-msgstr ""
-
-msgid "IP address"
-msgstr ""
-
-msgid "“%(value)s” value must be either None, True or False."
-msgstr ""
-
-msgid "Boolean (Either True, False or None)"
-msgstr ""
-
-msgid "Positive integer"
-msgstr ""
-
-msgid "Positive small integer"
-msgstr ""
-
-msgid "Slug (up to %(max_length)s)"
-msgstr ""
-
-msgid "Small integer"
-msgstr ""
-
-msgid "Text"
-msgstr ""
-
-msgid ""
-"“%(value)s” value has an invalid format."
-" It must be in HH:MM[:ss[.uuuuuu]] "
-"format."
-msgstr ""
-
-msgid ""
-"“%(value)s” value has the correct format"
-" (HH:MM[:ss[.uuuuuu]]) but it is an "
-"invalid time."
-msgstr ""
-
-msgid "Raw binary data"
-msgstr ""
-
-msgid "“%(value)s” is not a valid UUID."
-msgstr ""
-
-msgid "Universally unique identifier"
-msgstr ""
-
-msgid "File"
-msgstr ""
-
-msgid "Image"
-msgstr ""
-
-msgid "%(model)s instance with %(field)s %(value)r does not exist."
-msgstr ""
-
-msgid "Foreign Key (type determined by related field)"
-msgstr ""
-
-msgid "One-to-one relationship"
-msgstr ""
-
-msgid "%(from)s-%(to)s relationship"
-msgstr ""
-
-msgid "%(from)s-%(to)s relationships"
-msgstr ""
-
-msgid "Many-to-many relationship"
-msgstr ""
-
-msgid ":?.!"
-msgstr ""
-
-msgid "Enter a whole number."
-msgstr ""
-
-msgid "Enter a valid date."
-msgstr ""
-
-msgid "Enter a valid time."
-msgstr ""
-
-msgid "Enter a valid date/time."
-msgstr ""
-
-msgid "Enter a valid duration."
-msgstr ""
-
-msgid "The number of days must be between {min_days} and {max_days}."
-msgstr ""
-
-msgid "No file was submitted. Check the encoding type on the form."
-msgstr ""
-
-msgid "No file was submitted."
-msgstr ""
-
-msgid "The submitted file is empty."
-msgstr ""
-
-msgid "Please either submit a file or check the clear checkbox, not both."
-msgstr ""
-
-msgid ""
-"Upload a valid image. The file you"
-" uploaded was either not an image "
-"or a corrupted image."
-msgstr ""
-
-msgid "Select a valid choice. %(value)s is not one of the available choices."
-msgstr ""
-"Выберите правильный выбор.  %(value)s не "
-"является одним из доступных вариантов."
-
-msgid "Enter a list of values."
-msgstr ""
-
-msgid "Enter a complete value."
-msgstr ""
-
-msgid "Enter a valid UUID."
-msgstr ""
-
-msgid ":"
-msgstr ""
-
-msgid "(Hidden field %(name)s) %(error)s"
-msgstr ""
-
-msgid "ManagementForm data is missing or has been tampered with"
-msgstr ""
-
-msgid "Order"
-msgstr ""
-
-msgid "Delete"
-msgstr ""
-
-msgid "Please correct the duplicate data for %(field)s."
-msgstr ""
-
-msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
-"Исправьте повторяющиеся данные для %(field)s,"
-" которые должны быть уникальными."
-
-msgid ""
-"Please correct the duplicate data for"
-" %(field_name)s which must be unique "
-"for the %(lookup)s in %(date_field)s."
-msgstr ""
-
-msgid "Please correct the duplicate values below."
-msgstr ""
-
-msgid "The inline value did not match the parent instance."
-msgstr ""
-
-msgid "Select a valid choice. That choice is not one of the available choices."
-msgstr ""
-
-msgid "“%(pk)s” is not a valid value."
-msgstr ""
-
-msgid ""
-"%(datetime)s couldn’t be interpreted in "
-"time zone %(current_timezone)s; it may "
-"be ambiguous or it may not exist."
-msgstr ""
-
-msgid "Clear"
-msgstr ""
-
-msgid "Currently"
-msgstr ""
-
-msgid "yes,no,maybe"
-msgstr ""
-
-msgid "%s KB"
-msgstr ""
-
-msgid "%s MB"
-msgstr ""
-
-msgid "%s GB"
-msgstr ""
-
-msgid "%s TB"
-msgstr ""
-
-msgid "%s PB"
-msgstr ""
-
-msgid "p.m."
-msgstr ""
-
-msgid "a.m."
-msgstr ""
-
-msgid "PM"
-msgstr ""
-
-msgid "AM"
-msgstr ""
-
-msgid "midnight"
-msgstr ""
-
-msgid "noon"
-msgstr ""
-
-msgid "Monday"
-msgstr ""
-
-msgid "Tuesday"
-msgstr ""
-
-msgid "Wednesday"
-msgstr ""
-
-msgid "Thursday"
-msgstr ""
-
-msgid "Friday"
-msgstr ""
-
-msgid "Saturday"
-msgstr ""
-
-msgid "Sunday"
-msgstr ""
-
-msgid "Mon"
-msgstr ""
-
-msgid "Tue"
-msgstr ""
-
-msgid "Wed"
-msgstr ""
-
-msgid "Thu"
-msgstr ""
-
-msgid "Fri"
-msgstr ""
-
-msgid "Sat"
-msgstr ""
-
-msgid "Sun"
-msgstr ""
-
-msgid "January"
-msgstr ""
-
-msgid "February"
-msgstr ""
-
-msgid "March"
-msgstr ""
-
-msgid "April"
-msgstr ""
-
-msgid "May"
-msgstr ""
-
-msgid "June"
-msgstr ""
-
-msgid "July"
-msgstr ""
-
-msgid "August"
-msgstr ""
-
-msgid "September"
-msgstr ""
-
-msgid "October"
-msgstr ""
-
-msgid "November"
-msgstr ""
-
-msgid "December"
-msgstr ""
-
-msgid "jan"
-msgstr ""
-
-msgid "feb"
-msgstr ""
-
-msgid "mar"
-msgstr ""
-
-msgid "apr"
-msgstr ""
-
-msgid "may"
-msgstr ""
-
-msgid "jun"
-msgstr ""
-
-msgid "jul"
-msgstr ""
-
-msgid "aug"
-msgstr ""
-
-msgid "sep"
-msgstr ""
-
-msgid "oct"
-msgstr ""
-
-msgid "nov"
-msgstr ""
-
-msgid "dec"
-msgstr ""
-
-msgid "This is not a valid IPv6 address."
-msgstr ""
-
-msgctxt "String to return when truncating text"
-msgid "%(truncated_text)s…"
-msgstr ""
-
-msgid ", "
-msgstr ""
-
-msgid "0 minutes"
-msgstr ""
-
-msgid "Forbidden"
-msgstr ""
-
-msgid "CSRF verification failed. Request aborted."
-msgstr ""
-
-msgid ""
-"You are seeing this message because "
-"this HTTPS site requires a “Referer "
-"header” to be sent by your Web "
-"browser, but none was sent. This "
-"header is required for security reasons,"
-" to ensure that your browser is "
-"not being hijacked by third parties."
-msgstr ""
-
-msgid ""
-"If you have configured your browser "
-"to disable “Referer” headers, please "
-"re-enable them, at least for this "
-"site, or for HTTPS connections, or "
-"for “same-origin” requests."
-msgstr ""
-
-msgid ""
-"If you are using the <meta "
-"name=\"referrer\" content=\"no-referrer\"> tag "
-"or including the “Referrer-Policy: "
-"no-referrer” header, please remove them."
-" The CSRF protection requires the "
-"“Referer” header to do strict referer"
-" checking. If you’re concerned about "
-"privacy, use alternatives like <a "
-"rel=\"noreferrer\" …> for links to "
-"third-party sites."
-msgstr ""
-
-msgid ""
-"You are seeing this message because "
-"this site requires a CSRF cookie "
-"when submitting forms. This cookie is"
-" required for security reasons, to "
-"ensure that your browser is not "
-"being hijacked by third parties."
-msgstr ""
-
-msgid ""
-"If you have configured your browser "
-"to disable cookies, please re-enable "
-"them, at least for this site, or"
-" for “same-origin” requests."
-msgstr ""
-
-msgid "More information is available with DEBUG=True."
-msgstr ""
-
-msgid "Directory indexes are not allowed here."
-msgstr ""
-
-msgid "“%(path)s” does not exist"
-msgstr ""
-
-msgid "No year specified"
-msgstr ""
-
-msgid "Date out of range"
-msgstr ""
-
-msgid "No month specified"
-msgstr ""
-
-msgid "No day specified"
-msgstr ""
-
-msgid "No week specified"
-msgstr ""
-
-msgid "No %(verbose_name_plural)s available"
-msgstr ""
-
-msgid ""
-"Future %(verbose_name_plural)s not available "
-"because %(class_name)s.allow_future is False."
-msgstr ""
-
-msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
-msgstr ""
-
-msgid "No %(verbose_name)s found matching the query"
-msgstr ""
-
-msgid "Page is not “last”, nor can it be converted to an int."
-msgstr ""
-
-msgid "Invalid page (%(page_number)s): %(message)s"
-msgstr ""
-
-msgid "Empty list and “%(class_name)s.allow_empty” is False."
-msgstr ""

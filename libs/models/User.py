@@ -41,6 +41,7 @@ class User(db.Model, UserMixin):
     from libs.models.Chat import Chat
     from libs.models.EventMember import EventMember
     from libs.models.PlayTimes import PlayTimes
+    from libs.models.PlayLocation import PlayLocation
     from libs.models.UserVideos import UserVideos
     # from libs.ChatMember import ChatMember
     # from libs.ChatNotification import ChatNotification
@@ -62,6 +63,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String, nullable=False, default='default.jpg')
     last_login_ip = db.Column(db.String)
     language = db.Column(db.String, nullable=False, default="en")
+    city = db.Column(db.String(50), nullable=True)
 
     groups_rel = db.relationship('Group', backref='admin', lazy=True)
     members_rel = db.relationship('GroupMember', backref='user', lazy=True)
@@ -75,6 +77,7 @@ class User(db.Model, UserMixin):
     event_rel = db.relationship('Event', backref='creator', lazy=True)
     play_time_rel = db.relationship('PlayTimes', backref='user', lazy=True)
     user_sport_videos_rel = db.relationship('UserVideos', backref='user', lazy=True)
+    play_locations_rel = db.relationship('PlayLocation', backref='user', lazy=True)
 
     __tablename__ = "users"
 

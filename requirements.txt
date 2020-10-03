@@ -25,3 +25,4 @@ WTForms==2.3.3
 Pillow>=7.2.0
 multidict>=4.7.6
 googletrans>=3.0.0
+geopy>=2.0.0
