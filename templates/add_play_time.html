@@ -102,9 +102,12 @@
         }
 
         function checkAddress() {
-            const xhttp = new XMLHttpRequest()
             const address_input = document.getElementById("address")
             const address = address_input.value
+            if (address.trim() === "") {
+                return
+            }
+            const xhttp = new XMLHttpRequest()
             const url = "{{ url_for('get_location_by_address_route', address='-') }}".slice(0, -1) + address
             xhttp.open("GET", url)
             xhttp.responseType = "json"
