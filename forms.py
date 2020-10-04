@@ -1,15 +1,12 @@
-from typing import List
-
 from src.youtube_links import is_youtube_link
 from wtforms import Form
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
 from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField, BooleanField, HiddenField, \
-					FileField, IntegerField, SelectField, TextAreaField, FieldList, FormField, TimeField, FloatField
+					FileField, IntegerField, SelectField, TextAreaField, FieldList, FormField, TimeField
 from wtforms.validators import DataRequired, Length, Email, ValidationError
 from wtforms.fields.html5 import DateTimeLocalField
 from flask_babel import gettext
-from libs.models.PlayTime import PlayTime
 from libs.models.User import User
 from libs.models.Group import Group
 from libs.models.Event import Event
@@ -74,25 +71,12 @@ class EditProfileForm(FlaskForm):
 	# TODO add defaults for sport
 	sport = SelectMultipleFields('Sport', choices=sport_choices)
 	city = StringField('City', validators=[Length(max=50)])
-	# times = FieldList(FormField(PlayTimeForm), max_entries=7)
 	submit = SubmitField('Update')
 
 	@staticmethod
 	def validate_age(_, age):
 		if age.data < 10 or age.data > 100:
 			raise ValidationError(gettext('Invalid age!'))
-
-	def __init__(self, times_values: List[PlayTime] = None, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		# if times_values is not None and len(times_values) > 0:
-		# 	for time in times_values:
-		# 		self.times.append_entry({
-		# 			'play_time_id': time.id,
-		# 			'day_of_week': time.day_of_week,
-		# 			'start_time': time.start_time,
-		# 			'end_time': time.end_time
-		# 		})
-		# self.times.append_entry()
 
 
 class NewGroupFrom(FlaskForm):

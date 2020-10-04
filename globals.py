@@ -4,15 +4,16 @@ from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
-from geopy.geocoders import GoogleV3
+from geopy.geocoders import GoogleV3, Nominatim
 
 from constants.app_config import SECRET_KEY, DB_URL
 from constants.config import GOOGLE_API
 from constants.constants import DayOfWeek
 from libs.SecureAdmin import get_admin
-from src.address_cache import load_address_cache, save_address_cache
+from src.address_cache import save_address_cache
 from src.misc import format_date_time, is_admin, get_cookie, format_time
 from apscheduler.schedulers.background import BackgroundScheduler
+from flask_googlemaps import GoogleMaps
 import atexit
 
 
@@ -48,6 +49,7 @@ bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 
 google_api = GoogleV3(api_key=GOOGLE_API)
+nominatim = Nominatim(user_agent="sport")
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login_route'
@@ -66,6 +68,8 @@ sessions = {}
 scheduler = get_scheduler()
 scheduler.add_job(func=save_address_cache, trigger="interval", seconds=60)
 scheduler.start()
+
+google_maps = GoogleMaps(app)
 
 
 @babel.localeselector

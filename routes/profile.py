@@ -1,7 +1,8 @@
 from typing import Optional
 
-from globals import app, db, sessions, socketIO
-from src.misc import get_arg_or_400, get_arg_or_none
+from globals import app, db, sessions, socketIO, nominatim
+from flask_googlemaps import Map
+from src.misc import get_arg_or_400, get_arg_or_none, get_cookie
 from src.youtube_links import make_link, parse_id
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, flash, abort
@@ -75,11 +76,20 @@ def profile_route():
                 add_play_time_form.start_time.data = current_play_time.start_time
                 add_play_time_form.end_time.data = current_play_time.end_time
                 add_play_time_form.address.data = current_play_time.address
+            initial_location = nominatim.geocode(current_user.city)
+            loc_map = Map(
+                identifier="loc_map",
+                lat=initial_location.latitude,
+                lng=initial_location.longitude,
+                style="height:600px;width:600px;margin:8;",
+                language=current_user.language
+            )
             return render_template(
                 "add_play_time.html",
                 all_play_times=all_play_times,
                 current_play_time=current_play_time,
-                form=add_play_time_form
+                form=add_play_time_form,
+                map=loc_map
             )
         elif action == 'edit_videos':
             group = namedtuple('Group', ['sport', 'video'])
