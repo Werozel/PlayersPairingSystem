@@ -1,6 +1,8 @@
 from globals import app, db, socketIO
 import logging
 import constants.app_config as app_config
+import atexit
+from src.address_cache import save_address_cache
 # necessary imports to register routes
 import routes.service
 import routes.chats
@@ -24,5 +26,4 @@ if __name__ == "__main__":
     logging.getLogger('socketio').setLevel(logging.ERROR)
     logging.getLogger('engineio').setLevel(logging.ERROR)
     logging.getLogger('werkzeug').setLevel(logging.ERROR)
-
-    socketIO.run(app, debug=app_config.DEBUG, port=5000, host='0.0.0.0')
+    socketIO.run(app, debug=app_config.DEBUG, port=app_config.PORT, host=app_config.HOST)

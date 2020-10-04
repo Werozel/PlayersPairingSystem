@@ -1,10 +1,12 @@
+from typing import Optional
+
 from globals import app, db, sessions, socketIO
 from src.misc import get_arg_or_400, get_arg_or_none
 from src.youtube_links import make_link, parse_id
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, flash, abort
 from flask_babel import gettext
-from forms import EditProfileForm, EditVideosForm
+from forms import EditProfileForm, EditVideosForm, AddPlayTimeForm
 from libs.models.User import User
 from libs.models.ChatMember import ChatMember
 from libs.models.Invitation import Invitation, InvitationType
@@ -64,14 +66,20 @@ def profile_route():
             )
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
         elif action == 'add_play_time':
+            add_play_time_form = AddPlayTimeForm()
             all_play_times = PlayTime.get_all_for_user_id(current_user.id)
-            current_play_time = PlayTime.get(get_arg_or_none("id"))
+            current_play_time: Optional[PlayTime] = PlayTime.get(get_arg_or_none("id"))
             if current_play_time is not None:
                 all_play_times = [play_time for play_time in all_play_times if play_time.id != current_play_time.id]
+                add_play_time_form.day_of_week.data = current_play_time.day_of_week
+                add_play_time_form.start_time.data = current_play_time.start_time
+                add_play_time_form.end_time.data = current_play_time.end_time
+                add_play_time_form.address.data = current_play_time.address
             return render_template(
                 "add_play_time.html",
                 all_play_times=all_play_times,
-                current_play_time=current_play_time
+                current_play_time=current_play_time,
+                form=add_play_time_form
             )
         elif action == 'edit_videos':
             group = namedtuple('Group', ['sport', 'video'])
@@ -165,6 +173,11 @@ def profile_route():
                 return redirect(url_for('profile_route', action='my'))
             else:
                 return render_template("edit_videos.html", form=form, current_user=current_user)
+        elif action == 'add_play_time':
+            form = AddPlayTimeForm()
+            if form.validate_on_submit():
+                pass    # TODO: TASK:
+            return redirect(url_for('profile_route', action='add_play_time'))
         else:
             form = EditProfileForm()
             return render_template("edit_profile.html", form=form, current_user=current_user)

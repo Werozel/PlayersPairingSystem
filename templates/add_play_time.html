@@ -1,8 +1,8 @@
-{%  extends "main.html" %}
+{% extends "main.html" %}
 
-{%  block title %}
-        <title>{{ _("Play times") }}</title>
-{%  endblock title %}
+{% block title %}
+    <title>{{ _("Play times") }}</title>
+{% endblock title %}
 
 {% block content %}
 
@@ -13,7 +13,8 @@
             <div id="play_time_{{ play_time.id }}" class="content-section row media m-bottom-12">
                 <p class="media-body text-secondary m-bottom-0">
                     {% if play_time.day_of_week is not none and play_time.start_time is not none and play_time.end_time is not none %}
-                        {{ _(get_day_of_week(play_time.day_of_week)) }}, {{ format_time(play_time.start_time) }}-{{ format_time(play_time.end_time) }}
+                        {{ _(get_day_of_week(play_time.day_of_week)) }}, {{ format_time(play_time.start_time) }}-
+                        {{ format_time(play_time.end_time) }}
                     {% else %}
                         {{ _("No time selected") }}
                     {% endif %}
@@ -27,10 +28,12 @@
                         {% endif %}
                     </p>
                     <a href="{{ url_for('profile_route', action='add_play_time', id=play_time.id) }}">
-                        <img class="m-right-8" width="75%" height="75%" src="{{ url_for('static', filename='buttons/edit-24px.svg') }}"/>
+                        <img class="m-right-8" width="75%" height="75%" alt="none"
+                             src="{{ url_for('static', filename='buttons/edit-24px.svg') }}"/>
                     </a>
                     <a onclick="sendDeleteRequest({{ play_time.id }})" onmouseover="" style="cursor: pointer;">
-                        <img class="m-right-8" width="75%" height="75%" src="{{ url_for('static', filename='buttons/delete-24px.svg') }}"/>
+                        <img class="m-right-8" width="75%" height="75%" alt="none"
+                             src="{{ url_for('static', filename='buttons/delete-24px.svg') }}"/>
                     </a>
                 </div>
             </div>
@@ -38,6 +41,44 @@
     {% else %}
         <h4 class="h4 media-body">{{ _("No play times added yet!") }}</h4>
     {% endif %}
+
+    <div class="content-section">
+        <form method="post" action="{{ url_for('profile_route', action='add_play_time') }}">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group m-bottom-8">
+                    <label for="{{ form.day_of_week.label.field_id }}" class="form-control-label">{{ _(form.day_of_week.label.text) }}</label>
+                    {{ form.day_of_week(class="form-control") }}
+                </div>
+                <div class="row m-left-0 m-bottom-8">
+                    <label for="{{ form.start_time.field_id }}" class="form-control-label">{{ _(form.start_time.label.text) }}</label>
+                    {{ form.start_time(type="time", class="m-left-16") }}
+                </div>
+                <div class="row m-left-0 m-bottom-24">
+                    <label for="{{ form.end_time.field_id }}" class="form-control-label">{{ _(form.end_time.label.text) }}</label>
+                    {{ form.end_time(type="time", class="m-left-16") }}
+                </div>
+                    <div class="form-group">
+                        <label for="{{ form.address.label.field_id }}" class="form-control-label">{{ _(form.address.label.text) }}</label>
+                        <div class="row m-left-0" style="display: flex">
+                            {% if form.address.errors %}
+                                {{ form.address(class="form-control is-invalid", style="flex: 4") }}
+                                <div class="invalid-feedback>">
+                                    <span style="color: red; ">{{ _("File must be an image") }}</span>
+                                </div>
+                            {% else %}
+                                {{ form.address(class="form-control", style="flex: 4") }}
+                            {% endif %}
+                            <input style="flex: 1" class="btn btn-outline-info m-right-24 m-left-24" height="75%" onclick="checkAddress()" type="button" value="{{ _("Check address") }}">
+                        </div>
+                    </div>
+            </fieldset>
+            <legend class="border-bottom m-bottom-12"></legend>
+            <div class="form-group">
+                <input class="btn btn-outline-info" id="submit" name="submit" type="submit" value="{{ _('Add') }}">
+            </div>
+        </form>
+    </div>
 
 {% endblock %}
 
@@ -50,6 +91,10 @@
             xhttp.open("DELETE", url, true)
             xhttp.send()
             $(`#play_time_${id}`).remove()
+        }
+
+        function checkAddress() {
+
         }
 
     </script>

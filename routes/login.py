@@ -54,7 +54,8 @@ def register_route():
                 email=email,
                 register_time=register_time,
                 last_login=last_login,
-                last_login_ip=request.remote_addr
+                last_login_ip=request.remote_addr,
+                city=form.city.data
             )
             db.session.add(user)
             db.session.commit()

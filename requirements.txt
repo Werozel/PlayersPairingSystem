@@ -13,8 +13,8 @@ idna==2.10
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
-numpy==1.19.1
-psycopg2==2.8.5
+numpy==1.19.2
+psycopg2==2.8.6
 python-engineio==3.13.2
 python-socketio==4.6.0
 six==1.15.0
@@ -26,3 +26,5 @@ Pillow>=7.2.0
 multidict>=4.7.6
 googletrans>=3.0.0
 geopy>=2.0.0
+APScheduler>=3.6.3
+alembic>=1.4.3

@@ -1,15 +1,25 @@
-from constants.app_config import SECRET_KEY, DB_URL
-from constants.config import GOOGLE_API
-from constants.constants import DayOfWeek
 from flask import Flask, g
-from flask_sqlalchemy import SQLAlchemy
+from flask_babel import Babel, gettext
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from flask_socketio import SocketIO
-from libs.SecureAdmin import get_admin
-from flask_babel import Babel, gettext
-from src.misc import format_date_time, is_admin, get_cookie, format_time
+from flask_sqlalchemy import SQLAlchemy
 from geopy.geocoders import GoogleV3
+
+from constants.app_config import SECRET_KEY, DB_URL
+from constants.config import GOOGLE_API
+from constants.constants import DayOfWeek
+from libs.SecureAdmin import get_admin
+from src.address_cache import load_address_cache, save_address_cache
+from src.misc import format_date_time, is_admin, get_cookie, format_time
+from apscheduler.schedulers.background import BackgroundScheduler
+import atexit
+
+
+def get_scheduler() -> BackgroundScheduler:
+    res = BackgroundScheduler()
+    atexit.register(lambda: res.shutdown())
+    return res
 
 
 def get_app(name: str) -> Flask:
@@ -17,6 +27,7 @@ def get_app(name: str) -> Flask:
     res.config['SECRET_KEY'] = SECRET_KEY
     res.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
     res.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    res.config['GOOGLEMAPS_KEY'] = GOOGLE_API
 
     # jinja env variables
     res.jinja_env.globals.update(format_date_time=format_date_time)
@@ -52,6 +63,10 @@ admin = get_admin(app, db)
 
 sessions = {}
 
+scheduler = get_scheduler()
+scheduler.add_job(func=save_address_cache, trigger="interval", seconds=60)
+scheduler.start()
+
 
 @babel.localeselector
 def get_locale():
@@ -67,17 +82,4 @@ def get_timezone():
 
 def create_tables():
     # these are necessary imports for db to register
-    from libs.models.Chat import Chat
-    from libs.models.ChatMember import ChatMember
-    from libs.models.ChatNotification import ChatNotification
-    from libs.models.Event import Event
-    from libs.models.EventMember import EventMember
-    from libs.models.Friend import Friend
-    from libs.models.Group import Group
-    from libs.models.GroupMember import GroupMember
-    from libs.models.Invitation import Invitation
-    from libs.models.Message import Message
-    from libs.models.PlayTime import PlayTime
-    from libs.models.User import User
-    from libs.models.UserVideos import UserVideos
     db.create_all()

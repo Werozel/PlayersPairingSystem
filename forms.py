@@ -5,8 +5,8 @@ from wtforms import Form
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
 from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField, BooleanField, HiddenField, \
-					FileField, IntegerField, SelectField, TextAreaField, FieldList, TimeField, FormField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+					FileField, IntegerField, SelectField, TextAreaField, FieldList, FormField, TimeField, FloatField
+from wtforms.validators import DataRequired, Length, Email, ValidationError
 from wtforms.fields.html5 import DateTimeLocalField
 from flask_babel import gettext
 from libs.models.PlayTime import PlayTime
@@ -23,6 +23,7 @@ class RegistrationForm(FlaskForm):
 	email = StringField('Email', validators=[DataRequired(), Email()])
 	password = PasswordField('Password', validators=[DataRequired()])
 	confirm_password = PasswordField('Confirm password', validators=[DataRequired()])
+	city = StringField('City', validators=[Length(max=50), DataRequired()])
 
 	submit = SubmitField('Sign Up')
 
@@ -183,3 +184,9 @@ class EditVideosForm(FlaskForm):
 	videos = FieldList(FormField(VideoForm))
 	submit = SubmitField('Update')
 
+
+class AddPlayTimeForm(FlaskForm):
+	day_of_week = SelectField('Day of week', default="Mon", choices=DayOfWeek.days_of_week)
+	start_time = TimeField('Start time')
+	end_time = TimeField('End field')
+	address = StringField('Address', validators=[Length(max=300)])
