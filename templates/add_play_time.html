@@ -62,12 +62,12 @@
                         <label for="{{ form.address.label.field_id }}" class="form-control-label">{{ _(form.address.label.text) }}</label>
                         <div class="row m-left-0" style="display: flex">
                             {% if form.address.errors %}
-                                {{ form.address(class="form-control is-invalid", style="flex: 4") }}
+                                {{ form.address(class="form-control is-invalid", style="flex: 4", id="address") }}
                                 <div class="invalid-feedback>">
                                     <span style="color: red; ">{{ _("File must be an image") }}</span>
                                 </div>
                             {% else %}
-                                {{ form.address(class="form-control", style="flex: 4") }}
+                                {{ form.address(class="form-control", style="flex: 4", id="address") }}
                             {% endif %}
                             <input style="flex: 1" class="btn btn-outline-info m-right-24 m-left-24" height="75%" onclick="checkAddress()" type="button" value="{{ _("Check address") }}">
                         </div>
@@ -84,16 +84,38 @@
 
 {% block script %}
     <script type="text/javascript" charset="utf-8">
-        const xhttp = new XMLHttpRequest();
 
         function sendDeleteRequest(id) {
-            let url = "{{ url_for('play_time_route', id=0) }}".slice(0, -1) + id
+            const xhttp = new XMLHttpRequest()
+            const url = "{{ url_for('play_time_route', id=0) }}".slice(0, -1) + id
             xhttp.open("DELETE", url, true)
             xhttp.send()
             $(`#play_time_${id}`).remove()
         }
 
         function checkAddress() {
+            const xhttp = new XMLHttpRequest()
+            const address_input = document.getElementById("address")
+            const address = address_input.value
+            const url = "{{ url_for('get_location_by_address_route', address='-') }}".slice(0, -1) + address
+            xhttp.open("GET", url)
+            xhttp.responseType = "json"
+
+            xhttp.onload = () => {
+                if (xhttp.status !== 200) {
+                    alert("Error")
+                    return
+                }
+                const response = xhttp.response
+                if (response.success === false) {
+                    alert(response.msg)
+                    return
+                }
+                address_input.value = response.address
+                // TODO: Set map markers
+            }
+
+            xhttp.send()
 
         }
 
