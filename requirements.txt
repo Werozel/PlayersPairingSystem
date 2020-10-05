@@ -28,3 +28,4 @@ googletrans>=3.0.0
 geopy>=2.0.0
 APScheduler>=3.6.3
 alembic>=1.4.3
+langdetect>=1.0.8

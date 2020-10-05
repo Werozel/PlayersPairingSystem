@@ -149,7 +149,7 @@ msgstr "Время игры"
 
 #: templates/add_play_time.html:14
 msgid "Your play times"
-msgstr "Ваше время игры время"
+msgstr "Ваше время игры"
 
 #: templates/add_play_time.html:23
 msgid "No time selected"

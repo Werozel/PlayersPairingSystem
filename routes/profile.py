@@ -213,9 +213,9 @@ def profile_route():
             if form.validate_on_submit():
                 city = current_user.city
                 address = form.address.data
-                query = f"{address}, {city}" if city is not None and city.lower() not in address.lower() else address
-                addresses: List[Address] = Address.get_by_query(query)
+                addresses: List[Address] = Address.get_by_query(address)
                 if len(addresses) == 0:
+                    query = f"{address}, {city}" if city is not None and city.lower() not in address.lower() else address
                     # TODO call google api
                     pass
                 address_db_obj: Address = addresses[0]

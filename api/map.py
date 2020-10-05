@@ -35,7 +35,6 @@ def get_location_by_address_route():
     if address is None:
         abort(400)
     city: str = current_user.city
-    query: str = f"{address}, {city}" if city is not None and city.lower() not in address.lower() else address
     res_from_cache: Optional[LocationDB] = LocationToAddress.get_location_for_address(address)
     if res_from_cache is not None:
         addresses_db_obj: List[Address] = LocationToAddress.get_address_for_location(
@@ -48,6 +47,7 @@ def get_location_by_address_route():
             'latitude': res_from_cache.latitude,
             'longitude': res_from_cache.longitude
         }
+    query: str = f"{address}, {city}" if city is not None and city.lower() not in address.lower() else address
     try:
         result: Optional[Location] = google_api.geocode(
             query,
