@@ -61,6 +61,10 @@
                             <img title="Show chat"
                                  src="{{ url_for('static', filename='buttons/chat-24px.svg')}}" alt="none"/>
                         </a>
+                    <a href="{{ url_for('profile_route', action='show_play_times', user_id=user.id) }}">
+                        <img title="Show play times"
+                             src="{{ url_for('static', filename='buttons/date_range-24px.svg')}}" alt="none"/>
+                    </a>
                 </div>
             {%  endif %}
 

@@ -99,11 +99,39 @@ def profile_route():
             return render_template(
                 "add_play_time.html",
                 all_play_times=all_play_times,
-                current_play_time=current_play_time,
                 form=add_play_time_form,
+                map=loc_map
+            )
+        elif action == 'show_play_times':
+            initial_zoom = 13
+            initial_location = nominatim.geocode(current_user.city)
+            init_lat = initial_location.latitude
+            init_lng = initial_location.longitude
+            markers = []
+            current_play_time: Optional[PlayTime] = PlayTime.get(get_arg_or_none("id"))
+            if current_play_time is not None:
+                location = Location.get(current_play_time.location_id)
+                if location is not None:
+                    markers.append((location.latitude, location.longitude))
+                    init_lat = location.latitude
+                    init_lng = location.longitude
+                    initial_zoom = 14.5
+            loc_map = Map(
+                zoom=initial_zoom,
+                identifier="loc_map",
+                lat=init_lat,
+                lng=init_lng,
+                style="height:600px;width:600px;margin:8;",
+                language=current_user.language,
+                markers=markers
+            )
+            user_id = get_arg_or_400('user_id', to_int=True)
+            all_play_times = PlayTime.get_all_for_user_id(user_id)
+            return render_template(
+                "show_play_times.html",
                 map=loc_map,
-                init_lat=initial_location.latitude,
-                init_lng=initial_location.longitude
+                all_play_times=all_play_times,
+                user_id=user_id
             )
         elif action == 'edit_videos':
             group = namedtuple('Group', ['sport', 'video'])

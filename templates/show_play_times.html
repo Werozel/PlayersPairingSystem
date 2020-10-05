@@ -1,0 +1,46 @@
+{% extends "main.html" %}
+
+{% block title %}
+    <title>{{ _("Play times") }}</title>
+{% endblock title %}
+
+{% block head %}
+    {{ map.js }}
+{% endblock head %}
+
+{% block content %}
+    {% if all_play_times and len(all_play_times) > 0 %}
+        <h4 class="h4 media-body">{{ _("Your play times") }}</h4>
+        <legend class="border-bottom mb-4"></legend>
+        {% for play_time in all_play_times %}
+            <div id="play_time_{{ play_time.id }}" class="content-section row media m-bottom-12 m-left-0 m-right-0">
+                <p class="media-body text-secondary m-bottom-0">
+                    {% if play_time.day_of_week is not none and play_time.start_time is not none and play_time.end_time is not none %}
+                        {{ _(get_day_of_week(play_time.day_of_week)) }},
+                        {{ format_time(play_time.start_time) }}-{{ format_time(play_time.end_time) }}
+                    {% else %}
+                        {{ _("No time selected") }}
+                    {% endif %}
+                </p>
+                <div class="media-right row">
+                    <p class="text-secondary m-bottom-0 m-right-16">
+                        {% if play_time.address is not none %}
+                            {{ play_time.address }}
+                        {% else %}
+                            {{ _("No address selected") }}
+                        {% endif %}
+                    </p>
+                    <a href="{{ url_for('profile_route', action='show_play_times', id=play_time.id, user_id=user_id) }}">
+                        <img class="m-right-8" width="75%" height="75%" alt="none"
+                             src="{{ url_for('static', filename='buttons/map-24px.svg') }}"/>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h4 class="h4 media-body m-bottom-12">{{ _("No play times added yet!") }}</h4>
+    {% endif %}
+
+    {{ map.html }}
+
+{% endblock content %}
