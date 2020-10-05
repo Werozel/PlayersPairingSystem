@@ -61,7 +61,7 @@ google_maps = GoogleMaps(app)
 
 @babel.localeselector
 def get_locale():
-    return get_cookie('language', 'en')
+    return get_cookie('language', 'ru')
 
 
 @babel.timezoneselector

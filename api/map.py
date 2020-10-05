@@ -1,12 +1,12 @@
 from typing import Optional, List
 from geopy import Location
-from src.misc import get_cookie
 from globals import app, db, google_api
 from flask_login import current_user
 from libs.models.PlayTime import PlayTime
 from flask_babel import gettext as _
 from flask import request, abort
 from libs.models.AddressCaches import Address, Location as LocationDB, LocationToAddress
+from langdetect import detect
 
 
 @app.route("/api/play_time_del/<int:id>", methods=["DELETE"])
@@ -51,9 +51,7 @@ def get_location_by_address_route():
     try:
         result: Optional[Location] = google_api.geocode(
             query,
-            language=current_user.language
-            if current_user.language and len(current_user.language) != 0
-            else get_cookie('language', 'ru')
+            language=detect(query)
         )
         if result is None:
             return {'success': False, 'msg': _("Nothing found!")}

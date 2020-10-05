@@ -172,5 +172,5 @@ class EditVideosForm(FlaskForm):
 class AddPlayTimeForm(FlaskForm):
 	day_of_week = SelectField('Day of week', default="Mon", choices=DayOfWeek.days_of_week)
 	start_time = TimeField('Start time')
-	end_time = TimeField('End field')
+	end_time = TimeField('End time')
 	address = StringField('Address', validators=[Length(max=300)])

@@ -211,8 +211,10 @@ def profile_route():
         elif action == 'add_play_time':
             form = AddPlayTimeForm()
             if form.validate_on_submit():
+                city = current_user.city
                 address = form.address.data
-                addresses: List[Address] = Address.get_by_query(address)
+                query = f"{address}, {city}" if city is not None and city.lower() not in address.lower() else address
+                addresses: List[Address] = Address.get_by_query(query)
                 if len(addresses) == 0:
                     # TODO call google api
                     pass
