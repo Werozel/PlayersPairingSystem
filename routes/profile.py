@@ -121,7 +121,7 @@ def profile_route():
                 identifier="loc_map",
                 lat=init_lat,
                 lng=init_lng,
-                style="height:600px;width:600px;margin:8;",
+                style="height:600px;width:730px;margin:8;",
                 language=current_user.language,
                 markers=markers
             )
