@@ -10,17 +10,8 @@ from constants.app_config import SECRET_KEY, DB_URL
 from constants.config import GOOGLE_API
 from constants.constants import DayOfWeek
 from libs.SecureAdmin import get_admin
-from src.address_cache import save_address_cache
 from src.misc import format_date_time, is_admin, get_cookie, format_time
-from apscheduler.schedulers.background import BackgroundScheduler
 from flask_googlemaps import GoogleMaps
-import atexit
-
-
-def get_scheduler() -> BackgroundScheduler:
-    res = BackgroundScheduler()
-    atexit.register(lambda: res.shutdown())
-    return res
 
 
 def get_app(name: str) -> Flask:
@@ -65,10 +56,6 @@ admin = get_admin(app, db)
 
 sessions = {}
 
-scheduler = get_scheduler()
-scheduler.add_job(func=save_address_cache, trigger="interval", seconds=60)
-scheduler.start()
-
 google_maps = GoogleMaps(app)
 
 
@@ -86,4 +73,18 @@ def get_timezone():
 
 def create_tables():
     # these are necessary imports for db to register
+    from libs.models.Chat import Chat
+    from libs.models.ChatMember import ChatMember
+    from libs.models.ChatNotification import ChatNotification
+    from libs.models.Event import Event
+    from libs.models.EventMember import EventMember
+    from libs.models.Friend import Friend
+    from libs.models.Group import Group
+    from libs.models.GroupMember import GroupMember
+    from libs.models.Invitation import Invitation
+    from libs.models.Message import Message
+    from libs.models.PlayTime import PlayTime
+    from libs.models.User import User
+    from libs.models.UserVideos import UserVideos
+    from libs.models.AddressCaches import Address, Location, LocationToAddress
     db.create_all()

@@ -1,8 +1,6 @@
 from globals import app, db, socketIO
 import logging
 import constants.app_config as app_config
-import atexit
-from src.address_cache import save_address_cache
 # necessary imports to register routes
 import routes.service
 import routes.chats

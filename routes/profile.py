@@ -89,7 +89,9 @@ def profile_route():
                 all_play_times=all_play_times,
                 current_play_time=current_play_time,
                 form=add_play_time_form,
-                map=loc_map
+                map=loc_map,
+                init_lat=initial_location.latitude,
+                init_lng=initial_location.longitude
             )
         elif action == 'edit_videos':
             group = namedtuple('Group', ['sport', 'video'])
@@ -135,23 +137,6 @@ def profile_route():
                 if len(form.sport.data):
                     current_user.sport = form.sport.data
                 db.session.add(current_user)
-                # for data in form.times.data:
-                #     id = data.get('play_time_id')
-                #     play_time = None
-                #     if id:
-                #         play_time = PlayTimes.get(id)
-                #     if play_time:
-                #         play_time.day_of_week = data.get('day_of_week')
-                #         play_time.start_time = data.get('start_time')
-                #         play_time.end_time = data.get('end_time')
-                #     else:
-                #         play_time = PlayTimes(
-                #             day_of_week=data.get('day_of_week'),
-                #             start_time=data.get('start_time'),
-                #             end_time=data.get('end_time'),
-                #             user_id=current_user.id
-                #         )
-                #     db.session.add(play_time)
                 db.session.commit()
                 flash(gettext("Profile updated!"), 'success')
                 return redirect(url_for('profile_route', action='my'))
