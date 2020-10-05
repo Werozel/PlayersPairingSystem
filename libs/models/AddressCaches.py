@@ -8,12 +8,15 @@ class Address(db.Model):
 
     id = db.Column(db.BigInteger, primary_key=True)
     full_address = db.Column(db.String(300), nullable=False)
+    short_address = db.Column(db.String(300), nullable=True)
+    custom_address = db.Column(db.String(300), nullable=True)
     country = db.Column(db.String, nullable=True)
     city = db.Column(db.String, nullable=True)
     street = db.Column(db.String, nullable=True)
     building_number = db.Column(db.String, nullable=True)
 
     address_rel = db.relationship('LocationToAddress', backref='address', lazy=True)
+    play_time_rel = db.relationship('PlayTime', backref='address', lazy=True)
 
     @staticmethod
     def get(id):
@@ -21,7 +24,9 @@ class Address(db.Model):
 
     @staticmethod
     def get_by_query(query: str):
-        return Address.query.filter(Address.full_address.ilike(query)).all()
+        return Address.query.filter(
+            Address.full_address.ilike(query) | Address.short_address.ilike(query) | Address.custom_address.ilike(query)
+        ).all()
 
     def get_short_address(self):
         components = []
@@ -42,6 +47,7 @@ class Location(db.Model):
     longitude = db.Column(db.Float, nullable=False)
 
     location_rel = db.relationship('LocationToAddress', backref='location', lazy=True)
+    play_time_rel = db.relationship('PlayTime', backref='location', lazy=True)
 
     @staticmethod
     def get(id):

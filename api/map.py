@@ -5,6 +5,7 @@ from globals import app, db, google_api
 from flask_login import current_user
 from libs.models.PlayTime import PlayTime
 from flask_babel import gettext as _
+from flask import request, abort
 from libs.models.AddressCaches import Address, Location as LocationDB, LocationToAddress
 
 
@@ -26,10 +27,13 @@ def find(pred, coll):
             return x
 
 
-@app.route("/api/map/<string:address>", methods=["GET"])
-def get_location_by_address_route(address: str):
+@app.route("/api/map", methods=["POST"])
+def get_location_by_address_route():
     if not current_user.is_authenticated:
         return {'success': False, 'msg': _("User not authenticated")}
+    address = request.json.get("address")
+    if address is None:
+        abort(400)
     city: str = current_user.city
     query: str = f"{city} {address}" if city is not None and city.lower() not in address.lower() else address
     res_from_cache: Optional[LocationDB] = LocationToAddress.get_location_for_address(address)
@@ -61,6 +65,7 @@ def get_location_by_address_route(address: str):
             building_number_component: dict = find(lambda x: 'street_number' in x.get('types'), address_components)
             address_db_obj = Address(
                 full_address=result.address,
+                custom_address=address,
                 country=country_component.get('long_name') if country_component is not None else None,
                 city=city_component.get('long_name') if city_component is not None else None,
                 street=street_component.get('long_name') if street_component is not None else None,
@@ -68,45 +73,22 @@ def get_location_by_address_route(address: str):
                 if building_number_component is not None
                 else None
             )
-            short_address_db_obj = Address(
-                full_address=address_db_obj.get_short_address(),
-                country=country_component.get('long_name') if country_component is not None else None,
-                city=city_component.get('long_name') if city_component is not None else None,
-                street=street_component.get('long_name') if street_component is not None else None,
-                building_number=building_number_component.get('long_name')
-                if building_number_component is not None
-                else None
-            )
-            custom_address_db_obj = Address(
-                full_address=address,
-                country=country_component.get('long_name') if country_component is not None else None,
-                city=city_component.get('long_name') if city_component is not None else None,
-                street=street_component.get('long_name') if street_component is not None else None,
-                building_number=building_number_component.get('long_name')
-                if building_number_component is not None
-                else None
-            )
+            address_db_obj.short_address = address_db_obj.get_short_address()
             location_db_obj = LocationDB(
                 latitude=result.latitude,
                 longitude=result.longitude
             )
             db.session.add(address_db_obj)
-            db.session.add(short_address_db_obj)
-            db.session.add(custom_address_db_obj)
             db.session.add(location_db_obj)
             db.session.commit()
             location_to_address_db_obj = LocationToAddress(address_id=address_db_obj.id, location_id=location_db_obj.id)
-            short_location_to_address_db_obj = LocationToAddress(address_id=short_address_db_obj.id, location_id=location_db_obj.id)
-            custom_location_to_address_db_obj = LocationToAddress(address_id=custom_address_db_obj.id, location_id=location_db_obj.id)
             db.session.add(location_to_address_db_obj)
-            db.session.add(short_location_to_address_db_obj)
-            db.session.add(custom_location_to_address_db_obj)
             db.session.commit()
             return {
                 'success': True,
                 'latitude': result.latitude,
                 'longitude': result.longitude,
-                'address': address_db_obj.get_short_address()
+                'address': address_db_obj.short_address
             }
     except Exception:
         return {'success': False, 'msg': _("Couldn't perform geocoding")}

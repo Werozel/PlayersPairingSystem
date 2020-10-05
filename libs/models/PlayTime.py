@@ -8,9 +8,8 @@ class PlayTime(db.Model):
     day_of_week = db.Column(db.Integer)
     start_time = db.Column(db.Time)
     end_time = db.Column(db.Time)
-    address = db.Column(db.String)
-    latitude = db.Column(db.Float)
-    longitude = db.Column(db.Float)
+    address_id = db.Column(db.BigInteger, db.ForeignKey("address_cache.id"), nullable=True)
+    location_id = db.Column(db.BigInteger, db.ForeignKey("location_cache.id"), nullable=True)
     user_id = db.Column(db.BigInteger, db.ForeignKey("users.id"), nullable=False)
 
     @staticmethod

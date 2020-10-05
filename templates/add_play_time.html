@@ -108,8 +108,8 @@
                 return
             }
             const xhttp = new XMLHttpRequest()
-            const url = "{{ url_for('get_location_by_address_route', address='-') }}".slice(0, -1) + address
-            xhttp.open("GET", url)
+            const url = "{{ url_for('get_location_by_address_route') }}"
+            xhttp.open("POST", url)
             xhttp.responseType = "json"
 
             xhttp.onload = () => {
@@ -132,7 +132,8 @@
                 })
                 addMarker(loc_map, position)
             }
-            xhttp.send()
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.send(JSON.stringify({'address': address}))
         }
 
         function addMarker(map, position) {
