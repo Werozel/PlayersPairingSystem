@@ -23,7 +23,7 @@ class Address(db.Model):
         return Address.query.filter_by(id=id).first()
 
     @staticmethod
-    def get_by_query(query: str):
+    def get_by_query(query: str) -> list:
         return Address.query.filter(
             Address.full_address.ilike(query) | Address.short_address.ilike(query) | Address.custom_address.ilike(query)
         ).all()
@@ -34,9 +34,10 @@ class Address(db.Model):
             components.append(self.street)
         if self.building_number:
             components.append(self.building_number)
-        if self.city:
-            components.append(self.city)
         return ', '.join(components)
+
+    def __repr__(self):
+        return self.short_address
 
 
 class Location(db.Model):
@@ -81,3 +82,10 @@ class LocationToAddress(db.Model):
         if len(addresses) == 0:
             return None
         return LocationToAddress.query.filter_by(address_id=addresses[0].id).first().location
+
+    @staticmethod
+    def get_location_for_address_id(id) -> Optional[Location]:
+        loc = LocationToAddress.query.filter_by(address_id=id).first()
+        if loc is None:
+            return None
+        return loc.location

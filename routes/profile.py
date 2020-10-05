@@ -1,8 +1,8 @@
-from typing import Optional
+from typing import Optional, List
 
 from globals import app, db, sessions, socketIO, nominatim
 from flask_googlemaps import Map
-from src.misc import get_arg_or_400, get_arg_or_none, get_cookie
+from src.misc import get_arg_or_400, get_arg_or_none
 from src.youtube_links import make_link, parse_id
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, flash, abort
@@ -14,6 +14,7 @@ from libs.models.Invitation import Invitation, InvitationType
 from libs.models.PlayTime import PlayTime
 from libs.models.User import set_user_picture
 from libs.models.UserVideos import UserVideos
+from libs.models.AddressCaches import Address, Location, LocationToAddress
 from collections import namedtuple
 import json
 
@@ -70,19 +71,30 @@ def profile_route():
             add_play_time_form = AddPlayTimeForm()
             all_play_times = PlayTime.get_all_for_user_id(current_user.id)
             current_play_time: Optional[PlayTime] = PlayTime.get(get_arg_or_none("id"))
+            initial_location = nominatim.geocode(current_user.city)
+            init_lat = initial_location.latitude
+            init_lng = initial_location.longitude
+            markers = []
+            initial_zoom = 13
             if current_play_time is not None:
-                all_play_times = [play_time for play_time in all_play_times if play_time.id != current_play_time.id]
                 add_play_time_form.day_of_week.data = current_play_time.day_of_week
                 add_play_time_form.start_time.data = current_play_time.start_time
                 add_play_time_form.end_time.data = current_play_time.end_time
-                add_play_time_form.address.data = current_play_time.address
-            initial_location = nominatim.geocode(current_user.city)
+                add_play_time_form.address.data = current_play_time.address.short_address
+                location = Location.get(current_play_time.location_id)
+                if location is not None:
+                    markers.append((location.latitude, location.longitude))
+                    init_lat = location.latitude
+                    init_lng = location.longitude
+                    initial_zoom = 14.5
             loc_map = Map(
+                zoom=initial_zoom,
                 identifier="loc_map",
-                lat=initial_location.latitude,
-                lng=initial_location.longitude,
+                lat=init_lat,
+                lng=init_lng,
                 style="height:600px;width:600px;margin:8;",
-                language=current_user.language
+                language=current_user.language,
+                markers=markers
             )
             return render_template(
                 "add_play_time.html",
@@ -171,7 +183,28 @@ def profile_route():
         elif action == 'add_play_time':
             form = AddPlayTimeForm()
             if form.validate_on_submit():
-                pass    # TODO: TASK:
+                address = form.address.data
+                addresses: List[Address] = Address.get_by_query(address)
+                if len(addresses) == 0:
+                    # TODO call google api
+                    pass
+                address_db_obj: Address = addresses[0]
+                location_db_obj: Optional[Location] = LocationToAddress.get_location_for_address_id(address_db_obj.id)
+                if location_db_obj is None:
+                    # Такого быть не должно
+                    # TODO call google api
+                    pass
+
+                play_time = PlayTime(
+                    day_of_week=form.day_of_week.data,
+                    start_time=form.start_time.data,
+                    end_time=form.end_time.data,
+                    address_id=address_db_obj.id,
+                    location_id=location_db_obj.id,
+                    user_id=current_user.id
+                )
+                db.session.add(play_time)
+                db.session.commit()
             return redirect(url_for('profile_route', action='add_play_time'))
         else:
             form = EditProfileForm()
