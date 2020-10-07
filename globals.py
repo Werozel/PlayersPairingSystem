@@ -6,7 +6,7 @@ from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 from geopy.geocoders import GoogleV3, Nominatim
 
-from constants.app_config import SECRET_KEY, DB_URL
+from constants.app_config import SECRET_KEY, DB_URL, GROUPS_ENABLED
 from constants.config import GOOGLE_API
 from constants.constants import DayOfWeek
 from libs.SecureAdmin import get_admin
@@ -23,6 +23,7 @@ def get_app(name: str) -> Flask:
 
     # jinja env variables
     res.jinja_env.globals.update(format_date_time=format_date_time)
+    res.jinja_env.globals.update(groups_enabled=GROUPS_ENABLED)
     res.jinja_env.globals.update(format_time=format_time)
     res.jinja_env.globals.update(get_day_of_week=DayOfWeek.get_name)
     res.jinja_env.globals.update(len=len)

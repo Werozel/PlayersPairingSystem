@@ -41,7 +41,7 @@
             </div>
             <legend class="border-bottom mb-3" style="width: 100%"></legend>
             <p>{{ _("Time") }}: <span class="text-secondary">{{ format_date_time(event.time) }}</span></p>
-            {%  if group %}
+            {%  if group and groups_enabled%}
                 <p>{{ _("Group") }}: <a href="{{ url_for('group_route', action='show', id=group.id) }}">{{ group.name }}</a></p>
             {%  endif %}
             <p class="mt-3 mb-0">{{ _("Description") }}:</p>

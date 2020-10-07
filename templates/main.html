@@ -40,7 +40,7 @@
                     {% if is_admin(current_user) %}
                         <a class="nav-item nav-link" href=" {{ url_for('admin.index') }}">Admin</a>
                     {% endif %}
-                    <a id="profile" class="nav-item nav-link" href=" {{ url_for('profile_route', action='my') }}">{{current_user.username}}</a>
+                    <a id="profile" class="nav-item nav-link" href=" {{ url_for('profile_route', action='my') }}">{{ _("Profile") }}</a>
                     <a class="nav-item nav-link" href=" {{ url_for('logout_route') }}">{{ _("Log out") }}</a>
                 </div>
               {% else %}
@@ -88,9 +88,11 @@
                     <div class="col-md-3">
                     <div class="content-section">
                         <ul class="list-group">
-                            <li class="my-list-group-item list-group-item-light">
-                                <a href="{{url_for('group_route', action='my')}}" class="text-secondary">{{ _("Groups") }}</a>
-                            </li>
+                            {% if groups_enabled %}
+                                <li class="my-list-group-item list-group-item-light">
+                                    <a href="{{url_for('group_route', action='my')}}" class="text-secondary">{{ _("Groups") }}</a>
+                                </li>
+                            {% endif %}
                             <li class="my-list-group-item list-group-item-light">
                                 <a href="{{url_for('event_route', action='my')}}" class="text-secondary">{{ _("Events") }}</a>
                             </li>

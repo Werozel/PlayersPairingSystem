@@ -4,7 +4,7 @@
     <div class="media">
         <h4 class="media-body">{{ _("My events") }}</h4>
         {# TODO add link #}
-        <a class="media-right m-right-8" href="">
+        <a class="media-right m-right-8" href="{{ url_for('event_route', action='search') }}">
             <img title="Search event" src="{{ url_for('static', filename='buttons/search-black-24dp.svg') }}">
         </a>
         <a class="media-right" href="{{url_for('event_route', action='new')}}">

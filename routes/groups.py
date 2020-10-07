@@ -1,4 +1,5 @@
 from globals import app, db
+from constants.app_config import GROUPS_ENABLED
 from src.misc import timestamp, get_arg_or_400
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, flash, abort
@@ -12,6 +13,8 @@ from libs.models.Invitation import InvitationType, Invitation
 @app.route("/group", methods=['GET', 'POST'])
 @login_required
 def group_route():
+    if not GROUPS_ENABLED:
+        abort(403)
 
     if request.method == 'GET':
         action = get_arg_or_400('action')

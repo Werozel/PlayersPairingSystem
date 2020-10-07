@@ -3,7 +3,7 @@ from src.misc import timestamp, get_arg_or_400
 from flask_login import login_required, current_user
 from flask_babel import gettext
 from flask import render_template, request, redirect, url_for, flash, abort
-from forms import NewEventForm, EditEventForm
+from forms import NewEventForm, EditEventForm, SearchEventForm
 from libs.models.Event import Event
 from libs.models.EventMember import EventMember
 from libs.models.Group import Group
@@ -27,6 +27,15 @@ def event_route():
         elif action == 'new':
             new_event_form = NewEventForm(groups=current_user.get_groups())
             return render_template("new_event.html", form=new_event_form)
+
+        elif action == 'search':
+            events = Event.query.all()
+            form = SearchEventForm()
+            return render_template(
+                "search_event.html",
+                events=events,
+                form=form
+            )
 
         event_id = get_arg_or_400('id', to_int=True)
         event = Event.get_or_404(event_id)
@@ -94,9 +103,9 @@ def event_route():
 # ------------------------------------------------------------------------------------------
 # ------------------------------------- POST -----------------------------------------------
     elif request.method == 'POST':
-        type = get_arg_or_400('type')
+        action = get_arg_or_400('action')
 
-        if type == 'edit':
+        if action == 'edit':
             event_id = get_arg_or_400('id', to_int=True)
             event = Event.get_or_404(event_id)
             edit_event_form = EditEventForm(current_event=event)
@@ -112,7 +121,7 @@ def event_route():
             else:
                 return render_template("edit_event.html", form=edit_event_form, event=event)
 
-        elif type == 'new':
+        elif action == 'new':
             new_event_form = NewEventForm(groups=current_user.get_groups())
             if new_event_form.validate_on_submit():
                 closed = new_event_form.closed.data

@@ -108,18 +108,18 @@
                 <p>{{ _("No sport added yet!") }}</p>
             {% endif %}
         </div>
-            {% if groups and len(group) > 0 %}
-            <legend class="border-bottom mb-4 mt-2"></legend>
-            <div class="container padding-left-0">
-                <h5 class="align-left">{{ _("Groups") }}: </h5>
-                <div class="align-left col-sm-12">
-                    {% for group in groups %}
-                        <p class="m-bottom-4">
-                            <a href="{{ url_for('group_route', id=group.id, action='show')}}" class="text-secondary"> {{ group.name }}</a>
-                        </p>
-                    {% endfor %}
+            {% if groups and len(groups) > 0 %}
+                <legend class="border-bottom mb-4 mt-2"></legend>
+                <div class="container padding-left-0">
+                    <h5 class="align-left">{{ _("Groups") }}: </h5>
+                    <div class="align-left col-sm-12">
+                        {% for group in groups %}
+                            <p class="m-bottom-4">
+                                <a href="{{ url_for('group_route', id=group.id, action='show')}}" class="text-secondary"> {{ group.name }}</a>
+                            </p>
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
             {% endif %}
 
         {% if friends and len(friends) > 0 %}

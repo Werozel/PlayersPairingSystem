@@ -64,7 +64,8 @@ def profile_route():
                 age=current_user.age,
                 gender=current_user.gender,
                 sport=current_user.sport,
-                times_values=PlayTime.get_all_for_user_id(current_user.id)
+                times_values=PlayTime.get_all_for_user_id(current_user.id),
+                city=current_user.city
             )
             return render_template("edit_profile.html", title="Edit profile", form=form, current_user=current_user)
         elif action == 'add_play_time':

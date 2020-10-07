@@ -106,6 +106,15 @@ class SearchGroupForm(FlaskForm):
 	submit = SubmitField('Search')
 
 
+class SearchEventForm(FlaskForm):
+	name = StringField('Name', validators=[Length(max=50)])
+	choices = Sports.get_choices()
+	choices.append(("None", "None"))
+	sport = SelectField('Sport', choices=choices, default="None")
+
+	submit = SubmitField('Search')
+
+
 class NewEventForm(FlaskForm):
 	closed = BooleanField('Closed')
 	name = StringField('Name', validators=[Length(max=100), DataRequired()])
@@ -129,6 +138,7 @@ class NewEventForm(FlaskForm):
 		group_choices = [(str(i.id), i.name) for i in groups]
 		group_choices.append(("None", "None"))
 		self.assigned_group.choices = group_choices
+		self.assigned_group.data = None
 
 
 class EditEventForm(FlaskForm):

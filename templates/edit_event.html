@@ -6,7 +6,7 @@
 
 {% block content %}
     <div class="content-section">
-    <form method="POST" action="{{ url_for('event_route', type='edit', id=event.id) }}">
+    <form method="POST" action="{{ url_for('event_route', action='edit', id=event.id) }}">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">{{ _("New Event") }}</legend>

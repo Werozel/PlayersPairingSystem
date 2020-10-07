@@ -6,4 +6,46 @@
 
 {% block content %}
 
+    <div class="media">
+        <h4 class="media-body">{{ _("Events") }}</h4>
+        <a class="media-right" href="{{url_for('event_route', action='new')}}">
+            <img class="" title="New event"
+                 src="{{ url_for('static', filename='buttons/add-24px.svg')}}"/>
+        </a>
+    </div>
+    <legend class="border-top m-top-0"></legend>
+        <form method="POST" class="form form-horizontal row" action="{{ url_for('event_route', action='search') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group col-sm-6">
+                <label for="{{ form.name.label.field_id }}" class="form-control-label">{{ _(form.name.label.text) }}</label>
+                {{ form.name(class="form-control form-control-sm") }}
+            </div>
+            <div class="col-sm-6">
+                <label for="{{ form.sport.label.field_id }}" class="form-control-label">{{ _(form.sport.label.text) }}</label>
+                {{ form.sport(class="form-control form-control-sm") }}
+            </div>
+            <div class="form-group mt-3 ml-3">
+                <input class="btn btn-outline-info" id="submit" name="submit" type="submit" value="{{ _('Search') }}">
+            </div>
+        </form>
+    <legend class="border-top m-top-0 w-75"></legend>
+    {% if events and len(events) > 0 %}
+        {% for event in events %}
+        <a href="{{ url_for('event_route', id=event.id) }}">
+            <div class="content-section w-75">
+                <div class="media m-bottom-4">
+                    <a class="media-body" href="{{ url_for('event_route', id=event.id, action='show') }}">{{event.name}}</a>
+                    {% if event.closed %}
+                        <p class="text-muted media-right m-bottom-0">{{ _("Closed") }}</p>
+                    {% endif %}
+                </div>
+                <span class="text-muted">{{ _("Sport") }}: </span>{{ _(event.sport) }}
+            </div>
+        </a>
+        {% endfor %}
+    {% else %}
+        <h4>{{ _("No search results") }}</h4>
+        <p class="text-muted small">{{ _("Create a new event") }} <a href="{{url_for('event_route', action='new')}}">{{ _("here") }}</a></p>
+    {% endif %}
+
 {% endblock content %} 

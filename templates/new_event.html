@@ -6,7 +6,7 @@
 
 {%  block content %}
     <div class="content-section">
-    <form method="POST" action="{{ url_for('event_route', type='new') }}">
+    <form method="POST" action="{{ url_for('event_route', action='new') }}">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">{{ _("New Event") }}</legend>
@@ -44,10 +44,12 @@
                 <label for="{{ form.sport.label.field_id }}" class="form-control-label">{{ _(form.sport.label.text) }}</label>
                 {{ form.sport(class="form-control form-control") }}
             </div>
-            <div class="mt-3">
-                <label for="{{ form.assigned_group.label.field_id }}" class="form-control-label">{{ _(form.assigned_group.label.text) }}</label>
-                {{ form.assigned_group(class="form-control form-control") }}
-            </div>
+            {% if groups_enabled %}
+                <div class="mt-3">
+                    <label for="{{ form.assigned_group.label.field_id }}" class="form-control-label">{{ _(form.assigned_group.label.text) }}</label>
+                    {{ form.assigned_group(class="form-control form-control") }}
+                </div>
+            {% endif %}
             <div class="mt-3">
                 <!-- TODO add translation -->
                 {{ wtf.form_field(form.time) }}
