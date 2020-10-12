@@ -91,13 +91,27 @@ def event_route():
             members = event.get_members()
             is_member = True if current_user in members else None
             members = members if len(members) > 0 else None
+            play_times = EventPlayTimes.get_all_for_event(event_id)
+            play_time = play_times[0] if play_times and len(play_times) else None
+            initial_location = LocationToAddress.get_location_for_address_id(play_time.address_id) if play_time else None
+            loc_map = Map(
+                zoom=14.5 if initial_location else 2,
+                identifier="loc_map",
+                lat=initial_location.latitude if initial_location else 0,
+                lng=initial_location.longitude if initial_location else 0,
+                style="height:600px;width:600px;margin:8;",
+                language=current_user.language,
+                markers=[(initial_location.latitude, initial_location.longitude)] if initial_location else []
+            )
             return render_template(
                 "event.html",
                 event=event,
                 group=group,
                 members=members,
                 is_member=is_member,
-                is_event_admin=event.creator_id == current_user.id or group is not None and group.admin_id == current_user.id
+                is_event_admin=event.creator_id == current_user.id or group is not None and group.admin_id == current_user.id,
+                play_time=play_time,
+                map=loc_map
             )
 
         elif action == 'join':

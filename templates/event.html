@@ -1,5 +1,11 @@
 {%  extends "main.html" %}
 
+{% block head %}
+    {% if map %}
+        {{ map.js }}
+    {% endif %}
+{% endblock %}
+
 {# TODO add chat #}
 {%  block content %}
     {%  if event %}
@@ -8,8 +14,12 @@
                 <div class="media-body row m-left-0">
                     <h4>{{ event.name }}</h4>
                     {% if event.closed %}
-                        <img title="Closed event" class="m-left-4 m-bottom-4 image-button"
-                             src="{{ url_for('static', filename='buttons/lock-black-18dp.svg') }}" />
+                        <img title="Closed event" class="m-left-4 m-bottom-4 image-button" width="4%" height="4%"
+                             src="{{ url_for('static', filename='buttons/lock-24px.svg') }}" />
+                    {% endif %}
+                    {% if event.recurring %}
+                        <img title="Recurring event" class="w-75 h-75 m-left-4 m-bottom-4 image-button" width="4%" height="4%"
+                             src="{{ url_for('static', filename='buttons/recurring-24px.svg') }}" />
                     {% endif %}
                 </div>
                 <a class="media-right"
@@ -40,7 +50,6 @@
                 {%  endif %}
             </div>
             <legend class="border-bottom mb-3" style="width: 100%"></legend>
-            <p>{{ _("Time") }}: <span class="text-secondary">{{ format_date_time(event.time) }}</span></p>
             {%  if group and groups_enabled%}
                 <p>{{ _("Group") }}: <a href="{{ url_for('group_route', action='show', id=group.id) }}">{{ group.name }}</a></p>
             {%  endif %}
@@ -55,6 +64,28 @@
                     </p>
                 {%  endfor %}
             {%  endif %}
+            {% if play_time %}
+                <legend class="border-bottom mb-3 mt-3" style="width: 100%"></legend>
+                <p class="mt-3 mb-1">{{ _("Time") }}:</p>
+                <div class="row m-left-8">
+                    {% if play_time.day_of_week %}
+                        <p class="text-secondary" style="white-space: pre-wrap">{{ _(get_day_of_week(play_time.day_of_week)) }} </p>
+                    {% endif %}
+                    {% if play_time.start_time %}
+                        <p class="text-secondary" style="white-space: pre-wrap" >{{ play_time.start_time }} </p>
+                    {% endif %}
+                    {% if play_time.end_time %}
+                        <p class="text-secondary" style="white-space: pre-wrap">- {{ play_time.end_time }} </p>
+                    {% endif %}
+                </div>
+{#                <p class="text-secondary">{{ _(get_day_of_week(play_time.day_of_week)) }}, {{ format_time(play_time.start_time) }} - {{ format_time(play_time.end_time) }}</p>#}
+                <legend class="border-bottom mb-3 mt-3" style="width: 100%"></legend>
+                <p class="mt-3 mb-1">{{ _("Location") }}:</p>
+                {% if play_time.address and map %}
+                    <p class="text-secondary">{{ play_time.address.short_address }}</p>
+                    {{ map.html }}
+                {% endif %}
+            {% endif %}
         </div>
     {%  endif %}
 {%  endblock %}
