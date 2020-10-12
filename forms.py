@@ -121,9 +121,11 @@ class NewEventForm(FlaskForm):
 	sport_choices = Sports.get_choices()
 	sport = SelectField('Sport', choices=sport_choices, default="Tennis")
 	assigned_group = SelectField('Group')
-	# date = DateField("Date")
-	# time = TimeField("Time")
-	time = DateTimeLocalField("Time", format='%Y-%m-%dT%H:%M')
+	recurring = BooleanField('Recurring')
+	day_of_week = SelectField('Day of week', default="Mon", choices=DayOfWeek.days_of_week)
+	start_time = TimeField('Start time')
+	end_time = TimeField('End time')
+	address = StringField('Address', validators=[Length(max=300)])
 	submit = SubmitField('Create')
 
 	@staticmethod
@@ -146,7 +148,11 @@ class EditEventForm(FlaskForm):
 	description = TextAreaField('Description', validators=[Length(max=300)])
 	sport_choices = Sports.get_choices()
 	sport = SelectField('Sport', choices=sport_choices, default="Tennis")
-	time = DateTimeLocalField('Time', format='%Y-%m-%dT%H:%M')
+	recurring = BooleanField('Recurring')
+	day_of_week = SelectField('Day of week', default="Mon", choices=DayOfWeek.days_of_week)
+	start_time = TimeField('Start time')
+	end_time = TimeField('End time')
+	address = StringField('Address', validators=[Length(max=300)])
 	submit = SubmitField('Update')
 
 	@staticmethod

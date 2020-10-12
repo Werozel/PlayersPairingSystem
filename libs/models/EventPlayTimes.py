@@ -10,7 +10,7 @@ class EventPlayTimes(db.Model):
     end_time = db.Column(db.Time)
     address_id = db.Column(db.BigInteger, db.ForeignKey("address_cache.id"), nullable=True)
     location_id = db.Column(db.BigInteger, db.ForeignKey("location_cache.id"), nullable=True)
-    event_if = db.Column(db.BigInteger, db.ForeignKey("events.id"), nullable=False)
+    event_id = db.Column(db.BigInteger, db.ForeignKey("events.id"), nullable=False)
 
     @staticmethod
     def get(id: int):

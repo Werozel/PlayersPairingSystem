@@ -4,13 +4,17 @@
     <title>{{ _("New event") }}</title>
 {% endblock %}
 
+{% block head %}
+    {{ map.js }}
+{% endblock %}
+
 {%  block content %}
     <div class="content-section">
     <form method="POST" action="{{ url_for('event_route', action='new') }}">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">{{ _("New Event") }}</legend>
-            <div class="form-check m-bottom-16 m-left-4">
+            <div class="form-check m-bottom-8 m-left-4">
                 {{ form.closed(class="form-check-input") }}
                 <label for="{{ form.closed.label.field_id }}" class="form-control-label m-left-8">{{ _(form.closed.label.text) }}</label>
             </div>
@@ -68,9 +72,43 @@
                     {% endif %}
                 </div>
             {% endif %}
+            <p class="text-secondary mb-0 text-center mt-4">{{ _("Leave empty if needed") }}</p>
+            <legend class="border-bottom mb-3 mt-1"></legend>
             <div class="mt-3">
-                <!-- TODO add translation -->
-                {{ wtf.form_field(form.time) }}
+                <div class="form-check m-bottom-8 m-left-4">
+                    {{ form.recurring(class="form-check-input") }}
+                    <label for="{{ form.recurring.label.field_id }}" class="form-control-label m-left-8">{{ _(form.recurring.label.text) }}</label>
+                </div>
+                <div class="form-group m-bottom-8">
+                    <label for="{{ form.day_of_week.label.field_id }}" class="form-control-label">{{ _(form.day_of_week.label.text) }}</label>
+                    {{ form.day_of_week(class="form-control") }}
+                </div>
+                <div class="row m-top-24 m-left-16 m-right-16 m-bottom-16 d-flex justify-content-center">
+
+                    <div class="row m-right-48">
+                        <label for="{{ form.start_time.field_id }}" class="form-control-label">{{ _(form.start_time.label.text) }}</label>
+                        {{ form.start_time(type="time", class="m-left-16") }}
+                    </div>
+                    <div class="row">
+                        <label for="{{ form.end_time.field_id }}" class="form-control-label">{{ _(form.end_time.label.text) }}</label>
+                        {{ form.end_time(type="time", class="m-left-16") }}
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <label for="{{ form.address.label.field_id }}" class="form-control-label">{{ _(form.address.label.text) }}</label>
+                        <div class="row m-left-0" style="display: flex">
+                            {% if form.address.errors %}
+                                {{ form.address(class="form-control is-invalid", style="flex: 4", id="address") }}
+                                <div class="invalid-feedback>">
+                                    <span style="color: red; ">{{ _("File must be an image") }}</span>
+                                </div>
+                            {% else %}
+                                {{ form.address(class="form-control form-control-sm", style="flex: 4", id="address") }}
+                            {% endif %}
+                            <input style="flex: 1" class="btn btn-outline-info m-right-24 m-left-24" height="75%" onclick="checkAddress()" type="button" value="{{ _("Check address") }}">
+                        </div>
+                    </div>
+                {{ map.html }}
             </div>
         </fieldset>
         <legend class="border-bottom mb-4"></legend>
@@ -80,3 +118,64 @@
     </form>
     </div>
 {%  endblock %}
+
+{% block script %}
+    <script type="text/javascript" charset="utf-8">
+
+        let marker = null
+
+        function sendDeleteRequest(id) {
+            const xhttp = new XMLHttpRequest()
+            const url = "{{ url_for('play_time_route', id=0) }}".slice(0, -1) + id
+            xhttp.open("DELETE", url, true)
+            xhttp.send()
+            $(`#play_time_${id}`).remove()
+        }
+
+        function checkAddress() {
+            const address_input = document.getElementById("address")
+            const address = address_input.value
+            if (address.trim() === "") {
+                return
+            }
+            const xhttp = new XMLHttpRequest()
+            const url = "{{ url_for('get_location_by_address_route') }}"
+            xhttp.open("POST", url)
+            xhttp.responseType = "json"
+
+            xhttp.onload = () => {
+                if (xhttp.status !== 200) {
+                    alert("Error")
+                    console.log(xhttp.response)
+                    return
+                }
+                const response = xhttp.response
+                if (response.success === false) {
+                    alert(response.msg)
+                    return
+                }
+                address_input.value = response.address
+                const position = {lat: response.latitude, lng: response.longitude}
+                // TODO move camera
+                const loc_map = new google.maps.Map(document.getElementById("loc_map"), {
+                    zoom: 14.5,
+                    center: position
+                })
+                addMarker(loc_map, position)
+            }
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.send(JSON.stringify({'address': address}))
+        }
+
+        function addMarker(map, position) {
+            if (marker !== null) {
+                marker.setMap(null)
+            }
+            marker = new google.maps.Marker({
+                position: position,
+                map: map
+            })
+        }
+
+    </script>
+{% endblock %}

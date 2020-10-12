@@ -73,8 +73,8 @@ def profile_route():
             all_play_times = PlayTime.get_all_for_user_id(current_user.id)
             current_play_time: Optional[PlayTime] = PlayTime.get(get_arg_or_none("id"))
             initial_location = nominatim.geocode(current_user.city)
-            init_lat = initial_location.latitude
-            init_lng = initial_location.longitude
+            init_lat = initial_location.latitude if initial_location else None
+            init_lng = initial_location.longitude if initial_location else None
             markers = []
             initial_zoom = 13
             if current_play_time is not None:
@@ -106,8 +106,8 @@ def profile_route():
         elif action == 'show_play_times':
             initial_zoom = 13
             initial_location = nominatim.geocode(current_user.city)
-            init_lat = initial_location.latitude
-            init_lng = initial_location.longitude
+            init_lat = initial_location.latitude if initial_location else None
+            init_lng = initial_location.longitude if initial_location else None
             markers = []
             current_play_time: Optional[PlayTime] = PlayTime.get(get_arg_or_none("id"))
             if current_play_time is not None:

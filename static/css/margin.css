@@ -69,6 +69,14 @@
     margin-right: 24px;
 }
 
+.m-right-36 {
+    margin-right: 36px;
+}
+
+.m-right-48 {
+    margin-right: 48px;
+}
+
 .m-left-0 {
   margin-left: 0;
 }
@@ -91,6 +99,14 @@
 
 .m-left-24 {
     margin-left: 24px;
+}
+
+.m-left-36 {
+    margin-left: 36px;
+}
+
+.m-left-48 {
+    margin-left: 48px;
 }
 
 .m-top-0 {

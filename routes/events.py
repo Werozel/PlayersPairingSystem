@@ -1,4 +1,6 @@
-from globals import app, db
+from typing import Optional
+
+from globals import app, db, nominatim
 from src.misc import timestamp, get_arg_or_400
 from flask_login import login_required, current_user
 from flask_babel import gettext
@@ -9,6 +11,9 @@ from libs.models.EventMember import EventMember
 from libs.models.Group import Group
 from libs.models.User import User
 from libs.models.Invitation import Invitation, InvitationType
+from flask_googlemaps import Map
+from libs.models.EventPlayTimes import EventPlayTimes
+from libs.models.AddressCaches import Location, Address, LocationToAddress
 
 
 @app.route("/event", methods=['GET', 'POST'])
@@ -26,7 +31,17 @@ def event_route():
 
         elif action == 'new':
             new_event_form = NewEventForm(groups=current_user.get_groups())
-            return render_template("new_event.html", form=new_event_form)
+            initial_location = nominatim.geocode(current_user.city)
+            loc_map = Map(
+                zoom=13,
+                identifier="loc_map",
+                lat=initial_location.latitude if initial_location else None,
+                lng=initial_location.longitude if initial_location else None,
+                style="height:600px;width:600px;margin:8;",
+                language=current_user.language,
+                markers=[]
+            )
+            return render_template("new_event.html", form=new_event_form, map=loc_map)
 
         elif action == 'search':
             events = Event.query.all()
@@ -45,14 +60,30 @@ def event_route():
             return redirect(url_for("event_route", action='my'))
 
         elif action == 'edit':
+            all_play_times = EventPlayTimes.get_all_for_event(event_id)
+            play_time: Optional[EventPlayTimes] = pt if (pt := all_play_times[0] if all_play_times else None) else None
             edit_event_form = EditEventForm(
                 closed=event.closed,
                 name=event.name,
                 description=event.description,
                 sport=event.sport,
-                time=event.time
+                recurring=event.recurring,
+                day_of_week=play_time.day_of_week if play_time else None,
+                start_time=play_time.start_time if play_time else None,
+                end_time=play_time.end_time if play_time else None,
+                address=play_time.address.short_address if play_time else None
             )
-            return render_template("edit_event.html", form=edit_event_form, event=event)
+            initial_location = Location.get(play_time.location_id) if play_time else None
+            loc_map = Map(
+                zoom=14.5 if initial_location else 2,
+                identifier="loc_map",
+                lat=initial_location.latitude if initial_location else 0,
+                lng=initial_location.longitude if initial_location else 0,
+                style="height:600px;width:600px;margin:8;",
+                language=current_user.language,
+                markers=[(initial_location.latitude, initial_location.longitude)] if initial_location else []
+            )
+            return render_template("edit_event.html", form=edit_event_form, event=event, map=loc_map)
 
         elif action == 'show':
             group = event.group
@@ -114,8 +145,26 @@ def event_route():
                 event.name = edit_event_form.name.data
                 event.description = edit_event_form.description.data
                 event.sport = edit_event_form.sport.data
-                event.time = edit_event_form.time.data
+                event.recurring = edit_event_form.recurring.data
                 db.session.add(event)
+                db.session.commit()
+                last_play_time = EventPlayTimes.get_all_for_event(event.id)[0]
+                if last_play_time:
+                    db.session.delete(last_play_time)
+                    db.session.commit()
+                day_of_week = edit_event_form.day_of_week.data
+                start_time = edit_event_form.start_time.data
+                end_time = edit_event_form.end_time.data
+                address = Address.get_by_query(edit_event_form.address.data)[0]
+                play_time = EventPlayTimes(
+                    event_id=event.id,
+                    day_of_week=day_of_week,
+                    start_time=start_time,
+                    end_time=end_time,
+                    address_id=address.id,
+                    location_id=LocationToAddress.get_location_for_address_id(address.id).id
+                )
+                db.session.add(play_time)
                 db.session.commit()
                 return redirect(url_for('event_route', action='show', id=event.id))
             else:
@@ -130,7 +179,7 @@ def event_route():
                 sport = new_event_form.sport.data
                 group_id = new_event_form.assigned_group.data
                 group_id = None if group_id == "None" or group_id is None else int(group_id)
-                time = new_event_form.time.data
+                recurring = new_event_form.recurring.data
                 new_event = Event(
                     name=name,
                     description=description,
@@ -138,10 +187,24 @@ def event_route():
                     group_id=group_id,
                     creation_time=timestamp(),
                     creator_id=current_user.id,
-                    time=time,
-                    closed=closed
+                    closed=closed,
+                    recurring=recurring
                 )
                 db.session.add(new_event)
+                db.session.commit()
+                day_of_week = new_event_form.day_of_week.data
+                start_time = new_event_form.start_time.data
+                end_time = new_event_form.end_time.data
+                address = Address.get_by_query(new_event_form.address.data)[0]
+                play_time = EventPlayTimes(
+                    event_id=new_event.id,
+                    day_of_week=day_of_week,
+                    start_time=start_time,
+                    end_time=end_time,
+                    address_id=address.id,
+                    location_id=LocationToAddress.get_location_for_address_id(address.id).id
+                )
+                db.session.add(play_time)
                 db.session.commit()
                 new_event_member = EventMember(event_id=new_event.id, user_id=current_user.id, time=timestamp())
                 db.session.add(new_event_member)

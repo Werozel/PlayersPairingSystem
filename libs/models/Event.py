@@ -16,8 +16,7 @@ class Event(db.Model):
     creator_id = db.Column(db.BigInteger, db.ForeignKey('users.id'), nullable=False)
     time = db.Column(db.TIMESTAMP, nullable=True)
     closed = db.Column(db.Boolean, default=False)
-    # TODO добавить карту
-    # TODO добавить повторы
+    recurring = db.Column(db.Boolean, default=False)
 
     event_members_rel = db.relationship('EventMember', backref='event', lazy=True)
 

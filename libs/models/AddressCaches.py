@@ -17,6 +17,7 @@ class Address(db.Model):
 
     address_rel = db.relationship('LocationToAddress', backref='address', lazy=True)
     play_time_rel = db.relationship('PlayTime', backref='address', lazy=True)
+    event_play_time_rel = db.relationship('EventPlayTimes', backref='address', lazy=True)
 
     @staticmethod
     def get(id):
@@ -49,6 +50,7 @@ class Location(db.Model):
 
     location_rel = db.relationship('LocationToAddress', backref='location', lazy=True)
     play_time_rel = db.relationship('PlayTime', backref='location', lazy=True)
+    event_play_time_rel = db.relationship('EventPlayTimes', backref='location', lazy=True)
 
     @staticmethod
     def get(id):
