@@ -68,7 +68,6 @@ class EditProfileForm(FlaskForm):
 	gender_choices = [('Male', 'Male'), ('Female', 'Female')]  # (value, label)
 	gender = SelectField('Gender', choices=gender_choices)
 	sport_choices = Sports.get_choices()
-	# TODO add defaults for sport
 	sport = SelectMultipleFields('Sport', choices=sport_choices)
 	city = StringField('City', validators=[Length(max=50)])
 	submit = SubmitField('Update')
@@ -138,7 +137,7 @@ class NewEventForm(FlaskForm):
 		group_choices = [(str(i.id), i.name) for i in groups]
 		group_choices.append(("None", "None"))
 		self.assigned_group.choices = group_choices
-		self.assigned_group.data = None
+		self.assigned_group.data = "None"
 
 
 class EditEventForm(FlaskForm):
