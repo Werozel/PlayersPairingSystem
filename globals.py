@@ -88,4 +88,5 @@ def create_tables():
     from libs.models.User import User
     from libs.models.UserVideos import UserVideos
     from libs.models.AddressCaches import Address, Location, LocationToAddress
+    from libs.models.EventPlayTimes import EventPlayTimes
     db.create_all()
