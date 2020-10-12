@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-10-05 16:45+0300\n"
+"POT-Creation-Date: 2020-10-12 13:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
-
-#: templates/add_play_time.html:66
-msgid "Address"
-msgstr ""
 
 #: forms.py:30
 msgid "Username can only contain letters, numbers, underscores and dashes"
@@ -37,19 +33,19 @@ msgstr ""
 msgid "Passwords doesn't match!"
 msgstr ""
 
-#: forms.py:79
+#: forms.py:78
 msgid "Invalid age!"
 msgstr ""
 
-#: forms.py:93 forms.py:125 forms.py:148
+#: forms.py:92 forms.py:135 forms.py:163
 msgid "Name already taken!"
 msgstr ""
 
-#: forms.py:159
+#: forms.py:174
 msgid "Must be a youtube link"
 msgstr ""
 
-#: globals.py:48
+#: globals.py:49
 msgid "Please log in to view this page."
 msgstr ""
 
@@ -57,11 +53,11 @@ msgstr ""
 msgid "User not authenticated"
 msgstr ""
 
-#: api/map.py:59
+#: api/map.py:57
 msgid "Nothing found!"
 msgstr ""
 
-#: api/map.py:94
+#: api/map.py:92
 msgid "Couldn't perform geocoding"
 msgstr ""
 
@@ -89,11 +85,11 @@ msgstr ""
 msgid "Select sport"
 msgstr ""
 
-#: routes/events.py:71 routes/groups.py:65 routes/profile.py:125
+#: routes/events.py:125 routes/groups.py:68 routes/profile.py:154
 msgid "Invitation sent!"
 msgstr ""
 
-#: routes/groups.py:20 templates/500.html:8
+#: routes/groups.py:23 templates/500.html:8
 msgid "Something went wrong!"
 msgstr ""
 
@@ -105,15 +101,15 @@ msgstr ""
 msgid "Account created! Please fill additional information."
 msgstr ""
 
-#: routes/profile.py:127
+#: routes/profile.py:156
 msgid "You already sent an invitation to this user!"
 msgstr ""
 
-#: routes/profile.py:132
+#: routes/profile.py:161
 msgid "Friend removed!"
 msgstr ""
 
-#: routes/profile.py:153
+#: routes/profile.py:182
 msgid "Profile updated!"
 msgstr ""
 
@@ -139,40 +135,42 @@ msgid ""
 "together"
 msgstr ""
 
-#: templates/add_play_time.html:4
+#: templates/add_play_time.html:4 templates/show_play_times.html:4
 msgid "Play times"
 msgstr ""
 
-#: templates/add_play_time.html:14
+#: templates/add_play_time.html:14 templates/show_play_times.html:13
 msgid "Your play times"
 msgstr ""
 
-#: templates/add_play_time.html:23
+#: templates/add_play_time.html:23 templates/show_play_times.html:22
 msgid "No time selected"
 msgstr ""
 
-#: templates/add_play_time.html:31
+#: templates/add_play_time.html:31 templates/show_play_times.html:30
 msgid "No address selected"
 msgstr ""
 
-#: templates/add_play_time.html:46
+#: templates/add_play_time.html:46 templates/show_play_times.html:41
 msgid "No play times added yet!"
 msgstr ""
 
-#: templates/add_play_time.html:71 templates/edit_profile.html:24
+#: templates/add_play_time.html:74 templates/edit_event.html:76
+#: templates/edit_profile.html:24 templates/new_event.html:103
 msgid "File must be an image"
 msgstr ""
 
-#: templates/add_play_time.html:76
+#: templates/add_play_time.html:79 templates/edit_event.html:81
+#: templates/new_event.html:108
 msgid "Check address"
 msgstr ""
 
-#: templates/add_play_time.html:84
+#: templates/add_play_time.html:86
 msgid "Add"
 msgstr ""
 
-#: templates/chat.html:63 templates/group_chats.html:57 templates/main.html:111
-#: templates/main.html:115 templates/main.html:139 templates/my_chats.html:57
+#: templates/chat.html:63 templates/group_chats.html:57 templates/main.html:113
+#: templates/main.html:117 templates/main.html:141 templates/my_chats.html:57
 #: templates/my_invitations.html:122
 msgid "Messages"
 msgstr ""
@@ -181,11 +179,15 @@ msgstr ""
 msgid "Edit event"
 msgstr ""
 
-#: templates/edit_event.html:12 templates/new_event.html:12
-msgid "New Event"
+#: templates/edit_event.html:16
+msgid "Edit Event"
 msgstr ""
 
-#: templates/edit_event.html:54 templates/edit_profile.html:119
+#: templates/edit_event.html:52 templates/new_event.html:75
+msgid "Leave empty if needed"
+msgstr ""
+
+#: templates/edit_event.html:89 templates/edit_profile.html:94
 msgid "Update"
 msgstr ""
 
@@ -206,26 +208,30 @@ msgstr ""
 msgid "Edit videos"
 msgstr ""
 
-#: templates/event.html:18 templates/find_people.html:4
+#: templates/event.html:28 templates/find_people.html:4
 #: templates/find_people.html:8
 msgid "Find people"
 msgstr ""
 
-#: templates/event.html:43
-msgid "Time"
-msgstr ""
-
-#: templates/event.html:45 templates/my_invitations.html:58
+#: templates/event.html:54 templates/my_invitations.html:58
 msgid "Group"
 msgstr ""
 
-#: templates/event.html:47 templates/my_events.html:28
+#: templates/event.html:56 templates/my_events.html:28
 #: templates/my_invitations.html:97
 msgid "Description"
 msgstr ""
 
-#: templates/event.html:51 templates/group.html:54
+#: templates/event.html:60 templates/group.html:54
 msgid "Members"
+msgstr ""
+
+#: templates/event.html:69
+msgid "Time"
+msgstr ""
+
+#: templates/event.html:83
+msgid "Location"
 msgstr ""
 
 #: templates/find_people.html:36 templates/my_invitations.html:39
@@ -235,13 +241,13 @@ msgstr ""
 
 #: templates/find_people.html:39 templates/group.html:50
 #: templates/my_groups.html:30 templates/my_invitations.html:42
-#: templates/my_invitations.html:73 templates/search_group.html:44
-#: templates/show_users.html:38
+#: templates/my_invitations.html:73 templates/search_event.html:42
+#: templates/search_group.html:44 templates/show_users.html:38
 msgid "Sport"
 msgstr ""
 
 #: templates/find_people.html:45 templates/my_invitations.html:48
-#: templates/profile.html:104 templates/show_users.html:44
+#: templates/profile.html:108 templates/show_users.html:44
 msgid "No sport added yet!"
 msgstr ""
 
@@ -254,7 +260,8 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: templates/group.html:61 templates/main.html:95
+#: templates/group.html:61 templates/main.html:97
+#: templates/search_event.html:10
 msgid "Events"
 msgstr ""
 
@@ -302,6 +309,10 @@ msgstr ""
 msgid "Sign up"
 msgstr ""
 
+#: templates/main.html:43 templates/profile.html:5
+msgid "Profile"
+msgstr ""
+
 #: templates/main.html:44
 msgid "Log out"
 msgstr ""
@@ -310,16 +321,16 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
-#: templates/main.html:92 templates/profile.html:110
+#: templates/main.html:93 templates/profile.html:114
 #: templates/search_group.html:9
 msgid "Groups"
 msgstr ""
 
-#: templates/main.html:98 templates/show_users.html:4
+#: templates/main.html:100 templates/show_users.html:4
 msgid "Users"
 msgstr ""
 
-#: templates/main.html:102 templates/main.html:106 templates/main.html:143
+#: templates/main.html:104 templates/main.html:108 templates/main.html:145
 msgid "Invitations"
 msgstr ""
 
@@ -352,7 +363,8 @@ msgid "Create a new group"
 msgstr ""
 
 #: templates/my_groups.html:35 templates/my_groups.html:38
-#: templates/my_groups.html:39 templates/search_group.html:52
+#: templates/my_groups.html:39 templates/search_event.html:48
+#: templates/search_group.html:52
 msgid "here"
 msgstr ""
 
@@ -388,16 +400,16 @@ msgstr ""
 msgid "New event"
 msgstr ""
 
-#: templates/new_event.html:58
+#: templates/new_event.html:16
+msgid "New Event"
+msgstr ""
+
+#: templates/new_event.html:116
 msgid "Create"
 msgstr ""
 
 #: templates/new_group.html:5 templates/new_group.html:13
 msgid "New group"
-msgstr ""
-
-#: templates/profile.html:5
-msgid "Profile"
 msgstr ""
 
 #: templates/profile.html:24
@@ -408,15 +420,15 @@ msgstr ""
 msgid "City"
 msgstr ""
 
-#: templates/profile.html:72
+#: templates/profile.html:76
 msgid "Sports"
 msgstr ""
 
-#: templates/profile.html:90
+#: templates/profile.html:94
 msgid "Video"
 msgstr ""
 
-#: templates/profile.html:124
+#: templates/profile.html:128
 msgid "Friends"
 msgstr ""
 
@@ -432,16 +444,20 @@ msgstr ""
 msgid "Search for an event"
 msgstr ""
 
-#: templates/search_group.html:27
+#: templates/search_event.html:28 templates/search_group.html:27
 msgid "Search"
 msgstr ""
 
-#: templates/search_group.html:38
+#: templates/search_event.html:39 templates/search_group.html:38
 msgid "Closed"
 msgstr ""
 
-#: templates/search_group.html:51
+#: templates/search_event.html:47 templates/search_group.html:51
 msgid "No search results"
+msgstr ""
+
+#: templates/search_event.html:48
+msgid "Create a new event"
 msgstr ""
 
 #: venv/Lib/site-packages/flask_admin/contrib/rediscli.py:127
@@ -955,6 +971,9 @@ msgstr ""
 #: venv/Lib/site-packages/wtforms/fields/core.py:827
 msgid "Not a valid time value"
 msgstr ""
+
+msgid "Address"
+msgstr "Адрес"
 
 msgid "%(count)s %(name)s was changed successfully."
 msgid_plural "%(count)s %(name)s were changed successfully."
