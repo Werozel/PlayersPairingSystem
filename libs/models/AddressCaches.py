@@ -13,6 +13,7 @@ class Address(db.Model):
     country = db.Column(db.String, nullable=True)
     city = db.Column(db.String, nullable=True)
     street = db.Column(db.String, nullable=True)
+    point_of_interest = db.Column(db.String, nullable=True)
     building_number = db.Column(db.String, nullable=True)
 
     address_rel = db.relationship('LocationToAddress', backref='address', lazy=True)
@@ -26,11 +27,13 @@ class Address(db.Model):
     @staticmethod
     def get_by_query(query: str) -> list:
         return Address.query.filter(
-            Address.full_address.ilike(query) | Address.short_address.ilike(query) | Address.custom_address.ilike(query)
+            Address.full_address.ilike(query) | Address.short_address.ilike(query) | Address.custom_address.ilike(query) | Address.point_of_interest.ilike(query)
         ).all()
 
     def get_short_address(self):
         components = []
+        if self.point_of_interest:
+            components.append(self.point_of_interest)
         if self.street:
             components.append(self.street)
         if self.building_number:

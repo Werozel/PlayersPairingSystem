@@ -61,12 +61,14 @@ def get_location_by_address_route():
             city_component: dict = find(lambda x: 'locality' in x.get('types'), address_components)
             street_component: dict = find(lambda x: 'route' in x.get('types'), address_components)
             building_number_component: dict = find(lambda x: 'street_number' in x.get('types'), address_components)
+            point_of_interest: dict = find(lambda x: 'point_of_interest' in x.get('types') or 'establishment' in x.get('types'), address_components)
             address_db_obj = Address(
                 full_address=result.address,
                 custom_address=address,
                 country=country_component.get('long_name') if country_component is not None else None,
                 city=city_component.get('long_name') if city_component is not None else None,
                 street=street_component.get('long_name') if street_component is not None else None,
+                point_of_interest=point_of_interest.get('long_name') if point_of_interest is not None else None,
                 building_number=building_number_component.get('long_name')
                 if building_number_component is not None
                 else None
