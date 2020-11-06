@@ -4,8 +4,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
 from wtforms import StringField, SelectMultipleField, PasswordField, SubmitField, BooleanField, HiddenField, \
 					FileField, IntegerField, SelectField, TextAreaField, FieldList, FormField, TimeField
-from wtforms.validators import DataRequired, Length, Email, ValidationError
-from wtforms.fields.html5 import DateTimeLocalField
+from wtforms.validators import DataRequired, Length, Email, ValidationError, Optional
 from flask_babel import gettext
 from libs.models.User import User
 from libs.models.Group import Group
@@ -114,7 +113,7 @@ class SearchEventForm(FlaskForm):
 	submit = SubmitField('Search')
 
 
-class NewEventForm(FlaskForm):
+class EditEventForm(FlaskForm):
 	closed = BooleanField('Closed')
 	name = StringField('Name', validators=[Length(max=100), DataRequired()])
 	description = TextAreaField('Description', validators=[Length(max=300)])
@@ -122,38 +121,11 @@ class NewEventForm(FlaskForm):
 	sport = SelectField('Sport', choices=sport_choices, default="Tennis")
 	assigned_group = SelectField('Group')
 	recurring = BooleanField('Recurring')
-	day_of_week = SelectField('Day of week', default="Mon", choices=DayOfWeek.days_of_week)
-	start_time = TimeField('Start time')
-	end_time = TimeField('End time')
+	day_of_week = SelectField('Day of week', validators=[Optional()])
+	start_time = TimeField('Start time', validators=[Optional()])
+	end_time = TimeField('End time', validators=[Optional()])
 	address = StringField('Address', validators=[Length(max=300)])
 	submit = SubmitField('Create')
-
-	@staticmethod
-	def validate_name(_, name):
-		events = Event.query.filter_by(name=name.data).first()
-		if events:
-			raise ValidationError(gettext("Name already taken!"))
-
-	def __init__(self, groups, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		group_choices = [(str(i.id), i.name) for i in groups]
-		group_choices.append(("None", "None"))
-		self.assigned_group.choices = group_choices
-		self.assigned_group.data = "None"
-
-
-class EditEventForm(FlaskForm):
-	closed = BooleanField('Closed')
-	name = StringField('Name', validators=[Length(max=100), DataRequired()])
-	description = TextAreaField('Description', validators=[Length(max=300)])
-	sport_choices = Sports.get_choices()
-	sport = SelectField('Sport', choices=sport_choices, default="Tennis")
-	recurring = BooleanField('Recurring')
-	day_of_week = SelectField('Day of week', default="Mon", choices=DayOfWeek.days_of_week)
-	start_time = TimeField('Start time')
-	end_time = TimeField('End time')
-	address = StringField('Address', validators=[Length(max=300)])
-	submit = SubmitField('Update')
 
 	@staticmethod
 	def validate_name(form, name):
@@ -162,9 +134,19 @@ class EditEventForm(FlaskForm):
 		if event and event.id != current_event_id:
 			raise ValidationError(gettext("Name already taken!"))
 
-	def __init__(self, current_event=None, *args, **kwargs):
+	def __init__(self, groups, current_event=None, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.current_event = current_event
+
+		group_choices = [(str(i.id), i.name) for i in groups]
+		group_choices.append(("None", "None"))
+		self.assigned_group.choices = group_choices
+		self.assigned_group.data = "None"
+
+		day_of_week_choices = DayOfWeek.days_of_week
+		day_of_week_choices.append(("None", None))
+		self.day_of_week.choices = day_of_week_choices
+		self.day_of_week.data = "None"
 
 
 def validate_youtube_link(_, link):

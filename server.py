@@ -12,7 +12,6 @@ import routes.index
 import routes.invitations
 import routes.login
 import routes.profile
-import routes.search
 import routes.sockets
 import routes.errors
 import api.map

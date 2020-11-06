@@ -20,6 +20,9 @@
                     <div class="media-body">
                         <a href="{{ url_for('event_route', action='show', id=event.id) }}">{{ event.name }}</a>
                     </div>
+                    {% if event.closed %}
+                        <p class="text-muted media-right m-bottom-0">{{ _("Closed") }}</p>
+                    {% endif %}
                 </div>
                 <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
                 <div class="column ml-3">

@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block head %}
-    {{ map.js }}
+    {% if map %}
+        {{ map.js }}
+    {% endif %}
 {% endblock %}
 
 {%  block content %}
@@ -85,13 +87,31 @@
                 </div>
                 <div class="row m-top-24 m-left-16 m-right-16 m-bottom-16 d-flex justify-content-center">
 
+                    <label for="{{ form.start_time.field_id }}" class="form-control-label">{{ _(form.start_time.label.text) }}</label>
                     <div class="row m-right-48">
-                        <label for="{{ form.start_time.field_id }}" class="form-control-label">{{ _(form.start_time.label.text) }}</label>
-                        {{ form.start_time(type="time", class="m-left-16") }}
+                        {% if form.start_time.errors %}
+                            {{ form.start_time(type="time", class="m-left-16 is-invalid") }}
+                            <div class="invalid-feedback>">
+                                {% for error in form.start_time.errors %}
+                                    <span>{{error}}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.start_time(type="time", class="m-left-16") }}
+                        {% endif %}
                     </div>
                     <div class="row">
                         <label for="{{ form.end_time.field_id }}" class="form-control-label">{{ _(form.end_time.label.text) }}</label>
-                        {{ form.end_time(type="time", class="m-left-16") }}
+                        {% if form.end_time.errors %}
+                            {{ form.end_time(type="time", class="m-left-16 is-invalid") }}
+                            <div class="invalid-feedback>">
+                                {% for error in form.end_time.errors %}
+                                    <span>{{error}}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.end_time(type="time", class="m-left-16") }}
+                        {% endif %}
                     </div>
                 </div>
                     <div class="form-group">
@@ -108,7 +128,9 @@
                             <input style="flex: 1" class="btn btn-outline-info m-right-24 m-left-24" height="75%" onclick="checkAddress()" type="button" value="{{ _("Check address") }}">
                         </div>
                     </div>
-                {{ map.html }}
+                {% if map %}
+                    {{ map.html }}
+                {% endif %}
             </div>
         </fieldset>
         <legend class="border-bottom mb-4"></legend>
@@ -123,14 +145,6 @@
     <script type="text/javascript" charset="utf-8">
 
         let marker = null
-
-        function sendDeleteRequest(id) {
-            const xhttp = new XMLHttpRequest()
-            const url = "{{ url_for('play_time_route', id=0) }}".slice(0, -1) + id
-            xhttp.open("DELETE", url, true)
-            xhttp.send()
-            $(`#play_time_${id}`).remove()
-        }
 
         function checkAddress() {
             const address_input = document.getElementById("address")

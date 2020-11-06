@@ -65,3 +65,7 @@ def get_rand() -> int:
 
 def is_admin(user) -> bool:
     return user.is_authenticated and user.id in ADMIN_IDS
+
+
+def filter_not_none(l: list) -> list:
+    return list(filter(lambda x: x is not None, l))

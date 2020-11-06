@@ -1,10 +1,10 @@
 from globals import app, db
 from constants.app_config import GROUPS_ENABLED
-from src.misc import timestamp, get_arg_or_400
+from src.misc import timestamp, get_arg_or_400, get_arg_or_none
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, flash, abort
 from flask_babel import gettext
-from forms import NewGroupFrom
+from forms import NewGroupFrom, SearchGroupForm
 from libs.models.Group import Group
 from libs.models.GroupMember import GroupMember
 from libs.models.Invitation import InvitationType, Invitation
@@ -29,6 +29,14 @@ def group_route():
         elif action == 'new':
             new_group_form = NewGroupFrom()
             return render_template('new_group.html', form=new_group_form, groups=current_user.get_groups())
+        elif action == 'search':
+            search_group_form = SearchGroupForm()
+            sport = get_arg_or_none('sport')
+            if sport is None:
+                groups = Group.query.limit(30).all()
+            else:
+                groups = Group.get_by_sport(sport)
+            return render_template("search_group.html", query=groups, form=search_group_form)
 
         group_id = get_arg_or_400('id', to_int=True)
         group = Group.get_or_404(group_id)
@@ -100,9 +108,9 @@ def group_route():
             abort(403)
 
     else:
-        type = get_arg_or_400('type')
+        action = get_arg_or_400('action')
 
-        if type == 'edit':
+        if action == 'edit':
             group_id = get_arg_or_400('id', to_int=True)
             group = Group.get_or_404(group_id)
 
@@ -117,7 +125,7 @@ def group_route():
             else:
                 return render_template('edit_group.html', form=edit_group_form, group=group)
 
-        elif type == 'new':
+        elif action == 'new':
             new_group_form = NewGroupFrom()
             if new_group_form.validate_on_submit():
                 group = Group(
@@ -134,6 +142,12 @@ def group_route():
                 return redirect(url_for('group_route', action='show', id=group.id))
             else:
                 return render_template('new_group.html', form=new_group_form, groups=current_user.get_groups())
-
+        elif action == 'search':
+            search_group_form = SearchGroupForm()
+            name = search_group_form.name.data
+            sport = search_group_form.sport.data
+            groups = Group.query.filter(Group.name.ilike(f"%{name}%")). \
+                filter(Group.sport == sport if sport != "None" else Group.sport == Group.sport).all()
+            return render_template("search_group.html", query=groups, form=search_group_form)
         else:
             abort(400)

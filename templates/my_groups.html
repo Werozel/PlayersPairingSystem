@@ -7,7 +7,7 @@
 {% block content %}
     <div class="media">
         <h4 class="h4 media-body">{{ _("My groups") }}</h4>
-        <a class="media-right m-right-8" href="{{ url_for('search_group_route') }}">
+        <a class="media-right m-right-8" href="{{ url_for('group_route', action='search') }}">
             <img title="Search event" src="{{ url_for('static', filename='buttons/search-black-24dp.svg') }}">
         </a>
         <a class="media-right" href="{{url_for('group_route', action='new')}}">
@@ -35,7 +35,7 @@
         <p class="text-muted small">{{ _("Create a new group") }} <a href="{{url_for('group_route', action='new')}}">{{ _("here") }}</a></p>
     {% else %}
         <h4>{{ _("No groups yet!") }}</h4>
-        <p class="text-muted small" style="margin-bottom: 0px;">{{ _("Search for a group") }} <a href="{{url_for('search_group_route')}}">{{ _("here") }}</a></p>
+        <p class="text-muted small" style="margin-bottom: 0px;">{{ _("Search for a group") }} <a href="{{url_for('group_route', action='search')}}">{{ _("here") }}</a></p>
         <p class="text-muted small">{{ _("Or create a new one") }} <a href="{{url_for('group_route', action='new')}}">{{ _("here") }}</a></p>
     {% endif %}
 {% endblock %} 
