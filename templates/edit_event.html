@@ -60,11 +60,36 @@
 
                     <div class="row m-right-48">
                         <label for="{{ form.start_time.field_id }}" class="form-control-label">{{ _(form.start_time.label.text) }}</label>
-                        {{ form.start_time(type="time", class="m-left-16") }}
+                        <div class="column">
+                            {{ form.start_time(type="time", class="m-left-16", id="start_time") }}
+                            {% if form.start_time.errors %}
+                                <div class="invalid-feedback>">
+                                    {% for error in form.start_time.errors %}
+                                        <span>{{error}}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <img src="{{ url_for('static', filename='buttons/close-24px.svg') }}"
+                             class="m-left-4"
+                             onclick=clearTime("start_time")>
                     </div>
+
                     <div class="row">
                         <label for="{{ form.end_time.field_id }}" class="form-control-label">{{ _(form.end_time.label.text) }}</label>
-                        {{ form.end_time(type="time", class="m-left-16") }}
+                        <div class="column">
+                            {{ form.end_time(type="time", class="m-left-16", id="end_time") }}
+                            {% if form.end_time.errors %}
+                                <div class="invalid-feedback>">
+                                    {% for error in form.end_time.errors %}
+                                        <span>{{error}}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <img src="{{ url_for('static', filename='buttons/close-24px.svg') }}"
+                             class="m-left-4"
+                             onclick=clearTime("end_time")>
                     </div>
                 </div>
                     <div class="form-group">
@@ -148,6 +173,10 @@
                 position: position,
                 map: map
             })
+        }
+
+        function clearTime(id) {
+            document.getElementById(id).value = null
         }
 
     </script>

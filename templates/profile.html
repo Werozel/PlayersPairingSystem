@@ -86,7 +86,7 @@
                         <div class="col">
                             <div class="row" id="heading{{ i }}">
                                 <p class="m-bottom-4">
-                                    <a href="{{ url_for('search_group_route', sport=sport)}}" class="text-secondary"> {{ _(sport) }}</a>
+                                    <a href="{{ url_for('group_route', action='search', sport=sport)}}" class="text-secondary"> {{ _(sport) }}</a>
                                 </p>
                                 {% set video = videos.get(sport) %}
                                 {% if video %}

@@ -160,7 +160,8 @@ def event_route():
                 day_of_week = edit_event_form.day_of_week.data
                 start_time = edit_event_form.start_time.data
                 end_time = edit_event_form.end_time.data
-                address = Address.get_by_query(edit_event_form.address.data)[0]
+                query = edit_event_form.address.data
+                address = Address.get_by_query(query)[0] if query else None
                 play_time = EventPlayTimes(
                     event_id=event.id,
                     day_of_week=day_of_week if day_of_week != "None" else None,
