@@ -1,3 +1,5 @@
+from typing import List
+
 from globals import app, db
 from constants.app_config import GROUPS_ENABLED
 from src.misc import timestamp, get_arg_or_400, get_arg_or_none
@@ -19,11 +21,7 @@ def group_route():
     if request.method == 'GET':
         action = get_arg_or_400('action')
 
-        if not action:
-            flash(gettext("Something went wrong!"), "error")
-            return redirect(url_for('group_route', action='my'))
-
-        elif action == 'my':
+        if action == 'my':
             return render_template('my_groups.html', groups=current_user.get_groups())
 
         elif action == 'new':
@@ -37,6 +35,18 @@ def group_route():
             else:
                 groups = Group.get_by_sport(sport)
             return render_template("search_group.html", query=groups, form=search_group_form)
+
+        elif action == 'accept_invitation' or action == 'reject_invitation':
+            group_id = get_arg_or_400('group_id')
+            group: Group = Group.get_or_404(group_id)
+            if current_user.id != group.admin_id:
+                abort(403)
+            invitation = Invitation.get_or_404(get_arg_or_400('id'))
+            if action == 'accept_invitation':
+                invitation.accept()
+            else:
+                invitation.reject()
+            return redirect(url_for("group_route", action='invitations', id=group_id))
 
         group_id = get_arg_or_400('id', to_int=True)
         group = Group.get_or_404(group_id)
@@ -68,6 +78,10 @@ def group_route():
                 events=events,
                 is_group_admin=is_group_admin
             )
+
+        elif action == 'invitations':
+            group_invitations: List[Invitation] = Invitation.get_all_for_group(group_id)
+            return render_template("group_invitations.html", invitations=group_invitations, group_id=group_id)
 
         elif action == 'join':
             if current_user not in members:

@@ -17,7 +17,7 @@ def get_arg_or_400(arg: str, to_int: bool = False):
     try:
         res = request.args.get(arg)
         if res is None:
-            raise ValueError(f"No such argument {arg}")
+            raise ValueError(f"No such argument: '{arg}'")
         return int(res) if to_int else res
     except ValueError as e:
         logging.error(e)

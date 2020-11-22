@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 
 {%  block title %}
-        <title>{{ _("Event invitations") }}</title>
+        <title>{{ _("Group invitations") }}</title>
 {%  endblock title %}
 
 {% block content %}
@@ -11,7 +11,7 @@
     <legend class="border-bottom mb-3" style="width: 100%"></legend>
     {% if invitations %}
         {% for invitation in invitations %}
-            {% if invitation.type == 5 %} {# TO EVENT #}
+            {% if invitation.type == 4 %} {# TO GROUP #}
                 {% set user = invitation.get_referrer() %}
                 <div class="content-section w-75" id="{{ invitation.id }}">
                     <div class="media">
@@ -23,10 +23,10 @@
                             {%  endif %}
                         </div>
                         <div class="media-right">
-                            <a href="{{ url_for('event_route', action='accept_invitation', id=invitation.id, event_id=event_id) }}">
+                            <a href="{{ url_for('group_route', action='accept_invitation', id=invitation.id, group_id=group_id) }}">
                                 <img title="Accept invitation" src="{{ url_for('static', filename='buttons/done-24dp.svg')}}" alt="none"/>
                             </a>
-                            <a href="{{ url_for('event_route', action='reject_invitation', id=invitation.id, event_id=event_id) }}">
+                            <a href="{{ url_for('group_route', action='reject_invitation', id=invitation.id, group_id=group_id) }}">
                                 <img title="Reject invitation" src="{{ url_for('static', filename='buttons/close-24px.svg')}}" alt="none"/>
                             </a>
                         </div>

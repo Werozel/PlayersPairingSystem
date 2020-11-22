@@ -73,10 +73,10 @@ class Invitation(db.Model):
 
     @staticmethod
     def add(type: InvitationType, recipient_id: int, referrer_id: int, expiration_time=None) -> int:
-        if len(Invitation.query.filter(Invitation.recipient_id == recipient_id
-                                       and Invitation.referrer_id == referrer_id
-                                       and Invitation.type == type
-                                       and Invitation.expiration_time > timestamp()).all()) > 0:
+        if len(Invitation.query.filter((Invitation.recipient_id == recipient_id)
+                                       & (Invitation.referrer_id == referrer_id)
+                                       & (Invitation.type == type)
+                                       & ((Invitation.expiration_time == None) | (Invitation.expiration_time > timestamp()))).all()) > 0:
             return -1
         invitation = Invitation(type=type,
                                 recipient_id=recipient_id,
@@ -89,9 +89,16 @@ class Invitation(db.Model):
 
     @staticmethod
     def get_all_for_event(event_id: int) -> list:
-        return Invitation.query.filter(Invitation.type == InvitationType.TO_EVENT
-                                       and Invitation.recipient_id == event_id
-                                       and Invitation.expiration_time > timestamp()).all()
+        return Invitation.query.filter((Invitation.type == InvitationType.TO_EVENT)
+                                       & (Invitation.recipient_id == event_id)
+                                       & ((Invitation.expiration_time == None) | (Invitation.expiration_time > timestamp()))).all()
+
+    @staticmethod
+    def get_all_for_group(group_id: int) -> list:
+        return Invitation.query\
+            .filter((Invitation.type == InvitationType.TO_GROUP)
+                    & (Invitation.recipient_id == group_id)
+                    & ((Invitation.expiration_time == None) | (Invitation.expiration_time > timestamp()))).all()
 
     def accept(self):
         from libs.models.User import User

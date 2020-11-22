@@ -42,12 +42,16 @@ def event_route():
             )
 
         elif action == 'accept_invitation' or action == 'reject_invitation':
+            event_id = get_arg_or_400('event_id')
+            event: Event = Event.get_or_404(event_id)
+            if current_user.id != event.creator_id:
+                abort(403)
             invitation = Invitation.get_or_404(get_arg_or_400('id'))
             if action == 'accept_invitation':
                 invitation.accept()
             else:
                 invitation.reject()
-            return redirect(url_for("event_route", action='invitations', id=get_arg_or_400('event_id')))
+            return redirect(url_for("event_route", action='invitations', id=event_id))
 
         event_id = get_arg_or_400('id', to_int=True)
         event: Event = Event.get_or_404(event_id)
