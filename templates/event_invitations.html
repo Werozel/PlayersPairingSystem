@@ -1,0 +1,79 @@
+{% extends "main.html" %}
+
+{%  block title %}
+        <title>{{ _("Event invitations") }}</title>
+{%  endblock title %}
+
+{% block content %}
+    <div class="media">
+        <h4 class="h4 media-body">{{ _("My invitations") }}</h4>
+    </div>
+    <legend class="border-bottom mb-3" style="width: 100%"></legend>
+    {% if invitations %}
+        {% for invitation in invitations %}
+            {% if invitation.type == 5 %} {# TO EVENT #}
+                {% set user = invitation.get_referrer() %}
+                <div class="content-section w-75" id="{{ invitation.id }}">
+                    <div class="media">
+                        <div class="media-body">
+                            {%  if user.name and user.last_name %}
+                                <a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.name }} {{ user.last_name }}</a>
+                            {%  else %}
+                                <a href="{{ url_for('profile_route', action='show', id=user.id) }}">{{ user.username }}</a>
+                            {%  endif %}
+                        </div>
+                        <div class="media-right">
+                            <a href="{{ url_for('event_route', action='accept_invitation', id=invitation.id, event_id=event_id) }}">
+                                <img title="Accept invitation" src="{{ url_for('static', filename='buttons/done-24dp.svg')}}" alt="none"/>
+                            </a>
+                            <a href="{{ url_for('event_route', action='reject_invitation', id=invitation.id, event_id=event_id) }}">
+                                <img title="Reject invitation" src="{{ url_for('static', filename='buttons/close-24px.svg')}}" alt="none"/>
+                            </a>
+                        </div>
+                    </div>
+
+                    <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
+                    <div id="bottom" class="column ml-3">
+                        {% if user.age %}
+                        <p class="row m-bottom-4" style="white-space: pre-wrap">{{ _("Age") }}: <span class="text-secondary"> {{ user.age }}</span></p>
+                        {%  endif %}
+                        <div class="row m-bottom-4">
+                            <p class="mb-0 mr-1">{{ _("Sport") }}: </p>
+                            {% if user.sport %}
+                                {%  for sport in user.sport %}
+                                    <span style="list-style-type: none; padding-left: 3px;" class="text-secondary m-right-8">{{ sport }}</span>
+                                {%  endfor  %}
+                            {% else %}
+                                <p class="text-secondary">{{ _("No sport added yet!") }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p class="">{{ _("No invitations sent!") }}</p>
+    {% endif %}
+
+{% endblock content %}
+
+{% block script %}
+<script type="text/javascript" charset="utf-8">
+    const socket = io();
+
+    socket.on('connect', function () {
+        socket.emit('opened', {})
+    });
+
+    socket.on('invitation', function (json_msg) {
+        console.log(json_msg);
+        const msg = JSON.parse(json_msg);
+        const invitation = document.getElementById(msg.invitation_id);
+        if (invitation === null) {
+            document.getElementById('messages').innerHTML = "<span style='color: red;'>{{ _('Messages') }} (!)</span>";
+        } else {
+            invitation.style = "border-color: red;";
+        }
+    })
+</script>
+{% endblock script %}

@@ -11,7 +11,7 @@
     <legend class="border-bottom mb-3" style="width: 100%"></legend>
     {% if invitations %}
         {% for invitation in invitations %}
-            {% if invitation.type == 1 %} {# EVENT #}
+            {% if invitation.type == 1 %} {# FRIEND #}
                 {% set user = invitation.get_referrer() %}
                 <div class="content-section w-75" id="{{ invitation.id }}">
                     <div class="media">

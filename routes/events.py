@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from globals import app, db, nominatim
 from src.misc import timestamp, get_arg_or_400, filter_not_none
@@ -41,14 +41,27 @@ def event_route():
                 form=form
             )
 
+        elif action == 'accept_invitation' or action == 'reject_invitation':
+            invitation = Invitation.get_or_404(get_arg_or_400('id'))
+            if action == 'accept_invitation':
+                invitation.accept()
+            else:
+                invitation.reject()
+            return redirect(url_for("event_route", action='invitations', id=get_arg_or_400('event_id')))
+
         event_id = get_arg_or_400('id', to_int=True)
-        event = Event.get_or_404(event_id)
+        event: Event = Event.get_or_404(event_id)
+        group = event.group
+        group: Group = group if group else None
+        is_event_admin = event.creator_id == current_user.id or group is not None and group.admin_id == current_user.id
 
         if action == 'delete':
             event.delete()
             return redirect(url_for("event_route", action='my'))
 
         elif action == 'edit':
+            if not is_event_admin:
+                abort(403)
             all_play_times = EventPlayTimes.get_all_for_event(event_id)
             play_time: Optional[EventPlayTimes] = pt if (pt := all_play_times[0] if all_play_times else None) else None
             edit_event_form = EditEventForm(
@@ -75,9 +88,13 @@ def event_route():
             )
             return render_template("edit_event.html", form=edit_event_form, event=event, map=loc_map)
 
+        elif action == 'invitations':
+            if not is_event_admin:
+                abort(403)
+            event_invitations: List[Invitation] = Invitation.get_all_for_event(event_id)
+            return render_template("event_invitations.html", invitations=event_invitations, event_id=event_id)
+
         elif action == 'show':
-            group = event.group
-            group: Group = group if group else None
             members = event.get_members()
             is_member = True if current_user in members else None
             members = members if len(members) > 0 else None
@@ -99,7 +116,7 @@ def event_route():
                 group=group,
                 members=members,
                 is_member=is_member,
-                is_event_admin=event.creator_id == current_user.id or group is not None and group.admin_id == current_user.id,
+                is_event_admin=is_event_admin,
                 play_time=play_time,
                 map=loc_map
             )

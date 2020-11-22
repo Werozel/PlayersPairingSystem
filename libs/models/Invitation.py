@@ -62,7 +62,7 @@ class Invitation(db.Model):
         from libs.models.User import User
         from libs.models.Group import Group
         from libs.models.Event import Event
-        if self.type in InvitationType.FRIEND:
+        if self.type == InvitationType.FRIEND:
             return User.get_or_404(self.recipient_id)
         elif self.type == InvitationType.TO_GROUP:
             return Group.get_or_404(self.recipient_id)
@@ -86,6 +86,12 @@ class Invitation(db.Model):
         db.session.add(invitation)
         db.session.commit()
         return invitation.id
+
+    @staticmethod
+    def get_all_for_event(event_id: int) -> list:
+        return Invitation.query.filter(Invitation.type == InvitationType.TO_EVENT
+                                       and Invitation.recipient_id == event_id
+                                       and Invitation.expiration_time > timestamp()).all()
 
     def accept(self):
         from libs.models.User import User
