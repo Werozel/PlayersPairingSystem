@@ -31,10 +31,10 @@
     <legend class="border-top m-top-0 w-75"></legend>
     {% if events and len(events) > 0 %}
         {% for event in events %}
-        <a href="{{ url_for('event_route', id=event.id) }}">
+        <a href="{{ url_for('event_route', event_id=event.id) }}">
             <div class="content-section w-75">
                 <div class="media m-bottom-4">
-                    <a class="media-body" href="{{ url_for('event_route', id=event.id, action='show') }}">{{event.name}}</a>
+                    <a class="media-body" href="{{ url_for('event_route', event_id=event.id, action='show') }}">{{event.name}}</a>
                     {% if event.closed %}
                         <p class="text-muted media-right m-bottom-0">{{ _("Closed") }}</p>
                     {% endif %}

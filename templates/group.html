@@ -72,7 +72,7 @@
         {% if len(events) > 0 %}
             <ul class="p-left-12" style="list-style-type: none; list-style-position: inside">
                 {% for event in events %}
-                    <li class="m-left-0"><a href="{{ url_for('event_route', action='show', id=event.id) }}" class="text-secondary">{{event.name}}</a></li>
+                    <li class="m-left-0"><a href="{{ url_for('event_route', action='show', event_id=event.id) }}" class="text-secondary">{{event.name}}</a></li>
                 {% endfor %}
             </ul>
         {% else %}

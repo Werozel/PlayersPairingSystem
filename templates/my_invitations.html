@@ -79,7 +79,7 @@
                     <div class="media">
                         <div class="media-body">
                             <b class="m-bottom-0 m-right-8">{{ _("Event") }}</b>
-                            <a href="{{ url_for('event_route', action='show', id=event.id) }}">{{ event.name }}</a>
+                            <a href="{{ url_for('event_route', action='show', event_id=event.id) }}">{{ event.name }}</a>
                         </div>
                          <div class="media-right">
                             <a href="{{ url_for('my_invitations_route', action='accept', id=invitation.id) }}">

@@ -23,35 +23,35 @@
                     {% endif %}
                 </div>
                 <a class="media-right image-button m-right-8"
-                   href="{{ url_for('event_route', action='find_people', id=event.id) }}">
+                   href="{{ url_for('event_route', action='find_people', event_id=event.id) }}">
                     <img title="Find prople" src="{{ url_for('static', filename='buttons/add_people-18dp.svg') }}"/>
                 </a>
                 {%  if is_event_admin %}
                     <a class="media-right image-button m-right-8"
-                        href="{{ url_for('event_route', id=event.id, action='edit') }}">
+                        href="{{ url_for('event_route', event_id=event.id, action='edit') }}">
                         <img title="Edit" src="{{ url_for('static', filename='buttons/edit-24px.svg') }}"/>
                     </a>
                     <a class="media-right image-button m-right-8"
-                       href="{{ url_for('event_route', action='invitations', id=event.id) }}">
+                       href="{{ url_for('event_route', action='invitations', event_id=event.id) }}">
                         <img title="Invitations" src="{{ url_for('static', filename='buttons/invitation-18dp.svg') }}">
                     </a>
                     <a class="media-right image-button m-right-8"
-                       href="{{ url_for('event_route', id=event.id, action='show_play_times') }}">
+                       href="{{ url_for('event_route', event_id=event.id, action='show_play_times') }}">
                         <img title="Edit play times" src="{{ url_for('static', filename='buttons/date_range-24px.svg') }}"/>
                     </a>
                 {%  endif %}
                 {%  if is_member %}
-                    <a class="media-right image-button m-right-8" href="{{ url_for('event_route', action='leave', id=event.id) }}">
+                    <a class="media-right image-button m-right-8" href="{{ url_for('event_route', action='leave', event_id=event.id) }}">
                         <img title="Leave event" src="{{ url_for('static', filename='buttons/remove-24px.svg') }}"/>
                     </a>
                 {%  else %}
-                    <a class="media-right image-button m-right-8" href="{{ url_for('event_route', action='join', id=event.id) }}">
+                    <a class="media-right image-button m-right-8" href="{{ url_for('event_route', action='join', event_id=event.id) }}">
                         <img title="Join event" src="{{ url_for('static', filename='buttons/add-24px.svg') }}"/>
                     </a>
                 {%  endif %}
                 {%  if is_event_admin %}
                     <a class="media-right image-button"
-                        href="{{ url_for('event_route', id=event.id, action='delete') }}">
+                        href="{{ url_for('event_route', event_id=event.id, action='delete') }}">
                         <img title="Delete event" src="{{ url_for('static', filename='buttons/close-24px.svg') }}"/>
                     </a>
                 {%  endif %}

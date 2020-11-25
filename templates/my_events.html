@@ -18,7 +18,7 @@
             <div class="content-section w-75" id="{{ event.id }}">
                 <div class="media">
                     <div class="media-body">
-                        <a href="{{ url_for('event_route', action='show', id=event.id) }}">{{ event.name }}</a>
+                        <a href="{{ url_for('event_route', action='show', event_id=event.id) }}">{{ event.name }}</a>
                     </div>
                     {% if event.closed %}
                         <p class="text-muted media-right m-bottom-0">{{ _("Closed") }}</p>

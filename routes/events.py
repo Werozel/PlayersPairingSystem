@@ -41,9 +41,18 @@ def event_route():
                 form=form
             )
 
+        event_id = get_arg_or_400('event_id', to_int=True)
+        event: Event = Event.get_or_404(event_id)
+        group = event.group
+        group: Group = group if group else None
+        is_event_admin = event.creator_id == current_user.id or group is not None and group.admin_id == current_user.id
+        all_play_times = EventPlayTimes.get_all_for_event(event_id)
+
+        if action == 'delete':
+            event.delete()
+            return redirect(url_for("event_route", action='my'))
+
         elif action == 'accept_invitation' or action == 'reject_invitation':
-            event_id = get_arg_or_400('event_id')
-            event: Event = Event.get_or_404(event_id)
             if current_user.id != event.creator_id:
                 abort(403)
             invitation = Invitation.get_or_404(get_arg_or_400('id'))
@@ -51,21 +60,15 @@ def event_route():
                 invitation.accept()
             else:
                 invitation.reject()
-            return redirect(url_for("event_route", action='invitations', id=event_id))
+            return redirect(url_for("event_route", action='invitations', event_id=event_id))
 
         elif action == 'show_play_times':
-            event_id = get_arg_or_400('event_id', to_int=True)
-            event: Event = Event.get_or_404(event_id)
-            group = event.group
-            group: Group = group if group else None
-            is_event_admin = event.creator_id == current_user.id or group is not None and group.admin_id == current_user.id
-            all_play_times = EventPlayTimes.get_all_for_event(event_id)
             initial_zoom = 13
             initial_location = nominatim.geocode(event.creator.city)
             init_lat = initial_location.latitude if initial_location else None
             init_lng = initial_location.longitude if initial_location else None
             markers = []
-            current_play_time: Optional[EventPlayTimes] = EventPlayTimes.get(get_arg_or_none("id"))
+            current_play_time: Optional[EventPlayTimes] = EventPlayTimes.get(get_arg_or_none("play_time_id"))
             if current_play_time is not None:
                 location = Location.get(current_play_time.location_id)
                 if location is not None:
@@ -90,20 +93,9 @@ def event_route():
                 event_id=event_id
             )
 
-        event_id = get_arg_or_400('id', to_int=True)
-        event: Event = Event.get_or_404(event_id)
-        group = event.group
-        group: Group = group if group else None
-        is_event_admin = event.creator_id == current_user.id or group is not None and group.admin_id == current_user.id
-
-        if action == 'delete':
-            event.delete()
-            return redirect(url_for("event_route", action='my'))
-
         elif action == 'edit':
             if not is_event_admin:
                 abort(403)
-            all_play_times = EventPlayTimes.get_all_for_event(event_id)
             play_time: Optional[EventPlayTimes] = pt if (pt := all_play_times[0] if all_play_times else None) else None
             edit_event_form = EditEventForm(
                 groups=filter_not_none(current_user.get_groups()),
@@ -173,11 +165,11 @@ def event_route():
                 flash(gettext("Invitation sent!"), "success")
             else:
                 event.add_member(current_user)
-            return redirect(url_for('event_route', action='show', id=event_id))
+            return redirect(url_for('event_route', action='show', event_id=event_id))
 
         elif action == 'leave':
             event.remove_member(current_user)
-            return redirect(url_for('event_route', action='show', id=event_id))
+            return redirect(url_for('event_route', action='show', event_id=event_id))
 
         elif action == 'find_people':
             # FIXME сделать нормальный фильтр
@@ -230,7 +222,7 @@ def event_route():
                 )
                 db.session.add(play_time)
                 db.session.commit()
-                return redirect(url_for('event_route', action='show', id=event.id))
+                return redirect(url_for('event_route', action='show', event_id=event.id))
             else:
                 return render_template("edit_event.html", form=edit_event_form, event=event, map=get_loc_map())
 
@@ -274,7 +266,7 @@ def event_route():
                 new_event_member = EventMember(event_id=new_event.id, user_id=current_user.id, time=timestamp())
                 db.session.add(new_event_member)
                 db.session.commit()
-                return redirect(url_for('event_route', action='show', id=new_event.id))
+                return redirect(url_for('event_route', action='show', event_id=new_event.id))
             else:
                 return render_template("new_event.html", form=new_event_form, map=get_loc_map())
         elif action == 'search':
