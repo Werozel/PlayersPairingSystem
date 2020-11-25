@@ -5,6 +5,8 @@ from flask import abort
 
 class Event(db.Model):
 
+    from libs.models.EventPlayTimes import EventPlayTimes
+
     __tablename__ = "events"
 
     id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
@@ -19,6 +21,7 @@ class Event(db.Model):
     recurring = db.Column(db.Boolean, default=False)
 
     event_members_rel = db.relationship('EventMember', backref='event', lazy=True)
+    event_play_time_rel = db.relationship('EventPlayTimes', backref='event', lazy=True)
 
     def __repr__(self):
         return f"Event {self.id}: {self.name}, {self.sport}"

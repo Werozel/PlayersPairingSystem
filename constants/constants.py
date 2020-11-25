@@ -29,7 +29,7 @@ class Sports:
     hockey_raw = "Hockey"
 
     @staticmethod
-    def get(n):
+    def get(n: int) -> Optional[str]:
         return {
             1: Sports.tennis_raw,
             2: Sports.football_raw,
@@ -37,6 +37,16 @@ class Sports:
             4: Sports.volleyball_raw,
             5: Sports.hockey_raw
         }.get(n, None)
+
+    @staticmethod
+    def get_number(sport: str) -> Optional[int]:
+        return {
+            Sports.tennis_raw: 1,
+            Sports.football_raw: 2,
+            Sports.basketball_raw: 3,
+            Sports.volleyball_raw: 4,
+            Sports.hockey_raw: 5
+        }.get(sport, None)
 
     @staticmethod
     def get_list():
@@ -87,3 +97,25 @@ class DayOfWeek:
         if i < 0 or i >= 7:
             return None
         return DayOfWeek.days_of_week.__getitem__(i)[1]
+
+
+class Gender:
+    male = _("Male")
+    female = _("Female")
+
+    male_raw = "Male"
+    female_raw = "Female"
+
+    @staticmethod
+    def get(n: int) -> Optional[str]:
+        return {
+            1: Gender.male_raw,
+            2: Gender.female_raw
+        }.get(n, None)
+
+    @staticmethod
+    def get_number(sport: str) -> Optional[int]:
+        return {
+            Gender.male_raw: 1,
+            Gender.female_raw: 2
+        }.get(sport, None)
