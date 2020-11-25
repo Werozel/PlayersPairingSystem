@@ -1,7 +1,7 @@
 from typing import Optional, List
 
 from globals import app, db, nominatim
-from src.misc import timestamp, get_arg_or_400, filter_not_none
+from src.misc import timestamp, get_arg_or_400, filter_not_none, get_arg_or_none
 from flask_login import login_required, current_user
 from flask_babel import gettext
 from flask import render_template, request, redirect, url_for, flash, abort
@@ -52,6 +52,43 @@ def event_route():
             else:
                 invitation.reject()
             return redirect(url_for("event_route", action='invitations', id=event_id))
+
+        elif action == 'show_play_times':
+            event_id = get_arg_or_400('event_id', to_int=True)
+            event: Event = Event.get_or_404(event_id)
+            group = event.group
+            group: Group = group if group else None
+            is_event_admin = event.creator_id == current_user.id or group is not None and group.admin_id == current_user.id
+            all_play_times = EventPlayTimes.get_all_for_event(event_id)
+            initial_zoom = 13
+            initial_location = nominatim.geocode(event.creator.city)
+            init_lat = initial_location.latitude if initial_location else None
+            init_lng = initial_location.longitude if initial_location else None
+            markers = []
+            current_play_time: Optional[EventPlayTimes] = EventPlayTimes.get(get_arg_or_none("id"))
+            if current_play_time is not None:
+                location = Location.get(current_play_time.location_id)
+                if location is not None:
+                    markers.append((location.latitude, location.longitude))
+                    init_lat = location.latitude
+                    init_lng = location.longitude
+                    initial_zoom = 14.5
+            loc_map = Map(
+                zoom=initial_zoom,
+                identifier="loc_map",
+                lat=init_lat,
+                lng=init_lng,
+                style="height:600px;width:730px;margin:8;",
+                language=current_user.language,
+                markers=markers
+            )
+            return render_template(
+                "show_event_play_times.html",
+                map=loc_map,
+                all_play_times=all_play_times,
+                is_event_admin=is_event_admin,
+                event_id=event_id
+            )
 
         event_id = get_arg_or_400('id', to_int=True)
         event: Event = Event.get_or_404(event_id)

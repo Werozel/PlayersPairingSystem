@@ -12,8 +12,8 @@
     {% if all_play_times and len(all_play_times) > 0 %}
         <div class="media">
             <h4 class="h4 media-body">{{ _("Your play times") }}</h4>
-            {% if my %}
-                <a class="media-right image-button" href="{{ url_for('profile_route', action='add_play_time') }}">
+            {% if is_event_admin %}
+                <a class="media-right image-button" href="{{ url_for('event_route', action='add_play_time', id=event_id) }}">
                     <img title="Edit play times"
                          src="{{ url_for('static', filename='buttons/edit-24px.svg')}}" alt="none"/>
                 </a>
@@ -39,7 +39,7 @@
                             {{ _("No address selected") }}
                         {% endif %}
                     </p>
-                    <a href="{{ url_for('profile_route', action='show_play_times', id=play_time.id, user_id=user_id) }}">
+                    <a href="{{ url_for('event_route', action='show_play_times', id=play_time.id, event_id=event_id) }}">
                         <img class="m-right-8" width="75%" height="75%" alt="none"
                              src="{{ url_for('static', filename='buttons/map-24px.svg') }}"/>
                     </a>

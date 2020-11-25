@@ -132,7 +132,8 @@ def profile_route():
                 "show_play_times.html",
                 map=loc_map,
                 all_play_times=all_play_times,
-                user_id=user_id
+                user_id=user_id,
+                my=user_id == current_user.id
             )
         elif action == 'edit_videos':
             group = namedtuple('Group', ['sport', 'video'])
