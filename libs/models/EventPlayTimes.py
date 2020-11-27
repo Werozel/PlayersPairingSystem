@@ -1,5 +1,6 @@
-from globals import db
+from globals import db, format_time
 from flask import abort
+from constants.constants import DayOfWeek
 
 
 class EventPlayTimes(db.Model):
@@ -28,3 +29,15 @@ class EventPlayTimes(db.Model):
     @staticmethod
     def get_all_for_event(id: int):
         return EventPlayTimes.query.filter_by(event_id=id).all()
+
+    def get_time_str(self):
+        result: str = ""
+        if self.day_of_week:
+            result += DayOfWeek.get_name(self.day_of_week)
+        if self.start_time:
+            if result:
+                result += f": "
+            result += format_time(self.start_time)
+        if self.end_time and result:
+            result += f"-{format_time(self.end_time)}"
+        return result

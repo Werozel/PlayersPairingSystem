@@ -74,9 +74,15 @@ def event_route():
 
         elif action == 'add_play_time':
             add_event_play_time_form = AddEventPlayTimeForm()
+            current_play_time: EventPlayTimes = EventPlayTimes.get_or_none(get_arg_or_none("play_time_id"))
+            if current_play_time:
+                add_event_play_time_form.day_of_week.data = current_play_time.day_of_week
+                add_event_play_time_form.start_time.data = current_play_time.start_time
+                add_event_play_time_form.end_time.data = current_play_time.end_time
+                add_event_play_time_form.address.data = Address.get(current_play_time.address_id).get_short_address()
             return render_template(
                 "add_event_play_time.html",
-                map=get_loc_map(event, EventPlayTimes.get_or_none(get_arg_or_none("play_time_id")), "height:600px;width:650px;margin:8;"),
+                map=get_loc_map(event, current_play_time, "height:600px;width:650px;margin:8;"),
                 form=add_event_play_time_form,
                 all_play_times=all_play_times,
                 event_id=event_id
