@@ -1,11 +1,12 @@
 from typing import Optional, List
 
 from globals import app, db, nominatim
+from constants.constants import Sports
 from src.misc import timestamp, get_arg_or_400, filter_not_none, get_arg_or_none
 from flask_login import login_required, current_user
 from flask_babel import gettext
 from flask import render_template, request, redirect, url_for, flash, abort
-from forms import EditEventForm, SearchEventForm
+from forms import EditEventForm, SearchEventForm, AddEventPlayTimeForm
 from libs.models.Event import Event
 from libs.models.EventMember import EventMember
 from libs.models.Group import Group
@@ -63,33 +64,21 @@ def event_route():
             return redirect(url_for("event_route", action='invitations', event_id=event_id))
 
         elif action == 'show_play_times':
-            initial_zoom = 13
-            initial_location = nominatim.geocode(event.creator.city)
-            init_lat = initial_location.latitude if initial_location else None
-            init_lng = initial_location.longitude if initial_location else None
-            markers = []
-            current_play_time: Optional[EventPlayTimes] = EventPlayTimes.get(get_arg_or_none("play_time_id"))
-            if current_play_time is not None:
-                location = Location.get(current_play_time.location_id)
-                if location is not None:
-                    markers.append((location.latitude, location.longitude))
-                    init_lat = location.latitude
-                    init_lng = location.longitude
-                    initial_zoom = 14.5
-            loc_map = Map(
-                zoom=initial_zoom,
-                identifier="loc_map",
-                lat=init_lat,
-                lng=init_lng,
-                style="height:600px;width:730px;margin:8;",
-                language=current_user.language,
-                markers=markers
-            )
             return render_template(
                 "show_event_play_times.html",
-                map=loc_map,
+                map=get_loc_map(event, EventPlayTimes.get_or_none(get_arg_or_none("play_time_id"))),
                 all_play_times=all_play_times,
                 is_event_admin=is_event_admin,
+                event_id=event_id
+            )
+
+        elif action == 'add_play_time':
+            add_event_play_time_form = AddEventPlayTimeForm()
+            return render_template(
+                "add_event_play_time.html",
+                map=get_loc_map(event, EventPlayTimes.get_or_none(get_arg_or_none("play_time_id")), "height:600px;width:650px;margin:8;"),
+                form=add_event_play_time_form,
+                all_play_times=all_play_times,
                 event_id=event_id
             )
 
@@ -280,20 +269,60 @@ def event_route():
                 events=events,
                 form=search_event_form
             )
+        elif action == "add_play_time":
+            form = AddEventPlayTimeForm()
+            event = Event.get_or_404(get_arg_or_400("event_id"))
+            if form.validate_on_submit():
+                city = event.creator.city
+                address = form.address.data
+                addresses: List[Address] = Address.get_by_query(address)
+                if len(addresses) == 0:
+                    query = f"{address}, {city}" if city is not None and city.lower() not in address.lower() else address
+                    # TODO call google api
+                    pass
+                address_db_obj: Address = addresses[0]
+                location_db_obj: Optional[Location] = LocationToAddress.get_location_for_address_id(address_db_obj.id)
+                if location_db_obj is None:
+                    # Такого быть не должно
+                    # TODO call google api
+                    pass
+
+                event_play_time = EventPlayTimes(
+                    day_of_week=Sports.get_number(form.day_of_week.data),
+                    start_time=form.start_time.data,
+                    end_time=form.end_time.data,
+                    address_id=address_db_obj.id,
+                    location_id=location_db_obj.id,
+                    event_id=event.id
+                )
+                db.session.add(event_play_time)
+                db.session.commit()
+            return redirect(url_for('event_route', action='add_play_time', event_id=event.id))
         else:
             abort(400)
     else:
         abort(403)
 
 
-def get_loc_map():
-    initial_location = nominatim.geocode(current_user.city)
+def get_loc_map(event: Event, current_play_time: Optional[EventPlayTimes] = None, style: str = "height:600px;width:730px;margin:8;"):
+    initial_zoom = 13
+    initial_location = nominatim.geocode(event.creator.city)
+    init_lat = initial_location.latitude if initial_location else None
+    init_lng = initial_location.longitude if initial_location else None
+    markers = []
+    if current_play_time is not None:
+        location = Location.get(current_play_time.location_id)
+        if location is not None:
+            markers.append((location.latitude, location.longitude))
+            init_lat = location.latitude
+            init_lng = location.longitude
+            initial_zoom = 14.5
     return Map(
-        zoom=13,
+        zoom=initial_zoom,
         identifier="loc_map",
-        lat=initial_location.latitude if initial_location else None,
-        lng=initial_location.longitude if initial_location else None,
-        style="height:600px;width:600px;margin:8;",
+        lat=init_lat,
+        lng=init_lng,
+        style=style,
         language=current_user.language,
-        markers=[]
+        markers=markers
     )

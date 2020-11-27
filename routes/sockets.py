@@ -44,7 +44,7 @@ def handle_msg(msg):
         chat.update_last_msg(message)
         for user in members:
             if user.id != user_id:
-                session = sessions.get(user.id)
+                session = sessions.get_or_404(user.id)
                 if session:
                     emit(
                         'message',
@@ -79,4 +79,4 @@ def handle_new_group_chat(msg):
     chat_member = ChatMember(user_id=current_user.id, chat_id=chat.id, is_group=True)
     db.session.add(chat_member)
     db.session.commit()
-    emit('new_group_chat_ack', 'ack', room=sessions.get(current_user.id))
+    emit('new_group_chat_ack', 'ack', room=sessions.get_or_404(current_user.id))

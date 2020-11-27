@@ -2,6 +2,9 @@ from typing import Optional, List
 from geopy import Location
 from globals import app, db, google_api
 from flask_login import current_user
+
+from libs.models.Event import Event
+from libs.models.EventPlayTimes import EventPlayTimes
 from libs.models.PlayTime import PlayTime
 from flask_babel import gettext as _
 from flask import request, abort
@@ -9,12 +12,24 @@ from libs.models.AddressCaches import Address, Location as LocationDB, LocationT
 from langdetect import detect
 
 
-@app.route("/api/play_time_del/<int:id>", methods=["DELETE"])
+@app.route("/api/play_time/<int:id>", methods=["DELETE"])
 def play_time_route(id: int):
     play_time = PlayTime.get(id)
     if play_time is None:
         return {'success': False, 'msg': "No such play time"}
     if not current_user.is_authenticated or play_time.user_id != current_user.id:
+        return {'success': False, 'msg': "Not allowed"}
+    db.session.delete(play_time)
+    db.session.commit()
+    return {'success': True}
+
+
+@app.route("/api/event_play_time/<int:id>", methods=["DELETE"])
+def event_play_time_route(id: int):
+    play_time: EventPlayTimes = EventPlayTimes.get_or_404(id)
+    if play_time is None:
+        return {'success': False, 'msg': "No such play time"}
+    if not current_user.is_authenticated or Event.get_or_404(play_time.event_id).creator_id != current_user.id:
         return {'success': False, 'msg': "Not allowed"}
     db.session.delete(play_time)
     db.session.commit()
@@ -57,11 +72,11 @@ def get_location_by_address_route():
             return {'success': False, 'msg': _("Nothing found!")}
         else:
             address_components: List[dict] = result.raw.get('address_components')
-            country_component: dict = find(lambda x: 'country' in x.get('types'), address_components)
-            city_component: dict = find(lambda x: 'locality' in x.get('types'), address_components)
-            street_component: dict = find(lambda x: 'route' in x.get('types'), address_components)
-            building_number_component: dict = find(lambda x: 'street_number' in x.get('types'), address_components)
-            point_of_interest: dict = find(lambda x: 'point_of_interest' in x.get('types') or 'establishment' in x.get('types'), address_components)
+            country_component: dict = find(lambda x: 'country' in x.get_or_404('types'), address_components)
+            city_component: dict = find(lambda x: 'locality' in x.get_or_404('types'), address_components)
+            street_component: dict = find(lambda x: 'route' in x.get_or_404('types'), address_components)
+            building_number_component: dict = find(lambda x: 'street_number' in x.get_or_404('types'), address_components)
+            point_of_interest: dict = find(lambda x: 'point_of_interest' in x.get_or_404('types') or 'establishment' in x.get_or_404('types'), address_components)
             address_db_obj = Address(
                 full_address=result.address,
                 custom_address=address,

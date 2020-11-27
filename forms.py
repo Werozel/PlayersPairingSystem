@@ -121,10 +121,6 @@ class EditEventForm(FlaskForm):
 	sport = SelectField('Sport', choices=sport_choices, default="Tennis")
 	assigned_group = SelectField('Group')
 	recurring = BooleanField('Recurring')
-	day_of_week = SelectField('Day of week', validators=[Optional()])
-	start_time = TimeField('Start time', validators=[Optional()])
-	end_time = TimeField('End time', validators=[Optional()])
-	address = StringField('Address', validators=[Length(max=300)])
 	submit = SubmitField('Create')
 
 	@staticmethod
@@ -143,10 +139,19 @@ class EditEventForm(FlaskForm):
 		self.assigned_group.choices = group_choices
 		self.assigned_group.data = "None"
 
+
+class AddEventPlayTimeForm(FlaskForm):
+	day_of_week = SelectField('Day of week', validators=[Optional()])
+	start_time = TimeField('Start time', validators=[Optional()])
+	end_time = TimeField('End time', validators=[Optional()])
+	address = StringField('Address', validators=[Length(max=300)])
+	submit = SubmitField('Add')
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
 		day_of_week_choices = DayOfWeek.days_of_week
 		day_of_week_choices.append(("None", None))
 		self.day_of_week.choices = day_of_week_choices
-		self.day_of_week.data = "None"
 
 
 def validate_youtube_link(_, link):

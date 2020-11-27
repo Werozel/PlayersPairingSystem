@@ -33,14 +33,14 @@ class Invitation(db.Model):
 
     @staticmethod
     def get_or_404(id: int):
-        invitation = Invitation.query.get(id)
+        invitation = Invitation.query.get_or_404(id)
         if invitation is None:
             abort(404)
         return invitation
 
     @staticmethod
     def get_or_none(id: int):
-        return Invitation.query.get(id)
+        return Invitation.query.get_or_404(id)
 
     def is_expired(self):
         return self.expiration_time is not None and self.expiration_time > timestamp()

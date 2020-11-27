@@ -28,14 +28,14 @@ class Event(db.Model):
 
     @staticmethod
     def get_or_404(id: int):
-        event = Event.query.get(id)
+        event = Event.query.get_or_404(id)
         if event is None:
             abort(404)
         return event
 
     @staticmethod
     def get_or_none(id: int):
-        return Event.query.get(id)
+        return Event.query.get_or_404(id)
 
     def add_member(self, user):
         from libs.models.EventMember import EventMember

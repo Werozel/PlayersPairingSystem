@@ -24,18 +24,18 @@ class Message(db.Model):
 
     @staticmethod
     def get_or_404(id: int):
-        message = Message.query.get(id)
+        message = Message.query.get_or_404(id)
         if message is None:
             abort(404)
         return message
 
     @staticmethod
     def get_or_none(id: int):
-        return Message.query.get(id)
+        return Message.query.get_or_404(id)
 
     @staticmethod
     def has_id(id: int) -> bool:
-        return Message.query.get(id) is None
+        return Message.query.get_or_404(id) is None
 
     @staticmethod
     def get_history(chat_id: int, limit: int = 50):

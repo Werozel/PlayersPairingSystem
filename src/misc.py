@@ -33,7 +33,7 @@ def get_arg_or_none(arg: str, to_int: bool = False):
 
 
 def format_date_time(dt) -> str:
-    dt_format = DATETIME_FORMATS.get(current_user.language)
+    dt_format = DATETIME_FORMATS.get_or_404(current_user.language)
     if not dt_format:
         return format_datetime(dt, "EEEE, MMM dd, HH:mm").title()
     now = datetime.datetime.now()

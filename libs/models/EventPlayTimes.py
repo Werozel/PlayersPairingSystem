@@ -1,4 +1,5 @@
 from globals import db
+from flask import abort
 
 
 class EventPlayTimes(db.Model):
@@ -13,7 +14,15 @@ class EventPlayTimes(db.Model):
     event_id = db.Column(db.BigInteger, db.ForeignKey("events.id"), nullable=False)
 
     @staticmethod
-    def get(id: int):
+    def get_or_404(id: int):
+        event_play_time = EventPlayTimes.query.filter_by(id=id).first()
+        if event_play_time:
+            return event_play_time
+        else:
+            abort(404)
+
+    @staticmethod
+    def get_or_none(id: int):
         return EventPlayTimes.query.filter_by(id=id).first()
 
     @staticmethod

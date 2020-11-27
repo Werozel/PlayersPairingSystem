@@ -26,14 +26,14 @@ class Group(db.Model):
     
     @staticmethod
     def get_or_404(id: int):
-        group = Group.query.get(id)
+        group = Group.query.get_or_404(id)
         if group is None:
             abort(404)
         return group
 
     @staticmethod
     def get_or_none(id: int):
-        return Group.query.get(id)
+        return Group.query.get_or_404(id)
 
     def get_members(self):
         from libs.models.GroupMember import GroupMember
