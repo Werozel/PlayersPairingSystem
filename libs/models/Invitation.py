@@ -62,14 +62,14 @@ class Invitation(db.Model):
         from libs.models.User import User
         from libs.models.Group import Group
         from libs.models.Event import Event
-        if self.type == InvitationType.FRIEND:
+        if self.type == InvitationType.FRIEND or \
+                self.type == InvitationType.FROM_EVENT or \
+                self.type == InvitationType.FROM_GROUP:
             return User.get_or_404(self.recipient_id)
         elif self.type == InvitationType.TO_GROUP:
             return Group.get_or_404(self.recipient_id)
         elif self.type == InvitationType.TO_EVENT:
             return Event.get_or_404(self.recipient_id)
-        else:
-            return None
 
     @staticmethod
     def add(type: InvitationType, recipient_id: int, referrer_id: int, expiration_time=None) -> int:
@@ -91,6 +91,12 @@ class Invitation(db.Model):
     def get_all_for_event(event_id: int) -> list:
         return Invitation.query.filter((Invitation.type == InvitationType.TO_EVENT)
                                        & (Invitation.recipient_id == event_id)
+                                       & ((Invitation.expiration_time == None) | (Invitation.expiration_time > timestamp()))).all()
+
+    @staticmethod
+    def get_all_from_event(event_id: int) -> list:
+        return Invitation.query.filter((Invitation.type == InvitationType.FROM_EVENT)
+                                       & (Invitation.referrer_id == event_id)
                                        & ((Invitation.expiration_time == None) | (Invitation.expiration_time > timestamp()))).all()
 
     @staticmethod

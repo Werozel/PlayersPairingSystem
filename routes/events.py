@@ -169,15 +169,45 @@ def event_route():
         elif action == 'find_people':
             # FIXME сделать нормальный фильтр
             event_users = set(event.get_members())
+            invited = list(
+                filter(
+                    lambda x: x,
+                    map(
+                        lambda x: User.get_or_none(x.recipient_id),
+                        Invitation.get_all_from_event(event_id)
+                    )
+                )
+            )
             all_users = set(User.query.order_by(User.register_time).all())
             users: list = list(
                 filter(
                     lambda user_tmp: event.sport in (user_tmp.sport if user_tmp.sport else []),
-                    list(all_users - event_users)
+                    list(all_users - event_users - set(invited))
                 )
             )
-            return render_template("find_people.html", event_id=event.id, people=users if len(users) > 0 else None)
-
+            return render_template(
+                "find_people.html",
+                event_id=event.id,
+                invited_people=invited,
+                people=users if len(users) > 0 else None
+            )
+        elif action == 'send_invite':
+            Invitation.add(
+                type=InvitationType.FROM_EVENT,
+                recipient_id=get_arg_or_400('user_id'),
+                referrer_id=event_id
+            )
+            return redirect(url_for('event_route', action='find_people', event_id=event_id))
+        elif action == 'revoke_invite':
+            invitation = Invitation.query.filter(
+                (Invitation.type==InvitationType.FROM_EVENT) &
+                (Invitation.recipient_id==get_arg_or_400('user_id')) &
+                (Invitation.referrer_id==event_id)
+            ).first()
+            if invitation:
+                db.session.delete(invitation)
+                db.session.commit()
+            return redirect(url_for('event_route', action='find_people', event_id=event_id))
         else:
             abort(400)
 # ------------------------------------------------------------------------------------------

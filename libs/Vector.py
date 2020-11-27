@@ -34,10 +34,10 @@ class EventVector:
                  group: Optional[Group],
                  closed: Optional[bool],
                  recurring: Optional[bool],
-                 play_time: Optional[EventPlayTimes]
+                 play_times: Optional[List[EventPlayTimes]]
                  ):
         self.sport = sport
         self.group = group,
         self.closed = closed,
         self.recurring = recurring,
-        self.play_time = play_time
+        self.play_time = play_times

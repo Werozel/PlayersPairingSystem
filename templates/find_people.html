@@ -7,13 +7,14 @@
 {%  block content %}
     <h4>{{ _("Find people") }}</h4>
     <legend class="border-top mt-2"></legend>
-    {%  if people %}
-        {%  for user in people %}
-            <div class="content-section w-75" id="{{ user.id }}">
+    {% if invited_people %}
+        <h5>{{ _("Invited") }}</h5>
+        {%  for user in invited_people %}
+        <div class="content-section w-75" id="{{ user.id }}">
                 <div class="media">
                     <div class="media-body row">
                         <a class="m-left-4" href="{{ url_for('profile_route', action='show', id=user.id) }}">
-                            <img class="rounded-circle account-preview-img" src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}"/>
+                            <img class="rounded-circle account-preview-img" width="44"  height="44" src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}"/>
                         </a>
                         <div class="vertical-center">
                             {%  if user.name and user.last_name %}
@@ -28,6 +29,60 @@
                                 </a>
                             {%  endif %}
                         </div>
+                    </div>
+                    <div class="media-right">
+                        <a href="{{ url_for('event_route', action='revoke_invite', user_id=user.id, event_id=event_id) }}">
+                            <img title="Revoke invitation" src="{{ url_for('static', filename='buttons/close-24px.svg')}}" alt="none"/>
+                        </a>
+                    </div>
+                </div>
+                <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
+                <div id="bottom" class="column ml-3">
+                    {% if user.age %}
+                    <p class="row m-bottom-4" style="white-space: pre-wrap">{{ _("Age") }}: <span class="text-secondary"> {{ user.age }}</span></p>
+                    {%  endif %}
+                    <div class="row m-bottom-4">
+                        <p class="mb-0 mr-1">{{ _("Sport") }}:</p>
+                        {% if user.sport %}
+                            {%  for sport in user.sport %}
+                                <span style="list-style-type: none; padding-left: 3px;" class="text-secondary m-right-8">{{ sport }}</span>
+                            {%  endfor  %}
+                        {% else %}
+                            <p class="text-secondary">{{ _("No sport added yet!") }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <legend class="border-top mt-2"></legend>
+    {% endif %}
+    {%  if people %}
+        <h5>{{ _("New people") }}</h5>
+        {%  for user in people %}
+            <div class="content-section w-75" id="{{ user.id }}">
+                <div class="media">
+                    <div class="media-body row">
+                        <a class="m-left-4" href="{{ url_for('profile_route', action='show', id=user.id) }}">
+                            <img class="rounded-circle account-preview-img" width="44"  height="44" src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}"/>
+                        </a>
+                        <div class="vertical-center">
+                            {%  if user.name and user.last_name %}
+                                <a class="m-left-16"
+                                   href="{{ url_for('profile_route', action='show', id=user.id) }}">
+                                    {{ user.name }} {{ user.last_name }}
+                                </a>
+                            {%  else %}
+                                <a class="m-left-16"
+                                   href="{{ url_for('profile_route', action='show', id=user.id) }}">
+                                    {{ user.username }}
+                                </a>
+                            {%  endif %}
+                        </div>
+                    </div>
+                    <div class="media-right">
+                        <a href="{{ url_for('event_route', action='send_invite', user_id=user.id, event_id=event_id) }}">
+                            <img title="Send invitation" src="{{ url_for('static', filename='buttons/add-24px.svg')}}" alt="none"/>
+                        </a>
                     </div>
                 </div>
                 <legend class="border-bottom m-bottom-8" style="width: 100%"></legend>
