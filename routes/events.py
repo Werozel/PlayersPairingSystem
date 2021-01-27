@@ -152,6 +152,7 @@ def event_route():
                     sorted(
                         valid_play_times,
                         key=lambda x: -10 * abs(current_day_of_week - x.day_of_week) - abs(current_time - time_to_seconds(x.start_time)),
+                        reverse=True
                     )
                 ) \
                     if valid_play_times \
