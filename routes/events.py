@@ -37,10 +37,47 @@ def event_route():
             return render_template("new_event.html", form=new_event_form, map=get_loc_map())
         elif action == 'search':
             events = Event.query.all()
+            user_vector = UserVector(
+                age=current_user.age,
+                gender=current_user.gender,
+                sport=current_user.sport,
+                city=current_user.city,
+                last_login=current_user.last_login,
+                include_play_times=True,
+                play_times=PlayTime.get_all_for_user_id(current_user.id),
+                user=current_user
+            )
+            sorted_events = list(
+                map(
+                    lambda x: x[0].event,
+                    sorted(
+                        map(
+                            lambda x: (
+                                x,
+                                user_vector.calculate_diff_with_event(x)
+                            ),
+                            map(
+                                lambda x: EventVector(
+                                    sport=[x.sport],
+                                    city=x.creator.city,
+                                    group=x.group,
+                                    closed=x.closed,
+                                    last_login=x.creator.last_login,
+                                    play_times=EventPlayTimes.get_all_for_event(x.id),
+                                    event=x
+                                ),
+                                events
+                            )
+                        ),
+                        key=lambda x: x[1],
+                        reverse=True
+                    )
+                )
+            )
             form = SearchEventForm()
             return render_template(
                 "search_event.html",
-                events=events,
+                events=sorted_events,
                 form=form
             )
 
@@ -364,7 +401,7 @@ def event_route():
             user_vector = UserVector(
                 age=current_user.age,
                 gender=current_user.gender,
-                sport=sport,
+                sport=[sport] if sport else current_user.sport,
                 city=current_user.city,
                 last_login=current_user.last_login,
                 include_play_times=True,
@@ -382,7 +419,7 @@ def event_route():
                             ),
                             map(
                                 lambda x: EventVector(
-                                    sport=x.sport,
+                                    sport=[x.sport],
                                     city=x.creator.city,
                                     group=x.group,
                                     closed=x.closed,

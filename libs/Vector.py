@@ -19,7 +19,7 @@ class UserVector:
     def __init__(self,
                  age: Optional[int] = None,
                  gender: Optional[str] = None,
-                 sport: Optional[int] = None,
+                 sport: Optional[List[int]] = None,
                  city: Optional[str] = None,
                  last_login: Optional[datetime] = None,
                  include_play_times: bool = True,
@@ -42,13 +42,16 @@ class UserVector:
         if self.gender and other.gender:
             result += 100 * int(self.gender == other.gender)
         if self.sport and other.sport:
-            result += 10000 * int(self.sport == other.sport)
+            my_sport_set = set(self.sport)
+            other_sport_set = set(other.sport)
+            result += 10000 * len(my_sport_set.intersection(other_sport_set))
         if self.city and other.city:
             result += 10000 * int(self.city != other.city)
         if self.last_login and other.last_login:
-            result += 100 * (604800 / math.fabs(
+            divider = math.fabs(
                 datetime_to_seconds(self.last_login) - datetime_to_seconds(other.last_login)
-            ))
+            )
+            result += 100 * (604800 / divider) if divider else 0
         if self.include_play_times and self.play_times and other.play_times:
             result -= 100 * UserVector.calculate_play_times_diff(self.play_times, other.play_times)
         return result
@@ -56,7 +59,9 @@ class UserVector:
     def calculate_diff_with_event(self, event) -> float:
         result: float = 0
         if self.sport and event.sport:
-            result += 10000 * int(self.sport == event.sport)
+            my_sport_set = set(self.sport)
+            other_sport_set = set(event.sport)
+            result += 10000 * len(my_sport_set.intersection(other_sport_set))
         if self.city and event.city:
             result += 10000 * int(self.city != event.city)
         if self.last_login and event.last_login:
@@ -89,7 +94,7 @@ class UserVector:
 class EventVector:
 
     def __init__(self,
-                 sport: Optional[int],
+                 sport: Optional[List[int]],
                  city: Optional[str],
                  group: Optional[Group],
                  closed: Optional[bool],
