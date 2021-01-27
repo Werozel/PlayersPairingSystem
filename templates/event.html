@@ -79,25 +79,57 @@
             {%  endif %}
 
 {#        TODO make closest event here#}
-            {% if play_time.start_time or play_time.end_time or play_time.day_of_week %}
+            {% if play_times %}
                 <legend class="border-bottom mb-3 mt-3" style="width: 100%"></legend>
-                <p class="mt-3 mb-1">{{ _("Time") }}:</p>
-                <div class="row m-left-8">
-                    {% if play_time.day_of_week %}
-                        <p class="text-secondary" style="white-space: pre-wrap">{{ _(get_day_of_week(play_time.day_of_week)) }} </p>
+                <p class="mt-3 mb-1">{{ _("Play time") }}:</p>
+                {% for play_time in play_times %}
+                    {% if play_time.start_time or play_time.end_time or play_time.day_of_week %}
+                        <div class="row m-left-8">
+                            {% if play_time.day_of_week %}
+                                <p class="text-secondary" style="white-space: pre-wrap">{{ _(get_day_of_week(play_time.day_of_week)) }} </p>
+                            {% endif %}
+                            {% if play_time.start_time %}
+                                <p class="text-secondary" style="white-space: pre-wrap" >{{ play_time.start_time }} </p>
+                            {% endif %}
+                            {% if play_time.end_time %}
+                                <p class="text-secondary" style="white-space: pre-wrap">- {{ play_time.end_time }} </p>
+                            {% endif %}
+                            {% if play_time.address %}
+                                <p class="text-secondary" style="white-space: pre-wrap">{{ play_time.address.short_address }}</p>
+                                <a href="{{ url_for('event_route', action='show', play_time_id=play_time.id, event_id=event_id) }}">
+                                <img class="m-left-8" width="75%" height="75%" alt="none"
+                                     src="{{ url_for('static', filename='buttons/map-24px.svg') }}"/>
+                            </a>
+                            {%  endif %}
+                        </div>
                     {% endif %}
-                    {% if play_time.start_time %}
-                        <p class="text-secondary" style="white-space: pre-wrap" >{{ play_time.start_time }} </p>
-                    {% endif %}
-                    {% if play_time.end_time %}
-                        <p class="text-secondary" style="white-space: pre-wrap">- {{ play_time.end_time }} </p>
-                    {% endif %}
-                </div>
+                {% endfor %}
             {% endif %}
-            {% if play_time.address and map %}
+
+            {% if map_address %}
                 <legend class="border-bottom mb-3 mt-3" style="width: 100%"></legend>
                 <p class="mt-3 mb-1">{{ _("Location") }}:</p>
-                <p class="text-secondary">{{ play_time.address.short_address }}</p>
+                <p class="text-secondary">{{ map_address }}</p>
+            {% elif closest_play_time %}
+                <legend class="border-bottom mb-3 mt-3" style="width: 100%"></legend>
+                <p class="mt-3 mb-1">{{ _("Closest play time") }}:</p>
+                <div class="row m-left-8 m-top-4">
+                    {% if closest_play_time.day_of_week %}
+                        <p class="text-secondary" style="white-space: pre-wrap">{{ _(get_day_of_week(closest_play_time.day_of_week)) }} </p>
+                    {% endif %}
+                    {% if closest_play_time.start_time %}
+                        <p class="text-secondary" style="white-space: pre-wrap" >{{ closest_play_time.start_time }} </p>
+                    {% endif %}
+                    {% if closest_play_time.end_time %}
+                        <p class="text-secondary" style="white-space: pre-wrap">- {{ closest_play_time.end_time }} </p>
+                    {% endif %}
+                    {% if closest_play_time.address %}
+                        <p class="text-secondary" style="white-space: pre-wrap">{{ closest_play_time.address.short_address }}</p>
+                    {%  endif %}
+                </div>
+
+            {% endif %}
+            {% if map %}
                 {{ map.html }}
             {% endif %}
         </div>

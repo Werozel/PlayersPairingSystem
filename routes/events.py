@@ -2,7 +2,7 @@ from typing import Optional, List
 
 from globals import app, db, nominatim
 from constants.constants import Sports
-from src.misc import timestamp, get_arg_or_400, filter_not_none, get_arg_or_none
+from src.misc import timestamp, get_arg_or_400, filter_not_none, get_arg_or_none, get_current_time, get_current_day_of_week, time_to_seconds
 from flask_login import login_required, current_user
 from flask_babel import gettext
 from flask import render_template, request, redirect, url_for, flash, abort
@@ -126,28 +126,85 @@ def event_route():
             members = event.get_members()
             is_member = True if current_user in members else None
             members = members if len(members) > 0 else None
-            play_times = EventPlayTimes.get_all_for_event(event_id)
-            play_time = play_times[0] if play_times and len(play_times) else None
-            initial_location = LocationToAddress.get_location_for_address_id(play_time.address_id) if play_time else None
-            loc_map = Map(
-                zoom=14.5 if initial_location else 2,
-                identifier="loc_map",
-                lat=initial_location.latitude if initial_location else 0,
-                lng=initial_location.longitude if initial_location else 0,
-                style="height:600px;width:600px;margin:8;",
-                language=current_user.language,
-                markers=[(initial_location.latitude, initial_location.longitude)] if initial_location else []
-            )
-            return render_template(
-                "event.html",
-                event=event,
-                group=group,
-                members=members,
-                is_member=is_member,
-                is_event_admin=is_event_admin,
-                play_time=play_time,
-                map=loc_map
-            )
+            play_time_id = get_arg_or_none('play_time_id')
+            selected_play_time = None
+            if play_time_id is not None:
+                selected_play_time = EventPlayTimes.query.filter_by(event_id=event_id, id=play_time_id).first()
+            if selected_play_time is None:
+                play_times = EventPlayTimes.get_all_for_event(event_id)
+                # closest_play_time: EventPlayTimes = play_times[0] if play_times and len(play_times) else None # TODO
+                current_day_of_week = get_current_day_of_week()
+                current_time = get_current_time()
+                valid_play_times = list(
+                    filter(
+                        lambda x:
+                        x.day_of_week is not None and
+                        x.start_time is not None and
+                        (
+                            (x.day_of_week == current_day_of_week and time_to_seconds(x.start_time) >= current_time) or
+                            x.day_of_week != current_day_of_week
+                        ),
+                        play_times
+                    )
+                )
+                sorted_play_times = list(
+                    sorted(
+                        valid_play_times,
+                        key=lambda x: -10 * abs(current_day_of_week - x.day_of_week) - abs(current_time - time_to_seconds(x.start_time)),
+                    )
+                ) \
+                    if valid_play_times \
+                    else None
+                closest_play_time = sorted_play_times[0] if sorted_play_times else None
+                initial_location = LocationToAddress.get_location_for_address_id(closest_play_time.address_id) \
+                    if closest_play_time \
+                    else None
+                loc_map = Map(
+                    zoom=14.5 if initial_location else 2,
+                    identifier="loc_map",
+                    lat=initial_location.latitude if initial_location else 0,
+                    lng=initial_location.longitude if initial_location else 0,
+                    style="height:600px;width:600px;margin:8;",
+                    language=current_user.language,
+                    markers=[(initial_location.latitude, initial_location.longitude)] if initial_location else []
+                ) if initial_location else None
+                return render_template(
+                    "event.html",
+                    event=event,
+                    group=group,
+                    members=members,
+                    is_member=is_member,
+                    event_id=event_id,
+                    is_event_admin=is_event_admin,
+                    play_times=all_play_times,
+                    closest_play_time=closest_play_time,
+                    map=loc_map
+                )
+            else:
+                initial_address: Address = Address.get(selected_play_time.address_id) if selected_play_time else None
+                initial_location = LocationToAddress.get_location_for_address_id(
+                    selected_play_time.address_id) if selected_play_time else None
+                loc_map = Map(
+                    zoom=14.5 if initial_location else 2,
+                    identifier="loc_map",
+                    lat=initial_location.latitude if initial_location else 0,
+                    lng=initial_location.longitude if initial_location else 0,
+                    style="height:600px;width:600px;margin:8;",
+                    language=current_user.language,
+                    markers=[(initial_location.latitude, initial_location.longitude)] if initial_location else []
+                )
+                return render_template(
+                    "event.html",
+                    event=event,
+                    group=group,
+                    members=members,
+                    is_member=is_member,
+                    event_id=event_id,
+                    is_event_admin=is_event_admin,
+                    play_times=all_play_times,
+                    map_address=initial_address.get_short_address() if initial_address else None,
+                    map=loc_map
+                )
 
         elif action == 'join':
             if event.closed:

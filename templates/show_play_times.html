@@ -24,11 +24,18 @@
         {% for play_time in all_play_times %}
             <div id="play_time_{{ play_time.id }}" class="content-section row media m-bottom-12 m-left-0 m-right-0">
                 <p class="media-body text-secondary m-bottom-0">
-                    {% if play_time.day_of_week is not none and play_time.start_time is not none and play_time.end_time is not none %}
-                        {{ _(get_day_of_week(play_time.day_of_week)) }},
-                        {{ format_time(play_time.start_time) }}-{{ format_time(play_time.end_time) }}
-                    {% else %}
+                    {% if play_time.day_of_week is none and play_time.start_time is none and play_time.end_time is none %}
                         {{ _("No time selected") }}
+                    {% else %}
+                        {% if play_time.day_of_week %}
+                            <p class="text-secondary" style="white-space: pre-wrap">{{ _(get_day_of_week(play_time.day_of_week)) }} </p>
+                        {% endif %}
+                        {% if play_time.start_time %}
+                            <p class="text-secondary" style="white-space: pre-wrap" >{{ format_time(play_time.start_time) }} </p>
+                        {% endif %}
+                        {% if play_time.end_time %}
+                            <p class="text-secondary" style="white-space: pre-wrap">- {{ format_time(play_time.end_time) }} </p>
+                        {% endif %}
                     {% endif %}
                 </p>
                 <div class="media-right row">

@@ -55,6 +55,10 @@ def datetime_to_seconds(t: datetime.datetime) -> int:
     return int((t - datetime.datetime(1970, 1, 1)).total_seconds())
 
 
+def time_to_seconds(t: datetime.time) -> int:
+    return (t.hour * 60 + t.minute) * 60 + t.second
+
+
 def get_rand() -> int:
     from libs.models.Message import Message
     res = random.randint(1, 9223372036854775807 - 1)
@@ -73,3 +77,11 @@ def is_admin(user) -> bool:
 
 def filter_not_none(l: list) -> list:
     return list(filter(lambda x: x is not None, l))
+
+
+def get_current_day_of_week() -> int:
+    return datetime.datetime.today().weekday()
+
+
+def get_current_time() -> int:
+    return time_to_seconds(datetime.datetime.now().time())
