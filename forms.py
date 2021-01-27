@@ -149,9 +149,10 @@ class AddEventPlayTimeForm(FlaskForm):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		day_of_week_choices = DayOfWeek.days_of_week
-		day_of_week_choices.append(("None", None))
-		self.day_of_week.choices = day_of_week_choices
+		if not self.day_of_week.choices:
+			day_of_week_choices = DayOfWeek.days_of_week
+			day_of_week_choices.append(("None", None))
+			self.day_of_week.choices = day_of_week_choices
 
 
 def validate_youtube_link(_, link):

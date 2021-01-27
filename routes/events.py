@@ -80,13 +80,14 @@ def event_route():
                 add_event_play_time_form.start_time.data = current_play_time.start_time
                 add_event_play_time_form.end_time.data = current_play_time.end_time
                 add_event_play_time_form.address.data = Address.get(current_play_time.address_id).get_short_address()
-            return render_template(
+            template = render_template(
                 "add_event_play_time.html",
                 map=get_loc_map(event, current_play_time, "height:600px;width:650px;margin:8;"),
                 form=add_event_play_time_form,
                 all_play_times=all_play_times,
                 event_id=event_id
             )
+            return template
 
         elif action == 'edit':
             if not is_event_admin:
@@ -381,7 +382,7 @@ def event_route():
                     pass
 
                 event_play_time = EventPlayTimes(
-                    day_of_week=Sports.get_number(form.day_of_week.data),
+                    day_of_week=form.day_of_week.data,
                     start_time=form.start_time.data,
                     end_time=form.end_time.data,
                     address_id=address_db_obj.id,
