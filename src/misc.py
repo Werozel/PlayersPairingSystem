@@ -51,6 +51,10 @@ def timestamp():
     return datetime.datetime.now()
 
 
+def datetime_to_seconds(t: datetime.datetime) -> int:
+    return int((t - datetime.datetime(1970, 1, 1)).total_seconds())
+
+
 def get_rand() -> int:
     from libs.models.Message import Message
     res = random.randint(1, 9223372036854775807 - 1)
