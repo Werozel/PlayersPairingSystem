@@ -23,21 +23,24 @@
         <legend class="border-bottom mb-4"></legend>
         {% for play_time in all_play_times %}
             <div id="play_time_{{ play_time.id }}" class="content-section row media m-bottom-12 m-left-0 m-right-0">
-                <p class="media-body text-secondary m-bottom-0">
+
                     {% if play_time.day_of_week is none and play_time.start_time is none and play_time.end_time is none %}
-                        {{ _("No time selected") }}
+                        <p class="media-body text-secondary m-bottom-0">
+                            {{ _("No time selected") }}
+                        </p>
                     {% else %}
-                        {% if play_time.day_of_week %}
-                            <p class="text-secondary" style="white-space: pre-wrap">{{ _(get_day_of_week(play_time.day_of_week)) }} </p>
-                        {% endif %}
-                        {% if play_time.start_time %}
-                            <p class="text-secondary" style="white-space: pre-wrap" >{{ format_time(play_time.start_time) }} </p>
-                        {% endif %}
-                        {% if play_time.end_time %}
-                            <p class="text-secondary" style="white-space: pre-wrap">- {{ format_time(play_time.end_time) }} </p>
-                        {% endif %}
+                        <div class="media-body text-secondary m-bottom-0 row p-left-16">
+                            {% if play_time.day_of_week %}
+                                <p class="text-secondary m-0" style="white-space: pre-wrap">{{ _(get_day_of_week(play_time.day_of_week)) }} </p>
+                            {% endif %}
+                            {% if play_time.start_time %}
+                                <p class="text-secondary m-0" style="white-space: pre-wrap" >{{ format_time(play_time.start_time) }} </p>
+                            {% endif %}
+                            {% if play_time.end_time %}
+                                <p class="text-secondary m-0" style="white-space: pre-wrap">- {{ format_time(play_time.end_time) }} </p>
+                            {% endif %}
+                        </div>
                     {% endif %}
-                </p>
                 <div class="media-right row">
                     <p class="text-secondary m-bottom-0 m-right-16">
                         {% if play_time.address is not none %}

@@ -91,7 +91,7 @@ class User(db.Model, UserMixin):
 
     @staticmethod
     def get_or_none(id: int):
-        return User.query.get_or_404(int(id))
+        return User.query.get(int(id))
 
     def friend_add(self, friend_id: int):
         from libs.models.Friend import Friend

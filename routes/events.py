@@ -2,6 +2,8 @@ from typing import Optional, List
 
 from globals import app, db, nominatim
 from constants.constants import Sports
+from libs.Vector import UserVector, EventVector
+from libs.models.PlayTime import PlayTime
 from src.misc import timestamp, get_arg_or_400, filter_not_none, get_arg_or_none, get_current_time, get_current_day_of_week, time_to_seconds
 from flask_login import login_required, current_user
 from flask_babel import gettext
@@ -359,9 +361,47 @@ def event_route():
             sport = search_event_form.sport.data
             events = Event.query.filter(Event.name.ilike(f"%{name}%")). \
                 filter(Event.sport == sport if sport != "None" else Event.sport == Event.sport).all()
+            user_vector = UserVector(
+                age=current_user.age,
+                gender=current_user.gender,
+                sport=sport,
+                city=current_user.city,
+                last_login=current_user.last_login,
+                include_play_times=True,
+                play_times=PlayTime.get_all_for_user_id(current_user.id),
+                user=current_user
+            )
+            sorted_events = list(
+                map(
+                    lambda x: x[0].event,
+                    sorted(
+                        map(
+                            lambda x: (
+                                x,
+                                user_vector.calculate_diff_with_event(x)
+                            ),
+                            map(
+                                lambda x: EventVector(
+                                    sport=x.sport,
+                                    city=x.creator.city,
+                                    group=x.group,
+                                    closed=x.closed,
+                                    last_login=x.creator.last_login,
+                                    play_times=EventPlayTimes.get_all_for_event(x.id),
+                                    event=x
+                                ),
+                                events
+                            )
+                        ),
+                        key=lambda x: x[1],
+                        reverse=True
+                    )
+                )
+            )
+
             return render_template(
                 "search_event.html",
-                events=events,
+                events=sorted_events,
                 form=search_event_form
             )
         elif action == "add_play_time":
