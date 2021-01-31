@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/margin.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/padding.css') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='icons/icon2.png') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vanillaSelectBox.css') }}">
 
     <meta charset="UTF-8">
     {%  block title %}
@@ -129,6 +130,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/vanillaSelectBox.js') }}"></script>
     {% block socket_script %}
         <script type="text/javascript" charset="utf-8">
             let socket = io();
