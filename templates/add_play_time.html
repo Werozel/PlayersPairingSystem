@@ -52,16 +52,7 @@
             <fieldset class="form-group">
                 <div class="form-group m-bottom-8">
                     <label for="{{ form.day_of_week.label.field_id }}" class="form-control-label">{{ _(form.day_of_week.label.text) }}</label>
-{#                    {{ form.day_of_week(class="form-control") }}#}
-                    <select class="form-control" id="{{ form.day_of_week.label.field_id }}" name="{{ form.day_of_week.label.field_id }}">
-                        {% for value, data in form.day_of_week.choices %}
-                            {% if value == form.day_of_week.data %}
-                                <option selected="selected" value="{{ value }}">{{ _(data) }}</option>
-                            {% else %}
-                                <option value="{{ value }}">{{ _(data) }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
+                    {{ select_field(form.day_of_week) }}
                 </div>
                 <div class="row m-top-24 m-left-16 m-right-16 m-bottom-16 d-flex justify-content-center">
 

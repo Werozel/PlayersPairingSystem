@@ -150,6 +150,33 @@
             })
         </script>
     {% endblock socket_script %}
+    {% block macros %}
+
+        {% macro select_field(field, class='form-control', ) -%}
+            <select class="{{ class }}" id="{{ field.label.field_id }}" name="{{ field.label.field_id }}">
+                {% for value, data in field.choices %}
+                    {% if value == field.data %}
+                        <option selected="selected" value="{{ value }}">{{ _(data) }}</option>
+                    {% else %}
+                        <option value="{{ value }}">{{ _(data) }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        {%- endmacro %}
+
+        {% macro select_multiple_field(field, class='form-control', ) -%}
+            <select multiple class="{{ class }}" id="{{ field.label.field_id }}" name="{{ field.label.field_id }}">
+                {% for value, data in field.choices %}
+                    {% if value == field.data %}
+                        <option selected="selected" value="{{ value }}">{{ _(data) }}</option>
+                    {% else %}
+                        <option value="{{ value }}">{{ _(data) }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        {%- endmacro %}
+
+    {% endblock macros %}
     {%  block script %}{%  endblock %}
 </body>
 </html>
