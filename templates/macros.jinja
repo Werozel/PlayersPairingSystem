@@ -10,7 +10,7 @@
     </select>
 {%- endmacro %}
 
-{% macro select_multiple_field(field, class='form-control', id='' ) -%}
+{% macro select_multiple_field(field, class='form-control' ) -%}
     <select multiple class="{{ class }}" id="{{ field.label.field_id }}" name="{{ field.label.field_id }}">
         {% for value, data in field.choices %}
             {% if value == field.data %}
