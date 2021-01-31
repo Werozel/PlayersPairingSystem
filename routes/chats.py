@@ -25,7 +25,7 @@ def chats_route():
                 redirect(url_for('chats_route', action='all'))
             members = chat.get_members()
             if len(members) > 2:
-                return redirect(url_for('group_chats_route', action='show', chat_id=chat_id))
+                return redirect(url_for('group_chats_route', action='show', chat_id=chat_id, group_id=chat.group_id))
             elif len(members) < 2:
                 user_id = 'Deleted'
             else:
