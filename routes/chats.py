@@ -1,4 +1,4 @@
-from globals import app, db
+from globals import app, db, socketIO
 from src.misc import timestamp, get_arg_or_400, get_arg_or_none
 from flask_login import login_required, current_user
 from flask import render_template, request, redirect, url_for, abort
@@ -88,6 +88,8 @@ def chats_route():
             return redirect(request.referrer)
         chat_member.deleted = timestamp()
         db.session.commit()
+        if not current_user.is_notified():
+            socketIO.emit("clear_message", {}, room=current_user.id)
         if chat_member.is_group:
             return redirect(request.referrer)
         return redirect(url_for('chats_route', action='all'))
