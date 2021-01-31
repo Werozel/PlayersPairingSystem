@@ -87,9 +87,9 @@
                     <select class="form-control" id="{{ form.day_of_week.label.field_id }}" name="{{ form.day_of_week.label.field_id }}">
                         {% for value, data in form.day_of_week.choices %}
                             {% if value == form.day_of_week.data %}
-                                <option selected="selected" value="{{ value }}">{{ data }}</option>
+                                <option selected="selected" value="{{ value }}">{{ _(data) }}</option>
                             {% else %}
-                                <option value="{{ value }}">{{ data }}</option>
+                                <option value="{{ value }}">{{ _(data) }}</option>
                             {% endif %}
                         {% endfor %}
                     </select>
