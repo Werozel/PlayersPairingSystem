@@ -22,7 +22,7 @@ class SecureAdminIndexView(AdminIndexView):
         return is_admin(current_user)
 
     def inaccessible_callback(self, name, **kwargs):
-        abort(404)
+        abort(401)
 
 
 class SecureModelView(ModelView):
