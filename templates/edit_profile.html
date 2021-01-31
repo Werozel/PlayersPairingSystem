@@ -72,7 +72,7 @@
                 </div>
                 <div class="form-group">
                     <label for="{{ form.sport.label.field_id }}" class="form-control-label">{{ _(form.sport.label.text) }}</label>
-                    {{ select_multiple_field(form.sport, class="form-control") }}
+                    {{ select_multiple_field(form.sport, class="form-control", id='sport_select') }}
                 </div>
                 <div class="form-group">
                     <label for="{{ form.city.label.field_id }}" class="form-control-label">{{ _(form.city.label.text) }}</label>
@@ -97,3 +97,21 @@
     </div>
 
 {% endblock content %}
+
+{% block script %}
+    <script type="text/javascript" charset="utf-8">
+
+        let sportSelectMultiple = new vanillaSelectBox(
+            "#sport_select",
+            {
+                maxWidth: 500,
+                maxHeight: 400,
+                minWidth: -1,
+                maxWidth: -1,
+                search: false,
+                disableSelectAll: true
+            }
+        )
+
+    </script>
+{% endblock script %}
