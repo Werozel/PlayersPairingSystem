@@ -144,6 +144,10 @@
             socket.on('invitation', function (_) {
                 document.getElementById('invitations').innerHTML = "<span style='color: red;'>{{ _('Invitations') }} (!)</span>";
             })
+
+            socket.on('clear_message', _ => {
+                document.getElementById('messages').innerHTML = "<span>{{ _('Messages') }}</span>";
+            })
         </script>
     {% endblock socket_script %}
     {%  block script %}{%  endblock %}
