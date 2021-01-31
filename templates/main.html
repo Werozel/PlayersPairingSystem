@@ -154,7 +154,7 @@
     {% endblock socket_script %}
     {% block macros %}
 
-        {% macro select_field(field, class='form-control', ) -%}
+        {% macro select_field(field, class='form-control') -%}
             <select class="{{ class }}" id="{{ field.label.field_id }}" name="{{ field.label.field_id }}">
                 {% for value, data in field.choices %}
                     {% if value == field.data %}
