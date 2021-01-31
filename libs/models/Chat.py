@@ -29,14 +29,14 @@ class Chat(db.Model):
 
     @staticmethod
     def get_or_404(id: int):
-        chat = Chat.query.get_or_404(id)
+        chat = Chat.query.get(id)
         if chat is None:
             abort(404)
         return chat
 
     @staticmethod
     def get_or_none(id: int):
-        return Chat.query.get_or_404(id)
+        return Chat.query.get(id)
 
     def get_history(self):
         from libs.models.Message import Message

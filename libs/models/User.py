@@ -12,7 +12,7 @@ import numpy as np
 
 @login_manager.user_loader
 def load_user(user_id):
-    user = User.query.get_or_404(int(user_id))
+    user = User.query.get(int(user_id))
     if user:
         user.last_login_ip = request.remote_addr
         db.session.add(user)
@@ -84,7 +84,7 @@ class User(db.Model, UserMixin):
 
     @staticmethod
     def get_or_404(id: int):
-        user = User.query.get_or_404(int(id))
+        user = User.query.get(int(id))
         if user is None:
             abort(404)
         return user

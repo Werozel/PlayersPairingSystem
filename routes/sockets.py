@@ -3,7 +3,7 @@ import logging
 from globals import db, sessions, socketIO
 from src.misc import timestamp, get_rand
 from flask_login import current_user
-from flask import request
+from flask import request, abort
 from flask_socketio import emit
 from libs.models.Message import Message
 from libs.models.Chat import Chat
@@ -39,7 +39,7 @@ def handle_msg(msg):
     db.session.add(message)
     db.session.commit()
     chat = Chat.get_or_404(chat_id)
-    if chat is not None and chat.deleted is None:
+    if chat is not None and not chat.deleted:
         members = chat.get_members()
         chat.update_last_msg(message)
         for user in members:
@@ -56,6 +56,8 @@ def handle_msg(msg):
                         }),
                         room=session
                     )
+    else:
+        abort(404)
 
 
 @socketIO.on('notify')
