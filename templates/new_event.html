@@ -49,14 +49,14 @@
             <div>
                 <label for="{{ form.sport.label.field_id }}" class="form-control-label">{{ _(form.sport.label.text) }}</label>
                 {% if form.sport.errors %}
-                    {{ select_field(form.sport, class="form-control form-control is-invalid") }}
+                    {{ form.select_field(form.sport, class="form-control form-control is-invalid") }}
                     <div class="invalid-feedback>">
                         {% for error in form.sport.errors %}
                             <span>{{error}}</span>
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ select_field(form.sport, class="form-control form-control") }}
+                    {{ form.select_field(form.sport, class="form-control form-control") }}
                 {% endif %}
             </div>
             {% if groups_enabled %}
@@ -83,7 +83,7 @@
                 </div>
                 <div class="form-group m-bottom-8">
                     <label for="{{ form.day_of_week.label.field_id }}" class="form-control-label">{{ _(form.day_of_week.label.text) }}</label>
-                    {{ select_field(form.day_of_week) }}
+                    {{ form.select_field(form.day_of_week) }}
                 </div>
                 <div class="row m-top-24 m-left-16 m-right-16 m-bottom-16 d-flex justify-content-center">
                     
