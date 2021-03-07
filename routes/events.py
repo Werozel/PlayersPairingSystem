@@ -34,7 +34,7 @@ def event_route():
 
         elif action == 'new':
             new_event_form = EditEventForm(groups=filter_not_none(current_user.get_groups()))
-            return render_template("new_event.html", form=new_event_form, map=get_loc_map())
+            return render_template("new_event.html", form=new_event_form)
         elif action == 'search':
             events = Event.query.all()
             user_vector = UserVector(
@@ -371,21 +371,6 @@ def event_route():
                 )
                 db.session.add(new_event)
                 db.session.commit()
-                day_of_week = new_event_form.day_of_week.data
-                start_time = new_event_form.start_time.data
-                end_time = new_event_form.end_time.data
-                query = new_event_form.address.data
-                address = Address.get_by_query(query)[0] if query else None
-                play_time = EventPlayTimes(
-                    event_id=new_event.id,
-                    day_of_week=day_of_week if day_of_week != "None" else None,
-                    start_time=start_time,
-                    end_time=end_time,
-                    address_id=address.id if address else None,
-                    location_id=LocationToAddress.get_location_for_address_id(address.id).id if address else None
-                )
-                db.session.add(play_time)
-                db.session.commit()
                 new_event_member = EventMember(event_id=new_event.id, user_id=current_user.id, time=timestamp())
                 db.session.add(new_event_member)
                 db.session.commit()
@@ -476,8 +461,17 @@ def event_route():
         abort(403)
 
 
-def get_loc_map(event: Event, current_play_time: Optional[EventPlayTimes] = None, style: str = "height:600px;width:730px;margin:8;"):
+def get_loc_map(event: Event = None, current_play_time: Optional[EventPlayTimes] = None, style: str = "height:600px;width:730px;margin:8;"):
     initial_zoom = 13
+    if not event:
+        return Map(
+            zoom=initial_zoom,
+            identifier="loc_map",
+            lat=0,
+            lng=0,
+            style=style,
+            language=current_user.language
+        )
     initial_location = nominatim.geocode(event.creator.city)
     init_lat = initial_location.latitude if initial_location else None
     init_lng = initial_location.longitude if initial_location else None
