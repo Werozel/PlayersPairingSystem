@@ -151,7 +151,7 @@ class AddEventPlayTimeForm(FlaskForm):
 		super().__init__(*args, **kwargs)
 		if not self.day_of_week.choices:
 			day_of_week_choices = DayOfWeek.days_of_week
-			day_of_week_choices.append(("None", None))
+			day_of_week_choices.append(("None", 'None'))
 			self.day_of_week.choices = day_of_week_choices
 
 
