@@ -325,26 +325,6 @@ def event_route():
                 event.recurring = edit_event_form.recurring.data
                 db.session.add(event)
                 db.session.commit()
-                all_play_times = EventPlayTimes.get_all_for_event(event.id)
-                last_play_time = all_play_times[0] if all_play_times else None
-                if last_play_time:
-                    db.session.delete(last_play_time)
-                    db.session.commit()
-                day_of_week = edit_event_form.day_of_week.data
-                start_time = edit_event_form.start_time.data
-                end_time = edit_event_form.end_time.data
-                query = edit_event_form.address.data
-                address = Address.get_by_query(query)[0] if query else None
-                play_time = EventPlayTimes(
-                    event_id=event.id,
-                    day_of_week=day_of_week if day_of_week != "None" else None,
-                    start_time=start_time,
-                    end_time=end_time,
-                    address_id=address.id if address else None,
-                    location_id=LocationToAddress.get_location_for_address_id(address.id).id if address else None
-                )
-                db.session.add(play_time)
-                db.session.commit()
                 return redirect(url_for('event_route', action='show', event_id=event.id))
             else:
                 return render_template("edit_event.html", form=edit_event_form, event=event, map=get_loc_map())
