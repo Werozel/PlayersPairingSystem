@@ -149,7 +149,7 @@ def profile_route():
                 recipient_id=new_friend_id
             )
             if invitation_id != -1:
-                room = sessions.get_or_404(new_friend_id)
+                room = sessions.get(new_friend_id)
                 if room:
                     socketIO.emit('invitation', json.dumps({'invitation_id': invitation_id}), room=room)
                 flash(gettext("Invitation sent!"), "success")

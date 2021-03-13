@@ -314,7 +314,7 @@ def event_route():
         action = get_arg_or_400('action')
 
         if action == 'edit':
-            event_id = get_arg_or_400('id', to_int=True)
+            event_id = get_arg_or_400('event_id', to_int=True)
             event = Event.get_or_404(event_id)
             edit_event_form = EditEventForm(current_event=event, groups=filter_not_none(current_user.get_groups()))
             if edit_event_form.validate_on_submit():
