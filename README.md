@@ -1,5 +1,7 @@
 # Sport
 
+[![CodeFactor](https://www.codefactor.io/repository/github/werozel/sport/badge)](https://www.codefactor.io/repository/github/werozel/sport)
+
 An app that helps to connect people with same sport interests to play together
 
 
