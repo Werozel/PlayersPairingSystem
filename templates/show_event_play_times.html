@@ -55,7 +55,15 @@
             </div>
         {% endfor %}
     {% else %}
-        <h4 class="h4 media-body m-bottom-12">{{ _("No play times added yet!") }}</h4>
+        <div class="media">
+            <h4 class="h4 media-body m-bottom-12">{{ _("No play times added yet!") }}</h4>
+            {% if is_event_admin %}
+                <a class="media-right image-button" href="{{ url_for('event_route', action='add_play_time', event_id=event_id) }}">
+                    <img title="Edit play times"
+                         src="{{ url_for('static', filename='buttons/edit-24px.svg')}}" alt="none"/>
+                </a>
+            {% endif %}
+        </div>
     {% endif %}
 
     {{ map.html }}
