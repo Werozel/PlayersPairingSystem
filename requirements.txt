@@ -30,13 +30,13 @@ httpx==0.13.3
 hyperframe==5.2.0
 idna==2.10
 itsdangerous==1.1.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 langdetect==1.0.8
 Mako==1.1.3
 MarkupSafe==1.1.1
 multidict==4.7.6
 numpy==1.19.2
-Pillow==7.2.0
+Pillow==8.1.1
 psycopg2==2.8.6
 python-dateutil==2.8.1
 python-editor==1.0.4
