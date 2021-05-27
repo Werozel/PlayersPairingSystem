@@ -106,11 +106,7 @@
                 {% endfor %}
             {% endif %}
 
-            {% if map_address %}
-                <legend class="border-bottom mb-3 mt-3" style="width: 100%"></legend>
-                <p class="mt-3 mb-1">{{ _("Location") }}:</p>
-                <p class="text-secondary">{{ map_address }}</p>
-            {% elif closest_play_time %}
+            {% if closest_play_time %}
                 <legend class="border-bottom mb-3 mt-3" style="width: 100%"></legend>
                 <p class="mt-3 mb-1">{{ _("Closest play time") }}:</p>
                 <div class="row m-left-8 m-top-4">
@@ -127,6 +123,11 @@
                         <p class="text-secondary m-right-4" style="white-space: pre-wrap">{{ closest_play_time.address.short_address }}</p>
                     {%  endif %}
                 </div>
+            {% endif %}
+            {% if map_address %}
+                <legend class="border-bottom mb-3 mt-3" style="width: 100%"></legend>
+                <p class="mt-3 mb-1">{{ _("Location") }}:</p>
+                <p class="text-secondary">{{ map_address }}</p>
             {% endif %}
             {% if map %}
                 {{ map.html }}

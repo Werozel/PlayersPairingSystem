@@ -113,6 +113,16 @@ class SearchEventForm(FlaskForm):
 	submit = SubmitField('Search')
 
 
+class SearchPlayerForm(FlaskForm):
+	age = IntegerField('Age', validators=[])
+	gender_choices = [('Male', 'Male'), ('Female', 'Female')]  # (value, label)
+	gender = SelectField('Gender', choices=gender_choices)
+
+	@staticmethod
+	def validate_age(_, age):
+		if age.data < 10 or age.data > 100:
+			raise ValidationError(gettext('Invalid age!'))
+
 class EditEventForm(FlaskForm):
 	closed = BooleanField('Closed')
 	name = StringField('Name', validators=[Length(max=100), DataRequired()])

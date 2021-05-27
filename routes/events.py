@@ -8,7 +8,7 @@ from src.misc import timestamp, get_arg_or_400, filter_not_none, get_arg_or_none
 from flask_login import login_required, current_user
 from flask_babel import gettext
 from flask import render_template, request, redirect, url_for, flash, abort
-from forms import EditEventForm, SearchEventForm, AddEventPlayTimeForm
+from forms import EditEventForm, SearchEventForm, AddEventPlayTimeForm, SearchPlayerForm
 from libs.models.Event import Event
 from libs.models.EventMember import EventMember
 from libs.models.Group import Group
@@ -285,6 +285,7 @@ def event_route():
             )
             return render_template(
                 "find_people.html",
+                form=SearchPlayerForm(),
                 event_id=event.id,
                 invited_people=invited,
                 people=users if len(users) > 0 else None
@@ -435,6 +436,7 @@ def event_route():
                 db.session.add(event_play_time)
                 db.session.commit()
             return redirect(url_for('event_route', action='add_play_time', event_id=event.id))
+
         else:
             abort(400)
     else:
